@@ -16,11 +16,23 @@ storefrontApp.component('vcCheckoutWizardStep', {
     controller: [function () {
         var ctrl = this;
         ctrl.components = [];
+        ctrl.stepHandlers = [];
         ctrl.canEnter = true;
 
         this.$onInit = function () {
             ctrl.wizard.addStep(this);
+            
+            if (ctrl.onNextStep && angular.isFunction(ctrl.onNextStep))
+                ctrl.stepHandlers.push(ctrl.onNextStep);
         };
+
+        ctrl.addStepHandler = function (handler) {
+            ctrl.stepHandlers.push(handler);
+        }
+
+        ctrl.removeStepHandler = function (handler) {
+            ctrl.stepHandlers = _.without(ctrl.stepHandlers, handler);
+        }
 
         ctrl.addComponent = function (component) {
             ctrl.components.push(component);

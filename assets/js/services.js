@@ -115,8 +115,8 @@ storefrontApp.service('cartService', ['$http', function ($http) {
         removePaymentPlan: function () {
             return $http.delete('storefrontapi/cart/paymentPlan');
         },
-        createOrder: function (bankCardInfo) {
-            return $http.post('storefrontapi/cart/createorder', { bankCardInfo: bankCardInfo });
+        createOrder: function (bankCardInfo, token) {
+            return $http.post('storefrontapi/cart/createorder', { bankCardInfo: bankCardInfo, token: token });
         }
     }
 }]);

@@ -24,7 +24,8 @@
     {{ '//cdnjs.cloudflare.com/ajax/libs/angular-sanitize/1.5.7/angular-sanitize.min.js' | script_tag }}
     {{ '//cdnjs.cloudflare.com/ajax/libs/angular-translate/2.12.1/angular-translate.min.js' | script_tag }}
     {{ '//cdnjs.cloudflare.com/ajax/libs/angular-translate/2.12.1/angular-translate-loader-url/angular-translate-loader-url.min.js' | script_tag }}
-	
+    {{ '//rawgit.com/bendrucker/angular-stripe/v5.0.0/release/angular-stripe.js' | script_tag }}
+
     {{ 'bundle/checkout-scripts.js' | static_asset_url | append_version | script_tag }}
 
     {{ content_for_header }}

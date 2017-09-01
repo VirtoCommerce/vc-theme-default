@@ -27,5 +27,9 @@
         <div class="box-row" ng-if="paymentMethod === $ctrl.paymentMethod && $ctrl.paymentMethod.paymentMethodType === 'Standard'">
             <vc-credit-card card="$ctrl.paymentMethod.card" validation-container="$ctrl.validationContainer"></vc-credit-card>
         </div>
+        
+        <div class="box-row" ng-if="paymentMethod === $ctrl.paymentMethod && $ctrl.paymentMethod.code === 'StripeCheckout'">
+            <vc-credit-card-stripe payment-method="$ctrl.paymentMethod" token="$ctrl.paymentMethod.token" card="$ctrl.paymentMethod.card" validation-container="$ctrl.validationContainer"></vc-credit-card-stripe>
+        </div>
     </div>
 </div>

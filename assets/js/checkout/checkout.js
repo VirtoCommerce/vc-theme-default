@@ -4,7 +4,8 @@ var moduleName = "storefront.checkout";
 if (storefrontAppDependencies != undefined) {
     storefrontAppDependencies.push(moduleName);
 }
-angular.module(moduleName, ['credit-cards', 'angular.filter'])
+        
+angular.module(moduleName, ['credit-cards', 'angular.filter', 'angular-stripe'])
 .controller('checkoutController', ['$rootScope', '$scope', '$window', 'cartService',
     function ($rootScope, $scope, $window, cartService) {
         $scope.checkout = {
@@ -145,7 +146,7 @@ angular.module(moduleName, ['credit-cards', 'angular.filter'])
         $scope.createOrder = function () {
             updatePayment($scope.checkout.payment).then(function () {
                 $scope.checkout.loading = true;
-                cartService.createOrder($scope.checkout.paymentMethod.card).then(function (response) {
+                cartService.createOrder($scope.checkout.paymentMethod.card, $scope.checkout.paymentMethod.token).then(function (response) {
                     var order = response.data.order;
                     var orderProcessingResult = response.data.orderProcessingResult;
                     var paymentMethod = response.data.paymentMethod;

@@ -8,7 +8,7 @@ storefrontApp.component('vcCheckoutWizard', {
 		onFinish: '&?',
 		onInitialized: '&?'
 	},
-	controller: ['$scope', function ($scope) {
+	controller: ['$scope', '$q', function ($scope, $q) {
 		var ctrl = this;
 		ctrl.wizard = ctrl;
 		ctrl.steps = [];	
@@ -34,24 +34,27 @@ storefrontApp.component('vcCheckoutWizard', {
 
 		ctrl.nextStep = function () {
 			if (!ctrl.currentStep.validate || ctrl.currentStep.validate()) {
-				if (ctrl.currentStep.nextStep) {
-					if (ctrl.currentStep.onNextStep) {
-						//evaluate onNextStep function
-						var promise = ctrl.currentStep.onNextStep();
-						//For promise function need to delay going to next step
-						if (promise && angular.isFunction(promise.then)) {
-							promise.then(function () {
-								ctrl.goToStep(ctrl.currentStep.nextStep);
-							});
-						}
-						else
-						{
-							ctrl.goToStep(ctrl.currentStep.nextStep);
-						}
-					}
-					else {
-						ctrl.goToStep(ctrl.currentStep.nextStep);
-					}
+			    if (ctrl.currentStep.nextStep) {
+
+			        if (ctrl.currentStep.stepHandlers.length > 0) {
+
+			            ctrl.loading = true;
+			            var promises = _.reduce(ctrl.currentStep.stepHandlers, function (result, handler) {
+			                var promise = handler();
+			                if (promise && angular.isFunction(promise.then)) {
+			                    result.push(promise);
+			                }
+			                return result;
+			            }, []);
+
+			            $q.all(promises).then(function () {
+			                ctrl.goToStep(ctrl.currentStep.nextStep);
+			            });
+
+			        }
+			        else {
+			            ctrl.goToStep(ctrl.currentStep.nextStep);
+			        }
 				}			
 			}
 		};
