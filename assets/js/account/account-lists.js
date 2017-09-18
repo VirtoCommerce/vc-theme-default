@@ -1,48 +1,74 @@
-﻿angular.module('storefront.account')
+angular.module('storefrontApp')
     .component('vcAccountLists', {
-        templateUrl: "themes/assets/js/account/account-lists.tpl.liquid",
+        templateUrl: "lists-manager.tpl",
+
         $routeConfig: [
-            { path: '/', name: 'WishList', component: 'vcAccountLists', useAsDefault: true }
+            { path: '/', name: 'Lists', component: 'vcAccountLists' },
+            { path: '/friendsLists', name: 'FriendsLists', component: 'vcAccountFriendsLists' },
+            { path: '/myLists', name: 'MyLists', component: 'vcAccountMyLists', useAsDefault: true },
+            { path: '/listsSearch', name: 'ListsSearch', component: 'vcAccountListsSearch' },
         ],
-        controller: ['listService', '$rootScope', 'cartService', '$translate', 'loadingIndicatorService', '$timeout', function (listService, $rootScope, cartService, $translate, loader, $timeout) {
+        controller: ['$filter', 'listService', '$rootScope', '$location', 'customerService', 'cartService', '$translate', 'loadingIndicatorService', '$timeout', 'accountDialogService', '$localStorage', '$window', function ($filter, listService, $rootScope, $location, customerService, cartService, $translate, loader, $timeout, dialogService, $localStorage, $window) {
             var $ctrl = this;
-            $ctrl.loader = loader;
-            $ctrl.selectedList = {};
+
+            console.log($localStorage, 'test1');
+
+            $ctrl.getCustomer = function () {
+                customerService.getCurrentCustomer().then(function (user) {
+                    $ctrl.userName = user.data.userName;
+                    $ctrl.initialize();
+                })
+            };
+
+            $ctrl.selectTab = function (tabName) {
+                $ctrl.getCustomer();
+                $ctrl.selectedList = [];
+                $ctrl.selectedTab = tabName;
+            };
 
             $ctrl.initialize = function (lists) {
-                if (lists && lists.length > 0) {
-                    $ctrl.lists = lists;
-                    $ctrl.selectList(lists[0]);
-                    angular.forEach($ctrl.lists, function (list) {
-                        var titleKey = 'wishlist.general.' + list.name + '_list_title';
-                        var descriptionKey = 'wishlist.general.' + list.name + '_list_description';
-                        $translate([titleKey, descriptionKey]).then(function (translations) {
-                            list.title = translations[titleKey];
-                            list.description = translations[descriptionKey];
-                        }, function (translationIds) {
-                            list.title = translationIds[titleKey];
-                            list.description = translationIds[descriptionKey];
-                        });
+                if ($ctrl.selectedTab === 'myLists' && $localStorage && $localStorage['lists']) {
+                    $ctrl.lists = _.filter($localStorage['lists'][$ctrl.userName], function (x) { return !x.friendList });
+                    console.log($ctrl.lists);
+                    $localStorage['lists'][$ctrl.userName] = _.flatten($localStorage['lists'][$ctrl.userName]);//1
+                    //remove duplication
+                    $localStorage['lists'][$ctrl.userName] = _.map(_.groupBy($localStorage['lists'][$ctrl.userName], function (item) {
+                        return item.name;
+                    }), function (grouped) {
+                        if (grouped.length > 1)
+                            if (!_.isEqual(grouped[0], grouped[1])) {
+                                return [grouped[0], grouped[1]];
+                            }
+                        return grouped[0];
                     });
-                }
-            };
+                    // $ctrl.lists = lists;
 
+                    $localStorage['lists'][$ctrl.userName] = _.flatten($localStorage['lists'][$ctrl.userName]);//2
+                }
+                // friendList
+                else if ($ctrl.selectedTab === 'friendsLists') {
+                    $ctrl.lists = listService.getSharedLists($ctrl.userName);
+                    console.log($localStorage['lists'][$ctrl.userName]);
+                    console.log($ctrl.lists);
+                }
+
+                //setDefault
+                if (_.find($ctrl.lists, { default: true })) {
+                    var selected = _.find($ctrl.lists, { default: true });
+                    $ctrl.selectList(selected);
+                }
+
+            };
 
             $ctrl.selectList = function (list) {
+                console.log(list);
                 $ctrl.selectedList = list;
-                loader.wrapLoading(function () {
-                    return listService.getWishlist(list.name).then(function (response) {
-                        $ctrl.selectedList.items = response.data.items;                     
-                    });
-                });
-            };
+                customerService.getCurrentCustomer().then(function (user) {
+                    $ctrl.userName = user.data.userName;
+                    var items = list.items;
+                    $ctrl.selectedList.items = items;
 
-            $ctrl.removeLineItem = function (lineItem, list) {  
-                loader.wrapLoading(function () {
-                    return listService.removeLineItem(lineItem.id, list.name).then(function (response) {
-                        $ctrl.selectList(list);
-                    });
-                });
+                })
             };
 
             $ctrl.addToCart = function (lineItem) {
@@ -54,6 +80,221 @@
                         }, 2000);
                     });
                 });
+            };
+
+            $ctrl.removeList = function (listName) {
+                console.log($ctrl.userName);
+                listService.clearList(listName, $ctrl.userName).then(function (response) {
+                    document.location.reload();
+                });
+            };
+
+            $ctrl.removeLineItem = function (lineItem, list) {
+                loader.wrapLoading(function () {
+                    return listService.removeLineItem(lineItem.id, list.name).then(function (response) {
+                        $ctrl.selectList(list);
+                    });
+                });
+            };
+
+            $ctrl.generateLink = function () {
+                $ctrl.sharedLink = $location.absUrl().substr(0, _.lastIndexOf($location.absUrl(), '/')) + '/friendsLists?id=' + $ctrl.selectedList.id;
+                $ctrl.selectedList.shared = true;
+            };
+
+            $ctrl.addToCartAllProducts = function () {
+                _.each($ctrl.selectedList.items, function (item) {
+                    loader.wrapLoading(function () {
+                        return cartService.addLineItem(item.productId, 1).then(function (response) {
+                            $ctrl.productAdded = true;
+                            $timeout(function () {
+                                $ctrl.productAdded = false;
+                            }, 6000);
+                        });
+                    });
+                })
+
             }
+            $ctrl.getCustomer();
+
+        }]
+    })
+    .component('vcAccountMyLists', {
+        templateUrl: 'themes/assets/js/account/account-lists.tpl.liquid',
+        require: {
+            accountLists: '^^vcAccountLists'
+        },
+        controller: ['listService', '$rootScope', '$location', 'customerService', 'cartService', '$translate', 'loadingIndicatorService', '$timeout', 'accountDialogService', '$localStorage', '$window', function (listService, $rootScope, $location, customerService, cartService, $translate, loader, $timeout, dialogService, $localStorage, $window) {
+            var $ctrl = this;
+
+            $ctrl.loader = loader;
+            $ctrl.selectedList = {};
+
+            $ctrl.sharedLists = {};
+
+            $ctrl.initialize = function (lists) {
+                $ctrl.accountLists.selectedTab = 'myLists';
+                $ctrl.lists = $ctrl.accountLists.lists;
+                if (_.find($ctrl.lists, { default: true })) {
+                    var selected = _.find($ctrl.lists, { default: true });
+                    $ctrl.selectList(selected);
+                }
+            }
+
+            $ctrl.$onInit = function (lists) {
+                $ctrl.accountLists.selectTab('myLists');
+                $ctrl.selectedTab = $ctrl.accountLists.selectedTab;
+                // $ctrl.accountLists.getCustomer();
+                $ctrl.accountLists.initialize();
+                $ctrl.initialize($ctrl.accountLists.lists);
+
+            }
+
+
+
+            $ctrl.generateLink = function () {
+                $ctrl.accountLists.generateLink();
+                $ctrl.showSharedLink = !$ctrl.showSharedLink;
+                $ctrl.sharedLink = $ctrl.accountLists.sharedLink;
+            };
+
+            $ctrl.addToCartAllProducts = function () {
+                _.each($ctrl.selectedList.items, function (item) {
+                    loader.wrapLoading(function () {
+                        return cartService.addLineItem(item.productId, 1).then(function (response) {
+                            $ctrl.productAdded = true;
+                            $timeout(function () {
+                                $ctrl.productAdded = false;
+                            }, 6000);
+                        });
+                    });
+                })
+
+            }
+
+            $ctrl.selectList = function (list) {
+                $ctrl.accountLists.selectList(list);
+                $ctrl.selectedList = list;
+            };
+
+            $ctrl.removeList = function (listName) {
+                $ctrl.accountLists.removeList(listName);
+            };
+
+            $ctrl.addToCart = function (lineItem) {
+                loader.wrapLoading(function () {
+                    return cartService.addLineItem(lineItem.productId, 1).then(function (response) {
+                        $ctrl.productAdded = true;
+                        $timeout(function () {
+                            $ctrl.productAdded = false;
+                        }, 2000);
+                    });
+                });
+            };
+
+            $ctrl.listSettings = function () {
+                var dialogData = {};
+                dialogData.lists = $ctrl.lists;
+                dialogData.userName = $ctrl.accountLists.userName;
+                dialogData.selectedTab = $ctrl.selectedTab;
+                console.log($ctrl.accountLists.userName, 'userName');
+                dialogService.showDialog(dialogData, 'recentlyCreateNewListDialogController', 'storefront.list-settings-dialog.tpl');
+            };
+
+            $ctrl.createList = function () {
+                var dialogData = $ctrl.lists;
+                dialogService.showDialog(dialogData, 'recentlyCreateNewListDialogController', 'storefront.recently-create-new-list-dialog.tpl');
+            };
+
+        }]
+    })
+    .component('vcAccountFriendsLists', {
+        templateUrl: "themes/assets/js/account/account-lists.tpl.liquid",
+        require: {
+            accountLists: '^vcAccountLists'
+        },
+        controller: ['listService', '$rootScope', '$location', 'customerService', 'cartService', '$translate', 'loadingIndicatorService', '$timeout', 'accountDialogService', '$localStorage', '$window', function (listService, $rootScope, $location, customerService, cartService, $translate, loader, $timeout, dialogService, $localStorage, $window) {
+            var $ctrl = this;
+
+            $ctrl.initialize = function (lists) {
+
+                $ctrl.accountLists.initialize(lists);
+                $ctrl.lists = $ctrl.accountLists.lists;
+                console.log($ctrl.lists);
+                if (_.find($ctrl.lists, { default: true })) {
+                    var selected = _.find($ctrl.lists, { default: true });
+                    $ctrl.selectList(selected);
+                }
+            };
+
+            $ctrl.$onInit = function () {
+                $ctrl.accountLists.selectedTab = 'friendsLists';
+                $ctrl.selectedTab = 'friendsLists';
+
+                if ($location.search().id) {
+
+                    //1)get id of shared list
+                    var cartId = $location.search().id;
+
+                    console.log(cartId, $ctrl.accountLists.userName);
+                    customerService.getCurrentCustomer().then(function (user) {
+                        $ctrl.userName = user.data.userName;
+
+                        //2)put cartid in my sharedlistsIds
+                        if (!$localStorage['sharedListsIds'][$ctrl.userName])
+                            $localStorage['sharedListsIds'][$ctrl.userName] = [];
+
+                        console.log($localStorage['sharedListsIds']);
+                        $localStorage['sharedListsIds'][$ctrl.userName].push(cartId);
+                        //3)getSharedLists
+                        $ctrl.lists = listService.getSharedLists($ctrl.userName);
+                        $ctrl.lists.default = false;
+                        $ctrl.accountLists.selectList($ctrl.lists);
+                        console.log($ctrl.lists);
+                    })
+                }
+            }
+
+            $ctrl.addToCart = function (lineItem) {
+                loader.wrapLoading(function () {
+                    return cartService.addLineItem(lineItem.productId, 1).then(function (response) {
+                        $ctrl.productAdded = true;
+                        $timeout(function () {
+                            $ctrl.productAdded = false;
+                        }, 2000);
+                    });
+                });
+            };
+
+            $ctrl.addToCartAllProducts = function () {
+                _.each($ctrl.selectedList.items, function (item) {
+                    loader.wrapLoading(function () {
+                        return cartService.addLineItem(item.productId, 1).then(function (response) {
+                            $ctrl.productAdded = true;
+                            $timeout(function () {
+                                $ctrl.productAdded = false;
+                            }, 6000);
+                        });
+                    });
+                })
+            };
+
+            $ctrl.listSettings = function () {
+                var dialogData = {};
+                dialogData.lists = $ctrl.lists;
+                dialogData.userName = $ctrl.accountLists.userName;
+                dialogData.selectedTab = $ctrl.selectedTab;
+                console.log($ctrl.accountLists.userName, 'userName');
+                dialogService.showDialog(dialogData, 'recentlyCreateNewListDialogController', 'storefront.list-settings-dialog.tpl');
+            };
+            //$ctrl.shareList = function() {
+            //    var dialogData = $ctrl.lists;
+            //    dialogService.showDialog(dialogData, 'recentlyCreateNewListDialogController', 'storefront.list-share-link.tpl');
+            //};
+
+            $ctrl.selectList = function (list) {
+                $ctrl.accountLists.selectList(list);
+                $ctrl.selectedList = list;
+            };
         }]
     });

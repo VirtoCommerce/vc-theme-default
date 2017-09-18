@@ -1,4 +1,4 @@
-﻿var storefrontApp = angular.module('storefrontApp');
+var storefrontApp = angular.module('storefrontApp');
 
 storefrontApp.service('dialogService', ['$uibModal', function ($uibModal) {
     return {
@@ -121,19 +121,98 @@ storefrontApp.service('cartService', ['$http', function ($http) {
     }
 }]);
 
-storefrontApp.service('listService', ['$http', function ($http) {
+storefrontApp.service('listService', ['$http', '$localStorage', 'customerService', function ($http, $localStorage, customerService) {
     return {
-        getWishlist: function (listName) {
-            return $http.get('storefrontapi/lists/' + listName + '?t=' + new Date().getTime());
+        getAllLists: function (userName) {
+            return $localStorage['lists'][userName];
+        },
+        getSharedLists: function (userName) {
+            var lists = $localStorage['lists'];
+            var sharedLists = [];
+            _.each($localStorage['sharedListsIds'][userName], function (cartId) {
+                _.each(lists, function (list) {
+                        if (angular.isDefined(_.find(list, { id: cartId.toString() }))) {
+                            _.memoize(sharedLists.push(_.find(list, { id: cartId })));
+                            //$localStorage['lists'][userName].push(result);
+                        }
+                      
+                    })
+            })
+            sharedLists = _.map(_.groupBy(sharedLists, function (item) {
+                return item.name;
+            }), function (grouped) {
+                if (grouped.length > 1)
+                    if (!_.isEqual(grouped[0], grouped[1])) {
+                        return [grouped[0], grouped[1]];
+                    }
+                return grouped[0];
+            });
+
+            return sharedLists;
+        },
+        getWishlist: function (listName, permission, id, userName) {
+            if (!_.contains($localStorage['lists'][userName], _.find($localStorage['lists'][userName], { name: listName })) && angular.isDefined(userName)) {
+                $localStorage['lists'][userName].push({ name: listName, permission: permission, id: id, items:[], author: userName });
+            }
+
+            return _.find($localStorage['lists'][userName], { name: listName });
+            //return $http.get('storefrontapi/lists/' + listName + '?t=' + new Date().getTime());
+        },
+
+        addItemToList: function (listId, product) {
+            console.log(2);
+            _.each($localStorage['lists'], function (list) {
+                if (angular.isDefined(_.find(list, { id: listId }))) {
+                    var searchedList = _.find(list, { id: listId });
+                    searchedList.items.push(product);
+                    console.log($localStorage['lists'], '3');
+                }
+
+            })
+        },
+        putAddedItemToSharedList: function (listName, userName) {
+            var lists = angular.copy($localStorage['lists']);
+            _.each(lists, function (list) {
+                if (angular.isDefined(_.find(list, { id: cartId }))) {
+                    var result = _.find(list, { id: cartId });
+                    result.friendList = true;
+                    $localStorage['lists'][userName].push(result);
+                }
+            })
+        },
+        containsInList: function (productId, cartId) {
+            var lists = angular.copy($localStorage['lists']);
+            var contains;
+            _.each(lists, function (list) {
+                if (angular.isDefined(_.find(list, { id: cartId }))) {
+                    var currentList = _.find(list, { id: cartId });
+                    if (angular.isDefined(_.find(currentList.items, { productId: productId })))
+                        contains = true;
+                    else
+                        contains = false;
+                }
+            })
+            return { contains: contains };
         },
         contains: function (productId, listName) {
-            return $http.get('storefrontapi/lists/' + listName +'/items/'+ productId + '/contains?t=' + new Date().getTime());
+            return $http.get('storefrontapi/lists/' + listName + '/items/' + productId + '/contains?t=' + new Date().getTime());
         },
         addLineItem: function (productId, listName) {
             return $http.post('storefrontapi/lists/' + listName + '/items', { productId: productId });
         },
+
         removeLineItem: function (lineItemId, listName) {
             return $http.delete('storefrontapi/lists/' + listName + '/items/' + lineItemId);
+        },
+        clearList: function (cartId, userName) {
+            $localStorage['lists'][userName] = _.filter($localStorage['lists'][userName], function (x) { return x.id != cartId});
+            console.log(_.filter($localStorage['lists'][userName], function (x) { return x.id != cartId }));
+            //return $http.post('storefrontapi/lists/clear', { listName: listName });
+        },
+        removeFromFriendsLists: function (currentId, userName) {
+            $localStorage['sharedListsIds'][userName] = _.filter($localStorage['sharedListsIds'][userName], function (cartId) {
+                return cartId !== currentId;
+            })
         }
     }
 }]);

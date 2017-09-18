@@ -1,4 +1,4 @@
-﻿//Call this to register our module to main application
+//Call this to register our module to main application
 var moduleName = "storefront.account";
 
 if (storefrontAppDependencies !== undefined) {
@@ -18,6 +18,21 @@ angular.module(moduleName, ['ngResource', 'ngComponentRouter', 'credit-cards', '
 }])
 
 .value('$routerRootComponent', 'vcAccountManager')
+.service('accountDialogService', ['$uibModal', function ($uibModal) {
+    return {
+        showDialog: function (dialogData, controller, templateUrl) {
+            var modalInstance = $uibModal.open({
+                controller: controller,
+                templateUrl: templateUrl,
+                resolve: {
+                   dialogData: function () {
+                       return dialogData;
+                   }
+                }
+            });
+        }
+    }
+ }])
 
 .component('vcAccountManager', {
     templateUrl: "account-manager.tpl",
@@ -32,7 +47,7 @@ angular.module(moduleName, ['ngResource', 'ngComponentRouter', 'credit-cards', '
          { path: '/profile', name: 'Profile', component: 'vcAccountProfileUpdate', useAsDefault: true },
          { path: '/addresses', name: 'Addresses', component: 'vcAccountAddresses' },
          { path: '/changePassword', name: 'PasswordChange', component: 'vcAccountPasswordChange' },
-         { path: '/wishlist', name: 'WishList', component: 'vcAccountLists' }
+         { path: '/lists/...', name: 'List', component: 'vcAccountLists' }
     ],
     controller: ['storefront.accountApi', 'storefrontApp.mainContext', 'loadingIndicatorService', function (accountApi, mainContext, loader) {
         var $ctrl = this;

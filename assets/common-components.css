@@ -1,4 +1,4 @@
-﻿.cols {
+.cols {
     display: -webkit-flex;
     display: -moz-flex;
     display: -ms-flex;
@@ -882,79 +882,143 @@ select {
 
 .product-list-container {
     margin-top: -45px;
+    position: relative;
+    right: 93px;
 }
+
+.wishlist-remove {
+    font-size: 13px;
+    font-weight: 500;
+    min-width: 10px;
+    line-height: 1;
+    position: relative;
+    left: -30px;
+    text-align: left;
+    top: -40px;
+    z-index: 2;
+}
+
 .product-list-name {
     cursor: pointer;
-    width: 160px;
+    word-break: break-word;
+    width: 220px;
     height: 50px;
     padding-top: 8px;
-    padding-left: 5px;
+    padding-left: 10px;
     font-size: 22px;
     margin-right: 10px;
-    margin-bottom:0px;
+    margin-bottom: 0px;
     line-height: 1.6;
+    z-index: 999;
     font-family: 'HelveticaNeue','Helvetica Neue','Helvetica','Arial','sans-serif';
     color: #585858;
     border-bottom: 1px solid #ececec;
 }
+
 .product-list-modal-wrapper {
     position: relative;
     margin-top: -20px;
 }
+
     .product-list-modal-wrapper .product-list-modal-borders {
         margin-top: 0px !important;
     }
+
     .product-list-modal-wrapper .product-list-modal-titleShift {
         height: 90px;
         padding-top: 15px;
         position: relative;
     }
+
 .product-list-modal-added-toList {
     font-weight: bold;
     margin-bottom: 20px;
     margin-top: 10px;
 }
+
 .product-list-createdDate {
-    font-style: oblique;
     position: relative;
     top: 30px;
-    font-weight: bold;
     left: -78px;
 }
+
 .product-list-advanced {
     position: relative;
-    top: 10px;
     font-size: larger;
 }
 
 .list-item-header {
     margin-top: -36px;
     margin-bottom: 20px;
-    font-size: 25px;
+    font-size: 23px;
     border-bottom: 1px solid #ececec;
 }
+
 .list-item-addToCartBtn {
     padding: 7px !important;
 }
+
+.list-table {
+    border-collapse: separate !important;
+    /*border-spacing: 10pt !important;*/
+}
+
+.vc-product-table td {
+    border-right: 0 !important;
+    border-left: 0 !important;
+}
+
+.vc-product-table tr {
+    border: solid 5px white;
+    border-radius: 12px !important;
+    /*background-color: ghostwhite;*/
+    border-bottom: 1px solid gray;
+}
+
+.vc-product-table td:first-child {
+    border-top-left-radius: 10px;
+    border-spacing: 5em;
+    border-bottom-left-radius: 10px;
+    /*border-color: ghostwhite;*/
+    border-right: 0 !important;
+    border-left: 0 !important;
+}
+
+/*.vc-product-table tr:hover {
+    box-shadow: 0 0 4px rgba(0,0,0,0.5);
+    z-index:9999;
+}*/
+.vc-product-table td:last-child {
+    /*border-color: ghostwhite;*/
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    /*background-color: ghostwhite;*/
+}
+
+
+
 .product-row td.list-item-price {
     font-size: 14px;
     padding: 0px 0 15px 15px;
     text-align: right;
     position: relative;
-    bottom: 5px;
+    /*bottom: 5px;*/
 }
 
 .btn-clearfix {
-    margin:3px 1px;
+    margin: 3px 1px;
 }
+
 .list-icon-clearfix {
     width: 30px;
     margin-left: -6px;
 }
+
 .disabled {
     opacity: .6;
     pointer-events: none;
 }
+
 .btn-secondary-clearfix {
     margin: 0 !important;
 }
@@ -963,20 +1027,24 @@ select {
     width: 152.2px;
     position: relative;
 }
-@media (max-width: 980px) and (min-width: 200px) {
+
+@media (max-width: 860px) and (min-width: 200px) {
     .sidebar {
         position: relative;
         display: -webkit-inline-box;
         text-align: center;
-        float:inherit;
+        float: inherit;
     }
+
         .sidebar ul li.product-list-name {
             margin-right: 0px;
         }
-    .hide-if-lowWidth  {
-        display:none;
+
+    .hide-if-lowWidth {
+        display: none;
     }
 }
+
 .list-item-oldPrice {
     color: #969696;
     font-size: 12px;
@@ -986,4 +1054,30 @@ select {
 .list-table {
     position: relative;
     top: -40px;
+}
+
+.nav > li:hover {
+    text-decoration: none;
+    background-color: #eee;
+}
+
+.wish-list-row:nth-child(odd) {
+    /*background-color: #f2f2f2;*/
+}
+
+.wish-list-row:nth-child(even) .value {
+    background-color: #f2f2f2;
+}
+
+.wish-list-row:nth-child(even) .property-name {
+    background-color: #f2f2f2;
+}
+
+.wish-list-row:hover {
+    cursor: pointer;
+    background-color: rgb(250, 250, 250);
+}
+
+.wish-list-cell.value {
+    border: 1px solid #dcdcdc;
 }

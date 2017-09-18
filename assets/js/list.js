@@ -1,20 +1,35 @@
-﻿var storefrontApp = angular.module('storefrontApp');
+var storefrontApp = angular.module('storefrontApp');
 
-storefrontApp.controller('recentlyAddedListItemDialogController', ['$scope', '$window', '$uibModalInstance', 'dialogData', 'listService', '$translate', function ($scope, $window, $uibModalInstance, dialogData, listService, $translate) {
+storefrontApp.controller('recentlyAddedListItemDialogController', ['$scope', '$window', '$uibModalInstance', 'dialogData', 'listService', '$translate', '$localStorage', 'customerService', function ($scope, $window, $uibModalInstance, dialogData, listService, $translate, $localStorage, customerService) {
     $scope.availableLists = [];
     $scope.selectedList = {};
-    $scope.dialogData = dialogData;
+
+    dialogData.product.imageUrl = dialogData.product.primaryImage.url;
+    dialogData.product.createdDate = new Date;
+    dialogData.product.productId = dialogData.product.price.productId;
+    _.extend(dialogData.product, dialogData.product.price);
+    _.extend(dialogData.product, dialogData.product.salePrice);
+
+    $scope.dialogData = dialogData.product;
+    $scope.dialogData.quantity = dialogData.quantity;
+    console.log($scope);
     $scope.inProgress = false;
     $scope.itemAdded = false;
 
+
     $scope.addProductToList = function () {
         $scope.inProgress = true;
-        listService.addLineItem(dialogData.id, $scope.selectedList.name).then(function (response) {
-            if (response.data) {
-                $scope.inProgress = false;
-                $scope.itemAdded = true;
-            }
-        })
+        var customer = { userName: $scope.userName, id: $scope.userId, isRegisteredUser: true };
+
+        console.log($scope.userName, $scope.selectedList.author, 'scope');
+        if ($scope.userName !== $scope.selectedList.author) {
+            dialogData.product.modifiedBy = $scope.userName;
+
+        }
+        listService.addItemToList($scope.selectedList.id, dialogData.product);
+
+        $scope.inProgress = false;
+        $scope.itemAdded = true;
     }
     $scope.selectList = function (list) {
         $scope.selectedList = list;
@@ -27,24 +42,26 @@ storefrontApp.controller('recentlyAddedListItemDialogController', ['$scope', '$w
         $window.location = url;
     }
 
-    $scope.initialize = function (lists) {        
-        $scope.lists = lists;
-        angular.forEach($scope.lists, function (list) {
-            var titleKey = 'wishlist.general.' + list.name + '_list_title';
-            var descriptionKey = 'wishlist.general.' + list.name + '_list_description';
-            $translate([titleKey, descriptionKey]).then(function (translations) {
-                list.title = translations[titleKey];
-                list.description = translations[descriptionKey];
-            }, function (translationIds) {
-                list.title = translationIds[titleKey];
-                list.description = translationIds[descriptionKey];
-                });
-            listService.contains(dialogData.id, list.name).then(function (response) {
-                list.contains = response.data.contains;
-            });            
-        });
-      
+    $scope.initialize = function (lists) {
+        customerService.getCurrentCustomer().then(function (user) {
+            $scope.userName = user.data.userName;
+            console.log(user.data);
+            $scope.userId = user.data.id;
+            $scope.lists = $localStorage['lists'][$scope.userName];
+            $scope.sharedLists = listService.getSharedLists($scope.userName);
+
+            angular.forEach($scope.lists, function (list) {
+                list.title = list.name;
+                list.description = list.name;
+                var contains = listService.containsInList(dialogData.product.id, list.id).contains;
+                list.contains = contains;
+            });
+            angular.forEach($scope.sharedLists, function (list) {
+                list.title = list.name;
+                list.description = list.name;
+                var contains = listService.containsInList(dialogData.product.id, list.id).contains;
+                list.contains = contains;
+            });
+        })
     };
-
-
 }]);
