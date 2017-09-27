@@ -47,7 +47,7 @@ angular.module(moduleName, ['ngResource', 'ngComponentRouter', 'credit-cards', '
          { path: '/profile', name: 'Profile', component: 'vcAccountProfileUpdate', useAsDefault: true },
          { path: '/addresses', name: 'Addresses', component: 'vcAccountAddresses' },
          { path: '/changePassword', name: 'PasswordChange', component: 'vcAccountPasswordChange' },
-         { path: '/lists/...', name: 'List', component: 'vcAccountLists' }
+         { path: '/lists/...', name: 'Lists', component: 'vcAccountLists' }
     ],
     controller: ['storefront.accountApi', 'storefrontApp.mainContext', 'loadingIndicatorService', function (accountApi, mainContext, loader) {
         var $ctrl = this;

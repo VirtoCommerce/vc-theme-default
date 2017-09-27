@@ -1,7 +1,6 @@
 angular.module('storefrontApp')
     .component('vcAccountLists', {
         templateUrl: "lists-manager.tpl",
-
         $routeConfig: [
             { path: '/', name: 'Lists', component: 'vcAccountLists' },
             { path: '/friendsLists', name: 'FriendsLists', component: 'vcAccountFriendsLists' },
