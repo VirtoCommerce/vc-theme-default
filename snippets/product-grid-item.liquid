@@ -5,28 +5,41 @@
 {% unless current_collection %}
     {% assign current_collection = collection %}
 {% endunless %}
-
+  
 {% assign on_sale = false %}
 {% if product.compare_at_price > product.price %}
     {% assign on_sale = true %}
 {% endif %}
 
-{% assign sold_out = true %}
-{% if product.available  %}
-    {% assign sold_out = false %}
+{% assign unavaliable = false %}
+{% assign sold_out = false %}
+
+{% if product.buyable and product.in_stock != true %}
+    {% assign sold_out = true %}
+{% endif %}
+
+{% if product.buyable != true  %}
+    {% assign unavailable = true %}
+		 {% else %}
+	  {% assign unavailable = false %}
 {% endif %}
 
 {% comment %}
     Select the product image size from settings.
 {% endcomment %}
 {% assign image_size = settings.collection_prod_image_sizes %}
-<div class="grid-item {{ grid_item_width }}{% if sold_out %} sold-out{% endif %}{% if on_sale %} on-sale{% endif %}{% if settings.product_compare_enabled %} comparable{% endif %}">
+<div class="grid-item {{ grid_item_width }}{% if sold_out %} sold-out{% endif %}{% if on_sale %} on-sale{% endif %}{% if settings.product_compare_enabled %} comparable{% endif %}  {% if unavailable %} sold-out{% endif %}">
     <a href="{{ product.url | absolute_url }}" class="product-grid-item Click" interactor-arg="{{ product.id }}">
         <div class="product-grid-image">
             <div class="product-grid-image--centered">
                 {% if sold_out %}
                     <div class="badge badge--sold-out">
                         <span class="badge-label">{{ 'products.product.sold_out' | t }}</span>
+                    </div>
+                {% endif %}
+				{% if unavailable  %}
+                    <div class="badge badge--sold-out">
+                        <span class="badge-label">{{ 'products.product.unavailable' | t}}</span>
                     </div>
                 {% endif %}
                 {% if product.featured_image %}
