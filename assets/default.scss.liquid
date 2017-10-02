@@ -1,4 +1,4 @@
-﻿/*============================================================================
+/*============================================================================
   Virto Commerce Default Theme based on Timber v1.4.0
   Built with Sass - http://sass-lang.com/
 
@@ -2773,6 +2773,15 @@ $shareBorderColor: #ececec;
   }
 }
 
+.unavailable {
+  .product-grid-image {
+    position: relative;
+    img {
+      opacity: 0.7;
+    }
+  }
+}
+
 .badge {
   display: none;
   position: absolute;
@@ -2796,6 +2805,10 @@ $shareBorderColor: #ececec;
 }
 
 .sold-out .badge--sold-out {
+  display: block;
+}
+
+.unavailable .badge--unavailable {
   display: block;
 }
 
