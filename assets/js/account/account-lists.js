@@ -125,12 +125,12 @@ angular.module('storefrontApp')
 
             $ctrl.listPreSetting = function (lists) {
                 if ($localStorage && !$localStorage['lists']) {
+                    $localStorage['lists']= { };
                     _.each(lists, function (list) {
-                        list.author = $scope.accountLists.userName;
+                        list.author = $ctrl.accountLists.userName;
                         list.id = Math.floor(Math.random() * 230910443210623294 + 1).toString()
                     });
-                    $localStorage['lists'] = {};
-                    $localStorage['lists'][dialogData.userName].push(lists);
+                   $localStorage['lists'][$ctrl.accountLists.userName].push(lists);
                 }
             }
 

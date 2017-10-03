@@ -126,28 +126,29 @@ storefrontApp.service('listService', ['$http', '$localStorage', 'customerService
         getAllLists: function (userName) {
             return $localStorage['lists'][userName];
         },
-        getSharedLists: function (userName) {
+        getSharedLists: function (userName) { 
             var lists = $localStorage['lists'];
             var sharedLists = [];
-            _.each($localStorage['sharedListsIds'][userName], function (cartId) {
-                _.each(lists, function (list) {
+            if ($localStorage['sharedListsIds']) {
+                _.each($localStorage['sharedListsIds'][userName], function (cartId) {
+                    _.each(lists, function (list) {
                         if (angular.isDefined(_.find(list, { id: cartId.toString() }))) {
                             _.memoize(sharedLists.push(_.find(list, { id: cartId })));
                             //$localStorage['lists'][userName].push(result);
                         }
-                      
-                    })
-            })
-            sharedLists = _.map(_.groupBy(sharedLists, function (item) {
-                return item.name;
-            }), function (grouped) {
-                if (grouped.length > 1)
-                    if (!_.isEqual(grouped[0], grouped[1])) {
-                        return [grouped[0], grouped[1]];
-                    }
-                return grouped[0];
-            });
 
+                    })
+                })
+                sharedLists = _.map(_.groupBy(sharedLists, function (item) {
+                    return item.name;
+                }), function (grouped) {
+                    if (grouped.length > 1)
+                        if (!_.isEqual(grouped[0], grouped[1])) {
+                            return [grouped[0], grouped[1]];
+                        }
+                    return grouped[0];
+                });
+            }
             return sharedLists;
         },
         getWishlist: function (listName, permission, id, userName) {

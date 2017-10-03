@@ -124,7 +124,8 @@
             "collect_user_events_enabled": false,
             "available_lists": [
                 {
-                    "name": "shopping list",
+                  "name": "shopping list",
+                  "default": true,
                     "permission": "private",
                     "items": []
                 },

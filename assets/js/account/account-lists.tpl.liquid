@@ -1,5 +1,5 @@
 <div base-url="baseUrl" id="account-lists.tpl.liquid" type="text/ng-template" ng-init='$ctrl.listPreSetting({{ settings.available_lists | json }})' data='data'>
-    <p ng-if="!$ctrl.lists">{{wishlist.general.emptyData | t}}</p>
+    <p ng-if="!$ctrl.lists">{{'wishlist.general.emptyData' | t}}</p>
     <ul class="nav nav-tab lists-navBar-clearfix">
         <li class="lists-settings" ng-click="$ctrl.listSettings()">
             <a>{{'wishlist.general.settings' | t}}</a>
@@ -34,7 +34,7 @@
             </span>
             <div  class="ajax-informer text-center" ng-class="{ 'fade': $ctrl.productAdded }">{{ 'wishlist.general.added_to_cart' | t}}</div>
 
-            <table ng-if="$ctrl.selectedTab !== 'sharedLists'" class="vc-product-table list-table">
+            <table class="vc-product-table list-table">
                 <tr  style="height:120px;" class="product-row" ng-repeat="lineItem in $ctrl.selectedList.items">
                     <td class="product-img">
                         <div class="img-inner">
@@ -74,12 +74,12 @@
                     </td>
                 </tr>
                 <tr>
-                    <div class="lists-productsList-addToCart">
-                    <button type="button" name="add" id="addToCart" class="btn list-item-addToCartBtn AddShopCart"
+                    <div ng-if="$ctrl.selectedList.items.length>0" class="lists-productsList-addToCart">
+                      <button type="button" name="add" id="addToCart" class="btn list-item-addToCartBtn AddShopCart"
                           ng-click="$ctrl.addToCartAllProducts()">
                         <span class="icon icon-cart"></span>
                         <span id="addToCartText">{{ 'wishlist.general.add_all_products' | t }}</span>
-                    </button>
+                      </button>
                     </div>
                 </tr>
             </table>
