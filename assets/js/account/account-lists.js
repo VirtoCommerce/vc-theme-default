@@ -7,10 +7,8 @@ angular.module('storefrontApp')
             { path: '/myLists', name: 'MyLists', component: 'vcAccountMyLists', useAsDefault: true },
             { path: '/listsSearch', name: 'ListsSearch', component: 'vcAccountListsSearch' },
         ],
-        controller: ['$filter', 'listService', '$rootScope', '$location', 'customerService', 'cartService', '$translate', 'loadingIndicatorService', '$timeout', 'accountDialogService', '$localStorage', '$window', function ($filter, listService, $rootScope, $location, customerService, cartService, $translate, loader, $timeout, dialogService, $localStorage, $window) {
+        controller: ['$filter', 'listService', '$rootScope', '$location', 'customerService', 'cartService', '$translate', 'loadingIndicatorService', '$timeout', 'dialogService', '$localStorage', '$window', function ($filter, listService, $rootScope, $location, customerService, cartService, $translate, loader, $timeout, dialogService, $localStorage, $window) {
             var $ctrl = this;
-
-            console.log($localStorage, 'test1');
 
             $ctrl.getCustomer = function () {
                 customerService.getCurrentCustomer().then(function (user) {
@@ -21,8 +19,8 @@ angular.module('storefrontApp')
 
             $ctrl.selectTab = function (tabName) {
                 $ctrl.getCustomer();
-                $ctrl.selectedList = [];
                 $ctrl.selectedTab = tabName;
+                $ctrl.selectedList = [];
             };
 
             $ctrl.initialize = function (lists) {
@@ -89,16 +87,15 @@ angular.module('storefrontApp')
             };
 
             $ctrl.removeLineItem = function (lineItem, list) {
-                loader.wrapLoading(function () {
-                    return listService.removeLineItem(lineItem.id, list.name).then(function (response) {
-                        $ctrl.selectList(list);
-                    });
-                });
+                listService.removeLineItem(lineItem.id, list.id, $ctrl.userName);
+                //$ctrl.selectList(list);
             };
 
             $ctrl.generateLink = function () {
                 $ctrl.sharedLink = $location.absUrl().substr(0, _.lastIndexOf($location.absUrl(), '/')) + '/friendsLists?id=' + $ctrl.selectedList.id;
                 $ctrl.selectedList.shared = true;
+                var dialogData = {sharedLink:$ctrl.sharedLink};
+                    dialogService.showDialog(dialogData, 'recentlyCreateNewListDialogController', 'storefront.list-shared-link-dialog.tpl');
             };
 
             $ctrl.addToCartAllProducts = function () {
@@ -126,6 +123,17 @@ angular.module('storefrontApp')
         controller: ['listService', '$rootScope', '$location', 'customerService', 'cartService', '$translate', 'loadingIndicatorService', '$timeout', 'accountDialogService', '$localStorage', '$window', function (listService, $rootScope, $location, customerService, cartService, $translate, loader, $timeout, dialogService, $localStorage, $window) {
             var $ctrl = this;
 
+            $ctrl.listPreSetting = function (lists) {
+                if ($localStorage && !$localStorage['lists']) {
+                    _.each(lists, function (list) {
+                        list.author = $scope.accountLists.userName;
+                        list.id = Math.floor(Math.random() * 230910443210623294 + 1).toString()
+                    });
+                    $localStorage['lists'] = {};
+                    $localStorage['lists'][dialogData.userName].push(lists);
+                }
+            }
+
             $ctrl.loader = loader;
             $ctrl.selectedList = {};
 
@@ -148,8 +156,6 @@ angular.module('storefrontApp')
                 $ctrl.initialize($ctrl.accountLists.lists);
 
             }
-
-
 
             $ctrl.generateLink = function () {
                 $ctrl.accountLists.generateLink();
@@ -210,16 +216,14 @@ angular.module('storefrontApp')
     .component('vcAccountFriendsLists', {
         templateUrl: "themes/assets/js/account/account-lists.tpl.liquid",
         require: {
-            accountLists: '^vcAccountLists'
+            accountLists: '^^vcAccountLists'
         },
         controller: ['listService', '$rootScope', '$location', 'customerService', 'cartService', '$translate', 'loadingIndicatorService', '$timeout', 'accountDialogService', '$localStorage', '$window', function (listService, $rootScope, $location, customerService, cartService, $translate, loader, $timeout, dialogService, $localStorage, $window) {
             var $ctrl = this;
 
             $ctrl.initialize = function (lists) {
-
                 $ctrl.accountLists.initialize(lists);
                 $ctrl.lists = $ctrl.accountLists.lists;
-                console.log($ctrl.lists);
                 if (_.find($ctrl.lists, { default: true })) {
                     var selected = _.find($ctrl.lists, { default: true });
                     $ctrl.selectList(selected);
@@ -235,7 +239,6 @@ angular.module('storefrontApp')
                     //1)get id of shared list
                     var cartId = $location.search().id;
 
-                    console.log(cartId, $ctrl.accountLists.userName);
                     customerService.getCurrentCustomer().then(function (user) {
                         $ctrl.userName = user.data.userName;
 
@@ -243,7 +246,6 @@ angular.module('storefrontApp')
                         if (!$localStorage['sharedListsIds'][$ctrl.userName])
                             $localStorage['sharedListsIds'][$ctrl.userName] = [];
 
-                        console.log($localStorage['sharedListsIds']);
                         $localStorage['sharedListsIds'][$ctrl.userName].push(cartId);
                         //3)getSharedLists
                         $ctrl.lists = listService.getSharedLists($ctrl.userName);
@@ -283,13 +285,8 @@ angular.module('storefrontApp')
                 dialogData.lists = $ctrl.lists;
                 dialogData.userName = $ctrl.accountLists.userName;
                 dialogData.selectedTab = $ctrl.selectedTab;
-                console.log($ctrl.accountLists.userName, 'userName');
                 dialogService.showDialog(dialogData, 'recentlyCreateNewListDialogController', 'storefront.list-settings-dialog.tpl');
             };
-            //$ctrl.shareList = function() {
-            //    var dialogData = $ctrl.lists;
-            //    dialogService.showDialog(dialogData, 'recentlyCreateNewListDialogController', 'storefront.list-share-link.tpl');
-            //};
 
             $ctrl.selectList = function (list) {
                 $ctrl.accountLists.selectList(list);

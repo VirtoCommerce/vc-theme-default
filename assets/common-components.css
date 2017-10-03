@@ -1061,7 +1061,12 @@ select {
     background-color: #eee;
 }
 
-.wish-list-row:nth-child(odd) {
+.nav-pills > li.active, .nav-pills > li.active > a:focus, .nav-pills > li.active {
+    color: #fff;
+    border-radius: 4px;
+    background-color: #337ab7;
+}
+    .wish-list-row:nth-child(odd) {
     /*background-color: #f2f2f2;*/
 }
 
@@ -1080,4 +1085,75 @@ select {
 
 .wish-list-cell.value {
     border: 1px solid #dcdcdc;
+}
+
+.lists-navBar-clearfix {
+    margin-bottom: -34px;
+    font-size: 15px;
+    margin-top: -12px;
+    right: 20px;
+    position: absolute;
+}
+
+.lists-settings {
+    cursor: pointer;
+    float: right;
+}
+
+.lists-sideBar {
+    padding-left: 0px !important;
+    padding-top: 0px !important;
+    text-align: left;
+}
+
+    .lists-sideBar .lists-sideBar-content {
+        cursor: pointer;
+        display: flex;
+        width: 170px;
+    }
+
+    .lists-sideBar .lists-sideBar-textAlign {
+        text-align: left !important;
+    }
+
+    .lists-sideBar .lists-sideBar-content .lists-sideBar-globalIcon {
+        padding-right: 8px;
+        text-align: right;
+        vertical-align: top;
+        padding-top: 14px;
+        float: right;
+        margin-left: auto;
+    }
+
+.lists-title-shareIcon {
+    cursor: pointer;
+    font-size: 14pt;
+    padding-left: 15px;
+    padding-top: 11px;
+}
+
+.lists-productsList-descr {
+    height: 100%;
+    padding-bottom: 30px !important;
+}
+
+    .lists-productsList-descr .lists-productsList-descr-contentAllign {
+        display: table;
+        min-height: 70px
+    }
+
+    .lists-productsList-descr .lists-productsList-descr-title {
+        top: 7px;
+        display: table-cell;
+        vertical-align: middle;
+    }
+    .lists-productsList-descr .lists-productsList-descr-modify {
+        position: absolute;
+        left: 1px;
+        padding-top: 10px;
+    }
+.lists-productsList-addToCart {
+    position: absolute;
+    bottom: 80px;
+    right: 29px;
 }

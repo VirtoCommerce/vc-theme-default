@@ -1,4 +1,4 @@
-﻿{
+{
     "current": "Blue",
     "presets": {
         "Blue": {
@@ -123,8 +123,16 @@
             //Collect usage events for product recommendations
             "collect_user_events_enabled": false,
             "available_lists": [
-                { "name": "shopping" },
-                { "name": "wish" }
+                {
+                    "name": "shopping list",
+                    "permission": "private",
+                    "items": []
+                },
+                {
+                    "name": "wish list",
+                    "permission": "public",
+                    "items": []
+                }
             ] 
         },
         "Soft Green": {

@@ -3,7 +3,6 @@ var storefrontApp = angular.module('storefrontApp');
 storefrontApp.controller('recentlyAddedListItemDialogController', ['$scope', '$window', '$uibModalInstance', 'dialogData', 'listService', '$translate', '$localStorage', 'customerService', function ($scope, $window, $uibModalInstance, dialogData, listService, $translate, $localStorage, customerService) {
     $scope.availableLists = [];
     $scope.selectedList = {};
-
     dialogData.product.imageUrl = dialogData.product.primaryImage.url;
     dialogData.product.createdDate = new Date;
     dialogData.product.productId = dialogData.product.price.productId;
@@ -12,16 +11,13 @@ storefrontApp.controller('recentlyAddedListItemDialogController', ['$scope', '$w
 
     $scope.dialogData = dialogData.product;
     $scope.dialogData.quantity = dialogData.quantity;
-    console.log($scope);
     $scope.inProgress = false;
     $scope.itemAdded = false;
-
 
     $scope.addProductToList = function () {
         $scope.inProgress = true;
         var customer = { userName: $scope.userName, id: $scope.userId, isRegisteredUser: true };
 
-        console.log($scope.userName, $scope.selectedList.author, 'scope');
         if ($scope.userName !== $scope.selectedList.author) {
             dialogData.product.modifiedBy = $scope.userName;
 
@@ -45,8 +41,15 @@ storefrontApp.controller('recentlyAddedListItemDialogController', ['$scope', '$w
     $scope.initialize = function (lists) {
         customerService.getCurrentCustomer().then(function (user) {
             $scope.userName = user.data.userName;
-            console.log(user.data);
             $scope.userId = user.data.id;
+            if ($localStorage && !$localStorage['lists']) {
+                _.each(lists, function (list) {
+                    list.author = $scope.userName;
+                    list.id = Math.floor(Math.random() * 230910443210623294 + 1).toString()
+                });
+                $localStorage['lists'] = {};
+                $localStorage['lists'][$scope.userName].push(lists);
+            }
             $scope.lists = $localStorage['lists'][$scope.userName];
             $scope.sharedLists = listService.getSharedLists($scope.userName);
 

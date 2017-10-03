@@ -170,16 +170,16 @@ storefrontApp.service('listService', ['$http', '$localStorage', 'customerService
 
             })
         },
-        putAddedItemToSharedList: function (listName, userName) {
-            var lists = angular.copy($localStorage['lists']);
-            _.each(lists, function (list) {
-                if (angular.isDefined(_.find(list, { id: cartId }))) {
-                    var result = _.find(list, { id: cartId });
-                    result.friendList = true;
-                    $localStorage['lists'][userName].push(result);
-                }
-            })
-        },
+        //putAddedItemToSharedList: function (listName, userName) {
+        //    var lists = angular.copy($localStorage['lists']);
+        //    _.each(lists, function (list) {
+        //        if (angular.isDefined(_.find(list, { id: cartId }))) {
+        //            var result = _.find(list, { id: cartId });
+        //            result.friendList = true;
+        //            $localStorage['lists'][userName].push(result);
+        //        }
+        //    })
+        //},
         containsInList: function (productId, cartId) {
             var lists = angular.copy($localStorage['lists']);
             var contains;
@@ -201,8 +201,11 @@ storefrontApp.service('listService', ['$http', '$localStorage', 'customerService
             return $http.post('storefrontapi/lists/' + listName + '/items', { productId: productId });
         },
 
-        removeLineItem: function (lineItemId, listName) {
-            return $http.delete('storefrontapi/lists/' + listName + '/items/' + lineItemId);
+        removeLineItem: function (lineItemId, listId, userName) {
+            var searchedList = _.find($localStorage['lists'][userName], { id: listId });
+            searchedList.items = _.filter(searchedList.items, function (item) { return item.id != lineItemId });
+            return searchedList;
+            //return $http.delete('storefrontapi/lists/' + listName + '/items/' + lineItemId);
         },
         clearList: function (cartId, userName) {
             $localStorage['lists'][userName] = _.filter($localStorage['lists'][userName], function (x) { return x.id != cartId});

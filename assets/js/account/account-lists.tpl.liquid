@@ -1,35 +1,34 @@
-<div base-url="baseUrl" id="account-lists.tpl.liquid" type="text/ng-template" ng-init='$ctrl.initialize({{ settings.available_lists | json }})' data='data'>
-    <p ng-if="!$ctrl.lists">No lists defined</p>
-    <ul class="nav nav-tab" style="margin-bottom: -34px;font-size: 15px;margin-top: -12px;right: 20px;position: absolute;">
-        <li style="cursor:pointer; float:right;" class="" ng-click="$ctrl.listSettings()">
-            <a>{{'List settings'}}</a>
+<div base-url="baseUrl" id="account-lists.tpl.liquid" type="text/ng-template" ng-init='$ctrl.listPreSetting({{ settings.available_lists | json }})' data='data'>
+    <p ng-if="!$ctrl.lists">{{wishlist.general.emptyData | t}}</p>
+    <ul class="nav nav-tab lists-navBar-clearfix">
+        <li class="lists-settings" ng-click="$ctrl.listSettings()">
+            <a>{{'wishlist.general.settings' | t}}</a>
         </li>
-        <li ng-if="$ctrl.accountLists.selectedTab === 'myLists'" style="cursor:pointer; float:right;" class="" ng-click="$ctrl.createList()">
-            <a>{{'Create list'}}</a>
+        <li ng-if="$ctrl.accountLists.selectedTab === 'myLists'" class="lists-settings" ng-click="$ctrl.createList()">
+            <a>{{'wishlist.general.create' | t}}</a>
         </li>
     </ul>
     <div style="margin-top: 25px;" ng-if="$ctrl.lists" class="grid-border">
-        <aside ng-if="$ctrl.selectedTab !=='sharedLists'" style="padding-left:0px!important; padding-top:0px;" class="grid-item large--one-fifth grid-border--bottom">
-            <ul style="padding-left:0px!important;text-align:left;"  class="sidebar nav nav-pills nav-justified nav-justified-fixed grid-item">
+        <aside class="lists-sideBar grid-item large--one-fifth grid-border--bottom">
+            <ul style="padding-left:0px!important;"  class="sidebar nav nav-pills nav-justified nav-justified-fixed grid-item">
                 <li ng-repeat="list in $ctrl.lists"
-                   ng-class="{'active': $ctrl.selectedList.name == list.name}"
-                   ng-click="$ctrl.selectList(list)"
-                   style="cursor:pointer; display:flex;width:170px;">
-                    <a style="text-align:left;!important" ng-bind="list.name">
+                    class="lists-sideBar-content"
+                    ng-class="{'active': $ctrl.selectedList.name == list.name}"
+                    ng-click="$ctrl.selectList(list)">
+                    <a class="lists-sideBar-textAlign" ng-bind="list.name">
                     </a>
-                    <i ng-show="list.permission=='public'" style="padding-right: 8px;text-align: right;vertical-align: top;padding-top: 14px;float: right;margin-left: auto;" class="fa fa-globe" aria-hidden="true"></i>
+                    <i ng-show="list.permission=='public'" class="lists-sideBar-globalIcon fa fa-globe" aria-hidden="true"></i>
                 </li>
             </ul>
         </aside>
 
-        <div ng-class="{'large--four-fifths':$ctrl.selectedTab!=='sharedLists'}" class ="grid-item grid-border--left">
-            <div ng-if="$ctrl.selectedTab !== 'sharedLists'" style ="display:inline-flex;" class="hide-if-lowWidth list-item-header grid-item">
+        <div class ="grid-item grid-border--left large--four-fifths">
+            <div style ="display:inline-flex;" class="hide-if-lowWidth list-item-header grid-item">
                 <span  ng-bind="$ctrl.selectedList.name"></span>
-                <i class="fa fa-share-square-o" aria-hidden="true" ng-show="$ctrl.selectedList.name" ng-click="$ctrl.generateLink()" style="cursor:pointer; font-size: 14pt;padding-left: 15px;padding-top: 11px;"></i>
-                <span ng-if="$ctrl.showSharedLink" ng-bind="$ctrl.sharedLink" style="position: absolute;font-size: 14pt;background: gray;color: white;width: 300px;border: 1px solid gray;z-index: 999;word-break: break-word;border-radius: 3px;"></span>
+                <i class="lists-title-shareIcon fa fa-share-square-o" aria-hidden="true" ng-show="$ctrl.selectedList.name" ng-click="$ctrl.generateLink()"></i>
             </div>
 
-            <span ng-if="$ctrl.selectedList.items.length == 0 && $ctrl.selectedTab !== 'sharedLists'">
+            <span ng-if="$ctrl.selectedList.items.length == 0">
                 <h2>{{ 'wishlist.general.empty' | t }}</h2>
                 <p>{{ 'wishlist.general.continue_browsing_html' | t }}</p>
             </span>
@@ -51,15 +50,15 @@
                             </div>
                         </div>
                     </td>
-                    <td style="height:100%; padding-bottom: 30px!important;" class="product-descr">
-                        <div style="display:table;min-height:70px">
-                            <a style="top: 7px;display:table-cell;vertical-align:middle;" class="product-list-advanced" ng-bind="lineItem.name" href="{% raw %}{{ 'product/' + lineItem.productId }}{% endraw %}"></a>
+                    <td class="lists-productsList-descr product-descr">
+                        <div class="lists-productsList-descr-contentAllign">
+                            <a class="lists-productsList-descr-title product-list-advanced" ng-bind="lineItem.name" href="{% raw %}{{ 'product/' + lineItem.productId }}{% endraw %}"></a>
                         </div>
                         <div ng-if="!lineItem.modifiedBy" ng-bind="'Added '+ (lineItem.createdDate | date:'MMMM d, y')"
-                             style="position: absolute;left: 1px;padding-top: 10px;">
+                             class="lists-productsList-descr-modify">
                         </div>
                         <div ng-if="lineItem.modifiedBy" ng-bind="'Added by '+ (lineItem.modifiedBy) +' in '+ (lineItem.createdDate | date:'MMMM d, y')"
-                             style="position: absolute;left: 1px;padding-top: 10px;">
+                             class="lists-productsList-descr-modify">
                         </div>
                     </td>
                     <td class="list-item-price">
@@ -75,11 +74,11 @@
                     </td>
                 </tr>
                 <tr>
-                    <div style="position: absolute;bottom: 80px;right: 29px;">
+                    <div class="lists-productsList-addToCart">
                     <button type="button" name="add" id="addToCart" class="btn list-item-addToCartBtn AddShopCart"
                           ng-click="$ctrl.addToCartAllProducts()">
                         <span class="icon icon-cart"></span>
-                        <span id="addToCartText">{{ 'Add all products' }}</span>
+                        <span id="addToCartText">{{ 'wishlist.general.add_all_products' | t }}</span>
                     </button>
                     </div>
                 </tr>

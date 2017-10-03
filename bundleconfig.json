@@ -30,6 +30,7 @@
             "assets/js/services.js",
             "assets/js/main.js",
             "assets/js/cart.js",
+            "assets/js/list-creation.js",
             "assets/js/quote-request.js",
             "assets/js/product-compare.js",
             "assets/js/searchBar.js",
@@ -56,6 +57,7 @@
         "outputFileName": "assets/static/bundle/account-styles.css",
         "inputFiles": [
             "assets/account-bootstrap.css",
+            "assets/storefront.css",
             "assets/common-components.css"
         ]
     }

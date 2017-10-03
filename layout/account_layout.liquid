@@ -24,6 +24,7 @@
     <!--{{ '//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.css' | stylesheet_tag }}-->
     {{ 'bundle/account-styles.css' | static_asset_url | append_version | stylesheet_tag }}
 
+     {{ 'ajaxify.scss.css' | asset_url | stylesheet_tag }}
      {{ 'default.scss.css' | asset_url | stylesheet_tag }}
 
     {% include 'google-fonts' %}
@@ -59,6 +60,8 @@
     {% include 'recently-create-new-list-dialog' %}
     {% include 'list-settings-dialog' %}
     {% include 'recently-added-actual-quote-request-item-dialog' %}
+    {% include 'list-shared-link-dialog' %}
+
     {% if settings.store_selector_enable %}
     {% include 'top-header-selector' %}
     {% endif %}

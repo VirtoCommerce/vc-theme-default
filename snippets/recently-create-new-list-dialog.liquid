@@ -1,5 +1,5 @@
 <script id="storefront.recently-create-new-list-dialog.tpl" type="text/ng-template">
-  <div class="ajaxify-modal is-visible" id="ajaxifyModal" style="opacity: 1; width:600px;" ng-init='initialize({{ settings.available_lists | json }})'>
+  <div class="ajaxify-modal is-visible" id="ajaxifyModal" style="opacity: 1; width:600px;">
     <div class="ajaxifyCart--content" id="ajaxifyCart">
       <div style="position: relative;bottom: 15px;">
         <button style="position: fixed;top: 5px;" class="ajaxifyCart--close" title="{{ 'cart.general.close_cart' | t }}" ng-click="close()">{{ 'cart.general.close_cart' | t }}</button>
@@ -10,33 +10,15 @@
 
         <!--list-creation-->
         <div class="cart-row list-modal-row-fix">
-          <div class="list-text-descr" style="color:black;margin-left: 0px;">Choose a list type</div>
-          <div style="display:flex" class="grid">
-            <!--creation-body-->
-            <div style="padding-left: 55px;" ng-repeat="listType in avaliableListTypes" class="large--seven-twelfths ">
-              <div style="border-radius: 5px;border: 1px solid;height: 130px;" class="grid product-list-modal-titleShift">
-                <div ng-click="selectedRadio=!selectedRadio" class="grid-item one-third large--one-quarter">
-                  <input style="margin-top: 11px;" ng-model="selectedRadio" type="radio" name="listType.title" />
-                </div>
-                <div class="list-container">
-                  <span style="color:black; font-size: 22px; font-weight: 500;overflow: hidden;" ng-bind="listType.title"></span>
-                  <span class="list-text-descr" ng-bind="listType.description"></span>
-                  <div ng-bind="listType.subtitle"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <hr/>
           <!--listName and privacy-->
-          <div style="margin-left: -35px;width: 380px;padding-bottom: 20px;" class="grid-item text-left">
-            <div style="position: relative;left: -25px;color:black;" class="list-text grid-item text-left">List name</div>
+          <div style="margin-left: -35px;" class="grid-item text-left">
             <div style="display: -webkit-inline-box;">
-              <input style="border: 0.1px solid black;margin-right: 20px;height: 35px;" ng-model="dialogData.listName" type="text"/>
-              <button ng-click="dialogData.permission = 'public'" style="border: 0.1px solid black;height: 35px;width: 90px;background-color: white;position: relative;">Public</button>
+              <input placeholder="Enter list name" class="form-input" style="height: 40px;margin-top: 20px;" ng-model="dialogData.listName" type="text"/>
+                <span style="top: 26px;left: 30px;position: relative;vertical-align: bottom;font-size: 12pt;"><input type="checkbox" ng-model="dialogData.permission" ng-true-value="'public'" style="height: 15px;width: 15px;position: relative;"/> Public</span>
             </div>
           </div>
         </div>
-        <hr/>
+        
         <!--footer-->
         <div class="product-list-modal-borders product-list-modal-borders">
           <div class="grid-item text-right">

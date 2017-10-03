@@ -222,6 +222,11 @@
         "general": {
             "title": "Your lists",
             "remove": "Remove",
+            "settings": "Lists settings",
+            "create": "Create list",
+            "add_all_products": "Add all products",
+            "emptyData": "No lists defined",
+            "copy_message": "Congratulations! Now you can copy link and share your list with friends",
             "update": "Update list",
             "add": "Add",
             "updating_wishlist_message": "Updating list...",
