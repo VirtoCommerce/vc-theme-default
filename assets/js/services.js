@@ -123,17 +123,19 @@ storefrontApp.service('cartService', ['$http', function ($http) {
 
 storefrontApp.service('listService', ['$http', '$localStorage', 'customerService', function ($http, $localStorage, customerService) {
     return {
-        getAllLists: function (userName) {
+        getMyLists: function (userName) {
             return $localStorage['lists'][userName];
         },
-        getSharedLists: function (userName) { 
+
+        getSharedLists: function (userName) {
             var lists = $localStorage['lists'];
             var sharedLists = [];
             if ($localStorage['sharedListsIds']) {
                 _.each($localStorage['sharedListsIds'][userName], function (cartId) {
                     _.each(lists, function (list) {
+                      
                         if (angular.isDefined(_.find(list, { id: cartId.toString() }))) {
-                            _.memoize(sharedLists.push(_.find(list, { id: cartId })));
+                           sharedLists.push(_.find(list, { id: cartId }));
                             //$localStorage['lists'][userName].push(result);
                         }
 
@@ -152,35 +154,25 @@ storefrontApp.service('listService', ['$http', '$localStorage', 'customerService
             return sharedLists;
         },
         getWishlist: function (listName, permission, id, userName) {
-            if (!_.contains($localStorage['lists'][userName], _.find($localStorage['lists'][userName], { name: listName })) && angular.isDefined(userName)) {
-                $localStorage['lists'][userName].push({ name: listName, permission: permission, id: id, items:[], author: userName });
+            if (_.contains($localStorage['lists'][userName], _.find($localStorage['lists'][userName], { name: listName })) && angular.isDefined(userName) ) {
+                $localStorage['lists'][userName].push({ name: listName + 1, permission: permission, id: id, items:[], author: userName });
             }
+            else $localStorage['lists'][userName].push({ name: listName, permission: permission, id: id, items: [], author: userName })
 
             return _.find($localStorage['lists'][userName], { name: listName });
             //return $http.get('storefrontapi/lists/' + listName + '?t=' + new Date().getTime());
         },
 
         addItemToList: function (listId, product) {
-            console.log(2);
             _.each($localStorage['lists'], function (list) {
                 if (angular.isDefined(_.find(list, { id: listId }))) {
                     var searchedList = _.find(list, { id: listId });
                     searchedList.items.push(product);
-                    console.log($localStorage['lists'], '3');
                 }
 
             })
         },
-        //putAddedItemToSharedList: function (listName, userName) {
-        //    var lists = angular.copy($localStorage['lists']);
-        //    _.each(lists, function (list) {
-        //        if (angular.isDefined(_.find(list, { id: cartId }))) {
-        //            var result = _.find(list, { id: cartId });
-        //            result.friendList = true;
-        //            $localStorage['lists'][userName].push(result);
-        //        }
-        //    })
-        //},
+
         containsInList: function (productId, cartId) {
             var lists = angular.copy($localStorage['lists']);
             var contains;
@@ -210,7 +202,6 @@ storefrontApp.service('listService', ['$http', '$localStorage', 'customerService
         },
         clearList: function (cartId, userName) {
             $localStorage['lists'][userName] = _.filter($localStorage['lists'][userName], function (x) { return x.id != cartId});
-            console.log(_.filter($localStorage['lists'][userName], function (x) { return x.id != cartId }));
             //return $http.post('storefrontapi/lists/clear', { listName: listName });
         },
         removeFromFriendsLists: function (currentId, userName) {

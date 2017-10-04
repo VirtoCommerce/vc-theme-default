@@ -4,10 +4,9 @@ angular.module('storefrontApp')
         $routeConfig: [
             { path: '/', name: 'Lists', component: 'vcAccountLists' },
             { path: '/friendsLists', name: 'FriendsLists', component: 'vcAccountFriendsLists' },
-            { path: '/myLists', name: 'MyLists', component: 'vcAccountMyLists', useAsDefault: true },
-            { path: '/listsSearch', name: 'ListsSearch', component: 'vcAccountListsSearch' },
+            { path: '/myLists', name: 'MyLists', component: 'vcAccountMyLists', useAsDefault: true }
         ],
-        controller: ['$filter', 'listService', '$rootScope', '$location', 'customerService', 'cartService', '$translate', 'loadingIndicatorService', '$timeout', 'dialogService', '$localStorage', '$window', function ($filter, listService, $rootScope, $location, customerService, cartService, $translate, loader, $timeout, dialogService, $localStorage, $window) {
+        controller: ['listService', '$rootScope', '$location', 'customerService', 'cartService', '$translate', 'loadingIndicatorService', '$timeout', 'dialogService', '$localStorage', function (listService, $rootScope, $location, customerService, cartService, $translate, loader, $timeout, dialogService, $localStorage) {
             var $ctrl = this;
 
             $ctrl.getCustomer = function () {
@@ -18,54 +17,32 @@ angular.module('storefrontApp')
             };
 
             $ctrl.selectTab = function (tabName) {
-                $ctrl.getCustomer();
-                $ctrl.selectedTab = tabName;
                 $ctrl.selectedList = [];
+                $ctrl.selectedTab = tabName;
+                $ctrl.getCustomer();
             };
 
-            $ctrl.initialize = function (lists) {
+            $ctrl.initialize = function (lists) {     
                 if ($ctrl.selectedTab === 'myLists' && $localStorage && $localStorage['lists']) {
-                    $ctrl.lists = _.filter($localStorage['lists'][$ctrl.userName], function (x) { return !x.friendList });
-                    console.log($ctrl.lists);
-                    $localStorage['lists'][$ctrl.userName] = _.flatten($localStorage['lists'][$ctrl.userName]);//1
-                    //remove duplication
-                    $localStorage['lists'][$ctrl.userName] = _.map(_.groupBy($localStorage['lists'][$ctrl.userName], function (item) {
-                        return item.name;
-                    }), function (grouped) {
-                        if (grouped.length > 1)
-                            if (!_.isEqual(grouped[0], grouped[1])) {
-                                return [grouped[0], grouped[1]];
-                            }
-                        return grouped[0];
-                    });
-                    // $ctrl.lists = lists;
-
-                    $localStorage['lists'][$ctrl.userName] = _.flatten($localStorage['lists'][$ctrl.userName]);//2
+                    $ctrl.lists = listService.getMyLists($ctrl.userName);
                 }
-                // friendList
+
                 else if ($ctrl.selectedTab === 'friendsLists') {
                     $ctrl.lists = listService.getSharedLists($ctrl.userName);
-                    console.log($localStorage['lists'][$ctrl.userName]);
-                    console.log($ctrl.lists);
                 }
 
-                //setDefault
                 if (_.find($ctrl.lists, { default: true })) {
                     var selected = _.find($ctrl.lists, { default: true });
                     $ctrl.selectList(selected);
                 }
-
+                else if (!_.isEmpty($ctrl.lists)){
+                    _.first($ctrl.lists).default = true;
+                    $ctrl.selectList(_.first($ctrl.lists));
+                }
             };
 
             $ctrl.selectList = function (list) {
-                console.log(list);
                 $ctrl.selectedList = list;
-                customerService.getCurrentCustomer().then(function (user) {
-                    $ctrl.userName = user.data.userName;
-                    var items = list.items;
-                    $ctrl.selectedList.items = items;
-
-                })
             };
 
             $ctrl.addToCart = function (lineItem) {
@@ -80,22 +57,20 @@ angular.module('storefrontApp')
             };
 
             $ctrl.removeList = function (listName) {
-                console.log($ctrl.userName);
                 listService.clearList(listName, $ctrl.userName).then(function (response) {
                     document.location.reload();
                 });
             };
 
-            $ctrl.removeLineItem = function (lineItem, list) {
-                listService.removeLineItem(lineItem.id, list.id, $ctrl.userName);
-                //$ctrl.selectList(list);
+            $ctrl.removeLineItem = function (lineItem) {
+                listService.removeLineItem(lineItem.id, $ctrl.selectedList.id, $ctrl.userName);
             };
 
             $ctrl.generateLink = function () {
                 $ctrl.sharedLink = $location.absUrl().substr(0, _.lastIndexOf($location.absUrl(), '/')) + '/friendsLists?id=' + $ctrl.selectedList.id;
-                $ctrl.selectedList.shared = true;
+                $ctrl.selectedList.permission = 'public';
                 var dialogData = {sharedLink:$ctrl.sharedLink};
-                    dialogService.showDialog(dialogData, 'recentlyCreateNewListDialogController', 'storefront.list-shared-link-dialog.tpl');
+                dialogService.showDialog(dialogData, 'recentlyCreateNewListDialogController', 'storefront.list-shared-link-dialog.tpl');
             };
 
             $ctrl.addToCartAllProducts = function () {
@@ -109,9 +84,20 @@ angular.module('storefrontApp')
                         });
                     });
                 })
-
             }
-            $ctrl.getCustomer();
+
+            $ctrl.createList = function () {
+                var dialogData = $ctrl.lists;
+                dialogService.showDialog(dialogData, 'recentlyCreateNewListDialogController', 'storefront.recently-create-new-list-dialog.tpl');
+            };
+
+            $ctrl.listSettings = function () {
+                var dialogData = {};
+                dialogData.lists = $ctrl.lists;
+                dialogData.userName = $ctrl.userName;
+                dialogData.selectedTab = $ctrl.selectedTab;
+                dialogService.showDialog(dialogData, 'recentlyCreateNewListDialogController', 'storefront.list-settings-dialog.tpl');
+            };
 
         }]
     })
@@ -120,7 +106,7 @@ angular.module('storefrontApp')
         require: {
             accountLists: '^^vcAccountLists'
         },
-        controller: ['listService', '$rootScope', '$location', 'customerService', 'cartService', '$translate', 'loadingIndicatorService', '$timeout', 'accountDialogService', '$localStorage', '$window', function (listService, $rootScope, $location, customerService, cartService, $translate, loader, $timeout, dialogService, $localStorage, $window) {
+        controller: ['$rootScope', 'loadingIndicatorService', '$timeout', 'accountDialogService', '$localStorage', function ($rootScope, loader, $timeout, dialogService, $localStorage) {
             var $ctrl = this;
 
             $ctrl.listPreSetting = function (lists) {
@@ -134,83 +120,9 @@ angular.module('storefrontApp')
                 }
             }
 
-            $ctrl.loader = loader;
-            $ctrl.selectedList = {};
-
-            $ctrl.sharedLists = {};
-
-            $ctrl.initialize = function (lists) {
-                $ctrl.accountLists.selectedTab = 'myLists';
-                $ctrl.lists = $ctrl.accountLists.lists;
-                if (_.find($ctrl.lists, { default: true })) {
-                    var selected = _.find($ctrl.lists, { default: true });
-                    $ctrl.selectList(selected);
-                }
-            }
-
             $ctrl.$onInit = function (lists) {
                 $ctrl.accountLists.selectTab('myLists');
-                $ctrl.selectedTab = $ctrl.accountLists.selectedTab;
-                // $ctrl.accountLists.getCustomer();
-                $ctrl.accountLists.initialize();
-                $ctrl.initialize($ctrl.accountLists.lists);
-
             }
-
-            $ctrl.generateLink = function () {
-                $ctrl.accountLists.generateLink();
-                $ctrl.showSharedLink = !$ctrl.showSharedLink;
-                $ctrl.sharedLink = $ctrl.accountLists.sharedLink;
-            };
-
-            $ctrl.addToCartAllProducts = function () {
-                _.each($ctrl.selectedList.items, function (item) {
-                    loader.wrapLoading(function () {
-                        return cartService.addLineItem(item.productId, 1).then(function (response) {
-                            $ctrl.productAdded = true;
-                            $timeout(function () {
-                                $ctrl.productAdded = false;
-                            }, 6000);
-                        });
-                    });
-                })
-
-            }
-
-            $ctrl.selectList = function (list) {
-                $ctrl.accountLists.selectList(list);
-                $ctrl.selectedList = list;
-            };
-
-            $ctrl.removeList = function (listName) {
-                $ctrl.accountLists.removeList(listName);
-            };
-
-            $ctrl.addToCart = function (lineItem) {
-                loader.wrapLoading(function () {
-                    return cartService.addLineItem(lineItem.productId, 1).then(function (response) {
-                        $ctrl.productAdded = true;
-                        $timeout(function () {
-                            $ctrl.productAdded = false;
-                        }, 2000);
-                    });
-                });
-            };
-
-            $ctrl.listSettings = function () {
-                var dialogData = {};
-                dialogData.lists = $ctrl.lists;
-                dialogData.userName = $ctrl.accountLists.userName;
-                dialogData.selectedTab = $ctrl.selectedTab;
-                console.log($ctrl.accountLists.userName, 'userName');
-                dialogService.showDialog(dialogData, 'recentlyCreateNewListDialogController', 'storefront.list-settings-dialog.tpl');
-            };
-
-            $ctrl.createList = function () {
-                var dialogData = $ctrl.lists;
-                dialogService.showDialog(dialogData, 'recentlyCreateNewListDialogController', 'storefront.recently-create-new-list-dialog.tpl');
-            };
-
         }]
     })
     .component('vcAccountFriendsLists', {
@@ -218,79 +130,28 @@ angular.module('storefrontApp')
         require: {
             accountLists: '^^vcAccountLists'
         },
-        controller: ['listService', '$rootScope', '$location', 'customerService', 'cartService', '$translate', 'loadingIndicatorService', '$timeout', 'accountDialogService', '$localStorage', '$window', function (listService, $rootScope, $location, customerService, cartService, $translate, loader, $timeout, dialogService, $localStorage, $window) {
+        controller: ['$rootScope', 'listService', '$location', 'customerService', 'loadingIndicatorService', '$timeout', 'accountDialogService', '$localStorage', function ($rootScope, listService, $location, customerService, loader, $timeout, dialogService, $localStorage) {
             var $ctrl = this;
 
-            $ctrl.initialize = function (lists) {
-                $ctrl.accountLists.initialize(lists);
-                $ctrl.lists = $ctrl.accountLists.lists;
-                if (_.find($ctrl.lists, { default: true })) {
-                    var selected = _.find($ctrl.lists, { default: true });
-                    $ctrl.selectList(selected);
-                }
-            };
-
-            $ctrl.$onInit = function () {
-                $ctrl.accountLists.selectedTab = 'friendsLists';
-                $ctrl.selectedTab = 'friendsLists';
-
-                if ($location.search().id) {
-
-                    //1)get id of shared list
-                    var cartId = $location.search().id;
-
+            function checkLocation() {
+                    var sharedCartId = $location.search().id.toString();
                     customerService.getCurrentCustomer().then(function (user) {
-                        $ctrl.userName = user.data.userName;
+                        var userName = user.data.userName;
 
-                        //2)put cartid in my sharedlistsIds
-                        if (!$localStorage['sharedListsIds'][$ctrl.userName])
-                            $localStorage['sharedListsIds'][$ctrl.userName] = [];
+                        if (!$localStorage['sharedListsIds'][userName])
+                            $localStorage['sharedListsIds'][userName] = [];
 
-                        $localStorage['sharedListsIds'][$ctrl.userName].push(cartId);
-                        //3)getSharedLists
-                        $ctrl.lists = listService.getSharedLists($ctrl.userName);
-                        $ctrl.lists.default = false;
-                        $ctrl.accountLists.selectList($ctrl.lists);
-                        console.log($ctrl.lists);
+                        var myLists = listService.getMyLists(userName);
+                        if (!_.some($localStorage['sharedListsIds'][userName], function (x) { return x === sharedCartId }) && (!_.find(myLists, { id: sharedCartId }))) {
+                            $localStorage['sharedListsIds'][userName].push(sharedCartId);
+                        }
                     })
-                }
             }
 
-            $ctrl.addToCart = function (lineItem) {
-                loader.wrapLoading(function () {
-                    return cartService.addLineItem(lineItem.productId, 1).then(function (response) {
-                        $ctrl.productAdded = true;
-                        $timeout(function () {
-                            $ctrl.productAdded = false;
-                        }, 2000);
-                    });
-                });
-            };
-
-            $ctrl.addToCartAllProducts = function () {
-                _.each($ctrl.selectedList.items, function (item) {
-                    loader.wrapLoading(function () {
-                        return cartService.addLineItem(item.productId, 1).then(function (response) {
-                            $ctrl.productAdded = true;
-                            $timeout(function () {
-                                $ctrl.productAdded = false;
-                            }, 6000);
-                        });
-                    });
-                })
-            };
-
-            $ctrl.listSettings = function () {
-                var dialogData = {};
-                dialogData.lists = $ctrl.lists;
-                dialogData.userName = $ctrl.accountLists.userName;
-                dialogData.selectedTab = $ctrl.selectedTab;
-                dialogService.showDialog(dialogData, 'recentlyCreateNewListDialogController', 'storefront.list-settings-dialog.tpl');
-            };
-
-            $ctrl.selectList = function (list) {
-                $ctrl.accountLists.selectList(list);
-                $ctrl.selectedList = list;
-            };
+            $ctrl.$onInit = function () {
+                if ($location.search().id)
+                    checkLocation();               
+                $ctrl.accountLists.selectTab('friendsLists');
+            }
         }]
     });
