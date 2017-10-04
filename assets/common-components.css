@@ -1157,3 +1157,35 @@ select {
     bottom: 30px;
     right: 29px;
 }
+.lists-creationDialog-wrapper {
+    opacity: 1;
+    width: 600px !important;
+}
+.lists-creationDialog-closeButtonWrapper {
+    position: relative;
+    bottom: 15px;
+}
+    .lists-creationDialog-closeButtonWrapper .lists-creationDialog-closeButtonClearFix {
+        position: fixed;
+        top: 5px;
+    }
+.lists-creationDialog-wrapper .lists-creationDialog-inputWrapper {
+    margin-left: -35px;
+}
+.lists-creationDialog-wrapper .lists-creationDialog-inputClearFix {
+    height: 40px;
+    margin-top: 20px;
+}
+.lists-creationDialog-wrapper .lists-creationDialog-checkboxWrapper {
+    top: 26px;
+    left: 30px;
+    position: relative;
+    vertical-align: bottom;
+    font-size: 12pt;
+}
+
+.lists-creationDialog-wrapper .lists-creationDialog-checkboxClearfix {
+    height: 15px;
+    width: 15px;
+    position: relative;
+}

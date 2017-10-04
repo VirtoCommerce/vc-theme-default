@@ -21,7 +21,6 @@ storefrontApp.controller('recentlyCreateNewListDialogController', ['$rootScope',
             $scope.userName = user.data.userName;
             listService.getWishlist($scope.dialogData.listName, $scope.dialogData.permission, $scope.dialogData.id, user.data.userName);
             $uibModalInstance.close();
-            document.location.reload();
         })
 
     };
