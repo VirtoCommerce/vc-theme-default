@@ -7,7 +7,7 @@
                 <h1 ng-if="!selectedList.title">{{'wishlist.general.select_list' |t}}</h1>
                 <div ng-if="lists" style="text-align: center;font-size: x-large;border-bottom: 2px solid;">{{'wishlist.general.title' |t}}</div>
                 <div ng-if="lists" class="cart-row list-modal-row-fix" ng-repeat="list in lists">
-                    <div ng-if="!list.friendList" ng-class="{'activeList': list.name == selectedList.name, 'disabled' : list.contains }" class="selectedTypeOfList" ng-click="selectList(list)">
+                    <div ng-if="!list.friendList" ng-class="{'activeList': list.id == selectedList.id, 'disabled' : list.contains }" class="selectedTypeOfList" ng-click="selectList(list)">
                         <div  class="grid">
                             <div class="grid-item large--seven-twelfths">
                                 <div class="grid product-list-modal-titleShift">
@@ -31,7 +31,7 @@
                 </div>
                 <div ng-if="sharedLists.length>0" style="text-align: center;font-size: x-large;border-bottom: 2px solid;">{{'wishlist.general.friends_lists' |t}}</div>
                 <div ng-if="sharedLists.length>0" class="cart-row list-modal-row-fix" ng-repeat="list in sharedLists">
-                    <div ng-class="{'activeList': list.name == selectedList.name, 'disabled' : list.contains }" class="selectedTypeOfList" ng-click="selectList(list)">
+                    <div ng-class="{'activeList': list.id == selectedList.id, 'disabled' : list.contains }" class="selectedTypeOfList" ng-click="selectList(list)">
                         <div  class="grid">
                             <div class="grid-item large--seven-twelfths">
                                 <div class="grid product-list-modal-titleShift">

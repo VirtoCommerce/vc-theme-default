@@ -7,7 +7,7 @@ angular.module('storefrontApp')
             { path: '/myLists', name: 'MyLists', component: 'vcAccountMyLists', useAsDefault: true }
         ],
         controller: ['listService', '$rootScope', '$location', 'customerService', 'cartService', '$translate', 'loadingIndicatorService', '$timeout', 'dialogService', '$localStorage', function (listService, $rootScope, $location, customerService, cartService, $translate, loader, $timeout, dialogService, $localStorage) {
-            var $ctrl = this;
+        	var $ctrl = this;
 
             $ctrl.getCustomer = function () {
                 customerService.getCurrentCustomer().then(function (user) {
@@ -106,18 +106,26 @@ angular.module('storefrontApp')
         require: {
             accountLists: '^^vcAccountLists'
         },
-        controller: ['$rootScope', 'loadingIndicatorService', '$timeout', 'accountDialogService', '$localStorage', function ($rootScope, loader, $timeout, dialogService, $localStorage) {
+        controller: ['$rootScope', 'customerService', 'loadingIndicatorService', '$timeout', 'accountDialogService', '$localStorage', function ($rootScope, customerService, loader, $timeout, dialogService, $localStorage) {
             var $ctrl = this;
 
             $ctrl.listPreSetting = function (lists) {
-                if ($localStorage && !$localStorage['lists']) {
-                    $localStorage['lists']= { };
-                    _.each(lists, function (list) {
-                        list.author = $ctrl.accountLists.userName;
-                        list.id = Math.floor(Math.random() * 230910443210623294 + 1).toString()
-                    });
-                   $localStorage['lists'][$ctrl.accountLists.userName].push(lists);
-                }
+				if (!$localStorage['lists'])
+            		$localStorage['lists'] = { };
+				customerService.getCurrentCustomer().then(function (user) {
+            		var userName = user.data.userName;
+            		if ($localStorage['lists'] && !$localStorage['lists'][userName]) {
+            			$localStorage['lists'][userName] = [];
+            			$localStorage['sharedListsIds'] = {};
+            			$localStorage['sharedListsIds'][userName] = [];
+            			_.each(lists, function (list) {
+            				list.author = userName;
+            				list.id = Math.floor(Math.random() * 230910443210623294 + 1).toString();
+            			});
+            			_.extend($localStorage['lists'][userName], lists);
+            			$ctrl.accountLists.selectTab('myLists');
+            		}
+                })
             }
 
             $ctrl.$onInit = function (lists) {
@@ -137,10 +145,6 @@ angular.module('storefrontApp')
                     var sharedCartId = $location.search().id.toString();
                     customerService.getCurrentCustomer().then(function (user) {
                         var userName = user.data.userName;
-
-                        if (!$localStorage['sharedListsIds'][userName])
-                            $localStorage['sharedListsIds'][userName] = [];
-
                         var myLists = listService.getMyLists(userName);
                         if (!_.some($localStorage['sharedListsIds'][userName], function (x) { return x === sharedCartId }) && (!_.find(myLists, { id: sharedCartId }))) {
                             $localStorage['sharedListsIds'][userName].push(sharedCartId);
