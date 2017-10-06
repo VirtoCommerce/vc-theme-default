@@ -41,16 +41,7 @@ storefrontApp.controller('recentlyAddedListItemDialogController', ['$scope', '$w
     $scope.initialize = function (lists) {
         customerService.getCurrentCustomer().then(function (user) {
             $scope.userName = user.data.userName;
-            $scope.userId = user.data.id;
-            if ($localStorage && !$localStorage['lists']) {
-                _.each(lists, function (list) {
-                    list.author = $scope.userName;
-                    list.id = Math.floor(Math.random() * 230910443210623294 + 1).toString()
-                });
-                $localStorage['lists'] = {};
-                $localStorage['lists'][$scope.userName].push(lists);
-            }
-            $scope.lists = $localStorage['lists'][$scope.userName];
+			$scope.lists = listService.getOrCreateMyLists($scope.userName,lists);
             $scope.sharedLists = listService.getSharedLists($scope.userName);
 
             angular.forEach($scope.lists, function (list) {

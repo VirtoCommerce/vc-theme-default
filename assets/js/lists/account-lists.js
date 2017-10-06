@@ -23,8 +23,8 @@ angular.module('storefrontApp')
             };
 
             $ctrl.initialize = function (lists) {     
-                if ($ctrl.selectedTab === 'myLists' && $localStorage && $localStorage['lists']) {
-                    $ctrl.lists = listService.getMyLists($ctrl.userName);
+                if ($ctrl.selectedTab === 'myLists') {
+					$ctrl.lists = listService.getOrCreateMyLists($ctrl.userName);
                 }
 
                 else if ($ctrl.selectedTab === 'friendsLists') {
@@ -102,29 +102,16 @@ angular.module('storefrontApp')
         }]
     })
     .component('vcAccountMyLists', {
-        templateUrl: 'themes/assets/js/account/account-lists.tpl.liquid',
+        templateUrl: 'themes/assets/js/lists/account-lists.tpl.liquid',
         require: {
             accountLists: '^^vcAccountLists'
         },
-        controller: ['$rootScope', 'customerService', 'loadingIndicatorService', '$timeout', 'accountDialogService', '$localStorage', function ($rootScope, customerService, loader, $timeout, dialogService, $localStorage) {
-            var $ctrl = this;
-
+        controller: ['$rootScope', 'listService', 'customerService', 'loadingIndicatorService', '$timeout', 'accountDialogService', '$localStorage', function ($rootScope, listService, customerService, loader, $timeout, dialogService, $localStorage) {
+			var $ctrl = this;
             $ctrl.listPreSetting = function (lists) {
-				if (!$localStorage['lists'])
-            		$localStorage['lists'] = { };
 				customerService.getCurrentCustomer().then(function (user) {
-            		var userName = user.data.userName;
-            		if ($localStorage['lists'] && !$localStorage['lists'][userName]) {
-            			$localStorage['lists'][userName] = [];
-            			$localStorage['sharedListsIds'] = {};
-            			$localStorage['sharedListsIds'][userName] = [];
-            			_.each(lists, function (list) {
-            				list.author = userName;
-            				list.id = Math.floor(Math.random() * 230910443210623294 + 1).toString();
-            			});
-            			_.extend($localStorage['lists'][userName], lists);
-            			$ctrl.accountLists.selectTab('myLists');
-            		}
+					var userName = user.data.userName;
+					listService.getOrCreateMyLists(userName,lists);
                 })
             }
 
@@ -134,7 +121,7 @@ angular.module('storefrontApp')
         }]
     })
     .component('vcAccountFriendsLists', {
-        templateUrl: "themes/assets/js/account/account-lists.tpl.liquid",
+        templateUrl: "themes/assets/js/lists/account-lists.tpl.liquid",
         require: {
             accountLists: '^^vcAccountLists'
         },
@@ -142,14 +129,12 @@ angular.module('storefrontApp')
             var $ctrl = this;
 
             function checkLocation() {
-                    var sharedCartId = $location.search().id.toString();
-                    customerService.getCurrentCustomer().then(function (user) {
-                        var userName = user.data.userName;
-                        var myLists = listService.getMyLists(userName);
-                        if (!_.some($localStorage['sharedListsIds'][userName], function (x) { return x === sharedCartId }) && (!_.find(myLists, { id: sharedCartId }))) {
-                            $localStorage['sharedListsIds'][userName].push(sharedCartId);
-                        }
-                    })
+                var sharedCartId = $location.search().id.toString();
+                customerService.getCurrentCustomer().then(function (user) {
+                    var userName = user.data.userName;
+				    var myLists = listService.getOrCreateMyLists(userName);
+				    listService.addSharedList(userName, myLists, sharedCartId);
+                })
             }
 
             $ctrl.$onInit = function () {

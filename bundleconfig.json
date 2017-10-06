@@ -7,7 +7,8 @@
             "assets/ideal-image-slider.min.js",
             "assets/ideal-image-slider-bullet-nav.js",
             "assets/ideal-image-slider-captions.js",
-            "assets/js/*.js"
+            "assets/js/*.js",
+            "assets/js/lists/list.js"
         ]
     },
     {
@@ -30,7 +31,7 @@
             "assets/js/services.js",
             "assets/js/main.js",
             "assets/js/cart.js",
-            "assets/js/list-creation.js",
+            "assets/js/lists/*.js",
             "assets/js/quote-request.js",
             "assets/js/product-compare.js",
             "assets/js/searchBar.js",

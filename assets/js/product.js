@@ -135,13 +135,7 @@ storefrontApp.controller('productController', ['$rootScope', '$scope', '$window'
         function compareProductInLists(productId) {
             $scope.buttonInvalid = true;
             customerService.getCurrentCustomer().then(function (user) {
-                if (!$localStorage['lists']) {
-                	$localStorage['lists'] = {};
-                	$localStorage['lists'][user.data.userName] = [];
-                	$localStorage['sharedListsIds'] = {};
-                	$localStorage['sharedListsIds'][user.data.userName] = [];
-                }
-                var lists = $localStorage['lists'][user.data.userName];
+				var lists = listService.getOrCreateMyLists(user.data.userName);
                 angular.forEach(lists, function (list) {
                     var contains = listService.containsInList(productId, list.id).contains;
                     if (contains === false) {

@@ -122,16 +122,29 @@ storefrontApp.service('cartService', ['$http', function ($http) {
 }]);
 
 storefrontApp.service('listService', ['$http', '$localStorage', 'customerService', function ($http, $localStorage, customerService) {
-    return {
-        getMyLists: function (userName) {
-            return $localStorage['lists'][userName];
+	return {
+		getOrCreateMyLists: function (userName, lists) {
+			if (!$localStorage['lists']) {
+				$localStorage['lists'] = {};
+				$localStorage['lists'][userName] = [];
+				$localStorage['sharedListsIds'] = {};
+				$localStorage['sharedListsIds'][userName] = [];
+				_.each(lists, function (list) {
+				    list.author = userName;
+				    list.id = Math.floor(Math.random() * 230910443210623294 + 1).toString();
+				});
+				_.extend($localStorage['lists'][userName], lists);
+				$ctrl.accountLists.selectTab('myLists');
+
+				return;
+			}
+			else return $localStorage['lists'][userName];
         },
 
-        getSharedLists: function (userName) {
-            var lists = $localStorage['lists'];
+		getSharedLists: function (userName) {
+			var lists = $localStorage['lists'];
             var sharedLists = [];
-
-            if ($localStorage['sharedListsIds'])                                                              {
+            if ($localStorage['sharedListsIds']) {
                 _.each($localStorage['sharedListsIds'][userName], function (cartId) {
                     _.each(lists, function (list) {
                         if (angular.isDefined(_.find(list, { id: cartId.toString() }))) {
@@ -176,7 +189,16 @@ storefrontApp.service('listService', ['$http', '$localStorage', 'customerService
                 }
             })
             return { contains: contains };
-        },
+		},
+
+		addSharedList: function (userName, myLists, sharedCartId) {
+			if (!_.some($localStorage['sharedListsIds'][userName], function (x) { return x === sharedCartId }) && (!_.find(myLists, { id: sharedCartId }))) {
+				$localStorage['sharedListsIds'][userName].push(sharedCartId);
+				return;
+			}
+			else return;
+		},
+
         contains: function (productId, listName) {
             return $http.get('storefrontapi/lists/' + listName + '/items/' + productId + '/contains?t=' + new Date().getTime());
         },
