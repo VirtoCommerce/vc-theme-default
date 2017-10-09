@@ -20,8 +20,7 @@ storefrontApp.controller('recentlyAddedListItemDialogController', ['$scope', '$w
 
         if ($scope.userName !== $scope.selectedList.author) {
             dialogData.product.modifiedBy = $scope.userName;
-
-        }
+		}
         listService.addItemToList($scope.selectedList.id, dialogData.product);
 
         $scope.inProgress = false;

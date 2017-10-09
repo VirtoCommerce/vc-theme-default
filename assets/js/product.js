@@ -31,25 +31,12 @@ storefrontApp.controller('productController', ['$rootScope', '$scope', '$window'
             });
         }
 
-        $scope.addProductToWishlist = function (product) {
-            var dialogData = toListsDialogDataModel(product, 1);
-            dialogService.showDialog(dialogData, 'recentlyAddedListItemDialogController', 'storefront.recently-added-list-item-dialog.tpl');
-        }
-
         $scope.addProductToActualQuoteRequest = function (product, quantity) {
             var dialogData = toDialogDataModel(product, quantity);
             dialogService.showDialog(dialogData, 'recentlyAddedActualQuoteRequestItemDialogController', 'storefront.recently-added-actual-quote-request-item-dialog.tpl');
             quoteRequestService.addProductToQuoteRequest(product.id, quantity).then(function (response) {
                 $rootScope.$broadcast('actualQuoteRequestItemsChanged');
             });
-        }
-
-        function toListsDialogDataModel(product, quantity) {
-            return {
-                product: product,
-                quantity: quantity,
-                updated: false
-            }
         }
 
         function toDialogDataModel(product, quantity) {
@@ -83,7 +70,6 @@ storefrontApp.controller('productController', ['$rootScope', '$scope', '$window'
                     $scope.checkProperty(propertyMap[x][0])
                 });
                 $scope.selectedVariation = product;
-                compareProductInLists(product.id);
             });
         };
 
@@ -130,19 +116,6 @@ storefrontApp.controller('productController', ['$rootScope', '$scope', '$window'
             return _.find(variations, function (x) {
                 return comparePropertyMaps(getVariationPropertyMap(x), selectedPropMap);
             });
-        }
-
-        function compareProductInLists(productId) {
-            $scope.buttonInvalid = true;
-            customerService.getCurrentCustomer().then(function (user) {
-				var lists = listService.getOrCreateMyLists(user.data.userName);
-                angular.forEach(lists, function (list) {
-                    var contains = listService.containsInList(productId, list.id).contains;
-                    if (contains === false) {
-                        $scope.buttonInvalid = false;
-                    }
-                })
-            })
         }
 
         //Method called from View when user clicks one property value
