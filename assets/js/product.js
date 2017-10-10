@@ -59,7 +59,7 @@ storefrontApp.controller('productController', ['$rootScope', '$scope', '$window'
                 return;
             }
             catalogService.getProduct(productIds).then(function (response) {
-                var product = response.data[0];
+				var product = response.data[0];
                 //Current product is also a variation (titular)
                 allVariations = [product].concat(product.variations || []);
                 $scope.allVariationPropsMap = getFlatternDistinctPropertiesMap(allVariations);
@@ -69,7 +69,7 @@ storefrontApp.controller('productController', ['$rootScope', '$scope', '$window'
                 _.each(_.keys(propertyMap), function (x) {
                     $scope.checkProperty(propertyMap[x][0])
                 });
-                $scope.selectedVariation = product;
+				$scope.selectedVariation = product;
             });
         };
 
@@ -129,5 +129,5 @@ storefrontApp.controller('productController', ['$rootScope', '$scope', '$window'
             $scope.selectedVariation = findVariationBySelectedProps(allVariations, getSelectedPropsMap($scope.allVariationPropsMap));
         };
 
-        initialize();
+		initialize();
     }]);

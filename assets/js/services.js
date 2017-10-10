@@ -121,7 +121,7 @@ storefrontApp.service('cartService', ['$http', function ($http) {
     }
 }]);
 
-storefrontApp.service('listService', ['$http', '$localStorage', 'customerService', function ($http, $localStorage, customerService) {
+storefrontApp.service('listService', ['$q','$http', '$localStorage', 'customerService', function ($q, $http, $localStorage, customerService) {
 	return {
 		getOrCreateMyLists: function (userName, lists) {
 			if (!$localStorage['lists']) {
@@ -138,7 +138,7 @@ storefrontApp.service('listService', ['$http', '$localStorage', 'customerService
 
 				return;
 			}
-			else return $localStorage['lists'][userName];
+			else return $q(function (resolve, reject) { resolve($localStorage['lists'][userName]) });
         },
 
 		getSharedLists: function (userName) {
@@ -154,7 +154,7 @@ storefrontApp.service('listService', ['$http', '$localStorage', 'customerService
                     })
                 })
             }
-            return sharedLists;
+			return $q(function (resolve, reject) { resolve(sharedLists) });
         },
         getWishlist: function (listName, permission, id, userName) {
             if (_.contains($localStorage['lists'][userName], _.find($localStorage['lists'][userName], { name: listName })) && angular.isDefined(userName) ) {
@@ -188,15 +188,19 @@ storefrontApp.service('listService', ['$http', '$localStorage', 'customerService
                         contains = false;
                 }
             })
-            return { contains: contains };
+			return $q(function (resolve, reject) { resolve({ contains: contains }) });
 		},
 
 		addSharedList: function (userName, myLists, sharedCartId) {
 			if (!_.some($localStorage['sharedListsIds'][userName], function (x) { return x === sharedCartId }) && (!_.find(myLists, { id: sharedCartId }))) {
 				$localStorage['sharedListsIds'][userName].push(sharedCartId);
-				return;
+				return $q(function (resolve, reject) {
+					resolve()
+				});
 			}
-			else return;
+			else return $q(function (resolve, reject) {
+				resolve()
+			});
 		},
 
         contains: function (productId, listName) {
@@ -209,7 +213,9 @@ storefrontApp.service('listService', ['$http', '$localStorage', 'customerService
         removeLineItem: function (lineItemId, listId, userName) {
             var searchedList = _.find($localStorage['lists'][userName], { id: listId });
             searchedList.items = _.filter(searchedList.items, function (item) { return item.id != lineItemId });
-            return searchedList;
+			return $q(function (resolve, reject) {
+				resolve(searchedList)
+			});
             //return $http.delete('storefrontapi/lists/' + listName + '/items/' + lineItemId);
         },
         clearList: function (cartId, userName) {
@@ -217,8 +223,9 @@ storefrontApp.service('listService', ['$http', '$localStorage', 'customerService
             //return $http.post('storefrontapi/lists/clear', { listName: listName });
         },
         removeFromFriendsLists: function (currentId, userName) {
-            $localStorage['sharedListsIds'][userName] = _.filter($localStorage['sharedListsIds'][userName], function (cartId) {
-                return cartId !== currentId;
+			$localStorage['sharedListsIds'][userName] = _.filter($localStorage['sharedListsIds'][userName], function (cartId) {
+				return $q(function (resolve, reject) {
+					resolve(cartId !== currentId)})
             })
         }
     }

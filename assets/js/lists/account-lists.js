@@ -23,23 +23,35 @@ angular.module('storefrontApp')
             };
 
             $ctrl.initialize = function (lists) {     
-                if ($ctrl.selectedTab === 'myLists') {
-					$ctrl.lists = listService.getOrCreateMyLists($ctrl.userName);
-                }
+				if ($ctrl.selectedTab === 'myLists') {
+					loader.wrapLoading(function () {
+						return listService.getOrCreateMyLists($ctrl.userName).then(function (result) {
+							$ctrl.lists = result;
+							selectDefault($ctrl.lists);
+						});
+					})
+				}
 
-                else if ($ctrl.selectedTab === 'friendsLists') {
-                    $ctrl.lists = listService.getSharedLists($ctrl.userName);
-                }
-
-                if (_.find($ctrl.lists, { default: true })) {
-                    var selected = _.find($ctrl.lists, { default: true });
-                    $ctrl.selectList(selected);
-                }
-                else if (!_.isEmpty($ctrl.lists)){
-                    _.first($ctrl.lists).default = true;
-                    $ctrl.selectList(_.first($ctrl.lists));
-                }
+				else if ($ctrl.selectedTab === 'friendsLists') {
+					loader.wrapLoading(function () {
+						return listService.getSharedLists($ctrl.userName).then(function (result) {
+							$ctrl.lists = result;
+							selectDefault($ctrl.lists);
+						});
+					})
+				}
             };
+
+			function selectDefault(lists) {
+				if (_.find(lists, { default: true })) {
+					var selected = _.find(lists, { default: true });
+					$ctrl.selectList(selected);
+				}
+				else if (!_.isEmpty(lists)) {
+					_.first(lists).default = true;
+					$ctrl.selectList(_.first(lists));
+				}
+			}
 
             $ctrl.selectList = function (list) {
                 $ctrl.selectedList = list;
@@ -57,13 +69,18 @@ angular.module('storefrontApp')
             };
 
             $ctrl.removeList = function (listName) {
-                listService.clearList(listName, $ctrl.userName).then(function (response) {
-                    document.location.reload();
+				loader.wrapLoading(function () {
+					return listService.clearList(listName, $ctrl.userName).then(function (response) {
+						document.location.reload();
+					});
                 });
             };
 
             $ctrl.removeLineItem = function (lineItem) {
-                listService.removeLineItem(lineItem.id, $ctrl.selectedList.id, $ctrl.userName);
+				loader.wrapLoading(function () {
+					return listService.removeLineItem(lineItem.id, $ctrl.selectedList.id, $ctrl.userName).then(function (result) {
+					});
+				});
             };
 
             $ctrl.generateLink = function () {
@@ -108,12 +125,15 @@ angular.module('storefrontApp')
         },
         controller: ['$rootScope', 'listService', 'customerService', 'loadingIndicatorService', '$timeout', 'accountDialogService', '$localStorage', function ($rootScope, listService, customerService, loader, $timeout, dialogService, $localStorage) {
 			var $ctrl = this;
-            $ctrl.listPreSetting = function (lists) {
+			$ctrl.listPreSetting = function (lists) {
 				customerService.getCurrentCustomer().then(function (user) {
 					var userName = user.data.userName;
-					listService.getOrCreateMyLists(userName,lists);
-                })
-            }
+					loader.wrapLoading(function () {
+						return listService.getOrCreateMyLists(userName, lists).then(function (result) {
+						})
+					})
+				})
+			};
 
             $ctrl.$onInit = function (lists) {
                 $ctrl.accountLists.selectTab('myLists');
@@ -133,7 +153,10 @@ angular.module('storefrontApp')
                 customerService.getCurrentCustomer().then(function (user) {
                     var userName = user.data.userName;
 				    var myLists = listService.getOrCreateMyLists(userName);
-				    listService.addSharedList(userName, myLists, sharedCartId);
+					loader.wrapLoading(function () {
+						return listService.addSharedList(userName, myLists, sharedCartId).then(function (result) {
+						});
+					})
                 })
             }
 

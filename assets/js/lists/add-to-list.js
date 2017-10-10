@@ -40,20 +40,27 @@ storefrontApp.controller('recentlyAddedListItemDialogController', ['$scope', '$w
     $scope.initialize = function (lists) {
         customerService.getCurrentCustomer().then(function (user) {
             $scope.userName = user.data.userName;
-			$scope.lists = listService.getOrCreateMyLists($scope.userName,lists);
-            $scope.sharedLists = listService.getSharedLists($scope.userName);
-
+			listService.getOrCreateMyLists($scope.userName, lists).then(function (result) {
+				$scope.lists = result;
+			})
+			
+			listService.getSharedLists($scope.userName).then(function (result) {
+				$scope.sharedLists = result;
+			})
+			
             angular.forEach($scope.lists, function (list) {
                 list.title = list.name;
                 list.description = list.name;
-                var contains = listService.containsInList(dialogData.product.id, list.id).contains;
-                list.contains = contains;
+                listService.containsInList(dialogData.product.id, list.id).then(function (result) {
+					list.contains = result.contains;
+				})
             });
             angular.forEach($scope.sharedLists, function (list) {
                 list.title = list.name;
                 list.description = list.name;
-                var contains = listService.containsInList(dialogData.product.id, list.id).contains;
-                list.contains = contains;
+				listService.containsInList(dialogData.product.id, list.id).then(function (result) {
+					list.contains = result.contains;
+				})
             });
         })
     };

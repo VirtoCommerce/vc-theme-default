@@ -33,7 +33,10 @@ storefrontApp.controller('recentlyCreateNewListDialogController', ['$rootScope',
 
     $scope.removeList = function (list) {
         if ($scope.selectedTab === 'friendsLists') {
-            listService.removeFromFriendsLists(list.id, $scope.userName);
+			loader.wrapLoading(function () {
+				return listService.removeFromFriendsLists(list.id, $scope.userName).then(function () {
+				});
+			})
         }
         else
             listService.clearList(list.id, $scope.userName);
