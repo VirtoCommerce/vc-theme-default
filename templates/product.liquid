@@ -1,4 +1,4 @@
-﻿{% include 'breadcrumb' %}
+{% include 'breadcrumb' %}
 <div class="grid" itemscope itemtype="http://schema.org/Product" ng-controller="productController">
     <meta itemprop="url" content="{{ product.url | absolute_url}}">
     <meta itemprop="image" content="{{ product.featured_image.src | img_url }}">
@@ -173,12 +173,10 @@
         <div class="tab-cnt">
             <div class="tab">
                 <div class="properties">
-                    {% for property in product.properties %}
-                    <dl>
-                        <dt>{{ property.name }}</dt>
-                        <dd>{{ property.value }}</dd>
+                    <dl ng-if="property.value" ng-repeat="property in selectedVariation.properties">
+                        <dt ng-bind="property.displayName"></dt>
+                        <dd ng-bind="property.value"></dd>
                     </dl>
-                    {% endfor %}
                 </div>
             </div>
         </div>
