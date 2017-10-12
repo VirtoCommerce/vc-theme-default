@@ -173,10 +173,12 @@
         <div class="tab-cnt">
             <div class="tab">
                 <div class="properties">
-                    <dl ng-if="property.value" ng-repeat="property in selectedVariation.properties">
-                        <dt ng-bind="property.displayName"></dt>
-                        <dd ng-bind="property.value"></dd>
+                    {% for property in product.properties %}
+                    <dl>
+                        <dt>{{ property.display_name }}</dt>
+                        <dd>{{ property.value }}</dd>
                     </dl>
+                    {% endfor %}
                 </div>
             </div>
         </div>
