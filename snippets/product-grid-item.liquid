@@ -30,23 +30,15 @@
     <a href="{{ product.url | absolute_url }}" class="product-grid-item Click" interactor-arg="{{ product.id }}">
         <div class="product-grid-image">
             <div class="product-grid-image--centered">
-                {% if sold_out %}
-                    <div class="badge badge--sold-out">
-                        <span class="badge-label">{{ 'products.product.sold_out' | t }}</span>
-                    </div>
-                {% endif %}
-				{% if unavailable  %}
-                    <div class="badge badge--unavailable">
-                        <span class="badge-label">{{ 'products.product.unavailable' | t}}</span>
-                    </div>
-                {% endif %}
+                {% include 'badges' %}
                 {% if product.featured_image %}
-                    <img ng-src="{{ product.featured_image.src | img_url: "168x168" }}" fallback-src="{{ product.featured_image.src | img_url }}" alt="{{ product.featured_image.alt | escape }}" />
+                <img src="{{ product.featured_image.src | img_url }}" alt="{{ product.featured_image.alt | escape }}" />
                 {% else %}
-                    <div class="no-product-image">
-                        <img src="{{ 'no-image.svg' | asset_url }}" />
-                    </div>
+                <div class="no-product-image">
+                    <img src="{{ 'no-image.svg' | asset_url }}" />
+                </div>
                 {% endif %}
+
             </div>
         </div>
         <div class="product-item--other" style="margin-bottom: 10px;">
