@@ -154,7 +154,8 @@ angular.module('storefrontApp')
                     var userName = user.data.userName;
 				    var myLists = listService.getOrCreateMyLists(userName);
 					loader.wrapLoading(function () {
-						return listService.addSharedList(userName, myLists, sharedCartId).then(function (result) {
+                        return listService.addSharedList(userName, myLists, sharedCartId).then(function (result) {
+                            $ctrl.accountLists.selectTab('friendsLists');
 						});
 					})
                 })

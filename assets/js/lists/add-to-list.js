@@ -41,27 +41,26 @@ storefrontApp.controller('recentlyAddedListItemDialogController', ['$scope', '$w
         customerService.getCurrentCustomer().then(function (user) {
             $scope.userName = user.data.userName;
 			listService.getOrCreateMyLists($scope.userName, lists).then(function (result) {
-				$scope.lists = result;
+                $scope.lists = result;
+                angular.forEach($scope.lists, function (list) {
+                    list.title = list.name;
+                    list.description = list.name;
+                    listService.containsInList(dialogData.product.id, list.id).then(function (result) {
+                        list.contains = result.contains;
+                    })
+                });
 			})
 			
 			listService.getSharedLists($scope.userName).then(function (result) {
-				$scope.sharedLists = result;
+                $scope.sharedLists = result;
+                angular.forEach($scope.sharedLists, function (list) {
+                    list.title = list.name;
+                    list.description = list.name;
+                    listService.containsInList(dialogData.product.id, list.id).then(function (result) {
+                        list.contains = result.contains;
+                    })
+                });
 			})
-			
-            angular.forEach($scope.lists, function (list) {
-                list.title = list.name;
-                list.description = list.name;
-                listService.containsInList(dialogData.product.id, list.id).then(function (result) {
-					list.contains = result.contains;
-				})
-            });
-            angular.forEach($scope.sharedLists, function (list) {
-                list.title = list.name;
-                list.description = list.name;
-				listService.containsInList(dialogData.product.id, list.id).then(function (result) {
-					list.contains = result.contains;
-				})
-            });
         })
     };
 }]);
