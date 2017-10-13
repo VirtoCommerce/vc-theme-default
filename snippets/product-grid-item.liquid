@@ -32,11 +32,11 @@
             <div class="product-grid-image--centered">
                 {% include 'badges' %}
                 {% if product.featured_image %}
-                <img src="{{ product.featured_image.src | img_url }}" alt="{{ product.featured_image.alt | escape }}" />
+                    <img src="{{ product.featured_image.src | img_url }}" alt="{{ product.featured_image.alt | escape }}" />
                 {% else %}
-                <div class="no-product-image">
-                    <img src="{{ 'no-image.svg' | asset_url }}" />
-                </div>
+                    <div class="no-product-image">
+                        <img src="{{ 'no-image.svg' | asset_url }}" />
+                    </div>
                 {% endif %}
 
             </div>
