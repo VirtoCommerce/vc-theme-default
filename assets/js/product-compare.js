@@ -5,7 +5,16 @@ function ($rootScope, $scope, $localStorage, $window, catalogService, dialogServ
     if (!$localStorage['productCompareList']) {
         $localStorage['productCompareList'] = [];
     }
-
+    if (!$localStorage['productCompareListIds']) {
+        $localStorage['productCompareListIds'] = [];
+    }
+    $localStorage['productCompareList'] = [];
+    _.each($localStorage['productCompareListIds'], function (id) {
+        catalogService.getProduct(id).then(function (response) {
+            console.log(response.data[0]);
+            $localStorage['productCompareList'].push(response.data[0]);
+        });
+    })
     $scope.products = $localStorage['productCompareList'];
 
     $scope.isInProductCompareList = function (productId) {
@@ -14,6 +23,7 @@ function ($rootScope, $scope, $localStorage, $window, catalogService, dialogServ
 
     $scope.addProductToCompareList = function (productId, event) {
         event.preventDefault();
+        $localStorage['productCompareListIds'].push(productId);
         var existingProduct = _.find($localStorage['productCompareList'], function (p) { return p.id === productId });
         if (existingProduct) {
             dialogService.showDialog(existingProduct, 'productCompareListDialogController', 'storefront.product-compare-list-dialog.tpl');
@@ -32,7 +42,9 @@ function ($rootScope, $scope, $localStorage, $window, catalogService, dialogServ
                         property.value = formatNumber(property.value);
                     }
                 });
-                $localStorage['productCompareList'].push(product);
+                //$localStorage['productCompareList'].push(product);
+               
+                console.log(product,$localStorage);
                 dialogService.showDialog(product, 'productCompareListDialogController', 'storefront.product-compare-list-dialog.tpl');
                 $rootScope.$broadcast('productCompareListChanged');
             }
@@ -68,12 +80,14 @@ function ($rootScope, $scope, $localStorage, $window, catalogService, dialogServ
 
     $scope.clearCompareList = function () {
         $localStorage['productCompareList'] = [];
+        $localStorage['productCompareListIds'] = [];
         $rootScope.$broadcast('productCompareListChanged');
         $scope.products = $localStorage['productCompareList'];
     }
 
     $scope.removeProduct = function (product) {
         $localStorage['productCompareList'] = _.without($localStorage['productCompareList'], product);
+        $localStorage['productCompareListIds'] = _.without($localStorage['productCompareListIds'], product.id);
         $scope.products = $localStorage['productCompareList'];
         $rootScope.$broadcast('productCompareListChanged');
         $scope.getProductProperties();
