@@ -1,4 +1,4 @@
-﻿var storefrontApp = angular.module('storefrontApp');
+var storefrontApp = angular.module('storefrontApp');
 
 storefrontApp.controller('productCompareListController', ['$rootScope', '$scope', '$localStorage', '$window', 'catalogService', 'dialogService',
 function ($rootScope, $scope, $localStorage, $window, catalogService, dialogService) {
@@ -8,33 +8,12 @@ function ($rootScope, $scope, $localStorage, $window, catalogService, dialogServ
     if (!$localStorage['productCompareListIds']) {
         $localStorage['productCompareListIds'] = [];
     }
-    $localStorage['productCompareList'] = [];
-    _.each($localStorage['productCompareListIds'], function (id) {
-        catalogService.getProduct(id).then(function (response) {
-            console.log(response.data[0]);
-            $localStorage['productCompareList'].push(response.data[0]);
-        });
-    })
-    $scope.products = $localStorage['productCompareList'];
 
-    $scope.isInProductCompareList = function (productId) {
-        return _.some($localStorage['productCompareList'], function (p) { return p.id == productId });
-    }
-
-    $scope.addProductToCompareList = function (productId, event) {
-        event.preventDefault();
-        $localStorage['productCompareListIds'].push(productId);
-        var existingProduct = _.find($localStorage['productCompareList'], function (p) { return p.id === productId });
-        if (existingProduct) {
-            dialogService.showDialog(existingProduct, 'productCompareListDialogController', 'storefront.product-compare-list-dialog.tpl');
-            return;
-        }
-        if ($window.productCompareListCapacity <= $localStorage['productCompareList'].length) {
-            dialogService.showDialog({ capacityExceeded: true }, 'productCompareListDialogController', 'storefront.product-compare-list-dialog.tpl');
-            return;
-        }
-        catalogService.getProduct([productId]).then(function (response) {
-            if (response.data && response.data.length) {
+    function initialize() {
+        $localStorage['productCompareList'] = [];
+        _.uniq($localStorage['productCompareListIds']);
+        _.each($localStorage['productCompareListIds'], function (id) {
+            catalogService.getProduct(id).then(function (response) {
                 var product = response.data[0];
                 _.each(product.properties, function (property) {
                     property.productId = product.id;
@@ -42,13 +21,19 @@ function ($rootScope, $scope, $localStorage, $window, catalogService, dialogServ
                         property.value = formatNumber(property.value);
                     }
                 });
-                //$localStorage['productCompareList'].push(product);
-               
-                console.log(product,$localStorage);
-                dialogService.showDialog(product, 'productCompareListDialogController', 'storefront.product-compare-list-dialog.tpl');
-                $rootScope.$broadcast('productCompareListChanged');
-            }
-        });
+                $localStorage['productCompareList'].push(product);
+                if ($localStorage['productCompareListIds'].length === $localStorage['productCompareList'].length) {
+                    $scope.products = $localStorage['productCompareList'];
+                    $scope.getProductProperties();
+                }
+            });
+        })
+    };
+    $scope.properties = {};
+    $scope.products = {};
+        
+    $scope.isInProductCompareList = function (productId) {
+        return _.some($localStorage['productCompareListIds'], function (id) { return id === productId });
     }
 
     $scope.getProductProperties = function () {
@@ -97,6 +82,50 @@ function ($rootScope, $scope, $localStorage, $window, catalogService, dialogServ
         var float = parseFloat(number);
         return !isNaN(float) ? float : number;
     }
+
+    initialize();
+}]);
+
+storefrontApp.controller('addProductToCompareListController', ['$scope', '$rootScope', '$window', '$localStorage', 'catalogService', 'dialogService',
+function ($scope, $rootScope, $window, $localStorage, catalogService, dialogService) {
+    $scope.addProductToCompareList = function (productId, event) {
+        event.preventDefault();
+
+        if ($window.productCompareListCapacity <= $localStorage['productCompareListIds'].length) {
+            dialogService.showDialog({ capacityExceeded: true }, 'productCompareListDialogController', 'storefront.product-compare-list-dialog.tpl');
+            return;
+        }
+        if (!_.some($localStorage['productCompareListIds'], function (id) { return id === productId }) && $localStorage['productCompareListIds'].length < 4) {
+            $localStorage['productCompareListIds'].push(productId);
+            addProductToLocalStorage(productId);
+        }
+        else {
+            var existingProduct = _.find($localStorage['productCompareList'], function (p) { return p.id === productId });
+            dialogService.showDialog(existingProduct, 'productCompareListDialogController', 'storefront.product-compare-list-dialog.tpl');
+            return;
+        }
+    }
+
+    function formatNumber(number) {
+        var float = parseFloat(number);
+        return !isNaN(float) ? float : number;
+    }
+
+    function addProductToLocalStorage(id) {
+        _.uniq($localStorage['productCompareListIds']);
+        catalogService.getProduct(id).then(function (response) {
+            var product = response.data[0];
+            _.each(product.properties, function (property) {
+                property.productId = product.id;
+                if (property.valueType.toLowerCase() === 'number') {
+                    property.value = formatNumber(property.value);
+                }
+            });
+            $localStorage['productCompareList'].push(product);
+            dialogService.showDialog(product, 'productCompareListDialogController', 'storefront.product-compare-list-dialog.tpl');
+            $rootScope.$broadcast('productCompareListChanged');
+        });
+    };
 }]);
 
 storefrontApp.controller('productCompareListDialogController', ['$scope', '$window', 'dialogData', '$uibModalInstance',
@@ -113,9 +142,9 @@ function ($scope, $window, dialogData, $uibModalInstance) {
 }]);
 
 storefrontApp.controller('productCompareListBarController', ['$scope', '$localStorage',
-function ($scope, $localStorage) {
-    $scope.itemsCount = $localStorage['productCompareList'] ? $localStorage['productCompareList'].length : 0;
-    $scope.$on('productCompareListChanged', function (event, data) {
-        $scope.itemsCount = $localStorage['productCompareList'].length;
+    function ($scope, $localStorage) {
+        $scope.itemsCount = $localStorage['productCompareListIds'] ? $localStorage['productCompareListIds'].length : 0;
+        $scope.$on('productCompareListChanged', function (event, data) {
+            $scope.itemsCount = $localStorage['productCompareListIds'].length;
     });
 }]);

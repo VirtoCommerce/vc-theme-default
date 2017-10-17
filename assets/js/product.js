@@ -1,13 +1,14 @@
-﻿var storefrontApp = angular.module('storefrontApp');
+var storefrontApp = angular.module('storefrontApp');
 
-storefrontApp.controller('productController', ['$rootScope', '$scope', '$window', 'dialogService', 'catalogService', 'cartService', 'quoteRequestService', 'customerService', 'listService',
-    function ($rootScope, $scope, $window, dialogService, catalogService, cartService, quoteRequestService, customerService, listService) {
+storefrontApp.controller('productController', ['$rootScope', '$scope', '$window', 'dialogService', 'catalogService', 'cartService', 'quoteRequestService', 'customerService', 'listService', '$localStorage',
+    function ($rootScope, $scope, $window, dialogService, catalogService, cartService, quoteRequestService, customerService, listService, $localStorage) {
     //TODO: prevent add to cart not selected variation
     // display validator please select property
     // display price range
 
     var allVariations = [];
-  
+    
+    $scope.containProduct = true;
     $scope.selectedVariation = {};
     $scope.allVariationPropsMap = {};
     $scope.productPrice = null;
@@ -74,6 +75,9 @@ storefrontApp.controller('productController', ['$rootScope', '$scope', '$window'
             _.each(_.keys(propertyMap), function (x) {
                 $scope.checkProperty(propertyMap[x][0])
             });
+            if (!_.some($localStorage['productCompareListIds'], function (id) { console.log(id, product.id); return id === product.id })) {
+                $scope.containProduct = false;
+            };
             $scope.selectedVariation = product;
             compareProductInLists(product.id);
         });        

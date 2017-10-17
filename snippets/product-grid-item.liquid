@@ -1,4 +1,4 @@
-﻿{% unless grid_item_width %}
+{% unless grid_item_width %}
     {% assign grid_item_width = 'large--one-quarter medium-down--one-half' %}
 {% endunless %}
 
@@ -45,7 +45,7 @@
             </button>
              {% endif %}
             {% if settings.product_compare_enabled %}
-                <button class="btn btn-secondary" title="{{ 'products.compare_list.add_to_compare' | t }}" style="width: {% if product.available %}25{% else %}100{% endif %}%;" ng-click="addProductToCompareList('{{ product.id }}', $event)" ng-controller="productCompareListController">
+                <button ng-disabled="productContain" class="btn btn-secondary" title="{{ 'products.compare_list.add_to_compare' | t }}" style="width: {% if product.available %}25{% else %}100{% endif %}%;" ng-click="addProductToCompareList('{{ product.id }}', $event); productContain = true" ng-controller="addProductToCompareListController">
                     <span class="fa fa-bar-chart"></span>
                 </button>
             {% endif %}
