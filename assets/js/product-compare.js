@@ -10,6 +10,8 @@ function ($rootScope, $scope, $localStorage, $window, catalogService, dialogServ
     }
 
     function initialize() {
+        if ($localStorage['productCompareListIds'].length == 0)
+            $scope.emptyData = true;
         $localStorage['productCompareList'] = [];
         _.uniq($localStorage['productCompareListIds']);
         _.each($localStorage['productCompareListIds'], function (id) {
