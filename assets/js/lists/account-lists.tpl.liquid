@@ -1,10 +1,12 @@
 <div base-url="baseUrl" id="account-lists.tpl.liquid" type="text/ng-template" ng-init='$ctrl.listPreSetting({{ settings.available_lists | json }})' data='data'>
     <p ng-if="$ctrl.accountLists.lists.length==0">{{'wishlist.general.emptyData' | t}}</p>
     <ul class="nav nav-tab lists-navBar-clearfix">
-        <li ng-if="$ctrl.accountLists.lists.length!=0" class="lists-settings" ng-click="$ctrl.accountLists.listSettings()">
+        <li ng-if="$ctrl.accountLists.lists.length!=0" style="display: -webkit-box;" class="lists-settings" ng-click="$ctrl.accountLists.listSettings()">
+            <i style="position: relative;top: 10px;left: 7px;z-index: 8888; "class="fa fa-cog" aria-hidden="true"></i>
             <a>{{'wishlist.general.settings' | t}}</a>
         </li>
-        <li ng-if="$ctrl.accountLists.selectedTab === 'myLists'" class="lists-settings" ng-click="$ctrl.accountLists.createList()">
+        <li ng-if="$ctrl.accountLists.selectedTab === 'myLists'" style="display: -webkit-box;"  class="lists-settings" ng-click="$ctrl.accountLists.createList()">
+            <i style="position: relative;top: 10px;left: 7px;z-index: 8888;"class="fa fa-plus" aria-hidden="true"></i>
             <a>{{'wishlist.general.create' | t}}</a>
         </li>
     </ul>
@@ -22,9 +24,9 @@
         </aside>
 
         <div class ="grid-item grid-border--left large--four-fifths">
-            <div style ="display:inline-flex;" class="hide-if-lowWidth list-item-header grid-item">
-                <span  ng-bind="$ctrl.accountLists.selectedList.name"></span>
-                <i class="lists-title-shareIcon fa fa-share-square-o" aria-hidden="true" ng-show="$ctrl.accountLists.selectedList.name && $ctrl.accountLists.selectedTab != 'friendsLists'" ng-click="$ctrl.accountLists.generateLink()"></i>
+            <div style ="display:inline-flex;padding-left: 0px;" class="hide-if-lowWidth list-item-header grid-item">
+                <span ng-bind="$ctrl.accountLists.selectedList.name"></span>
+                <i class="lists-title-shareIcon fa fa-external-link" aria-hidden="true" ng-show="$ctrl.accountLists.selectedList.name && $ctrl.accountLists.selectedTab != 'friendsLists'" ng-click="$ctrl.accountLists.generateLink()"></i>
             </div>
 
             <span ng-if="$ctrl.accountLists.selectedList.items.length == 0">
