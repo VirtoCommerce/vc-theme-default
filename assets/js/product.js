@@ -75,9 +75,7 @@ storefrontApp.controller('productController', ['$rootScope', '$scope', '$window'
             _.each(_.keys(propertyMap), function (x) {
                 $scope.checkProperty(propertyMap[x][0])
             });
-            if (!_.some($localStorage['productCompareListIds'], function (id) { console.log(id, product.id); return id === product.id })) {
-                $scope.containProduct = false;
-            };
+           
             $scope.selectedVariation = product;
             compareProductInLists(product.id);
         });        

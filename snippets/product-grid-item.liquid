@@ -45,7 +45,7 @@
             </button>
              {% endif %}
             {% if settings.product_compare_enabled %}
-                <button ng-disabled="productContain" class="btn btn-secondary" title="{{ 'products.compare_list.add_to_compare' | t }}" style="width: {% if product.available %}25{% else %}100{% endif %}%;" ng-click="addProductToCompareList('{{ product.id }}', $event); productContain = true" ng-controller="addProductToCompareListController">
+                <button ng-disabled="productContain" class="btn btn-secondary" title="{{ 'products.compare_list.add_to_compare' | t }}" style="width: {% if product.available %}25{% else %}100{% endif %}%;" ng-click="addProductToCompareList('{{ product.id }}', $event); productContain = true" >
                     <span class="fa fa-bar-chart"></span>
                 </button>
             {% endif %}

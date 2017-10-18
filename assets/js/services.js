@@ -1,4 +1,4 @@
-﻿var storefrontApp = angular.module('storefrontApp');
+var storefrontApp = angular.module('storefrontApp');
 
 storefrontApp.service('dialogService', ['$uibModal', function ($uibModal) {
     return {
@@ -48,7 +48,7 @@ storefrontApp.service('pricingService', ['$http', function ($http) {
 	}
 }]);
 
-storefrontApp.service('catalogService', ['$http', function ($http) {
+storefrontApp.service('catalogService', ['$http', '$localStorage', function ($http, $localStorage) {
     return {
         getProduct: function (productIds) {
             return $http.get('storefrontapi/products?productIds=' + productIds + '&t=' + new Date().getTime());
@@ -58,6 +58,35 @@ storefrontApp.service('catalogService', ['$http', function ($http) {
         },
         searchCategories: function (criteria) {
             return $http.post('storefrontapi/categories/search', { searchCriteria: criteria });
+        },
+        isInProductCompareList: function (productId) {
+            var containProduct;
+            if (!_.some($localStorage['productCompareListIds'], function (id) { return id === productId })) {
+                containProduct = false;
+            };
+            return containProduct;
+        },
+        getProductProperies: function (products) {
+            var grouped = {};
+            var properties = _.flatten(_.map(products, function (product) { return product.properties; }));
+            var propertyDisplayNames = _.uniq(_.map(properties, function (property) { return property.displayName; }));
+            _.each(propertyDisplayNames, function (displayName) {
+                grouped[displayName] = [];
+                var props = _.where(properties, { displayName: displayName });
+                _.each($scope.products, function (product) {
+                    var productProperty = _.find(props, function (prop) { return prop.productId === product.id });
+                    if (productProperty) {
+                        grouped[displayName].push(productProperty);
+                    } else {
+                        grouped[displayName].push({ valueType: 'ShortText', value: '-' });
+                    }
+                });
+            });
+            return grouped;
+        },
+        putProductToLocalStorage: function (product) {
+            _.uniq($localStorage['productCompareListIds']);
+            $localStorage['productCompareList'].push(product);
         }
     }
 }]);

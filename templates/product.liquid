@@ -1,4 +1,4 @@
-﻿{% include 'breadcrumb' %}
+{% include 'breadcrumb' %}
 <div class="grid" itemscope itemtype="http://schema.org/Product" ng-controller="productController">
     <meta itemprop="url" content="{{ product.url | absolute_url}}">
     <meta itemprop="image" content="{{ product.featured_image.src | img_url }}">
@@ -141,10 +141,7 @@
                 </button>
                 {% endif%}
                 {% if settings.product_compare_enabled %}
-                    <button ng-disabled="containProduct" class="btn btn-clearfix" type="button" ng-click="addProductToCompareList('{{ product.id }}', $event); containProduct=true" ng-controller="addProductToCompareListController">
-                        <span class="fa fa-bar-chart"></span>
-                        <span>{{ 'products.compare_list.add_to_compare' | t }}</span>
-                    </button>
+                    <add-to-compare-button selected-variation="selectedVariation"></add-to-compare-button>
                 {% endif %}
                  <button id="addToWishlist" class="btn btn-clearfix list-btn-alignment" type="button" 
                          ng-show="customer.isRegisteredUser"

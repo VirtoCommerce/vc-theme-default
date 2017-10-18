@@ -127,10 +127,7 @@
                     {% endif %}
                     {% include 'search-bar' %}
                     {% if settings.product_compare_enabled %}
-                        <a class="header-cart-btn cart-toggle" href="{{ 'compare' | absolute_url }}" ng-controller="productCompareListBarController" ng-show="itemsCount > 0">
-                            <span class="fa fa-bar-chart"></span>
-                            {{ 'products.compare_list.compare' | t }} <span class="visible-count" id="productCompareListCount" ng-bind="itemsCount"></span>
-                        </a>
+                        <product-compare-list-bar></product-compare-list-bar>
                     {% endif %}
                     {% if shop.quotes_enabled %}
                     <a class="header-cart-btn cart-toggle" ng-controller="actualQuoteRequestBarController" ng-click="outerRedirect(baseUrl + 'quoterequest/#/' + actualQuoteRequest.number)">
