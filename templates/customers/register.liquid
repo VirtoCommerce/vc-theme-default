@@ -7,7 +7,7 @@
     <h1>{{ 'customer.register.title' | t }}</h1>
 
     {% form 'create_customer' %}
-
+      {% anti_forgery  %}
       {% include 'form-errors-custom' %}
 
       <label for="first_name" class="hidden-label">{{ 'customer.register.first_name' | t }}</label>
