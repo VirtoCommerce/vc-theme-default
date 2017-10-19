@@ -38,7 +38,6 @@ angular.module('storefrontApp')
                     return;
                 }
                 if (!_.some($localStorage['productCompareListIds'], function (id) { return id === product.id }) && $localStorage['productCompareListIds'].length < 4) {
-                    $localStorage['productCompareListIds'].push(product.id);
                     catalogService.putProductToLocalStorage(product);
                     dialogService.showDialog(product, 'productCompareListDialogController', 'storefront.product-compare-list-dialog.tpl');
                     $rootScope.$broadcast('productCompareListChanged');

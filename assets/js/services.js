@@ -66,7 +66,7 @@ storefrontApp.service('catalogService', ['$http', '$localStorage', function ($ht
             };
             return containProduct;
         },
-        getProductProperies: function (products) {
+        getProductProperties: function (products) {
             var grouped = {};
             var properties = _.flatten(_.map(products, function (product) { return product.properties; }));
             var propertyDisplayNames = _.uniq(_.map(properties, function (property) { return property.displayName; }));
@@ -85,6 +85,7 @@ storefrontApp.service('catalogService', ['$http', '$localStorage', function ($ht
             return grouped;
         },
         putProductToLocalStorage: function (product) {
+            $localStorage['productCompareListIds'].push(product.id);
             _.uniq($localStorage['productCompareListIds']);
             $localStorage['productCompareList'].push(product);
         }
