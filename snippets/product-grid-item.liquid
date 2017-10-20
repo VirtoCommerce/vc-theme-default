@@ -46,9 +46,9 @@
              {% endif %}
             {% if settings.product_compare_enabled %}
                 {% if product.available %}
-                     {% assign width='25' %}
+                     {% assign width='25%' %}
                 {% else %} 
-                    {% assign width='100' %}
+                    {% assign width='100%' %}
                 {% endif %}
                 <add-to-compare-button button-style="{width:'{{width}}',color:'#585858',backgroundColor:'#dcdcdc'}" product-id="'{{ product.id }}'" button-type="'small'">
                 </<add-to-compare-button>

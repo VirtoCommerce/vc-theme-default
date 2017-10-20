@@ -141,7 +141,7 @@
                 </button>
                 {% endif%}
                 {% if settings.product_compare_enabled %}
-                    <add-to-compare-button selected-variation="selectedVariation"></add-to-compare-button>
+                    <add-to-compare-button ng-if="selectedVariation.id" product-id="selectedVariation.id"></add-to-compare-button>
                 {% endif %}
                  <button id="addToWishlist" class="btn btn-clearfix list-btn-alignment" type="button" 
                          ng-show="customer.isRegisteredUser"
