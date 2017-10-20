@@ -8,7 +8,6 @@ storefrontApp.controller('productController', ['$rootScope', '$scope', '$window'
 
     var allVariations = [];
     
-    $scope.containProduct = true;
     $scope.selectedVariation = {};
     $scope.allVariationPropsMap = {};
     $scope.productPrice = null;
