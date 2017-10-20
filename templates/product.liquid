@@ -1,4 +1,4 @@
-﻿{% include 'breadcrumb' %}
+{% include 'breadcrumb' %}
 <div class="grid" itemscope itemtype="http://schema.org/Product" ng-controller="productController">
     <meta itemprop="url" content="{{ product.url | absolute_url}}">
     <meta itemprop="image" content="{{ product.featured_image.src | img_url }}">
@@ -175,7 +175,7 @@
                 <div class="properties">
                     {% for property in product.properties %}
                     <dl>
-                        <dt>{{ property.name }}</dt>
+                        <dt>{{ property.display_name }}</dt>
                         <dd>{{ property.value }}</dd>
                     </dl>
                     {% endfor %}
