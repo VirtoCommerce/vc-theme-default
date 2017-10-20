@@ -48,7 +48,7 @@ storefrontApp.service('pricingService', ['$http', function ($http) {
 	}
 }]);
 
-storefrontApp.service('catalogService', ['$http', '$localStorage', function ($http, $localStorage) {
+storefrontApp.service('catalogService', ['$http', '$localStorage', function($http, $localStorage) {
     return {
         getProduct: function(productIds) {
             if (_.indexOf(productIds, '&') != -1)

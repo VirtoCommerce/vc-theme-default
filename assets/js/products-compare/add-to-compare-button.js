@@ -6,7 +6,7 @@ angular.module('storefrontApp')
             buttonType: '<',
             buttonStyle: '<'
         },
-        controller: ['$rootScope', '$scope', '$localStorage', '$window', 'catalogService', 'dialogService', function ($rootScope, $scope, $localStorage, $window, catalogService, dialogService) {
+        controller: ['$rootScope', 'catalogService', 'dialogService', function ($rootScope, catalogService, dialogService) {
             var $ctrl = this;
 
             $ctrl.showButtonName = true;
