@@ -6,7 +6,7 @@ angular.module('storefrontApp')
             buttonType: '<',
             buttonStyle: '<'
         },
-        controller: ['$rootScope', 'catalogService', 'dialogService', function ($rootScope, catalogService, dialogService) {
+        controller: ['$rootScope', 'catalogService', 'dialogService', 'compareProductService', function($rootScope, catalogService, dialogService, compareProductService) {
             var $ctrl = this;
 
             $ctrl.showButtonName = true;
@@ -15,20 +15,20 @@ angular.module('storefrontApp')
             }
 
             $ctrl.$onInit = function () {
-                $ctrl.containProduct = catalogService.isInProductCompareList($ctrl.productId);
+                $ctrl.containProduct = compareProductService.isInProductCompareList($ctrl.productId);
             }
 
             $ctrl.addProductToCompareList = function (event) {
                 event.preventDefault();
                 catalogService.getProduct($ctrl.productId).then(function(response) {
                     var product = response.data[0];
-                    var productQuantity = catalogService.getComparableProductsQuantity();
+                    var productQuantity = compareProductService.getProductsCount();
                     if (productQuantity == 4) {
                         dialogService.showDialog({ capacityExceeded: true }, 'productCompareListDialogController', 'storefront.product-compare-list-dialog.tpl');
                         return;
                     }
                     if (!$ctrl.containProduct && productQuantity < 4) {
-                        catalogService.putСomparableProductToStorage($ctrl.productId);
+                        compareProductService.addProduct($ctrl.productId);
                         dialogService.showDialog(product, 'productCompareListDialogController', 'storefront.product-compare-list-dialog.tpl');
                         $rootScope.$broadcast('productCompareListChanged');
                     }

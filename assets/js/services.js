@@ -48,78 +48,61 @@ storefrontApp.service('pricingService', ['$http', function ($http) {
 	}
 }]);
 
-storefrontApp.service('catalogService', ['$http', '$localStorage', function($http, $localStorage) {
+storefrontApp.service('compareProductService', ['$http', '$localStorage', function($http, $localStorage) {
     return {
-        getProduct: function(productIds) {
-            if (_.indexOf(productIds, '&') != -1)
-                return $http.get('storefrontapi/products?' + productIds + '&t=' + new Date().getTime());
-            return $http.get('storefrontapi/products?productIds=' + productIds + '&t=' + new Date().getTime());
-        },
-        search: function (criteria) {
-            return $http.post('storefrontapi/catalog/search', { searchCriteria: criteria });
-        },
-        searchCategories: function (criteria) {
-            return $http.post('storefrontapi/categories/search', { searchCriteria: criteria });
-        },
-        isInProductCompareList: function (productId) {
+        isInProductCompareList: function(productId) {
             var containProduct;
-            if (!_.some($localStorage['productCompareListIds'], function (id) { return id === productId })) {
+            if (!_.some($localStorage['productCompareListIds'], function(id) { return id === productId })) {
                 containProduct = false;
             }
             else
                 containProduct = true
             return containProduct;
         },
-        getProductProperties: function (products) {
-            if (_.isEmpty(products))
-                return [];
-            var grouped = {};
-            var properties = _.flatten(_.map(products, function (product) { return product.properties; }));
-            var propertyDisplayNames = _.uniq(_.map(properties, function (property) { return property.displayName; }));
-            _.each(propertyDisplayNames, function (displayName) {
-                grouped[displayName] = [];
-                var props = _.where(properties, { displayName: displayName });
-                _.each(products, function (product) {
-                    var productProperty = _.find(props, function (prop) { return prop.productId === product.id });
-                    if (productProperty) {
-                        grouped[displayName].push(productProperty);
-                    } else {
-                        grouped[displayName].push({ valueType: 'ShortText', value: '-' });
-                    }
-                });
-            });
-            return grouped;
-        },
-        putСomparableProductToStorage: function (productId) {
+        addProduct: function(productId) {
             if (!$localStorage['productCompareListIds']) {
                 $localStorage['productCompareListIds'] = [];
             }
             $localStorage['productCompareListIds'].push(productId);
             _.uniq($localStorage['productCompareListIds']);
         },
-        getComparableProductsIds: function () {
+        getProductsIds: function() {
             if (!$localStorage['productCompareListIds']) {
                 $localStorage['productCompareListIds'] = [];
+                return;
             }
-            if ($localStorage['productCompareListIds'].length > 1) {
-                var ids = [];
-                for (i = 0; i < $localStorage['productCompareListIds'].length; i++) {
-                    ids.push('productIds=' + $localStorage['productCompareListIds'][i]);
-                }
-                return ids.join("&");
-              
+            var ids = [];
+            for (i = 0; i < $localStorage['productCompareListIds'].length; i++) {
+                ids.push('productIds=' + $localStorage['productCompareListIds'][i]);
             }
-            return $localStorage['productCompareListIds'];
+            return ids.join("&");
         },
-        getComparableProductsQuantity: function () {
+        getProductsCount: function() {
             var count = $localStorage['productCompareListIds'] ? $localStorage['productCompareListIds'].length : 0;
             return count;
         },
-        clearProductsComapreList: function () {
+        clearComapreList: function() {
             $localStorage['productCompareListIds'] = [];
         },
-        removeProductFromCompareList: function (productId) {
+        removeProduct: function(productId) {
             $localStorage['productCompareListIds'] = _.without($localStorage['productCompareListIds'], productId);
+        }
+    }
+}]);
+
+storefrontApp.service('catalogService', ['$http', function($http, $localStorage) {
+    return {
+        getProduct: function(productIds) {
+            return $http.get('storefrontapi/products?productIds=' + productIds + '&t=' + new Date().getTime());
+        },
+        getProducts: function(productIds) {
+            return $http.get('storefrontapi/products?' + productIds + '&t=' + new Date().getTime());
+        },
+        search: function (criteria) {
+            return $http.post('storefrontapi/catalog/search', { searchCriteria: criteria });
+        },
+        searchCategories: function (criteria) {
+            return $http.post('storefrontapi/categories/search', { searchCriteria: criteria });
         }
     }
 }]);
