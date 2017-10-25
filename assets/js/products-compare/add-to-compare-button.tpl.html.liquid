@@ -1,9 +1,11 @@
 <button id="addToCompareList"
         ng-disabled="$ctrl.containProduct"
-        ng-style="{'width':$ctrl.buttonStyle.width,'color':$ctrl.buttonStyle.color,'background-color':($ctrl.containProduct ? '#f6f6f6!important' : $ctrl.buttonStyle.backgroundColor),'z-index':'9999'}"
+        ng-class="$ctrl.showButtonName ? '' : [$ctrl.customClass, 'btn-secondary']"
+        ng-style="{'background-color':($ctrl.containProduct ? '#f6f6f6' : ''), 'width':$ctrl.buttonWidth}"
         class="btn btn-clearfix"
         type="button"
         ng-click="$ctrl.addProductToCompareList($event);">
     <span class="fa fa-bar-chart"></span>
     <span ng-if="$ctrl.showButtonName">{{ 'products.compare_list.add_to_compare' | t }}</span>
 </button>
+<!--ng-style="{'width':$ctrl.buttonStyle.width,'color':$ctrl.buttonStyle.color,'background-color':($ctrl.containProduct ? '#f6f6f6!important' : $ctrl.buttonStyle.backgroundColor),'z-index':'9999'}"-->

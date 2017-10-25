@@ -498,7 +498,10 @@ select {
         width: 100%;
     }
 }
-
+.vc-compare-button {
+    color: #585858;
+    z-index:9999;
+}
 /*ICONS*/
 .field__icon {
     position: absolute;

@@ -4,7 +4,8 @@ angular.module('storefrontApp')
         bindings: {
             productId: '<',
             buttonType: '<',
-            buttonStyle: '<'
+            customClass: '<',
+            buttonWidth: '<'
         },
         controller: ['$rootScope', 'catalogService', 'dialogService', 'compareProductService', function($rootScope, catalogService, dialogService, compareProductService) {
             var $ctrl = this;

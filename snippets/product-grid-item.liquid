@@ -1,4 +1,4 @@
-{% unless grid_item_width %}
+﻿{% unless grid_item_width %}
     {% assign grid_item_width = 'large--one-quarter medium-down--one-half' %}
 {% endunless %}
 
@@ -50,7 +50,7 @@
                 {% else %} 
                     {% assign width='100%' %}
                 {% endif %}
-                <add-to-compare-button button-style="{width:'{{width}}',color:'#585858',backgroundColor:'#dcdcdc'}" product-id="'{{ product.id }}'" button-type="'small'">
+                <add-to-compare-button custom-class="'vc-compare-button'" button-width = "'{{  width }}'" product-id="'{{ product.id }}'" button-type="'small'">
                 </<add-to-compare-button>
     {% endif %}
 </div>
