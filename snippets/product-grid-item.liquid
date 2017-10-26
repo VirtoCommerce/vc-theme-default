@@ -40,17 +40,12 @@
         </div>
         <div class="product-item--other" style="margin-bottom: 10px;">
          {% if product.available %}
-            <button class="btn btn-secondary AddShopCart" title="{{ 'products.general.add_to_cart' | t }}" style="width: 70%;" ng-click="addProductToCartById('{{ product.id }}', 1, $event)" ng-controller="productController" interactor-arg="{{ product.id }}">
+            <button class="btn btn-secondary AddShopCart" title="{{ 'products.general.add_to_cart' | t }}" ng-click="addProductToCartById('{{ product.id }}', 1, $event)" ng-controller="productController" interactor-arg="{{ product.id }}">
                 <span class="icon icon-cart"></span>
             </button>
              {% endif %}
             {% if settings.product_compare_enabled %}
-                {% if product.available %}
-                     {% assign width='25%' %}
-                {% else %} 
-                    {% assign width='100%' %}
-                {% endif %}
-                <add-to-compare-button custom-class="'vc-compare-button'" button-width = "'{{  width }}'" product-id="'{{ product.id }}'" button-type="'small'">
+                <add-to-compare-button custom-class="'vc-compare-button'"  product-id="'{{ product.id }}'" button-type="'small'">
                 </<add-to-compare-button>
     {% endif %}
 </div>

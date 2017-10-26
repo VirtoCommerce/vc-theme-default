@@ -2881,12 +2881,35 @@ a.product-grid-item,
   }
 }
 
-.product-item--other .btn {
-    padding: 8px 0;
-    margin: 5px 0 0;
-    text-transform: capitalize;
-    width: 100%;
+.product-item--other {
+    display:flex;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
+    display: flex;
 }
+
+.product-item--other .btn, 
+.product-item--other add-to-compare-button {
+    width:50%;
+    margin:0;
+    box-sizing:border-box;
+    -webkit-flex-grow:1;
+    flex-grow:1;
+}
+.product-item--other .btn {
+    padding:8px 0;
+}
+
+.product-item--other add-to-compare-button .btn {
+    width:100%;
+}
+.product-item--other .btn + .btn,
+.product-item--other add-to-compare-button {
+    margin-left:5px;
+}
+
 
 .sale-tag {
   display: inline-block;

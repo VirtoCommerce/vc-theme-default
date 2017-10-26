@@ -1,7 +1,7 @@
 <button id="addToCompareList"
         ng-disabled="$ctrl.containProduct"
         ng-class="$ctrl.showButtonName ? '' : [$ctrl.customClass, 'btn-secondary']"
-        ng-style="{'background-color':($ctrl.containProduct ? '#f6f6f6' : ''), 'width':$ctrl.buttonWidth}"
+        ng-style="{'background-color':($ctrl.containProduct ? '#f6f6f6' : '')}"
         class="btn btn-clearfix"
         type="button"
         ng-click="$ctrl.addProductToCompareList($event);">
