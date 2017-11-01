@@ -502,6 +502,10 @@ select {
     color: #585858;
     z-index:9999;
 }
+.disabled-compare-button {
+    color: #b6b6b6!important;
+    background-color:#f6f6f6!important;
+}
 /*ICONS*/
 .field__icon {
     position: absolute;
