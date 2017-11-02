@@ -66,17 +66,13 @@ storefrontApp.controller('cartController', ['$rootScope', '$scope', '$timeout', 
         if ($scope.formCart.$invalid) {
             return;
         }
-        if ($scope.cart.comment) {
-            cartService.updateCartComment($scope.cart.comment).then(function (resp) {
-            });
-        }
-        $timeout(function () { 
+        cartService.updateCartComment($scope.cart.comment).then(function (resp) {
             if ($scope.cart.hasPhysicalProducts) {
                 $scope.outerRedirect($scope.baseUrl + 'cart/checkout');
             } else {
                 $scope.outerRedirect($scope.baseUrl + 'cart/checkout');
             }
-        }, 520);
+        });
     }
 
     $scope.searchProduct = function () {
