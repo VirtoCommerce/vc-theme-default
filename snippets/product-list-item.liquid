@@ -7,17 +7,23 @@
     {% assign on_sale = true %}
 {% endif %}
 
-{% assign sold_out = true %}
-{% if product.available  %}
-    {% assign sold_out = false %}
+{% assign unavailable = false %}
+{% assign sold_out = false %}
+
+{% if product.buyable and product.in_stock != true %}
+    {% assign sold_out = true %}
+{% endif %}
+
+{% if product.buyable != true  %}
+    {% assign unavailable = true %}
 {% endif %}
 
 {% assign image_size = settings.collection_prod_image_sizes %}
-
-<div class="grid-item{% if sold_out %} sold-out{% endif %}{% if on_sale %} on-sale{% endif %}">
+<div class="grid-item{% if unavailable %} unavailable{% endif %}{% if sold_out %} sold-out{% endif %}{% if on_sale %} on-sale{% endif %}">
     <a href="{{ product.url | within: current_collection }}" class="product-grid-item product-list-item">
         <div class="grid">
-            <div class="grid-item large--one-fifth medium--one-third">
+            <div class="grid-item large--one-fifth medium--one-third" id="badges">
+                {% include 'badges' %}
                 {% if product.featured_image %}
                     <img src="{{ product.featured_image.src | img_url }}" alt="{{ product.featured_image.alt | escape }}" />
                 {% else %}
@@ -25,6 +31,7 @@
                         <img src="{{ 'no-image.svg' | asset_url }}" />
                     </div>
                 {% endif %}
+
             </div>
             <div class="grid-item large--three-fifths medium--two-thirds">
                 <p class="h6">{{ product.title }}</p>
@@ -76,7 +83,7 @@
                                 <small ng-bind="productPrices['{{ product.id }}'].listPrice.formattedAmount"></small>
                             </span>
                             <small ng-bind="productPrices['{{ product.id }}'].actualPrice.formattedAmount"></small>
-                        </p>                         
+                        </p>
                         <span class="sale-tag medium--right" ng-if="productPrices['{{ product.id }}'].discountAmount.amount > 0" ng-bind="'save ' + productPrices['{{ product.id }}'].discountAmount.formattedAmount"></span>
                     {% endif %}
 

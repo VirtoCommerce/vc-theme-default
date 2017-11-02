@@ -16,7 +16,7 @@
   <meta name="twitter:data1" content="{% if product.price_varies %}From {% endif %}{{ product.price | money_with_currency | strip_html | escape }}">
   {% if product.vendor != blank %}
   <meta name="twitter:label2" content="Brand">
-  <meta name="twitter:data2" content="{{ product.vendor | escape }}">
+  <meta name="twitter:data2" content="{{ product.vendor.name | escape }}">
   {% else %}
   <meta name="twitter:label2" content="Availability">
   <meta name="twitter:data2" content="In stock">
