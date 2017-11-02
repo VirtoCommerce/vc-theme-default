@@ -1,4 +1,4 @@
-﻿var storefrontApp = angular.module('storefrontApp');
+var storefrontApp = angular.module('storefrontApp');
 
 storefrontApp.service('dialogService', ['$uibModal', function ($uibModal) {
     return {
@@ -117,6 +117,9 @@ storefrontApp.service('cartService', ['$http', function ($http) {
         },
         createOrder: function (bankCardInfo) {
             return $http.post('storefrontapi/cart/createorder', { bankCardInfo: bankCardInfo });
+        },
+        updateCartComment: function (cartComment) {
+            return $http.put('storefrontapi/cart/comment', { comment: cartComment });
         }
     }
 }]);

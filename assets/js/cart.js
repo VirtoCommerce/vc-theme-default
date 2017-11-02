@@ -1,4 +1,4 @@
-﻿var storefrontApp = angular.module('storefrontApp');
+var storefrontApp = angular.module('storefrontApp');
 
 storefrontApp.controller('cartController', ['$rootScope', '$scope', '$timeout', 'cartService', 'catalogService', function ($rootScope, $scope, $timeout, cartService, catalogService) {
     var timer;
@@ -35,7 +35,7 @@ storefrontApp.controller('cartController', ['$rootScope', '$scope', '$timeout', 
     		return;
     	}
     	$scope.cartIsUpdating = true;
-    	cartService.changeLineItemPrice(lineItemId, newPrice).then(function (response) {
+        cartService.changeLineItemPrice(lineItemId, newPrice).then(function (response) {
     		getCart();
     		$rootScope.$broadcast('cartItemsChanged');
     	}, function (response) {
@@ -66,11 +66,17 @@ storefrontApp.controller('cartController', ['$rootScope', '$scope', '$timeout', 
         if ($scope.formCart.$invalid) {
             return;
         }
-        if ($scope.cart.hasPhysicalProducts) {
-            $scope.outerRedirect($scope.baseUrl + 'cart/checkout');
-        } else {
-            $scope.outerRedirect($scope.baseUrl + 'cart/checkout');
+        if ($scope.cart.comment) {
+            cartService.updateCartComment($scope.cart.comment).then(function (resp) {
+            });
         }
+        $timeout(function () { 
+            if ($scope.cart.hasPhysicalProducts) {
+                $scope.outerRedirect($scope.baseUrl + 'cart/checkout');
+            } else {
+                $scope.outerRedirect($scope.baseUrl + 'cart/checkout');
+            }
+        }, 520);
     }
 
     $scope.searchProduct = function () {

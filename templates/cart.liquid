@@ -1,4 +1,4 @@
-﻿<div ng-controller="cartController">
+<div ng-controller="cartController">
     <div class="ajax-informer fade" ng-if="!cart">
         <div class="loader"></div>
         <span>{{ 'cart.general.loading_cart_message' | t }}</span>
@@ -90,7 +90,7 @@
                 <div class="grid">
                     <div class="grid-item large--one-half">
                         <label for="cartSpecialInstructions">{{ 'cart.general.note' | t }}</label>
-                        <textarea class="input-full" ng-bind="cart.comment"></textarea>
+                        <textarea class="input-full" ng-model="cart.comment"></textarea>
                     </div>
                     <div class="grid-item text-right large--one-half">
                         <div class="cart-subtotal">
