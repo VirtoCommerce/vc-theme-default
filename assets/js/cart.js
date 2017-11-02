@@ -67,11 +67,7 @@ storefrontApp.controller('cartController', ['$rootScope', '$scope', '$timeout', 
             return;
         }
         cartService.updateCartComment($scope.cart.comment).then(function (resp) {
-            if ($scope.cart.hasPhysicalProducts) {
-                $scope.outerRedirect($scope.baseUrl + 'cart/checkout');
-            } else {
-                $scope.outerRedirect($scope.baseUrl + 'cart/checkout');
-            }
+            $scope.outerRedirect($scope.baseUrl + 'cart/checkout');
         });
     }
 
