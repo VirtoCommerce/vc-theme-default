@@ -1,8 +1,8 @@
-﻿<div class="grid">
+<div class="grid">
     <div class="grid-item large--one-half">
         <p>{{ 'cart.general.quick_add_description' | t }}</p>
         <form class="input-group" name="formQuickAdd" novalidate="novalidate">
-            <input class="input-group-field" id="productSkuOrName" name="productSkuOrName" placeholder="Start enter a SKU or product name to search..." required="required" type="text" ng-model="productSkuOrName" ng-change="searchProduct()" />
+            <input class="input-group-field" id="productSkuOrName" name="productSkuOrName" placeholder="{{ 'cart.general.placeholders.product_search' | t }}" required="required" type="text" ng-model="productSkuOrName" ng-change="searchProduct()" />
             <button class="btn btn--small" type="button" ng-disabled="!formQuickAdd.$valid || !selectedSearchedProduct || cartIsUpdating" ng-click="addProductToCart(selectedSearchedProduct, 1)">{{ 'cart.general.add' | t }}</button>
             <div class="loader" ng-show="productSearchProcessing"></div>
             <div class="product-search-result" ng-show="productSearchResult">

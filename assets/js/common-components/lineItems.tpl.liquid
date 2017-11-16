@@ -1,4 +1,4 @@
-﻿<table class="vc-product-table">
+<table class="vc-product-table">
     <tr class="product-row" ng-repeat="lineItem in $ctrl.items">
         <td class="product-img">
             <div class="img-inner">
@@ -13,7 +13,7 @@
             <a ng-bind="lineItem.name" href="{% raw %}{{ 'product/' + lineItem.productId }}{% endraw %}"></a>
             {% if shop.subscription_enabled %}
             <div ng-if="lineItem.paymentPlan">
-                <span ng-bind="'Subscription with a period: ' + lineItem.paymentPlan.intervalCount + ' ' + lineItem.paymentPlan.interval"></span>
+                <span ng-bind="'{{ 'cart.general.subscript_period' | t }} ' + lineItem.paymentPlan.intervalCount + ' ' + lineItem.paymentPlan.interval"></span>
             </div>
             {% endif %}
         </td>

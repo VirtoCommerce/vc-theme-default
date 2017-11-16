@@ -103,7 +103,7 @@
                                 <div class="alert alert-error tier-price" ng-if="(formQuoteRequest.$submitted || formQuoteRequest['QuoteItem_' + quoteItemId + '_' + tierPrice.id].$dirty) && formQuoteRequest['QuoteItem_' + quoteItemId + '_' + tierPrice.id].$error.min">{{ 'quotes.request.enter_positiv_value' | t }}</div>
                             </div>
                             <div class="js-qty">
-                                <div class="alert alert-error tier-price" ng-if="formQuoteRequest.$submitted && !tierPricesUnique(quoteItem)">{{ 'quotes.request.enter_unique_quantities' | t }</div>
+                                <div class="alert alert-error tier-price" ng-if="formQuoteRequest.$submitted && !tierPricesUnique(quoteItem)">{{ 'quotes.request.enter_unique_quantities' | t }}</div>
                                 <a class="add-tier" style="cursor: pointer;" ng-click="addTierPrice(quoteItem)">{{ 'quotes.request.add_tier' | t }}</a>
                             </div>
                         </div>

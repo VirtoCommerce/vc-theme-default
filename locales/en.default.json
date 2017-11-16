@@ -243,7 +243,11 @@
             "select_list": "Please select list",
             "apply_price": "Apply new price",
             "enter_number": "Please enter a number",
-            "quantity_more_zero": "Quantity should be greater than 0"
+            "quantity_more_zero": "Quantity should be greater than 0",
+            "subscript_period": "Subscription with a period:",
+            "placeholders": {
+                "product_search": "Start enter a SKU or product name to search..."
+            }
         }
     },
     "wishlist": {
@@ -654,7 +658,8 @@
             "cart": "Cart"
         },
         "quotes": {
-            "quotes": "Quotes"
+            "quotes": "Quotes",
+            "quote": "Quote"
         },
         "customer": {
             "view_account": "View Account",
@@ -789,5 +794,5 @@
                 "enter_code": "Enter verification code here"
             }
         }
-    },
+    }
 }
