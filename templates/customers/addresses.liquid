@@ -79,7 +79,7 @@
         </p>
 
         <input type="submit" class="btn" value="{{ 'customer.addresses.add' | t }}">
-        <span class="form-spacer">or</span>
+        <span class="form-spacer">{{ 'customer.addresses.or' | t }}</span>
         <a href="#" onclick="Shopify.CustomerAddress.toggleNewForm(); return false;">{{ 'customer.addresses.cancel' | t }}</a>
 
         <hr>
@@ -115,7 +115,7 @@
         <div id="edit_address_{{ address.id }}" style="display:none;">
           {% form 'customer_address', address %}
 
-            <h4>Edit address</h4>
+            <h4>{{ 'customer.addresses.edit_new' | t }}</h4>
 
             <div class="grid">
               <input type="hidden" id="address_id_{{ address.id }}" name="address[id]" value="{{ address.id }}">

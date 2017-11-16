@@ -45,7 +45,7 @@
                                     {% else %}
                                     <span ng-if="error.errorCode == 'PriceError'" ng-bind="'Product price has been changed. New price: ' + error.newPrice.formattedAmount"></span>
                                     {% endif %}
-                                    <span ng-if="error.errorCode == 'PriceError'" style="color: #204a80; cursor: pointer; margin-left: 10px;" ng-click="changeLineItemPrice(lineItem.id, error.newPrice.amount)">Apply new price</span>
+                                    <span ng-if="error.errorCode == 'PriceError'" style="color: #204a80; cursor: pointer; margin-left: 10px;" ng-click="changeLineItemPrice(lineItem.id, error.newPrice.amount)">{{ 'cart.general.apply_price' | t }}</span>
                                     <span ng-if="error.errorCode == 'UnavailableError'" ng-bind="'Product is currently unavailable!'"></span>
                                     <span ng-if="error.errorCode == 'QuantityError'" ng-bind="'Product quantity exceeded! Available quantity is: ' + error.availableQuantity"></span>
                                 </div>
@@ -60,8 +60,8 @@
                                     <span class="js--qty-adjuster js--add" ng-click="changeLineItemQuantity(lineItem.id, lineItem.quantity + 1)">+</span>
                                     <span class="js--qty-adjuster js--minus" ng-click="changeLineItemQuantity(lineItem.id, lineItem.quantity - 1)">-</span>
                                 </div>
-                                <div class="alert alert-error" style="margin-top: 5px;" ng-if="formCart['item' + lineItem.id].$error.number">Please enter a number</div>
-                                <div class="alert alert-error" style="margin-top: 5px;" ng-if="formCart['item' + lineItem.id].$error.min">Quantity should be greater than 0</div>
+                                <div class="alert alert-error" style="margin-top: 5px;" ng-if="formCart['item' + lineItem.id].$error.number">{{ 'cart.general.enter_number' | t }}</div>
+                                <div class="alert alert-error" style="margin-top: 5px;" ng-if="formCart['item' + lineItem.id].$error.min">{{ 'cart.general.quantity_more_zero' | t }}</div>
                             </div>
                             <div class="grid-item one-third medium-down--one-third medium-down--text-left text-right">
                                 {% if settings.show_prices_with_taxes %}

@@ -1,10 +1,10 @@
-﻿<script id="storefront.recently-added-list-item-dialog.tpl" type="text/ng-template">
+<script id="storefront.recently-added-list-item-dialog.tpl" type="text/ng-template">
     <div class="ajaxify-modal is-visible" id="ajaxifyModal" style="opacity: 1;" ng-init='initialize({{ settings.available_lists | json }})'>
         <button class="ajaxifyCart--close" title="{{ 'cart.general.close_cart' | t }}" ng-click="close()">{{ 'cart.general.close_cart' | t }}</button>
         <div class="ajaxifyCart--content" id="ajaxifyCart">
             <div ng-if="!itemAdded" class="product-list-modal-wrapper">
                 <h1 style="margin-top:35px;" ng-bind="selectedList.title"></h1>
-                <h1 ng-if="!selectedList.title">Please select list</h1>
+                <h1 ng-if="!selectedList.title">{{ 'cart.general.select_list' | t }}</h1>
                 <div class="cart-row list-modal-row-fix" ng-repeat="list in lists">
                     <div ng-class="{'activeList': list.name == selectedList.name, 'disabled' : list.contains }" class="selectedTypeOfList" ng-click="selectList(list)">
                         <div  class="grid">

@@ -84,7 +84,7 @@
                     <span id="productPrice" class="h1">
                         <small ng-bind="selectedVariation.price.actualPriceWithTax.formattedAmount"></small>
                     </span>
-                    <span>Inc VAT</span>
+                    <span>{{ 'products.product.inc' | t }}</span>
                     {% else %}
                     <span ng-if="selectedVariation.price.discountAmount.amount > 0" class="old">
                         <small ng-bind="selectedVariation.price.listPrice.formattedAmount"></small>

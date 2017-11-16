@@ -1,6 +1,6 @@
-﻿<div id="account-lists.tpl.liquid" type="text/ng-template" ng-init='$ctrl.initialize({{ settings.available_lists | json }})'>
-  <h4>Your Lists</h4>
-  <p ng-if="!$ctrl.lists">No lists defined</p>
+<div id="account-lists.tpl.liquid" type="text/ng-template" ng-init='$ctrl.initialize({{ settings.available_lists | json }})'>
+  <h4>{{ 'wishlist.general.title' | t }}</h4>
+  <p ng-if="!$ctrl.lists">{{ 'wishlist.general.list_not_defined' | t }}</p>
   <div style="margin-top: 25px;" ng-if="$ctrl.lists" class="grid grid-border">
     <div class="grid-item large--one-fifth">
       <ul class="sidebar product-list-container list __items">

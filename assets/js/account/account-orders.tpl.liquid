@@ -1,4 +1,4 @@
-﻿<ng-outlet ng-init="$ctrl.orderHelper.statusLabels=[
+<ng-outlet ng-init="$ctrl.orderHelper.statusLabels=[
            { status: 'unpaid', label: '{{ 'customer.order.status.unpaid' | t }}'},
            { status: 'pending', label: '{{ 'customer.order.status.pending' | t }}'},
            { status: 'processing', label: '{{ 'customer.order.status.processing' | t }}'},
@@ -73,7 +73,7 @@
 
                 <hr class="hr--small" />
                 <div class="vc-section-header">
-                    <div class="vc-t">Order totals</div>
+                    <div class="vc-t">{{ 'customer.order.totals' | t }}</div>
                 </div>
                 <div class="cols">
                     <div class="col col-33">
@@ -127,10 +127,10 @@
 
         <div class="col col-33" ng-if="$ctrl.isShowPayment">
             <div class="vc-section-header">
-                <div class="vc-t">Payment</div>
+                <div class="vc-t">{{ 'customer.order.payment.title' | t }}</div>
                 <ul class="vc-product-totals list">
                     <li class="list-item total summary">
-                        <div class="list-name">Payment amount</div>
+                        <div class="list-name">{{ 'customer.order.payment.amount' | t }}</div>
                         <div class="list-price">
                             <div class="list-currency" ng-bind="$ctrl.payment.currency.code"></div>
                             <span ng-bind="$ctrl.payment.sum.amount"></span>

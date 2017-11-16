@@ -38,7 +38,7 @@
         </div>
         <div class="grid" style="margin-top: 25px;">
             <div class="grid-item one-fifth compare-list-cell" style="border-top: 1px solid #dcdcdc;">
-                <strong>Price</strong>
+                <strong>{{ 'products.compare_list.price' | t }}</strong>
             </div>
             <div class="grid-item one-fifth compare-list-cell value" style="border-top: 1px solid #dcdcdc;" ng-repeat="product in products">
                 <strong style="margin: 0 auto;" ng-bind="product.price.actualPrice.formattedAmount"></strong>

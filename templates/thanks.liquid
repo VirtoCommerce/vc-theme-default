@@ -1,4 +1,4 @@
-﻿<div ng-controller="orderController">
+<div ng-controller="orderController">
     <h4>{{ 'customer.order.title' | t: name: order.name }}</h4>
     <table class="full">
         <thead>
@@ -103,7 +103,7 @@
     <hr />
     <div class="grid">
         <div class="grid-item text-right">
-            <strong>Total</strong>
+            <strong>{{ 'checkout.total' | t }}</strong>
             <span class="h1 cart-subtotal--price">
                 <small ng-bind="order.total.formattedAmount"></small>
             </span>

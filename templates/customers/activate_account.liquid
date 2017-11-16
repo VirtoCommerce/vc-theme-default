@@ -18,9 +18,9 @@
 
       <div class="text-center">
         <p>
-          <input type="submit" class="btn" value="{{ 'customer.activate_account.submit' | t }}">
+          <input type="submit" class="btn" value="{{ 'customer.activate_account.submit' | t }}" />
         </p>
-        or <input type="submit" class="text-link" name="decline" id="customer_decline" value="{{ 'customer.activate_account.cancel' | t }}">
+          {{ 'customer.activate_account.or' | t }} <input type="submit" class="text-link" name="decline" id="customer_decline" value="{{ 'customer.activate_account.cancel' | t }}" />
       </div>
     {% endform %}
 

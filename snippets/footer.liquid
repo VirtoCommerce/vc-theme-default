@@ -11,7 +11,7 @@
             {% for link in linklists[settings.footer_quicklinks_linklist].links %}
               <li><a href="{{ link.url }}">{{ link.title }}</a></li>
             {% else %}
-              {% capture theme_settings_footer_linklist_path %}<strong>Footer</strong> > <strong>Quick links link list</strong>{% endcapture %}
+              {% capture theme_settings_footer_linklist_path %}<strong>{{ 'layout.footer.footer' | t }}</strong> > <strong>{{ 'layout.footer.quick_links_list' | t }}</strong>{% endcapture %}
               {{ 'layout.footer.instructions_for_linklist_html' | t: theme_settings_link: theme_settings_link, theme_settings_footer_linklist_path: theme_settings_footer_linklist_path }}
             {% endfor %}
           </ul>
@@ -31,7 +31,7 @@
               <li>
                 <a class="icon-fallback-text" href="{{ settings.social_twitter_link }}" title="{{ 'layout.footer.store_on_social_network' | t: store_name: shop.name, social_network: 'Twitter' | escape }}">
                   <span class="icon icon-twitter" aria-hidden="true"></span>
-                  <span class="fallback-text">Twitter</span>
+                  <span class="fallback-text">{{ 'common.social.twitter' | t }}</span>
                 </a>
               </li>
             {% endif %}
@@ -39,7 +39,7 @@
               <li>
                 <a class="icon-fallback-text" href="{{ settings.social_facebook_link }}" title="{{ 'layout.footer.store_on_social_network' | t: store_name: shop.name, social_network: 'Facebook' | escape }}">
                   <span class="icon icon-facebook" aria-hidden="true"></span>
-                  <span class="fallback-text">Facebook</span>
+                  <span class="fallback-text">{{ 'common.social.facebook' | t }}</span>
                 </a>
               </li>
             {% endif %}
@@ -47,7 +47,7 @@
               <li>
                 <a class="icon-fallback-text" href="{{ settings.social_pinterest_link }}" title="{{ 'layout.footer.store_on_social_network' | t: store_name: shop.name, social_network: 'Pinterest' | escape }}">
                   <span class="icon icon-pinterest" aria-hidden="true"></span>
-                  <span class="fallback-text">Pinterest</span>
+                  <span class="fallback-text">{{ 'common.social.pinterest' | t }}</span>
                 </a>
               </li>
             {% endif %}
@@ -55,7 +55,7 @@
               <li>
                 <a class="icon-fallback-text" href="{{ settings.social_google_plus_link }}" title="{{ 'layout.footer.store_on_social_network' | t: store_name: shop.name, social_network: 'Google' | escape }}">
                   <span class="icon icon-google" aria-hidden="true"></span>
-                  <span class="fallback-text">Google</span>
+                  <span class="fallback-text">{{ 'common.social.google' | t }}</span>
                 </a>
               </li>
             {% endif %}
@@ -63,7 +63,7 @@
               <li>
                 <a class="icon-fallback-text" href="{{ settings.social_instagram_link }}" title="{{ 'layout.footer.store_on_social_network' | t: store_name: shop.name, social_network: 'Instagram' | escape }}">
                   <span class="icon icon-instagram" aria-hidden="true"></span>
-                  <span class="fallback-text">Instagram</span>
+                  <span class="fallback-text">{{ 'common.social.instagram' | t }}</span>
                 </a>
               </li>
             {% endif %}
@@ -71,7 +71,7 @@
               <li>
                 <a class="icon-fallback-text" href="{{ settings.social_tumblr_link }}" title="{{ 'layout.footer.store_on_social_network' | t: store_name: shop.name, social_network: 'Tumblr' | escape }}">
                   <span class="icon icon-tumblr" aria-hidden="true"></span>
-                  <span class="fallback-text">Tumblr</span>
+                  <span class="fallback-text">{{ 'common.social.tumblr' | t }}</span>
                 </a>
               </li>
             {% endif %}
@@ -79,7 +79,7 @@
               <li>
                 <a class="icon-fallback-text" href="{{ settings.social_youtube_link }}" title="{{ 'layout.footer.store_on_social_network' | t: store_name: shop.name, social_network: 'YouTube' | escape }}">
                   <span class="icon icon-youtube" aria-hidden="true"></span>
-                  <span class="fallback-text">YouTube</span>
+                  <span class="fallback-text">{{ 'common.social.youtube' | t }}</span>
                 </a>
               </li>
             {% endif %}
@@ -87,7 +87,7 @@
               <li>
                 <a class="icon-fallback-text" href="{{ settings.social_vimeo_link }}" title="{{ 'layout.footer.store_on_social_network' | t: store_name: shop.name, social_network: 'Vimeo' | escape }}">
                   <span class="icon icon-vimeo" aria-hidden="true"></span>
-                  <span class="fallback-text">Vimeo</span>
+                  <span class="fallback-text">{{ 'common.social.vimeo' | t }}</span>
                 </a>
               </li>
             {% endif %}
@@ -95,7 +95,7 @@
               <li>
                 <a class="icon-fallback-text" href="{{ settings.social_fancy_link }}" title="{{ 'layout.footer.store_on_social_network' | t: store_name: shop.name, social_network: 'Fancy' | escape }}">
                   <span class="icon icon-fancy" aria-hidden="true"></span>
-                  <span class="fallback-text">Fancy</span>
+                  <span class="fallback-text">{{ 'common.social.fancy' | t }}</span>
                 </a>
               </li>
             {% endif %}

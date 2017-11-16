@@ -85,7 +85,7 @@
                   {% assign initial_value_size = formatted_initial_value | size %}
                   <div id="gift-card-amount" class="{% if initial_value_size > 6 %}medium{% endif %}">
                     {% if gift_card.balance != gift_card.initial_value %}
-                      <span class="tooltip-container"><span class="tooltip-label">{{ gift_card.balance | money }} <small>left</small></span><span class="tooltip-triangle"></span></span>
+                      <span class="tooltip-container"><span class="tooltip-label">{{ gift_card.balance | money }} <small>{{ 'gift_cards.issued.left' | t }}</small></span><span class="tooltip-triangle"></span></span>
                     {% endif %}
                     <strong>{{ formatted_initial_value }}</strong>
                   </div>

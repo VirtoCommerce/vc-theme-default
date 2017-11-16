@@ -1,4 +1,4 @@
-﻿<style>
+<style>
     html, body {
         height: 100%;
         margin: 0;
@@ -48,10 +48,10 @@
     <div id="feature">
         <div id="content">
             {% if shop.status == 'Closed' %}
-                <h1>Store is closed right now</h1>
+                <h1>{{ 'layout.maintenance.store_closed' | t}}</h1>
             {% endif %}
             <p>
-                Please visit us a little bit later!
+                {{ 'layout.maintenance.visit_later' | t}}
             </p>
         </div>
     </div>
