@@ -695,7 +695,8 @@
             "newsletter_sign_up": "Sign Up",
             "newsletter_email_placeholder": "Email Address",
             "footer": "Footer",
-            "quick_links_list": "Quick links link list"
+            "quick_links_list": "Quick links link list",
+            "footer_content_text": "Some footer content text"
         },
         "maintenance": {
             "store_closed": "Store is closed right now",

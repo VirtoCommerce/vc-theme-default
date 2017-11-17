@@ -1,4 +1,4 @@
-﻿{
+{
     "current": "Blue",
     "presets": {
         "Blue": {
@@ -119,7 +119,6 @@
                     "name": "year"
                 }
             ],
-            "footer_content_text": "Some footer content text",
             //Collect usage events for product recommendations
             "collect_user_events_enabled": false,
             "available_lists": [
