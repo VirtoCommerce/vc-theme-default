@@ -2,8 +2,8 @@
     <button aria-label="Close" class="close" type="button" ng-click="closeNotification()">
         <span aria-hidden="true">×</span>
     </button>
-    <strong>Oops! An error was occured!</strong>
-    Please send the technical details to us.<br /><br />
+    <strong>{{ 'notification.error_title' | t }}</strong>
+    {{ 'notification.error_message' | t }}<br /><br />
     <a style="color: #a94442; cursor: pointer; font-weight: 700;" ng-click="toggleNotificationDetails()">
         <i class="fa" ng-class="{ 'fa-angle-down': !storefrontNotification.detailsVisible, 'fa-angle-up': storefrontNotification.detailsVisible }"></i>
         <span ng-if="!storefrontNotification.detailsVisible">{{ 'notification.show_error_details_link_text' | t }}</span>

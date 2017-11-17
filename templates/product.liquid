@@ -123,7 +123,7 @@
                 </div>
                 {% if shop.subscription_enabled %}
                 <div class="note" ng-if="selectedVariation.paymentPlan">
-                    <span ng-bind="'Subscription with a period: ' + selectedVariation.paymentPlan.intervalCount + ' ' + selectedVariation.paymentPlan.interval"></span>
+                    <span ng-bind="'{{ 'products.product.subscript_period' | t }} ' + selectedVariation.paymentPlan.intervalCount + ' ' + selectedVariation.paymentPlan.interval"></span>
                 </div>
                 {% endif %}
                 {% if settings.product_quantity_enable %}

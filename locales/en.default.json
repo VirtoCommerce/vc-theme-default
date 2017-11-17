@@ -150,8 +150,7 @@
         "error_title": "Ooops! An error is occured!",
         "error_message": "Please tell us technical details for this error and we will be better!",
         "show_error_details_link_text": "Show me the technical details!",
-        "hide_error_details_link_text": "Hide the technical details",
-        "adding_to_cart_title": "Adding product to cart..."
+        "hide_error_details_link_text": "Hide the technical details"
     },
     "general": {
         "loading": "Working...",
@@ -716,7 +715,8 @@
             "quantity": "Quantity",
             "add_to_cart": "Add to Cart",
             "details_tab": "Product details",
-            "inc": "Inc VAT"
+            "inc": "Inc VAT",
+            "subscript_period": "Subscription with a period:"
         },
         "compare_list": {
             "add_to_compare": "Add to compare",
