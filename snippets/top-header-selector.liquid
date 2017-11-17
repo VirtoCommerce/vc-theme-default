@@ -1,8 +1,8 @@
-﻿<div class="head-top">
+<div class="head-top">
 		<div class="wrapper">
 			<div class="head-switch">
 				<span>
-          {{'Store' | t}}:
+          {{'general.settings.store' | t }}
           <span class="current">
 						<img title="{{current_language.culture_name}}" alt="{{current_language.culture_name}}" class="flag flag-{{current_language.two_letter_region_name | downcase}}" src="{{ 'blank.gif' | asset_url }}"/>
 			  {{shop.name}}, {{current_currency.code}}
@@ -12,8 +12,8 @@
 					<li>
 						<div class="language">
 							<span>
-								{{'Language' | t}}:
-								<span class="current">{{current_language.culture_name}}</span>
+                                {{'general.settings.language' | t }}
+                                <span class="current">{{current_language.culture_name}}</span>
 							</span>
               <ul>
                 {% for store_language in shop.languages %}
@@ -29,7 +29,7 @@
 					<li>
 						<div class="store">
 							<span>
-                {{'Store' | t}}: <span class="current">{{shop.name}}</span>
+                {{'general.settings.store' | t }} <span class="current">{{shop.name}}</span>
 							</span>
 							<ul>
                 {% for store_temp in all_stores %}
@@ -44,7 +44,7 @@
 					<li>
 						<div class="currency">
 							<span>
-                {{'Currency' | t}}: <span class="current">{{shop.currency}}</span>
+                {{'general.settings.currency' | t }} <span class="current">{{shop.currency}}</span>
 							</span>
 							<ul>
 								{% for currency_temp in shop.currencies %}
