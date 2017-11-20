@@ -231,6 +231,9 @@
             "enter_number": "Please enter a number",
             "quantity_more_zero": "Quantity should be greater than 0",
             "subscription_period": "Subscription with a period:",
+            "product_added_request": "Product is added to quote request",
+            "go_request": "Go to quote request",
+            "update_quote": "Updating quote request...",
             "placeholders": {
                 "product_search": "Start enter a SKU or product name to search..."
             }
@@ -276,9 +279,6 @@
             "request_shipping_quote": "Request a shipping quote",
             "submit_quote": "Submit quote request",
             "remove": "Remove",
-            "product_added_request": "Product is added to quote request",
-            "go_request": "Go to quote request",
-            "update_quote": "Updating quote request...",
             "remarks": {
                 "title": "Remarks",
                 "text": "Do you have a general remark with this Quote Request?"
