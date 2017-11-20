@@ -23,7 +23,7 @@
       <input type="text" value="" name="customer[user_name]" id="user_name" placeholder="{{ 'customer.register.user_name' | t }}" {% if form.errors contains "user_name" %} class="error" {% endif %} autocorrect="off" autocapitalize="off">
 
       <label for="password" class="hidden-label">{{ 'customer.register.password' | t }}</label>
-      <input type="password" value="" name="customer[password]" id="create_password" placeholder="{{ 'customer.register.password' | t }}" {% if form.errors contains "password" %} class="error"{% endif %}>
+      <input type="password" value="" name="customer[password]" minlength="5" id="create_password" placeholder="{{ 'customer.register.password' | t }}" {% if form.errors contains "password" %} class="error"{% endif %}>
       <p>
         <input type="submit" value="{{ 'customer.register.submit' | t }}" class="btn">
       </p>
