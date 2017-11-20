@@ -100,7 +100,7 @@
                         {% else %}
                         {{ 'layout.customer.sign_in' | t | customer_login_link }}
                         {% if shop.customer_accounts_optional %}
-                        <span class="site-header--spacer">{{ 'layout.customer.or' | t }}</span>
+                        <span class="site-header--spacer">{{ 'common.or' | t }}</span>
                         {{ 'layout.customer.create_account' | t | customer_register_link }}
                         {% endif %}
                         {% endif %}
@@ -117,7 +117,7 @@
                         </span>
                         <span ng-if="customer && !customer.isRegisteredUser" ng-cloak>
                             {{ 'layout.customer.sign_in' | t | customer_login_link }}
-                            <span class="site-header--spacer">{{ 'layout.customer.or' | t }}</span>
+                            <span class="site-header--spacer">{{ 'common.or' | t }}</span>
                             {{ 'layout.customer.create_account' | t | customer_register_link }}
                         </span>
                     </span>

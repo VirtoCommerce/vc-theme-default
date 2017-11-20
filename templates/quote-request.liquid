@@ -165,84 +165,84 @@
         <div class="grid" ng-if="displayForStatuses(['New'])">
             <div class="grid-item">
                 <div class="ublock">
-                    <div class="h3">{{ 'quotes.request.billing.address' | t }}</div>
+                    <div class="h3">{{ 'customer.addresses.billing_address' | t }}</div>
                     <input id="BillingAddressType" name="BillingAddressType" type="hidden" value="Billing" ng-model="quoteRequest.billingAddress.type" ng-init="quoteRequest.billingAddress.type = 'Billing'" />
                     <div class="grid">
                         <div class="grid-item" ng-if="customer.addresses.length">
                             <select id="BillingAddressFromCustomerAddresses" name="BillingAddressFromCustomerAddresses" required="required" ng-model="quoteRequest.billingAddress.id" ng-change="selectCustomerAddress('Billing')">
-                                <option disabled="disabled" value="">{{ 'quotes.request.billing.select_address' | t }}</option>
+                                <option disabled="disabled" value="">{{ 'customer.addresses.select_address' | t }}</option>
                                 <option ng-repeat="address in customer.addresses" ng-value="address.id" ng-selected="address.id === quoteRequest.billingAddress.id" ng-bind="stringifyAddress(address)"></option>
                             </select>
                         </div>
                         <div class="grid-item large--one-half">
-                            <label for="BillingAddressFirstName" style="float: left;">{{ 'quotes.request.billing.first_name' | t }}</label>
+                            <label for="BillingAddressFirstName" style="float: left;">{{ 'customer.addresses.first_name' | t }}</label>
                             <span style="color: #ff0000; float: left; margin-left: 5px;">*</span>
                             <input id="BillingAddressFirstName" name="BillingAddressFirstName" required="required" type="text" ng-class="{ 'error': (formQuoteRequest.$submitted || formQuoteRequest.BillingAddressFirstName.$dirty) && formQuoteRequest.BillingAddressFirstName.$invalid }" ng-model="quoteRequest.billingAddress.firstName" />
-                            <div class="alert alert-error" ng-if="(formQuoteRequest.$submitted || formQuoteRequest.BillingAddressFirstName.$dirty) && formQuoteRequest.BillingAddressFirstName.$error.required">{{ 'quotes.request.billing.first_name_valid' | t }}</div>
-                            <label for="BillingAddressLastName" style="float: left;">{{ 'quotes.request.billing.last_name' | t }}</label>
+                            <div class="alert alert-error" ng-if="(formQuoteRequest.$submitted || formQuoteRequest.BillingAddressFirstName.$dirty) && formQuoteRequest.BillingAddressFirstName.$error.required">{{ 'customer.addresses.first_name_valid' | t }}</div>
+                            <label for="BillingAddressLastName" style="float: left;">{{ 'customer.addresses.last_name' | t }}</label>
                             <span style="color: #ff0000; float: left; margin-left: 5px;">*</span>
                             <input id="BillingAddressLastName" name="BillingAddressLastName" required="required" type="text" ng-class="{ 'error': (formQuoteRequest.$submitted || formQuoteRequest.BillingAddressLastName.$dirty) && formQuoteRequest.BillingAddressLastName.$invalid }" ng-model="quoteRequest.billingAddress.lastName" />
-                            <div class="alert alert-error" ng-if="(formQuoteRequest.$submitted || formQuoteRequest.BillingAddressLastName.$dirty) && formQuoteRequest.BillingAddressLastName.$error.required">{{ 'quotes.request.billing.last_name_valid' | t }}</div>
-                            <label for="BillingAddressCountry" style="float: left;">{{ 'quotes.request.billing.country' | t }}</label>
+                            <div class="alert alert-error" ng-if="(formQuoteRequest.$submitted || formQuoteRequest.BillingAddressLastName.$dirty) && formQuoteRequest.BillingAddressLastName.$error.required">{{ 'customer.addresses.last_name_valid' | t }}</div>
+                            <label for="BillingAddressCountry" style="float: left;">{{ 'customer.addresses.country' | t }}</label>
                             <span style="color: #ff0000; float: left; margin-left: 5px;">*</span>
                             <select id="BillingAddressCountryName" name="BillingAddressCountryName" required="required" ng-class="{ 'error': (formQuoteRequest.$submitted || formQuoteRequest.BillingAddressCountryName.$dirty) && formQuoteRequest.BillingAddressCountryName.$invalid }" ng-model="quoteRequest.billingAddress.countryName" ng-change="setCountry('Billing', quoteRequest.billingAddress.countryName)">
-                                <option disabled="disabled" value="">{{ 'quotes.request.billing.select_country' | t }}</option>
+                                <option disabled="disabled" value="">{{ 'customer.addresses.select_country' | t }}</option>
                                 <option ng-repeat="country in countries" ng-value="country.name" ng-selected="country.name == quoteRequest.billingAddress.countryName" ng-bind="country.name"></option>
                             </select>
                             <input id="BillingAddressCountryCode" name="BillingAddressCountryCode" type="hidden" ng-model="quoteRequest.billingAddress.countryCode" />
-                            <div class="alert alert-error" ng-if="(formQuoteRequest.$submitted || formQuoteRequest.BillingAddressCountryName.$dirty) && formQuoteRequest.BillingAddressCountryName.$error.required">{{ 'quotes.request.billing.select_country_valid' | t }}</div>
+                            <div class="alert alert-error" ng-if="(formQuoteRequest.$submitted || formQuoteRequest.BillingAddressCountryName.$dirty) && formQuoteRequest.BillingAddressCountryName.$error.required">{{ 'customer.addresses.select_country_valid' | t }}</div>
                             <div ng-if="billingCountryRegions.length">
                                 <label for="BillingAddressRegionName" style="float: left;" ng-bind="billingCountry.regionType"></label>
                                 <span style="color: #ff0000; float: left; margin-left: 5px;">*</span>
                                 <select id="BillingAddressRegionName" name="BillingAddressRegionName" required="required" ng-class="{ 'error': (formQuoteRequest.$submitted || formQuoteRequest.BillingAddressRegionName.$dirty) && formQuoteRequest.BillingAddressRegionName.$invalid }" ng-model="quoteRequest.billingAddress.regionName" ng-change="setCountryRegion('Billing')">
-                                    <option disabled="disabled" value="" ng-bind="'{{ 'quotes.request.billing.select' | t }} ' + billingCountry.regionType"></option>
+                                    <option disabled="disabled" value="" ng-bind="'{{ 'customer.addresses.select' | t }} ' + billingCountry.regionType"></option>
                                     <option ng-repeat="countryRegion in billingCountryRegions" ng-value="countryRegion.name" ng-selected="countryRegion.name == quoteRequest.billingAddress.regionName" ng-bind="countryRegion.name"></option>
                                 </select>
                                 <input id="BillingAddressRegionId" name="BillingAddressRegionId" type="hidden" ng-model="quoteRequest.billingAddress.regionId" />
                                 <div class="alert alert-error" ng-if="(formQuoteRequest.$submitted || formQuoteRequest.BillingAddressRegionName.$dirty) && formQuoteRequest.BillingAddressRegionName.$errro.required" ng-bind="'{{ 'quotes.request.billing.select_your' | t }} ' + billingCountry.regionType"></div>
                             </div>
-                            <label for="BillingAddressCity" style="float: left;">{{ 'quotes.request.billing.city' | t }}</label>
+                            <label for="BillingAddressCity" style="float: left;">{{ 'customer.addresses.city' | t }}</label>
                             <span style="color: #ff0000; float: left; margin-left: 5px;">*</span>
                             <input id="BillingAddressCity" name="BillingAddressCity" required="required" type="text" ng-class="{ 'error': (formQuoteRequest.$submitted || formQuoteRequest.BillingAddressCity.$dirty) && formQuoteRequest.BillingAddressCity.$invalid }" ng-model="quoteRequest.billingAddress.city" />
-                            <div class="alert alert-error" ng-if="(formQuoteRequest.$submitted || formQuoteRequest.BillingAddressCity.$dirty) && formQuoteRequest.BillingAddressCity.$error.required">{{ 'quotes.request.billing.city_valid' | t }}</div>
+                            <div class="alert alert-error" ng-if="(formQuoteRequest.$submitted || formQuoteRequest.BillingAddressCity.$dirty) && formQuoteRequest.BillingAddressCity.$error.required">{{ 'customer.addresses.city_valid' | t }}</div>
                         </div>
                         <div class="grid-item large--one-half">
-                            <label for="BillingAddressOrganization">{{ 'quotes.request.billing.company' | t }}</label>
+                            <label for="BillingAddressOrganization">{{ 'customer.addresses.company' | t }}</label>
                             <input id="BillingAddressOrganization" name="BillingAddressOrganization" type="text" ng-model="quoteRequest.billingAddress.organization" />
-                            <label for="BillingAddressLine1" style="float: left;">{{ 'quotes.request.billing.addres_line_1' | t }}</label>
+                            <label for="BillingAddressLine1" style="float: left;">{{ 'customer.addresses.addres_line_1' | t }}</label>
                             <span style="color: #ff0000; float: left; margin-left: 5px;">*</span>
                             <input id="BillingAddressLine1" name="BillingAddressLine1" type="text" required="required" ng-class="{ 'error': (formQuoteRequest.$submitted || formQuoteRequest.BillingAddressLine1.$dirty) && formQuoteRequest.BillingAddressLine1.$invalid }" ng-model="quoteRequest.billingAddress.line1" />
-                            <div class="alert alert-error" ng-if="(formQuoteRequest.$submitted || formQuoteRequest.BillingAddressLine1.$dirty) && formQuoteRequest.BillingAddressLine1.$error.required">{{ 'quotes.request.billing.addres_line_1_valid' | t }}</div>
-                            <label for="BillingAddressLine2">{{ 'quotes.request.billing.addres_line_2' | t }}</label>
+                            <div class="alert alert-error" ng-if="(formQuoteRequest.$submitted || formQuoteRequest.BillingAddressLine1.$dirty) && formQuoteRequest.BillingAddressLine1.$error.required">{{ 'customer.addresses.addres_line_1_valid' | t }}</div>
+                            <label for="BillingAddressLine2">{{ 'customer.addresses.addres_line_2' | t }}</label>
                             <input id="BillingAddressLine2" name="BillingAddressLine2" type="text" ng-model="quoteRequest.billingAddress.line2" />
-                            <label for="BillingAddressPostalCode" style="float: left;">{{ 'quotes.request.billing.postal_code' | t }}</label>
+                            <label for="BillingAddressPostalCode" style="float: left;">{{ 'customer.addresses.zip' | t }}</label>
                             <span style="color: #ff0000; float: left; margin-left: 5px;">*</span>
                             <input id="BillingAddressPostalCode" name="BillingAddressPostalCode" required="required" type="text" ng-class="{ 'error': (formQuoteRequest.$submitted || formQuoteRequest.BillingAddressPostalCode.$dirty) && formQuoteRequest.BillingAddressPostalCode.$invalid }" ng-model="quoteRequest.billingAddress.postalCode" />
-                            <div class="alert alert-error" ng-if="(formQuoteRequest.$submitted || formQuoteRequest.BillingAddressPostalCode.$dirty) && formQuoteRequest.BillingAddressPostalCode.$invalid">{{ 'quotes.request.billing.postal_code_valid' | t }}</div>
-                            <label for="BillingAddressPhone">{{ 'quotes.request.billing.phone' | t }}</label>
+                            <div class="alert alert-error" ng-if="(formQuoteRequest.$submitted || formQuoteRequest.BillingAddressPostalCode.$dirty) && formQuoteRequest.BillingAddressPostalCode.$invalid">{{ 'customer.addresses.zip_valid' | t }}</div>
+                            <label for="BillingAddressPhone">{{ 'customer.addresses.phone' | t }}</label>
                             <input id="BillingAddressPhone" name="BillingAddressPhone" type="text" ng-model="quoteRequest.billingAddress.phone" />
                         </div>
                     </div>
                 </div>
                 <div class="ublock" ng-if="quoteRequest.requestShippingQuote">
-                    <div class="h3">{{ 'quotes.request.billing.shipping_address' | t }}</div>
+                    <div class="h3">{{ 'customer.addresses.shipping_address' | t }}</div>
                     <input id="ShippingAddressEqualsBilling" name="ShippingAddressEqualsBilling" type="checkbox" style="display: inline-block;" ng-model="quoteRequest.shippingAddressEqualsBilling" ng-change="setShippingAddressEqualsBilling()" />
-                    <label for="ShippingAddressEqualsBilling" style="display: inline-block;">{{ 'quotes.request.billing.same_address' | t }}</label>
+                    <label for="ShippingAddressEqualsBilling" style="display: inline-block;">{{ 'customer.addresses.same_address' | t }}</label>
                     <input id="ShippingAddressType" name="ShippingAddressType" type="hidden" value="Shipping" ng-model="quoteRequest.shippingAddress.type" ng-init="quoteRequest.shippingAddress.type = 'Shipping'" />
                     <div class="grid">
                         <div class="grid-item large--one-half">
-                            <label for="ShippingAddressFirstName" style="float: left;">{{ 'quotes.request.billing.first_name' | t }}</label>
+                            <label for="ShippingAddressFirstName" style="float: left;">{{ 'customer.addresses.first_name' | t }}</label>
                             <span style="color: #ff0000; float: left; margin-left: 5px;">*</span>
                             <input id="ShippingAddressFirstName" name="ShippingAddressFirstName" required="required" type="text" ng-class="{ 'error': (formQuoteRequest.$submitted || formQuoteRequest.ShippingAddressFirstName.$dirty) && formQuoteRequest.ShippingAddressFirstName.$invalid }" ng-model="quoteRequest.shippingAddress.firstName" />
-                            <div class="alert alert-error" ng-if="(formQuoteRequest.$submitted || formQuoteRequest.ShippingAddressFirstName.$dirty) && formQuoteRequest.ShippingAddressFirstName.$error.required">{{ 'quotes.request.billing.first_name_valid' | t }}</div>
-                            <label for="ShippingAddressLastName" style="float: left;">{{ 'quotes.request.billing.last_name' | t }}</label>
+                            <div class="alert alert-error" ng-if="(formQuoteRequest.$submitted || formQuoteRequest.ShippingAddressFirstName.$dirty) && formQuoteRequest.ShippingAddressFirstName.$error.required">{{ 'customer.addresses.first_name_valid' | t }}</div>
+                            <label for="ShippingAddressLastName" style="float: left;">{{ 'customer.addresses.last_name' | t }}</label>
                             <span style="color: #ff0000; float: left; margin-left: 5px;">*</span>
                             <input id="ShippingAddressLastName" name="ShippingAddressLastName" required="required" type="text" ng-class="{ 'error': (formQuoteRequest.$submitted || formQuoteRequest.ShippingAddressLastName.$dirty) && formQuoteRequest.ShippingAddressLastName.$invalid }" ng-model="quoteRequest.shippingAddress.lastName" />
-                            <div class="alert alert-error" ng-if="(formQuoteRequest.$submitted || formQuoteRequest.ShippingAddressLastName.$dirty) && formQuoteRequest.ShippingAddressLastName.$error.required">{{ 'quotes.request.billing.last_name_valid' | t }}</div>
-                            <label for="ShippingAddressCountry" style="float: left;">{{ 'quotes.request.billing.country' | t }}</label>
+                            <div class="alert alert-error" ng-if="(formQuoteRequest.$submitted || formQuoteRequest.ShippingAddressLastName.$dirty) && formQuoteRequest.ShippingAddressLastName.$error.required">{{ 'customer.addresses.last_name_valid' | t }}</div>
+                            <label for="ShippingAddressCountry" style="float: left;">{{ 'customer.addresses.country' | t }}</label>
                             <span style="color: #ff0000; float: left; margin-left: 5px;">*</span>
                             <select id="ShippingAddressCountryName" name="ShippingAddressCountryName" required="required" ng-class="{ 'error': (formQuoteRequest.$submitted || formQuoteRequest.ShippingAddressCountryName.$dirty) && formQuoteRequest.ShippingAddressCountryName.$invalid }" ng-model="quoteRequest.shippingAddress.countryName" ng-change="setCountry('Shipping', quoteRequest.shippingAddress.countryName)">
-                                <option disabled="disabled" value="">{{ 'quotes.request.billing.select_country' | t }}</option>
+                                <option disabled="disabled" value="">{{ 'customer.addresses.select_country' | t }}</option>
                                 <option ng-repeat="country in countries" ng-value="country.name" ng-selected="country.name == quoteRequest.shippingAddress.countryName" ng-bind="country.name"></option>
                             </select>
                             <input id="ShippingAddressCountryCode" name="ShippingAddressCountryCode" type="hidden" ng-model="quoteRequest.shippingAddress.countryCode" />
@@ -255,27 +255,27 @@
                                     <option ng-repeat="countryRegion in shippingCountryRegions" ng-value="countryRegion.name" ng-selected="countryRegion.name == quoteRequest.shippingAddress.regionName" ng-bind="countryRegion.name"></option>
                                 </select>
                                 <input id="ShippingAddressRegionId" name="ShippingAddressRegionId" type="hidden" ng-model="quoteRequest.shippingAddress.regionId" />
-                                <div class="alert alert-error" ng-if="(formQuoteRequest.$submitted || formQuoteRequest.ShippingAddressRegionName.$dirty) && formQuoteRequest.ShippingAddressRegionName.$error.required" ng-bind="'{{ 'quotes.request.billing.select_your' | t }} ' + shippingCountry.regionType"></div>
+                                <div class="alert alert-error" ng-if="(formQuoteRequest.$submitted || formQuoteRequest.ShippingAddressRegionName.$dirty) && formQuoteRequest.ShippingAddressRegionName.$error.required" ng-bind="'{{ 'customer.addresses.select_your' | t }} ' + shippingCountry.regionType"></div>
                             </div>
-                            <label for="ShippingAddressCity" style="float: left;">{{ 'quotes.request.billing.city' | t }}</label>
+                            <label for="ShippingAddressCity" style="float: left;">{{ 'customer.addresses.city' | t }}</label>
                             <span style="color: #ff0000; float: left; margin-left: 5px;">*</span>
                             <input id="ShippingAddressCity" name="ShippingAddressCity" required="required" type="text" ng-class="{ 'error': (formQuoteRequest.$submitted || formQuoteRequest.ShippingAddressCity.$dirty) && formQuoteRequest.ShippingAddressCity.$invalid }" ng-model="quoteRequest.shippingAddress.city" />
-                            <div class="alert alert-error" ng-if="(formQuoteRequest.$submitted || formQuoteRequest.ShippingAddressCity.$dirty) && formQuoteRequest.ShippingAddressCity.$error.required">{{ 'quotes.request.billing.city_valid' | t }}</div>
+                            <div class="alert alert-error" ng-if="(formQuoteRequest.$submitted || formQuoteRequest.ShippingAddressCity.$dirty) && formQuoteRequest.ShippingAddressCity.$error.required">{{ 'customer.addresses.city_valid' | t }}</div>
                         </div>
                         <div class="grid-item large--one-half">
-                            <label for="ShippingAddressOrganization">{{ 'quotes.request.billing.company' | t }}</label>
+                            <label for="ShippingAddressOrganization">{{ 'customer.addresses.company' | t }}</label>
                             <input id="ShippingAddressOrganization" name="ShippingAddressOrganization" type="text" ng-model="quoteRequest.shippingAddress.organization" />
-                            <label for="ShippingAddressLine1" style="float: left;">{{ 'quotes.request.billing.addres_line_1' | t }}</label>
+                            <label for="ShippingAddressLine1" style="float: left;">{{ 'customer.addresses.addres_line_1' | t }}</label>
                             <span style="color: #ff0000; float: left; margin-left: 5px;">*</span>
                             <input id="ShippingAddressLine1" name="ShippingAddressLine1" type="text" required="required" ng-class="{ 'error': (formQuoteRequest.$submitted || formQuoteRequest.ShippingAddressLine1.$dirty) && formQuoteRequest.ShippingAddressLine1.$invalid }" ng-model="quoteRequest.shippingAddress.line1" />
-                            <div class="alert alert-error" ng-if="(formQuoteRequest.$submitted || formQuoteRequest.ShippingAddressLine1.$dirty) && formQuoteRequest.ShippingAddressLine1.$error.required">{{ 'quotes.request.billing.addres_line_1_valid' | t }}</div>
-                            <label for="ShippingAddressLine2">{{ 'quotes.request.billing.addres_line_2' | t }}</label>
+                            <div class="alert alert-error" ng-if="(formQuoteRequest.$submitted || formQuoteRequest.ShippingAddressLine1.$dirty) && formQuoteRequest.ShippingAddressLine1.$error.required">{{ 'customer.addresses.addres_line_1_valid' | t }}</div>
+                            <label for="ShippingAddressLine2">{{ 'customer.addresses.addres_line_2' | t }}</label>
                             <input id="ShippingAddressLine2" name="ShippingAddressLine2" type="text" ng-model="quoteRequest.shippingAddress.line2" />
-                            <label for="ShippingAddressPostalCode" style="float: left;">{{ 'quotes.request.billing.postal_code' | t }}</label>
+                            <label for="ShippingAddressPostalCode" style="float: left;">{{ 'customer.addresses.zip' | t }}</label>
                             <span style="color: #ff0000; float: left; margin-left: 5px;">*</span>
                             <input id="ShippingAddressPostalCode" name="ShippingAddressPostalCode" required="required" type="text" ng-class="{ 'error': (formQuoteRequest.$submitted || formQuoteRequest.ShippingAddressPostalCode.$dirty) && formQuoteRequest.ShippingAddressPostalCode.$invalid }" ng-model="quoteRequest.shippingAddress.postalCode" />
-                            <div class="alert alert-error" ng-if="(formQuoteRequest.$submitted || formQuoteRequest.ShippingAddressPostalCode.$dirty) && formQuoteRequest.ShippingAddressPostalCode.$error.required">{{ 'quotes.request.billing.postal_code_valid' | t }}</div>
-                            <label for="ShippingAddressPhone">{{ 'quotes.request.billing.phone' | t }}</label>
+                            <div class="alert alert-error" ng-if="(formQuoteRequest.$submitted || formQuoteRequest.ShippingAddressPostalCode.$dirty) && formQuoteRequest.ShippingAddressPostalCode.$error.required">{{ 'customer.addresses.zip_valid' | t }}</div>
+                            <label for="ShippingAddressPhone">{{ 'customer.addresses.phone' | t }}</label>
                             <input id="ShippingAddressPhone" name="ShippingAddressPhone" type="text" ng-model="quoteRequest.shippingAddress.phone" />
                         </div>
                     </div>
@@ -283,9 +283,9 @@
             </div>
         </div>
         <div class="ublock text-right" ng-if="displayForStatuses(['New', 'Processing', 'Proposal sent'])">
-            <button class="btn" id="btn-submit-quote-request" type="button" ng-click="submitQuoteRequest()" ng-if="displayForStatuses(['New'])">{{ 'quotes.request.billing.button.submit_quote' | t }}</button>
-            <button class="btn btn-secondary" id="btn-submit-quote-request" style="margin: 0;" type="button" ng-click="rejectQuoteRequest()" ng-if="displayForStatuses(['Processing', 'Proposal sent'])">{{ 'quotes.request.billing.button.reject_quote' | t }}</button>
-            <button class="btn" id="btn-submit-quote-request" type="button" ng-click="confirmQuoteRequest()" ng-if="displayForStatuses(['Proposal sent'])">{{ 'quotes.request.billing.button.confirm_quote' | t }}</button>
+            <button class="btn" id="btn-submit-quote-request" type="button" ng-click="submitQuoteRequest()" ng-if="displayForStatuses(['New'])">{{ 'quotes.request.button.submit_quote' | t }}</button>
+            <button class="btn btn-secondary" id="btn-submit-quote-request" style="margin: 0;" type="button" ng-click="rejectQuoteRequest()" ng-if="displayForStatuses(['Processing', 'Proposal sent'])">{{ 'quotes.request.button.reject_quote' | t }}</button>
+            <button class="btn" id="btn-submit-quote-request" type="button" ng-click="confirmQuoteRequest()" ng-if="displayForStatuses(['Proposal sent'])">{{ 'quotes.request.button.confirm_quote' | t }}</button>
         </div>
     </form>
 </div>

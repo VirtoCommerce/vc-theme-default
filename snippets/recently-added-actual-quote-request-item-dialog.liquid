@@ -38,7 +38,7 @@
                     <div class="grid-item text-right">
                         <button class="btn" ng-class="{ 'btn-secondary': !dialogData.updated }" ng-disabled="!dialogData.updated" ng-click="redirect('{{ 'quoterequest' | absolute_url }}')">
                             <span ng-if="dialogData.updated">{{ 'quotes.general.go_request' | t }}</span>
-                            <span ng-if="!dialogData.updated">{{ 'quotes.general.update_request' | t }}</span>
+                            <span ng-if="!dialogData.updated">{{ 'quotes.general.update_quote' | t }}</span>
                         </button>
                         <button class="btn" ng-click="close()">{{ 'dialog.countinue_shop' | t }}</button>
                     </div>

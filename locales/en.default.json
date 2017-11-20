@@ -217,7 +217,6 @@
             "empty": "Your cart is currently empty.",
             "adding": "Adding product to cart...",
             "continue_browsing_html": "Continue browsing <a href=\"collections\">here</a>.",
-            "or": "or",
             "view_cart": "View Cart",
             "close_cart": "Close Cart",
             "quick_add_description": "You can quickly add a product to cart by entering its SKU or name in the field below",
@@ -226,9 +225,6 @@
             "product_search_progress": "Searching...",
             "categories": "Categories",
             "products": "Products",
-            "product_added_request": "Product is added to quote request",
-            "go_request": "Go to quote request",
-            "update_request": "Updating quote request...",
             "countinue_shop": "Continue shopping",
             "product_added": "Product is added to cart",
             "go_cart": "Go to cart",
@@ -284,7 +280,7 @@
             "remove": "Remove",
             "product_added_request": "Product is added to quote request",
             "go_request": "Go to quote request",
-            "update_request": "Updating quote request...",
+            "update_quote": "Updating quote request...",
             "remarks": {
                 "title": "Remarks",
                 "text": "Do you have a general remark with this Quote Request?"
@@ -316,34 +312,10 @@
             "enter_quantity": "Please enter quantity",
             "enter_number": "Please enter a number",
             "enter_positiv_value": "Please enter a positive value",
-            "billing": {
-                "select": "Select",
-                "address": "Billing address",
-                "select_address": "Select address",
-                "first_name": "First name",
-                "first_name_valid": "Please enter your first name",
-                "last_name": "Last name",
-                "last_name_valid": "Please enter your last name",
-                "country": "Country",
-                "select_country": "Select country",
-                "select_country_valid": "Please select your country",
-                "city": "City",
-                "city_valid": "Please enter your city",
-                "company": "Company",
-                "addres_line_1": "Address line 1",
-                "addres_line_1_valid": "Please enter your address line 1",
-                "addres_line_2": "Address line 2",
-                "postal_code": "Zip/Postal code",
-                "postal_code_valid": "Please enter your postal code",
-                "phone": "Phone",
-                "shipping_address": "Shipping address",
-                "same_address": "Shipping address is same as billing address",
-                "select_your": "Please select your",
-                "button": {
-                    "submit_quote": "Submit quote request",
-                    "reject_quote": "Reject quote request",
-                    "confirm_quote": "Confirm and checkout"
-                }
+            "button": {
+                "submit_quote": "Submit quote request",
+                "reject_quote": "Reject quote request",
+                "confirm_quote": "Confirm and checkout"
             }
         }
     },
@@ -445,8 +417,24 @@
             "delete": "Delete",
             "delete_confirm": "Are you sure you wish to delete this address?",
             "no_addresses_message": "You have no addresses yet.",
-            "or": "or",
-            "edit_new": "Edit address"
+            "edit_new": "Edit address",
+            "billing_address": "Billing address",
+            "select_address": "Select address",
+            "first_name_valid": "Please enter your first name",
+            "last_name_valid": "Please enter your last name",
+            "select": "Select",
+            "select_country": "Select country",
+            "select_country_valid": "Please select your country",
+            "city_valid": "Please enter your city",
+            "addres_line_1": "Address line 1",
+            "addres_line_1_valid": "Please enter your address line 1",
+            "addres_line_2": "Address line 2",
+            "zip_valid": "Please enter your postal code",
+            "shipping_address": "Shipping address",
+            "same_address": "Shipping address is same as billing address",
+            "select_your": "Please select your"
+
+
         },
         "login": {
             "title": "Login",
@@ -456,7 +444,6 @@
             "forgot_password": "Forgot your password?",
             "reset_password_success": "We've sent you an email with a link to update your password.",
             "sign_in": "Sign In",
-            "or": "or",
             "cancel": "Return to Store",
             "guest_title": "Continue as a guest",
             "guest_continue": "Let's go"
@@ -600,7 +587,6 @@
             "user_name": "User Name",
             "password": "Password",
             "submit": "Create",
-            "or": "or",
             "cancel": "Return to Store"
         },
         "edit_profile": {
@@ -663,7 +649,6 @@
             "log_out": "Log out",
             "sign_in": "Sign in",
             "create_account": "Create an Account",
-            "or": "or"
         },
         "navigation": {
             "more": "More",
@@ -710,7 +695,7 @@
             "quantity": "Quantity",
             "add_to_cart": "Add to Cart",
             "details_tab": "Product details",
-            "inc": "Inc VAT",
+            "vat": "Inc VAT",
             "subscription_period": "Subscription with a period:"
         },
         "compare_list": {
@@ -768,11 +753,11 @@
     "confirmation": {
         "confirm_email": "Thank you for confirming your email",
         "click_login_link": "click here to log in",
-        "pass_recovery": "Password recovery",
+        "password_recovery": "Password recovery",
         "check_email_to_reset_pass": "Please check your email to reset your password.",
-        "confirm_email_send": "Convirmation Email sent",
+        "confirm_email_sent": "Convirmation Email sent",
         "check_your_email": "Please check your email and confirm your email address.",
-        "pass_has_been_reset": "Your password has been reset",
+        "passpassword_has_been_reset": "Your password has been reset",
         "please": "Please"
     },
     "verify": {
