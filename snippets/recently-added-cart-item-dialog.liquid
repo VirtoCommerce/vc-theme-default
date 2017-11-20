@@ -1,6 +1,6 @@
 <script id="storefront.recently-added-cart-item-dialog.tpl" type="text/ng-template">
     <div class="ajaxify-modal is-visible" id="ajaxifyModal" style="opacity: 1;">
-        <button class="ajaxifyCart--close" title="{{ 'cart.general.close_cart' | t }}" ng-click="close()">{{ 'cart.general.close_cart' | t }}</button>
+        <button class="ajaxifyCart--close" title="{{ 'dialog.close_cart' | t }}" ng-click="close()">{{ 'cart.general.close_cart' | t }}</button>
         <div class="ajaxifyCart--content" id="ajaxifyCart">
             <h1 class="h2">{{ 'cart.general.product_added' | t }}</h1>
             <div class="cart-row">
@@ -45,7 +45,7 @@
                             <span ng-if="dialogData.updated">{{ 'cart.general.go_cart' | t }}</span>
                             <span ng-if="!dialogData.updated">{{ 'cart.general.update_cart' | t }}</span>
                         </button>
-                        <button class="btn" ng-click="close()">{{ 'cart.general.countinue_shop' | t }}</button>
+                        <button class="btn" ng-click="close()">{{ 'dialog.countinue_shop' | t }}</button>
                     </div>
                 </div>
             </div>

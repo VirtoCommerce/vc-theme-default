@@ -17,20 +17,9 @@
     "common": {
         "required": "Required",
         "invalid": "Invalid",
-        "social": {
-            "twitter": "Twitter",
-            "facebook": "Facebook",
-            "pinterest": "Pinterest",
-            "google": "Google",
-            "instagram": "Instagram",
-            "tumblr": "Tumblr",
-            "youtube": "YouTube",
-            "vimeo": "Vimeo",
-            "fancy": "Fancy"
-        },
+        "or": "or",
         "error": {
             "error": "Error",
-            "error_theme": "Error",
             "error_processing": "An error occurred while processing your request:",
             "theme_not_fond": "No theme found."
         }
@@ -149,7 +138,7 @@
     "notification": {
         "error_title": "Ooops! An error is occured!",
         "error_message": "Please tell us technical details for this error and we will be better!",
-        "show_error_details_link_text": "Show me the technical details!",
+        "show_error_details_link_text": "Show me the technical details",
         "hide_error_details_link_text": "Hide the technical details"
     },
     "general": {
@@ -244,11 +233,10 @@
             "product_added": "Product is added to cart",
             "go_cart": "Go to cart",
             "update_cart": "Updating cart...",
-            "select_list": "Please select list",
             "apply_price": "Apply new price",
             "enter_number": "Please enter a number",
             "quantity_more_zero": "Quantity should be greater than 0",
-            "subscript_period": "Subscription with a period:",
+            "subscription_period": "Subscription with a period:",
             "placeholders": {
                 "product_search": "Start enter a SKU or product name to search..."
             }
@@ -277,7 +265,8 @@
             "adding_to_list": "Adding to list...",
             "added_to_list": "1 Item added to",
             "added_to_cart": "Product is added to cart",
-            "list_not_defined": "No lists defined"
+            "list_not_defined": "No lists defined",
+            "select_list": "Please select list"
         }
     },
     "quotes": {
@@ -292,8 +281,10 @@
             "company": "Company",
             "request_shipping_quote": "Request a shipping quote",
             "submit_quote": "Submit quote request",
-            "update_quote": "Update quote",
             "remove": "Remove",
+            "product_added_request": "Product is added to quote request",
+            "go_request": "Go to quote request",
+            "update_request": "Updating quote request...",
             "remarks": {
                 "title": "Remarks",
                 "text": "Do you have a general remark with this Quote Request?"
@@ -354,7 +345,7 @@
                     "confirm_quote": "Confirm and checkout"
                 }
             }
-        } 
+        }
     },
     "bulk_order": {
         "general": {
@@ -429,8 +420,7 @@
             "password": "Password",
             "password_confirm": "Confirm Password",
             "submit": "Activate Account",
-            "cancel": "Decline Invitation",
-            "or": "or" 
+            "cancel": "Decline Invitation"
         },
         "addresses": {
             "title": "Your Addresses",
@@ -637,7 +627,7 @@
         "account_lock": {
             "title": "Locked out",
             "text": "This account has been locked out, please try again later."
-        } 
+        }
     },
     "homepage": {
         "featured_collections": {
@@ -662,7 +652,6 @@
             "cart": "Cart"
         },
         "quotes": {
-            "quotes": "Quotes",
             "quote": "Quote"
         },
         "customer": {
@@ -722,7 +711,7 @@
             "add_to_cart": "Add to Cart",
             "details_tab": "Product details",
             "inc": "Inc VAT",
-            "subscript_period": "Subscription with a period:"
+            "subscription_period": "Subscription with a period:"
         },
         "compare_list": {
             "add_to_compare": "Add to compare",
@@ -768,14 +757,13 @@
             "check_out_faster": "You'll be able to check out faster",
             "email": "Email address",
             "password": "Password",
-            "forgot_pass": "Forgot password?",
+            "forgot_password": "Forgot password?",
             "sign_in": "Sign in",
             "without_sign_in": "Continue without signing in",
-            "after_purchasse": "You'll have the option to register for an account after your purchase.",
-            "register_mow": "register for an account now",
-            "as_guest": "Continue as a guest"
+            "register_after_purchase": "You'll have the option to register for an account after your purchase.",
+            "register_now": "register for an account now",
+            "continue_as_guest": "Continue as a guest"
         }
-
     },
     "confirmation": {
         "confirm_email": "Thank you for confirming your email",
@@ -783,7 +771,7 @@
         "pass_recovery": "Password recovery",
         "check_email_to_reset_pass": "Please check your email to reset your password.",
         "confirm_email_send": "Convirmation Email sent",
-        "check_email_confirm_his": "Please check your email and confirm your email address.",
+        "check_your_email": "Please check your email and confirm your email address.",
         "pass_has_been_reset": "Your password has been reset",
         "please": "Please"
     },
@@ -800,5 +788,11 @@
                 "enter_code": "Enter verification code here"
             }
         }
+    },
+    "dialog": {
+        "close": "Close",
+        "close_cart": "Close Cart",
+        "countinue_shop": "Continue shopping"
+
     }
 }

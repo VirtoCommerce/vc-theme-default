@@ -28,15 +28,15 @@
                                     <label for="customer_password">{{ 'popup.guest.password' | t }}</label>
                                     <input class="form-control" id="customer_password" name="customer[password]" required="required" type="password" value="" />
                                 </div>
-                                <p><a href="/account/login#recover">{{ 'popup.guest.forgot_pass' | t }}</a></p><br />
+                                <p><a href="/account/login#recover">{{ 'popup.guest.forgot_password' | t }}</a></p><br />
                                 <button class="btn btn-primary" type="submit">{{ 'popup.guest.sign_in' | t }}</button>
                             {% endform %}
                         </div>
                         <div class="col-md-6">
                             <h3>{{ 'popup.guest.without_sign_in' | t }}</h3>
-                            <p>{{ 'popup.guest.after_purchasse' | t }}</p>
-                            <p>You can also <a href="/account/register">{{ 'popup.guest.register_mow' | t }}</a>.</p><br />
-                            <p class="text-center"><button class="btn btn-primary" data-dismiss="modal">{{ 'popup.guest.as_guest' | t }}</button></p>
+                            <p>{{ 'popup.guest.register_after_purchase' | t }}</p>
+                            <p>You can also <a href="/account/register">{{ 'popup.guest.register_now' | t }}</a>.</p><br />
+                            <p class="text-center"><button class="btn btn-primary" data-dismiss="modal">{{ 'popup.guest.continue_as_guest' | t }}</button></p>
                         </div>
                     </div>
                 </div>

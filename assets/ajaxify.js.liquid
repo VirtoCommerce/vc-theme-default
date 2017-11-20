@@ -420,7 +420,7 @@ var ajaxifyShopify = (function(module, $) {
     $modalOverlay.on('click', hideModal);
 
     // Create a close modal button
-    $modalContainer.prepend('<button class="ajaxifyCart--close" title="' + {{ 'cart.general.close_cart' | t | json }} + '">' + {{ 'cart.general.close_cart' | t | json }} + '</button>');
+    $modalContainer.prepend('<button class="ajaxifyCart--close" title="' + {{ 'dialog.close_cart' | t | json }} + '">' + {{ 'cart.general.close_cart' | t | json }} + '</button>');
     $closeCart = $('.ajaxifyCart--close');
     $closeCart.on('click', hideModal);
 
