@@ -36,7 +36,7 @@
                                 <span ng-bind="lineItem.name"></span>
                                 {% if shop.subscription_enabled %}
                                 <div class="note" ng-if="lineItem.paymentPlan">
-                                    <span ng-bind="'{{ 'cart.general.subscript_period' | t }} ' + lineItem.paymentPlan.intervalCount + ' ' + lineItem.paymentPlan.interval"></span>
+                                    <span ng-bind="'{{ 'cart.general.subscription_period' | t }} ' + lineItem.paymentPlan.intervalCount + ' ' + lineItem.paymentPlan.interval"></span>
                                 </div>
                                 {% endif %}
                                 <div class="note" ng-class="{ 'form-error' : !lineItem.isValid }" ng-repeat="error in lineItem.validationErrors">
