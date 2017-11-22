@@ -246,7 +246,7 @@
                                 <option ng-repeat="country in countries" ng-value="country.name" ng-selected="country.name == quoteRequest.shippingAddress.countryName" ng-bind="country.name"></option>
                             </select>
                             <input id="ShippingAddressCountryCode" name="ShippingAddressCountryCode" type="hidden" ng-model="quoteRequest.shippingAddress.countryCode" />
-                            <div class="alert alert-error" ng-if="(formQuoteRequest.$submitted || formQuoteRequest.ShippingAddressCountryName.$dirty) && formQuoteRequest.ShippingAddressCountryName.$error.required">{{ 'quotes.request.billing.select_country_valid' | t }}</div>
+                            <div class="alert alert-error" ng-if="(formQuoteRequest.$submitted || formQuoteRequest.ShippingAddressCountryName.$dirty) && formQuoteRequest.ShippingAddressCountryName.$error.required">{{ 'customer.addresses.select_country_valid' | t }}</div>
                             <div ng-if="shippingCountryRegions.length">
                                 <label for="ShippingAddressRegionName" style="float: left;" ng-bind="shippingCountry.RegionType"></label>
                                 <span style="color: #ff0000; float: left; margin-left: 5px;">*</span>
