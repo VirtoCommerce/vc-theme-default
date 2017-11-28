@@ -123,22 +123,28 @@ storefrontApp.service('cartService', ['$http', function ($http) {
 
 storefrontApp.service('listService', ['$q','$http', '$localStorage', 'customerService', function ($q, $http, $localStorage, customerService) {
 	return {
-		getOrCreateMyLists: function (userName, lists) {
+        getOrCreateMyLists: function (userName, lists) {
 			if (!$localStorage['lists']) {
-				$localStorage['lists'] = {};
-				$localStorage['lists'][userName] = [];
+                $localStorage['lists'] = {};
+                $localStorage['lists'][userName] = [];
 				$localStorage['sharedListsIds'] = {};
-				$localStorage['sharedListsIds'][userName] = [];
+                $localStorage['sharedListsIds'][userName] = [];
 				_.each(lists, function (list) {
 				    list.author = userName;
 				    list.id = Math.floor(Math.random() * 230910443210623294 + 1).toString();
 				});
 				_.extend($localStorage['lists'][userName], lists);
-				$ctrl.accountLists.selectTab('myLists');
-
-				return;
-			}
-			else return $q(function (resolve, reject) { resolve($localStorage['lists'][userName]) });
+            }
+            else if(!$localStorage['lists'][userName] || _.isEmpty($localStorage['lists'][userName])) {
+                $localStorage['lists'][userName] = [];
+                $localStorage['sharedListsIds'][userName] = [];
+                _.each(lists, function (list) {
+                    list.author = userName;
+                    list.id = Math.floor(Math.random() * 230910443210623294 + 1).toString();
+                });
+                _.extend($localStorage['lists'][userName], lists);
+            }
+			return $q(function (resolve, reject) { resolve($localStorage['lists'][userName]) });
         },
 
 		getSharedLists: function (userName) {
@@ -182,12 +188,14 @@ storefrontApp.service('listService', ['$q','$http', '$localStorage', 'customerSe
             _.each(lists, function (list) {
                 if (angular.isDefined(_.find(list, { id: cartId }))) {
                     var currentList = _.find(list, { id: cartId });
+                    console.log(currentList);
                     if (angular.isDefined(_.find(currentList.items, { productId: productId })))
                         contains = true;
                     else
                         contains = false;
                 }
             })
+            console.log(contains);
 			return $q(function (resolve, reject) { resolve({ contains: contains }) });
 		},
 

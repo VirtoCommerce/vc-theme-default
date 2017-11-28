@@ -127,12 +127,14 @@
                   "name": "shopping list",
                   "default": true,
                     "permission": "private",
-                    "items": []
+                    "items": [],
+                    "id": ""
                 },
                 {
                     "name": "wish list",
                     "permission": "public",
-                    "items": []
+                    "items": [],
+                    "id": ""
                 }
             ] 
         },
