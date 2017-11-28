@@ -15,16 +15,16 @@ storefrontApp.controller('searchBarController', ['$scope', '$timeout', '$window'
             $scope.productSuggestions = [];
             var searchCriteria = {
                 keyword: $scope.query,
-                skip: 0,
-                take: $window.suggestionsLimit
+                start: 0,
+                pageSize: $window.suggestionsLimit
             }
             catalogService.searchCategories(searchCriteria).then(function (response) {
                 var categories = response.data.categories;
                 if (categories.length > 5) {
-                    searchCriteria.take = $window.suggestionsLimit - 5;
+                    searchCriteria.pageSize = $window.suggestionsLimit - 5;
                     $scope.categorySuggestions = _.first(categories, 5);
                 } else {
-                    searchCriteria.take = $window.suggestionsLimit - categories.length;
+                    searchCriteria.pageSize = $window.suggestionsLimit - categories.length;
                     $scope.categorySuggestions = categories;
                 }
                 catalogService.search(searchCriteria).then(function (response) {
