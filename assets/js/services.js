@@ -19,7 +19,7 @@ storefrontApp.service('dialogService', ['$uibModal', function ($uibModal) {
 storefrontApp.service('feedbackService', ['$http', function ($http) {
     return {
         postFeedback: function (data) {
-            return $http.post('storefrontapi/feedback', { model: data });
+            return $http.post('storefrontapi/feedback', data);
         }
     }
 }]);
@@ -43,7 +43,7 @@ storefrontApp.service('marketingService', ['$http', function ($http) {
 storefrontApp.service('pricingService', ['$http', function ($http) {
 	return {
 		getActualProductPrices: function (products) {
-		    return $http.post('storefrontapi/pricing/actualprices', { products: products });
+		    return $http.post('storefrontapi/pricing/actualprices', products);
 		}
 	}
 }]);
@@ -99,10 +99,10 @@ storefrontApp.service('catalogService', ['$http', function($http, $localStorage)
             return $http.get('storefrontapi/products?' + productIds + '&t=' + new Date().getTime());
         },
         search: function (criteria) {
-            return $http.post('storefrontapi/catalog/search', { searchCriteria: criteria });
+            return $http.post('storefrontapi/catalog/search', criteria);
         },
         searchCategories: function (criteria) {
-            return $http.post('storefrontapi/categories/search', { searchCriteria: criteria });
+            return $http.post('storefrontapi/categories/search', criteria);
         }
     }
 }]);
@@ -161,7 +161,7 @@ storefrontApp.service('cartService', ['$http', function ($http) {
             return $http.delete('storefrontapi/cart/paymentPlan');
         },
         createOrder: function (bankCardInfo) {
-            return $http.post('storefrontapi/cart/createorder', { bankCardInfo: bankCardInfo });
+            return $http.post('storefrontapi/cart/createorder', bankCardInfo);
         },
         updateCartComment: function (cartComment) {
             return $http.put('storefrontapi/cart/comment', { comment: cartComment });
