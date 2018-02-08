@@ -1,0 +1,59 @@
+﻿[
+    {
+        "type": "settings",
+        "permalink": "about-us",
+        "title": "About Us"
+    },
+    {
+        "type": "text",
+        "textAlign": "justify",
+        "content": "A great About Us page helps builds trust between you and your customers. The more content you provide about you and your business, the more confident people will be when purchasing from your store."
+    },
+    {
+        "type": "text",
+        "content": "Your About Us page might include:"
+    },
+    {
+        "type": "unordered-list",
+        "content": "Your About Us page might include:",
+        "blocks": [
+            {
+                "type": "text",
+                "content": "Who you are"
+            },
+            {
+                "type": "text",
+                "content": "Why you sell the items you sell"
+            },
+            {
+                "type": "text",
+                "content": "Where you are located"
+            },
+            {
+                "type": "text",
+                "content": "How long you have been in business"
+            },
+            {
+                "type": "text",
+                "content": "How long you have been running your online shop"
+            },
+            {
+                "type": "text",
+                "content": "Who are the people on your team"
+            },
+            {
+                "type": "text",
+                "content": "Contact information"
+            },
+            {
+                "type": "text",
+                "content": "Social links (Twitter, Facebook)"
+            }
+        ]
+    },
+    {
+        "type": "text",
+        "content": "To edit the content on this page, go to the Pages section of your Shopify admin."
+    }
+
+]

@@ -1,0 +1,16 @@
+﻿{% include 'breadcrumb' %}
+
+<div class="grid">
+
+  <div class="grid-item large--two-thirds push--large--one-sixth">
+
+    <h1>{{ cms.settings.title }}</h1>
+    <div class="">
+
+        {% include 'container' with block: cms %}
+
+    </div>
+
+  </div>
+
+</div>

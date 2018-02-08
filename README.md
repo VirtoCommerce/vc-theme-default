@@ -167,3 +167,7 @@ Storefront theme localization is very similar to [VirtoCommerce Platform localiz
 1. Open your store in VirtoCommerce Platform ( **More → Browse → Stores → &lt;*your store*&gt;** ).
 2. Check whether your language exists in the "Additional languages" available values list or add it in case it's missing:
 ![How to add language to store](https://user-images.githubusercontent.com/6369252/30009896-332f7838-9145-11e7-92c1-2c0c19b61bc6.gif "How to add language to store")
+
+### Making pages with json-pages
+
+[Documentation for json-pages](json-page.md)

@@ -1,0 +1,10 @@
+﻿<div class="rte">
+    <ul>
+    {% for block in block.blocks %}
+    <li>
+        {% include block.type %}
+    </li>
+    {% endfor %}
+    </ul>
+
+</div>
