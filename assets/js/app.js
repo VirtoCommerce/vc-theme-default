@@ -1,4 +1,4 @@
-﻿var storefrontAppDependencies = [
+var storefrontAppDependencies = [
     'ui.bootstrap',
     'ngStorage',
     'pascalprecht.translate',

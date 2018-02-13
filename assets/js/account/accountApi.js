@@ -1,4 +1,4 @@
-﻿angular.module('storefront.account')
+angular.module('storefront.account')
     .factory('storefront.accountApi', ['$resource', function ($resource) {
         return $resource('storefrontapi/account', null, {
             updateAccount: { url: 'storefrontapi/account', method: 'POST' },

@@ -1,4 +1,4 @@
-﻿var storefrontApp = angular.module('storefrontApp');
+var storefrontApp = angular.module('storefrontApp');
 storefrontApp.component('vcCheckoutWizardStep', {
     templateUrl: "themes/assets/js/checkout/checkout-wizard-step.tpl.html",
     transclude: true,

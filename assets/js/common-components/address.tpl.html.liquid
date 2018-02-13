@@ -1,4 +1,4 @@
-﻿<form accept-charset="UTF8" name="addrForm" novalidate="novalidate" ng-if="$ctrl.editMode">
+<form accept-charset="UTF8" name="addrForm" novalidate="novalidate" ng-if="$ctrl.editMode">
     <div class="form-fieldset" ng-init="$ctrl.setForm(addrForm)">
         <div class="form-group form-select" ng-class="{'keyuped': addrForm.Addresses.$modelValue }" ng-if="$ctrl.addresses.length">
             <label for="#" class="form-label">{{ 'checkout.address.selected_address' | t }}</label>

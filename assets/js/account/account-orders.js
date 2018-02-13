@@ -1,4 +1,4 @@
-﻿angular.module('storefront.account')
+angular.module('storefront.account')
 .component('vcAccountOrders', {
     templateUrl: "themes/assets/js/account/account-orders.tpl.liquid",
     $routeConfig: [

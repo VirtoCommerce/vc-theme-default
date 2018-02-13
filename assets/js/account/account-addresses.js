@@ -1,4 +1,4 @@
-﻿angular.module('storefront.account')
+angular.module('storefront.account')
 .component('vcAccountAddresses', {
     templateUrl: "themes/assets/js/account/account-addresses.tpl.liquid",
     require: {
