@@ -752,7 +752,7 @@
     },
     "confirmation": {
         "confirm_email": "Thank you for confirming your email",
-        "click_login_link": "click here to log in",
+        "click_login_link": "click <a href=\"{{  }}\">here</a> to log in",
         "password_recovery": "Password recovery",
         "check_email_to_reset_pass": "Please check your email to reset your password.",
         "confirm_email_sent": "Convirmation Email sent",
