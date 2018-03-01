@@ -174,9 +174,6 @@ storefrontApp.service('listService', ['$http', function ($http) {
         getWishlist: function (listName) {
             return $http.get('storefrontapi/lists/' + listName + '?t=' + new Date().getTime());
         },
-        contains: function (productId, listName) {
-            return $http.get('storefrontapi/lists/' + listName +'/items/'+ productId + '/contains?t=' + new Date().getTime());
-        },
         getListsWithProduct: function (productId, listNames) {
             return $http.post('storefrontapi/lists/getlistswithproduct', { productId: productId, listNames: listNames });
         },
