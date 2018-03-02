@@ -1,4 +1,4 @@
-﻿var storefrontApp = angular.module('storefrontApp');
+var storefrontApp = angular.module('storefrontApp');
 storefrontApp.controller('searchBarController', ['$scope', '$timeout', '$window', 'catalogService', function ($scope, $timeout, $window, catalogService) {
     var timer;
 

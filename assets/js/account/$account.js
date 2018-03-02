@@ -1,4 +1,4 @@
-﻿//Call this to register our module to main application
+//Call this to register our module to main application
 var moduleName = "storefront.account";
 
 if (storefrontAppDependencies !== undefined) {

@@ -1,4 +1,4 @@
-﻿var storefrontApp = angular.module('storefrontApp');
+var storefrontApp = angular.module('storefrontApp');
 
 storefrontApp.component('vcCheckoutShippingMethods', {
 	templateUrl: "themes/assets/js/checkout/checkout-shippingMethods.tpl.liquid",

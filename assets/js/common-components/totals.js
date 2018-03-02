@@ -1,4 +1,4 @@
-﻿var storefrontApp = angular.module('storefrontApp');
+var storefrontApp = angular.module('storefrontApp');
 
 storefrontApp.component('vcTotals', {
     templateUrl: "themes/assets/js/common-components/totals.tpl.liquid",

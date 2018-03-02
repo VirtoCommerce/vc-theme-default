@@ -1,4 +1,4 @@
-﻿angular.module('storefront.account')
+angular.module('storefront.account')
 .component('vcAccountQuotes', {
     templateUrl: "themes/assets/js/account/account-quotes.tpl.liquid",
     require: {

@@ -1,4 +1,4 @@
-﻿var storefrontApp = angular.module('storefrontApp');
+var storefrontApp = angular.module('storefrontApp');
 
 storefrontApp.controller('recentlyAddedListItemDialogController', ['$scope', '$window', '$uibModalInstance', 'dialogData', 'listService', '$translate', function ($scope, $window, $uibModalInstance, dialogData, listService, $translate) {
     $scope.availableLists = [];
@@ -14,8 +14,8 @@ storefrontApp.controller('recentlyAddedListItemDialogController', ['$scope', '$w
                 $scope.inProgress = false;
                 $scope.itemAdded = true;
             }
-        })
-    }
+        });
+    };
     $scope.selectList = function (list) {
         $scope.selectedList = list;
     };
@@ -25,26 +25,27 @@ storefrontApp.controller('recentlyAddedListItemDialogController', ['$scope', '$w
     };
     $scope.redirect = function (url) {
         $window.location = url;
-    }
-
+    };
     $scope.initialize = function (lists) {        
         $scope.lists = lists;
-        angular.forEach($scope.lists, function (list) {
-            var titleKey = 'wishlist.general.' + list.name + '_list_title';
-            var descriptionKey = 'wishlist.general.' + list.name + '_list_description';
-            $translate([titleKey, descriptionKey]).then(function (translations) {
-                list.title = translations[titleKey];
-                list.description = translations[descriptionKey];
-            }, function (translationIds) {
-                list.title = translationIds[titleKey];
-                list.description = translationIds[descriptionKey];
+
+        var listNames = _.pluck(lists, "name");
+        listService.getListsWithProduct(dialogData.id, listNames).then(function (result) {
+            var filteredNames = result.data;
+
+            angular.forEach($scope.lists, function (list) {
+                var titleKey = 'wishlist.general.' + list.name + '_list_title';
+                var descriptionKey = 'wishlist.general.' + list.name + '_list_description';
+                $translate([titleKey, descriptionKey]).then(function (translations) {
+                    list.title = translations[titleKey];
+                    list.description = translations[descriptionKey];
+                }, function (translationIds) {
+                    list.title = translationIds[titleKey];
+                    list.description = translationIds[descriptionKey];
                 });
-            listService.contains(dialogData.id, list.name).then(function (response) {
-                list.contains = response.data.contains;
-            });            
+
+                list.contains = _.contains(filteredNames, list.name);
+            });
         });
-      
     };
-
-
 }]);

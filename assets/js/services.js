@@ -177,8 +177,11 @@ storefrontApp.service('listService', ['$http', function ($http) {
         contains: function (productId, listName) {
             return $http.get('storefrontapi/lists/' + listName +'/items/'+ productId + '/contains?t=' + new Date().getTime());
         },
+        getListsWithProduct: function (productId, listNames) {
+            return $http.post('storefrontapi/lists/getlistswithproduct', { productId: productId, listNames: listNames });
+        },
         addLineItem: function (productId, listName) {
-            return $http.post('storefrontapi/lists/' + listName + '/items', { productId: productId });
+            return $http.post('storefrontapi/lists/items', { productId: productId, listName: listName });
         },
         removeLineItem: function (lineItemId, listName) {
             return $http.delete('storefrontapi/lists/' + listName + '/items/' + lineItemId);
@@ -204,19 +207,19 @@ storefrontApp.service('quoteRequestService', ['$http', function ($http) {
             return $http.delete('storefrontapi/quoterequests/' + quoteRequestNumber + '/items/' + quoteItemId);
         },
         submitQuoteRequest: function (quoteRequestNumber, quoteRequest) {
-            return $http.post('storefrontapi/quoterequests/' + quoteRequestNumber + '/submit', { quoteForm: quoteRequest });
+            return $http.post('storefrontapi/quoterequests/' + quoteRequestNumber + '/submit', quoteRequest);
         },
         rejectQuoteRequest: function (quoteRequestNumber) {
             return $http.post('storefrontapi/quoterequests/' + quoteRequestNumber + '/reject');
         },
         updateQuoteRequest: function (quoteRequestNumber, quoteRequest) {
-            return $http.put('storefrontapi/quoterequests/' + quoteRequestNumber + '/update', { quoteRequest: quoteRequest });
+            return $http.put('storefrontapi/quoterequests/' + quoteRequestNumber + '/update', quoteRequest);
         },
         getTotals: function (quoteRequestNumber, quoteRequest) {
-            return $http.post('storefrontapi/quoterequests/' + quoteRequestNumber + '/totals', { quoteRequest: quoteRequest });
+            return $http.post('storefrontapi/quoterequests/' + quoteRequestNumber + '/totals', quoteRequest);
         },
         confirmQuoteRequest: function (quoteRequestNumber, quoteRequest) {
-            return $http.post('storefrontapi/quoterequests/' + quoteRequestNumber + '/confirm', { quoteRequest: quoteRequest });
+            return $http.post('storefrontapi/quoterequests/' + quoteRequestNumber + '/confirm', quoteRequest);
         }
     }
 }]);

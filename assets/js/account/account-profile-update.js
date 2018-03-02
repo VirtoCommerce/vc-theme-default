@@ -1,4 +1,4 @@
-﻿angular.module('storefront.account')
+angular.module('storefront.account')
 .component('vcAccountProfileUpdate', {
     templateUrl: "themes/assets/js/account/account-profile-update.tpl.liquid",
     bindings: {

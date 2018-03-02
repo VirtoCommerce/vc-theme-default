@@ -1,4 +1,4 @@
-﻿window.innerShiv = function () {
+window.innerShiv = function () {
     function t(t, e, n) {
         return /^(?:area|br|col|embed|hr|img|input|link|meta|param)$/i.test(n) ? t : e + "></" + n + ">"
     }

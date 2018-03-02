@@ -1,5 +1,5 @@
 {% include 'breadcrumb' %}
-<div class="grid" itemscope itemtype="http://schema.org/Product" ng-controller="productController">
+<div class="grid" itemscope itemtype="http://schema.org/Product" ng-controller="productController" ng-init='initAvailableLists({{ settings.available_lists | json }})'>
     <meta itemprop="url" content="{{ product.url | absolute_url}}">
     <meta itemprop="image" content="{{ product.featured_image.src | img_url }}">
 
@@ -145,7 +145,7 @@
                 {% endif %}
                  <button id="addToWishlist" class="btn btn-clearfix list-btn-alignment" type="button" 
                          ng-show="customer.isRegisteredUser"
-                         ng-disabled="buttonInvalid"
+                         ng-disabled="addToWishlistDisabled"
                          ng-click="addProductToWishlist(selectedVariation,$scope.listContains)">
                       <span class="fa fa-file-text list-icon-clearfix"></span>
                       <span>{{ 'products.list.add_to_myList' | t }}</span>                      

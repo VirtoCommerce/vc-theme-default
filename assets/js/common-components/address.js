@@ -1,4 +1,4 @@
-﻿var storefrontApp = angular.module('storefrontApp');
+var storefrontApp = angular.module('storefrontApp');
 storefrontApp.component('vcAddress', {
     templateUrl: "themes/assets/js/common-components/address.tpl.html",
     bindings: {
