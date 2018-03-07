@@ -25,6 +25,7 @@
     
     {{ 'bundle/account-styles.css' | static_asset_url | append_version | stylesheet_tag }}
 
+     {{ 'ajaxify.scss.css' | asset_url | stylesheet_tag }}
      {{ 'default.scss.css' | asset_url | stylesheet_tag }}
 
     {% include 'google-fonts' %}
@@ -57,6 +58,8 @@
     {% include 'notification' %}
     {% include 'recently-added-cart-item-dialog' %}
     {% include 'recently-added-list-item-dialog' %}
+    {% include 'recently-create-new-list-dialog' %}
+    {% include 'list-settings-dialog' %}
     {% include 'recently-added-actual-quote-request-item-dialog' %}
     {% if settings.store_selector_enable %}
     {% include 'top-header-selector' %}

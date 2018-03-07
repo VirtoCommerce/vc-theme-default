@@ -1,5 +1,5 @@
 <script id="storefront.recently-added-list-item-dialog.tpl" type="text/ng-template">
-    <div class="ajaxify-modal is-visible" id="ajaxifyModal" style="opacity: 1;" ng-init='initialize({{ settings.available_lists | json }})'>
+    <div class="ajaxify-modal is-visible" id="ajaxifyModal" style="opacity: 1;">
         <button class="ajaxifyCart--close" title="{{ 'dialog.close_cart' | t }}" ng-click="close()">{{ 'cart.general.close_cart' | t }}</button>
         <div class="ajaxifyCart--content" id="ajaxifyCart">
             <div ng-if="!itemAdded" class="product-list-modal-wrapper">
@@ -16,8 +16,8 @@
                                         </span>
                                     </div>
                                     <div class="list-container">
-                                        <span  class="list-text-title" ng-bind="list.title"></span>
-                                        <span class="list-text-descr" ng-bind="list.description"></span>
+                                        <span  class="list-text-title" ng-bind="list.name"></span>
+                                        <!--<span class="list-text-descr" ng-bind="list.description"></span>-->
                                         <span ng-if="list.contains" class="list-text-descr-inList">
                                             {{ 'wishlist.general.list_contains' | t }}
                                             <i ng-if="list.contains" class="fa fa-check-square " aria-hidden="true"></i>
