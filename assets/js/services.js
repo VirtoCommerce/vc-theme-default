@@ -189,13 +189,10 @@ storefrontApp.service('listService', ['$http', function ($http) {
             return $http.delete('storefrontapi/lists/' + listName + '/items/' + lineItemId);
         },
         searchLists: function (searchCriteria) {
-            return $http.post('storefrontapi/lists/search', { searchCriteria: searchCriteria });
+            return $http.post('storefrontapi/lists/search', searchCriteria);
         },
         createList: function(listName) {
             return $http.post('storefrontapi/lists/' + listName + '/create');
-        },
-        createPredefinedLists: function(listNames) {
-            return $http.post('storefrontapi/lists/createpredefinedlists', listNames );
         },
         deleteListsByIds: function(listIds) {
             return $http.delete('storefrontapi/lists/deletelistsbyids?listIds=' + listIds.join('&listIds='));

@@ -30,24 +30,16 @@ storefrontApp.controller('recentlyAddedListItemDialogController', ['$scope', '$w
 
     $scope.initialize = function () {
 
-        listService.searchLists({}).then(function (response) {
-            $scope.lists = response.data;
+        listService.searchLists({
+            pageSize: 1000
+        }).then(function (response) {
+            $scope.lists = response.data.results;
 
-            var listNames = _.pluck(response.data, "name");
+            var listNames = _.pluck(response.data.results, "name");
             listService.getListsWithProduct(dialogData.id, listNames).then(function (result) {
                 var filteredNames = result.data;
 
                 angular.forEach($scope.lists, function (list) {
-                    //var titleKey = 'wishlist.general.' + list.name + '_list_title';
-                    //var descriptionKey = 'wishlist.general.' + list.name + '_list_description';
-                    //$translate([titleKey, descriptionKey]).then(function (translations) {
-                    //    list.title = translations[titleKey];
-                    //    list.description = translations[descriptionKey];
-                    //}, function (translationIds) {
-                    //    list.title = list.name;
-                    //    list.description = translationIds[descriptionKey];
-                    //});
-
                     list.contains = _.contains(filteredNames, list.name);
                 });
             });

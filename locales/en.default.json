@@ -243,8 +243,17 @@
     },
     "wishlist": {
         "general": {
-            "title": "Your lists",
+            "title": "Lists",
+            "my_lists":  "Private lists",
+            "friends_lists": "Friends lists",
+            "select_list": "Please select list",
             "remove": "Remove",
+            "settings": "Lists settings",
+            "create": "Create list",
+            "public_list": "Public",
+            "add_all_products": "Add all products",
+            "emptyData": "No lists defined",
+            "copy_message": "Congratulations! Now you can copy link and share your list with friends",
             "update": "Update list",
             "add": "Add",
             "updating_wishlist_message": "Updating list...",
@@ -252,20 +261,18 @@
             "empty": "Your list is currently empty.",
             "continue_browsing_html": "Continue browsing <a href=\"collections\">here</a>.",
             "list_not_selected": "Please select a list",
-            "wish_list_title": "Wish List",
+            "wish_list_title": "Wish list",
             "wish_list_description": "Add items you like",
-            "shopping_list_title": "Shopping List",
+            "shopping_list_title": "Shopping list",
             "shopping_list_description": "Add items you want to shop for",
             "continue_shopping": "Continue shopping",
-            "view_your_list": "View Your List",
+            "view_your_list": "View your list",
             "list_contains": "Item already in the list",
             "cancel": "Cancel",
             "add_to_list": "Add to list",
             "adding_to_list": "Adding to list...",
             "added_to_list": "1 Item added to",
-            "added_to_cart": "Product is added to cart",
-            "list_not_defined": "No lists defined",
-            "select_list": "Please select list"
+            "added_to_cart": "Product is added to cart"
         }
     },
     "quotes": {
@@ -383,7 +390,7 @@
                 "profile": "Profile",
                 "addresses": "Addresses",
                 "change_password": "Change password",
-                "wishlist": "Your List"
+                "wishlist": "Lists"
             }
         },
         "activate_account": {
@@ -648,7 +655,7 @@
             "logged_in_on_behalf_of_label": "Logged in on behalf of",
             "log_out": "Log out",
             "sign_in": "Sign in",
-            "create_account": "Create an Account",
+            "create_account": "Create an Account"
         },
         "navigation": {
             "more": "More",

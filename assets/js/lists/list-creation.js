@@ -2,15 +2,12 @@ var storefrontApp = angular.module('storefrontApp');
 
 storefrontApp.controller('recentlyCreateNewListDialogController', ['$rootScope', '$scope', '$window', '$uibModalInstance', 'customerService', 'dialogData', 'listService', '$localStorage', 'loadingIndicatorService', function ($rootScope, $scope, $window, $uibModalInstance, customerService, dialogData, listService, $localStorage, loader) {
 
-    if (dialogData.sharedLink)
-        $scope.sharedLink = dialogData.sharedLink;
-    else {
-        $scope.dialogData = dialogData.lists;
-        $scope.userName = dialogData.userName;
-        $scope.inProgress = false;
-        $scope.data = $scope.listName;
-        $scope.selectedTab = dialogData.selectedTab;
-    }
+    $scope.dialogData = dialogData.lists;
+    $scope.predefinedLists = dialogData.lists;
+    $scope.userName = dialogData.userName;
+    $scope.inProgress = false;
+    $scope.data = $scope.listName;
+    $scope.selectedTab = dialogData.selectedTab;
 
     $scope.createList = function () {
         listService.createList($scope.dialogData.listName).then(function () {
@@ -38,4 +35,16 @@ storefrontApp.controller('recentlyCreateNewListDialogController', ['$rootScope',
     $scope.close = function () {
         $uibModalInstance.dismiss('cancel');
     };
+
+    function inititlize() {
+        _.each($scope.dialogData, function(list) {
+            var foundList = _.find(dialogData.predefinedLists, function (predefinedList) { return predefinedList.name === list.name });
+            if (foundList) {
+                list.disabled = true;
+            }
+        });
+    }
+
+    inititlize();
+
 }]);

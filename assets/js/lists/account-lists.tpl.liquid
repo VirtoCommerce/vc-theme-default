@@ -1,12 +1,12 @@
-<div id="account-lists.tpl.liquid" type="text/ng-template" ng-init='$ctrl.accountLists.initialize({{ settings.available_lists | json }})'>
+<div id="account-lists.tpl.liquid" type="text/ng-template" ng-init='$ctrl.initialize({{ settings.available_lists | json }})'>
     
     <p ng-if="$ctrl.lists.length == 0">{{'wishlist.general.emptyData' | t}}</p>
     <ul class="nav nav-tab lists-navBar-clearfix">
-        <li ng-if="$ctrl.accountLists.lists.length != 0" style="display: -webkit-box;" class="lists-settings" ng-click="$ctrl.accountLists.listSettings()">
+        <li ng-if="$ctrl.accountLists.lists.length != 0" style="display: -webkit-box;" class="lists-settings" ng-click="$ctrl.listSettings()">
             <i style="position: relative;top: 10px;left: 7px;z-index: 8888" class="fa fa-cog" aria-hidden="true"></i>
             <a>{{'wishlist.general.settings' | t}}</a>
         </li>
-        <li ng-if="$ctrl.accountLists.selectedTab === 'myLists'" style="display: -webkit-box;"  class="lists-settings" ng-click="$ctrl.accountLists.createList()">
+        <li ng-if="$ctrl.accountLists.selectedTab === 'myLists'" style="display: -webkit-box;"  class="lists-settings" ng-click="$ctrl.createList()">
             <i style="position: relative;top: 10px;left: 7px;z-index: 8888" class="fa fa-plus" aria-hidden="true"></i>
             <a>{{'wishlist.general.create' | t}}</a>
         </li>
@@ -24,6 +24,7 @@
                     <a class="lists-sideBar-textAlign" ng-bind="list.name"></a>
                 </li>
             </ul>
+            <div ng-if='$ctrl.pageSettings.totalItems > $ctrl.pageSettings.itemsPerPageCount'  ng-include="'pagerTemplate.html'"></div>
         </aside>
 
 
@@ -88,8 +89,5 @@
                 </tr>
             </table>
         </div>
-
-
     </div>
-
 </div>

@@ -16,7 +16,7 @@
                         <tr ng-repeat="list in dialogData">
                             <th ng-bind="list.name"></th>
                             <th>
-                                <input ng-model="list.delete" type="checkbox" />
+                                <input ng-model="list.delete" type="checkbox" ng-disabled="list.disabled"/>
                             </th>
                         </tr>
                     </table>
