@@ -6,10 +6,11 @@ storefrontApp.controller('recentlyAddedListItemDialogController', ['$scope', '$w
     $scope.dialogData = dialogData;
     $scope.inProgress = false;
     $scope.itemAdded = false;
+    $scope.type = dialogData.listType;
 
     $scope.addProductToList = function () {
         $scope.inProgress = true;
-        listService.addLineItem(dialogData.id, $scope.selectedList.name).then(function (response) {
+        listService.addLineItem(dialogData.id, $scope.selectedList.name, $scope.selectedList.type).then(function (response) {
             if (response.data) {
                 $scope.inProgress = false;
                 $scope.itemAdded = true;
@@ -29,21 +30,21 @@ storefrontApp.controller('recentlyAddedListItemDialogController', ['$scope', '$w
     };
 
     $scope.initialize = function () {
-
         listService.searchLists({
-            pageSize: 1000
+            pageSize: 10000,
+            type: $scope.type
         }).then(function (response) {
             $scope.lists = response.data.results;
 
-            var listNames = _.pluck(response.data.results, "name");
-            listService.getListsWithProduct(dialogData.id, listNames).then(function (result) {
-                var filteredNames = result.data;
-
-                angular.forEach($scope.lists, function (list) {
-                    list.contains = _.contains(filteredNames, list.name);
+            _.each($scope.lists, function(list) {
+                var foundItem = _.find(list.items, function(item) {
+                        return item.productId === dialogData.id;
                 });
-            });
 
+                if (foundItem) {
+                    list.contains = true;
+                }
+            });
         });
     };
 

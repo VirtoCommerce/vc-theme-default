@@ -12,16 +12,9 @@ storefrontApp.controller('productController', ['$rootScope', '$scope', '$window'
         $scope.allVariationPropsMap = {};
         $scope.productPrice = null;
         $scope.productPriceLoaded = false;
-        $scope.addToWishlistDisabled = true;
+        $scope.addToWishlistDisabled = false;
         $scope.availableLists = null;
-
-        $scope.$watch(function() {
-            return $scope.selectedVariation;
-        }, function (newValue, oldValue) {
-            if (!angular.equals(oldValue, newValue)) {
-                findIfProductInLists($scope.selectedVariation);
-            };
-        });
+        $scope.listType = null;
 
         $scope.addProductToCart = function (product, quantity) {
             var dialogData = toDialogDataModel(product, quantity);
@@ -41,6 +34,7 @@ storefrontApp.controller('productController', ['$rootScope', '$scope', '$window'
         };
         $scope.addProductToWishlist = function (product) {
             var dialogData = toDialogDataModel(product, 1);
+            dialogData.listType = $scope.listType;
             dialogService.showDialog(dialogData, 'recentlyAddedListItemDialogController', 'storefront.recently-added-list-item-dialog.tpl');
         };
         $scope.addProductToActualQuoteRequest = function (product, quantity) {
@@ -50,9 +44,9 @@ storefrontApp.controller('productController', ['$rootScope', '$scope', '$window'
                 $rootScope.$broadcast('actualQuoteRequestItemsChanged');
             });
         };
-
+        
         $scope.initAvailableLists = function(lists) {
-            $scope.availableLists = lists;
+            $scope.listType = lists.default_list_type;
         }
 
         function toDialogDataModel(product, quantity) {
@@ -132,20 +126,6 @@ storefrontApp.controller('productController', ['$rootScope', '$scope', '$window'
         function findVariationBySelectedProps(variations, selectedPropMap) {
             return _.find(variations, function (x) {
                 return comparePropertyMaps(getVariationPropertyMap(x), selectedPropMap);
-            });
-        }
-
-        function findIfProductInLists(product) {
-            if (!product.id || !$scope.availableLists)
-                return;
-
-            var listNames = _.pluck($scope.availableLists, "name");
-            listService.getListsWithProduct(product.id, listNames).then(function (result) {
-                if (result.data && listNames.length > result.data.length) {
-                    $scope.addToWishlistDisabled = false;
-                } else {
-                    $scope.addToWishlistDisabled = true;
-                }
             });
         }
 

@@ -13,6 +13,7 @@ angular.module('storefront.account')
 
                     $ctrl.loader = loader;
                     $ctrl.selectedList = {};
+                    $ctrl.errors = null;
 
                     $ctrl.selectTab = function (tabName) {
                         $ctrl.selectedList = {};
@@ -20,9 +21,10 @@ angular.module('storefront.account')
                     };
 
                     $ctrl.selectList = function (list) {
+                        $ctrl.errors = null;
                         $ctrl.selectedList = list;
                         loader.wrapLoading(function () {
-                            return listService.getWishlist(list.name).then(function (response) {
+                            return listService.getWishlist(list.name, list.type).then(function (response) {
                                 $ctrl.selectedList.items = response.data.items;
                             });
                         });
@@ -30,7 +32,7 @@ angular.module('storefront.account')
 
                     $ctrl.removeLineItem = function (lineItem, list) {
                         loader.wrapLoading(function () {
-                            return listService.removeLineItem(lineItem.id, list.name).then(function (response) {
+                            return listService.removeLineItem(lineItem.id, list.name, list.type).then(function (response) {
                                 $ctrl.selectList(list);
                             });
                         });
@@ -40,20 +42,13 @@ angular.module('storefront.account')
                         loader.wrapLoading(function () {
                             return cartService.addLineItem(lineItem.productId, 1).then(function (response) {
                                 $ctrl.productAdded = true;
-                                $timeout(function () {
-                                    $ctrl.productAdded = false;
-                                }, 2000);
-                            });
-                        });
-                    }
-
-                    $ctrl.addToCartAllProducts = function (listName) {
-                        loader.wrapLoading(function () {
-                            return listService.mergeWithCurrentCart(listName).then(function (response) {
+                                $timeout(function () { $ctrl.productAdded = false; }, 2000);
                                 $rootScope.$broadcast('cartItemsChanged');
                             });
                         });
                     }
+
+
                 }]
         })
     .component('vcAccountMyLists',
@@ -66,19 +61,23 @@ angular.module('storefront.account')
                 '$rootScope', 'listService', 'customerService', 'loadingIndicatorService', '$q', 'dialogService', function ($rootScope, listService, customerService, loader, $q, dialogService) {
 
                     var $ctrl = this;
+
+                    $ctrl.type = null;
                     $ctrl.predefinedLists = [];
 
-                    $ctrl.pageSettings = { currentPage: 1, itemsPerPageCount: 3, numPages: 3 };
+                    $ctrl.pageSettings = { currentPage: 1, itemsPerPageCount: 5, numPages: 4 };
 
                     $ctrl.pageSettings.pageChanged = function () {
                         $ctrl._searchLists();
                     };
 
                     $ctrl._searchLists = function () {
+                        $ctrl.accountLists.errors = null;
                         loader.wrapLoading(function () {
                             return listService.searchLists({
                                 pageNumber: $ctrl.pageSettings.currentPage,
-                                pageSize: $ctrl.pageSettings.itemsPerPageCount
+                                pageSize: $ctrl.pageSettings.itemsPerPageCount,
+                                type: $ctrl.type
                             }).then(function (response) {
                                 $ctrl.accountLists.lists = response.data.results;
                                 $ctrl.pageSettings.totalItems = response.data.totalCount;
@@ -89,12 +88,12 @@ angular.module('storefront.account')
                     };
 
                     $ctrl.initialize = function (lists) {
-                        $ctrl.predefinedLists = lists;
+                        $ctrl.predefinedLists = lists.default_lists;
+                        $ctrl.type = lists.default_list_type;
 
-                        var listNames = _.pluck(lists, "name");
                         var promises = [];
-                        _.each(listNames, function (listName) {
-                            promises.push(createList(listName));
+                        _.each($ctrl.predefinedLists, function (list) {
+                            promises.push(createList(list.name, list.type));
                         });
 
                         $q.all(promises).then(function () {
@@ -108,25 +107,40 @@ angular.module('storefront.account')
 
                     $ctrl.createList = function () {
                         var dialogData = {
-                            lists: $ctrl.lists
+                            lists: $ctrl.lists,
+                            type: $ctrl.type
                         }
                         dialogService.showDialog(dialogData, 'recentlyCreateNewListDialogController', 'storefront.recently-create-new-list-dialog.tpl', function (result) {
-                            if (result) {
+                            if (!result)
+                                return;
+
+                            if (result.error) {
+                                $ctrl.accountLists.errors = [result.error];
+                            } else {
                                 $ctrl.pageSettings.currentPage = 1;
                                 $ctrl._searchLists();
                             }
                         });
                     };
 
+                    $ctrl.addToCartAllProducts = function (listName) {
+                        loader.wrapLoading(function () {
+                            return listService.mergeWithCurrentCart(listName, $ctrl.type).then(function (response) {
+                                $rootScope.$broadcast('cartItemsChanged');
+                            });
+                        });
+                    }
+
                     $ctrl.listSettings = function () {
-                        //get all
                         loader.wrapLoading(function () {
                             return listService.searchLists({
-                                pageSize: 10000
+                                pageSize: 10000,
+                                type: $ctrl.type
                             }).then(function (response) {
                                 var dialogData = {
                                     lists: response.data.results,
-                                    predefinedLists: $ctrl.predefinedLists
+                                    predefinedLists: $ctrl.predefinedLists,
+                                    type: $ctrl.type
                                 }
                                 dialogService.showDialog(dialogData, 'recentlyCreateNewListDialogController', 'storefront.list-settings-dialog.tpl', function (result) {
                                     $ctrl.pageSettings.currentPage = 1;
@@ -138,8 +152,8 @@ angular.module('storefront.account')
 
                     };
 
-                    function createList(listName) {
-                        return listService.createList(listName);
+                    function createList(listName, type) {
+                        return listService.createList(listName, type);
                     }
                 }
             ]

@@ -8,15 +8,16 @@ storefrontApp.controller('recentlyCreateNewListDialogController', ['$rootScope',
     $scope.inProgress = false;
     $scope.data = $scope.listName;
     $scope.selectedTab = dialogData.selectedTab;
+    $scope.type = dialogData.type;
 
     $scope.createList = function () {
-        listService.createList($scope.dialogData.listName).then(function () {
-            $uibModalInstance.close($scope.dialogData.listName);
+        listService.createList($scope.dialogData.listName, $scope.type).then(function(result) {
+            $uibModalInstance.close(result.data);
         });
     };
 
-    $scope.selectedList = function (listName) {
-        var items = listService.getWishlist(listName, '', '', $scope.userName).items;
+    $scope.selectedList = function (listName, type) {
+        var items = listService.getWishlist(listName, type).items;
         $scope.selectedList.items = items;
     };
 

@@ -121,10 +121,19 @@
             ],
             //Collect usage events for product recommendations
             "collect_user_events_enabled": false,
-            "available_lists": [
-                { "name": "shopping" },
-                { "name": "wish" }
-            ] 
+            "lists": {
+                "default_list_type": "wishlist",
+                "default_lists": [
+                    {
+                        "name": "shopping",
+                        "type": "wishlist"
+                    },
+                    {
+                        "name": "wish",
+                        "type": "wishlist"
+                    }
+                ]
+            }
         },
         "Soft Green": {
             "ajax_cart_enable": true,
@@ -205,7 +214,7 @@
             "type_navigation_transform": true,
             "remove_dollar_symbol": true,
             "superscript_decimals": true,
-            //Collect usage events for product recommendations 
+            //Collect usage events for product recommendations
             "collect_user_events_enabled": false
         },
         "Dark": {
@@ -295,7 +304,7 @@
             "remove_dollar_symbol": true,
             "superscript_decimals": true,
             "store_selector_enable": true,
-            //Collect usage events for product recommendations 
+            //Collect usage events for product recommendations
             "collect_user_events_enabled": false
         }
     }
