@@ -88,7 +88,7 @@
                 <tr>
                     <div ng-if="$ctrl.accountLists.selectedList.items.length" class="lists-productsList-addAllToCart">
                         <button type="button" name="add" id="addToCart" class="btn list-item-addToCartBtn AddShopCart"
-                                ng-click="$ctrl.accountLists.addToCartAllProducts($ctrl.accountLists.selectedList.name)">
+                                ng-click="$ctrl.addToCartAllProducts($ctrl.accountLists.selectedList.name)">
                             <span class="icon icon-cart"></span>
                             <span id="addToCartText">{{ 'wishlist.general.add_all_products' | t }}</span>
                         </button>
