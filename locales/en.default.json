@@ -448,6 +448,7 @@
             "email": "Email",
             "user_name": "User Name",
             "password": "Password",
+            "forgot_login": "Forgot your user name?",
             "forgot_password": "Forgot your password?",
             "reset_password_success": "We've sent you an email with a link to update your password.",
             "sign_in": "Sign In",
@@ -620,6 +621,13 @@
         "account_lock": {
             "title": "Locked out",
             "text": "This account has been locked out, please try again later."
+        },
+        "recover_login": {
+            "title": "Forgot your user name",
+            "subtile": "Fill out this form to recover your user name",
+            "email": "Email",
+            "submit": "Submit",
+            "success": "An email with your user name has been sent to your address."
         }
     },
     "homepage": {
