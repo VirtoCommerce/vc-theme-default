@@ -744,7 +744,7 @@ body {
   position: relative;
   -webkit-transform: scale(1.1);
       -ms-transform: scale(1.1);
-          transform: scale(1.1); 
+          transform: scale(1.1);
 }
 .sk-folding-cube .sk-cube:before {
   content: '';
@@ -778,7 +778,7 @@ body {
 }
 .sk-folding-cube .sk-cube3:before {
   -webkit-animation-delay: 0.6s;
-          animation-delay: 0.6s; 
+          animation-delay: 0.6s;
 }
 .sk-folding-cube .sk-cube4:before {
   -webkit-animation-delay: 0.9s;
@@ -788,31 +788,31 @@ body {
   0%, 10% {
     -webkit-transform: perspective(140px) rotateX(-180deg);
             transform: perspective(140px) rotateX(-180deg);
-    opacity: 0; 
+    opacity: 0;
   } 25%, 75% {
     -webkit-transform: perspective(140px) rotateX(0deg);
             transform: perspective(140px) rotateX(0deg);
-    opacity: 1; 
+    opacity: 1;
   } 90%, 100% {
     -webkit-transform: perspective(140px) rotateY(180deg);
             transform: perspective(140px) rotateY(180deg);
-    opacity: 0; 
-  } 
+    opacity: 0;
+  }
 }
 
 @keyframes sk-foldCubeAngle {
   0%, 10% {
     -webkit-transform: perspective(140px) rotateX(-180deg);
             transform: perspective(140px) rotateX(-180deg);
-    opacity: 0; 
+    opacity: 0;
   } 25%, 75% {
     -webkit-transform: perspective(140px) rotateX(0deg);
             transform: perspective(140px) rotateX(0deg);
-    opacity: 1; 
+    opacity: 1;
   } 90%, 100% {
     -webkit-transform: perspective(140px) rotateY(180deg);
             transform: perspective(140px) rotateY(180deg);
-    opacity: 0; 
+    opacity: 0;
   }
 }
 
@@ -875,7 +875,7 @@ body {
 .ajax-informer.fade
 {
   opacity: 1;
-  
+
   filter: alpha(opacity=100);
 }
 
@@ -2678,7 +2678,7 @@ $shareBorderColor: #ececec;
   }
 
   .ajaxifyCart--close {
-    
+
   }
 }
 
@@ -2892,7 +2892,7 @@ a.product-grid-item,
     display: flex;
 }
 
-.product-item--other .btn, 
+.product-item--other .btn,
 .product-item--other add-to-compare-button {
     width:50%;
     margin:0;
@@ -4951,4 +4951,29 @@ dd {
 }
 .compare-list-cell:nth-child(even):not(.ng-hide) {
     background-color: #f2f2f2;
+}
+
+.cookie-banner
+{
+    background: #f2f2f2;
+    box-sizing: border-box;
+    height: 80px;
+    margin: -80px 0 0;
+    transition: margin 0.35s ease;
+    display: flex;
+    align-items: center;
+    left: 0;
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    z-index: 9999;
+}
+
+.cookie-banner .cookie-inner
+    {
+        display: flex;
+    }
+
+    .cookie-banner .cookie-col + .cookie-col {
+    margin: 0 0 0 60px;
 }
