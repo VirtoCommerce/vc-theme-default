@@ -13,17 +13,21 @@ storefrontApp.component('vcCreditCard', {
         var ctrl = this;
 
         this.$onInit = function () {
-            if(ctrl.validationContainer)
+            if (ctrl.validationContainer) {
                 ctrl.validationContainer.addComponent(this);
-            if (ctrl.checkoutStep)
+            }
+            if (ctrl.checkoutStep) {
                 ctrl.checkoutStep.addComponent(this);
+            }
         };
 
         this.$onDestroy = function () {
-            if (ctrl.validationContainer)
+            if (ctrl.validationContainer) {
                 ctrl.validationContainer.removeComponent(this);
-            if (ctrl.checkoutStep)
+            }
+            if (ctrl.checkoutStep) {
                 ctrl.checkoutStep.removeComponent(this);
+            }
         };
 
         $scope.$watch('$ctrl.card.bankCardHolderName', function (val) {
@@ -36,6 +40,5 @@ storefrontApp.component('vcCreditCard', {
             ctrl.form.$setSubmitted();
             return !ctrl.form.$invalid;
         }
-
     }]
 });

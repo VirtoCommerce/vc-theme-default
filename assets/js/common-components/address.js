@@ -1,4 +1,5 @@
 var storefrontApp = angular.module('storefrontApp');
+
 storefrontApp.component('vcAddress', {
     templateUrl: "themes/assets/js/common-components/address.tpl.html",
     bindings: {
@@ -16,17 +17,21 @@ storefrontApp.component('vcAddress', {
     controller: ['$scope', function ($scope) {
         var ctrl = this;
         this.$onInit = function () {
-            if (ctrl.validationContainer)
+            if (ctrl.validationContainer) {
                 ctrl.validationContainer.addComponent(this);
-            if (ctrl.checkoutStep)
+            }
+            if (ctrl.checkoutStep) {
                 ctrl.checkoutStep.addComponent(this);
+            }
         };
 
         this.$onDestroy = function () {
-            if (ctrl.validationContainer)
+            if (ctrl.validationContainer) {
                 ctrl.validationContainer.removeComponent(this);
-            if (ctrl.checkoutStep)
+            }
+            if (ctrl.checkoutStep) {
                 ctrl.checkoutStep.removeComponent(this);
+            }
         };
 
         function populateRegionalDataForAddress(address) {
@@ -93,6 +98,5 @@ storefrontApp.component('vcAddress', {
             }
             ctrl.onUpdate({ address: ctrl.address });
         }, true);
-
     }]
 });

@@ -1,31 +1,22 @@
 /// <binding BeforeBuild='default' Clean='clean' ProjectOpened='watch' />
 
 var gulp = require('gulp'),
-
-    inject = require('gulp-inject'),
-    filter = require('gulp-filter'),
     concat = require('gulp-concat'),
-    replace = require('gulp-replace'),
     rename = require('gulp-rename'),
-    clean = require('gulp-clean'),
     del = require('del'),
 
     mergestream = require('merge-stream'),
     sequence = require('run-sequence'),
-    util = require('gulp-util'), // preserve to be able output custom messages in future
 
     uglify = require('gulp-uglify'),
-    bourbon = require('node-bourbon'),
     autoprefixer = require('autoprefixer'),
     cssnano = require('cssnano'),
     postcss = require('gulp-postcss'),
-    sass = require('gulp-sass'),
     htmlmin = require('gulp-htmlmin'),
-    imagemin = require('gulp-image'),
     sourcemaps = require('gulp-sourcemaps'),
 
     eslint = require('gulp-eslint'),
-        
+
     zip = require('gulp-zip'),
     gitignore = require('gulp-exclude-gitignore');
 
@@ -146,7 +137,7 @@ function getBundles(regexPattern) {
 }
 
 gulp.task('lint', function () {
-    var tasks = getBundles(regex.js).filter(function(bundle) { return !bundle.disableLint || bundle.disableLint === undefined }).map(function(bundle) {
+    var tasks = getBundles(regex.js).filter(function (bundle) { return !bundle.disableLint || bundle.disableLint === undefined }).map(function (bundle) {
         return gulp.src(bundle.inputFiles, { base: '.' })
             .pipe(eslint("./.eslintrc.json"))
             .pipe(eslint.format());
@@ -154,13 +145,13 @@ gulp.task('lint', function () {
     return merge(tasks);
 });
 
-gulp.task('compress', ['min'], function() {
+gulp.task('compress', ['min'], function () {
     var package = getPackage();
-    return gulp.src([].concat(['./*/**'], [].concat.apply([], getBundleConfig().map(function(bundle) {
-            return bundle.inputFiles.map(function(inputFile) { return '!' + inputFile; })
+    return gulp.src([].concat(['./*/**'], [].concat.apply([], getBundleConfig().map(function (bundle) {
+        return bundle.inputFiles.map(function (inputFile) { return '!' + inputFile; })
     }))))
         .pipe(gitignore())
-        .pipe(rename(function(path) {
+        .pipe(rename(function (path) {
             path.dirname = 'default/' + path.dirname;
         }))
         .pipe(zip(package.name + '-' + package.version + '.zip'))
@@ -168,6 +159,6 @@ gulp.task('compress', ['min'], function() {
 });
 
 // DEFAULT Tasks
-gulp.task('default', function(callback) {
+gulp.task('default', function (callback) {
     sequence('lint', ['min'], callback);
 });

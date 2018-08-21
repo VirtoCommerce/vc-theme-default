@@ -1,41 +1,40 @@
 var storefrontApp = angular.module('storefrontApp');
 
-
 storefrontApp.controller('mainController', ['$scope', '$location', '$window', 'customerService', 'storefrontApp.mainContext',
-    function($scope, $location, $window, customerService, mainContext) {
+    function ($scope, $location, $window, customerService, mainContext) {
 
         //Base store url populated in layout and can be used for construction url inside controller
         $scope.baseUrl = {};
 
-        $scope.$watch(function() {
-            $scope.currentPath = $location.$$path.replace('/', '');
+        $scope.$watch(function () {
+            $scope.currentPath = $location.$path.replace('/', '');
         });
 
-        $scope.$on('storefrontError', function(event, data) {
+        $scope.$on('storefrontError', function (event, data) {
             $scope.storefrontNotification = data;
             $scope.storefrontNotification.detailsVisible = false;
         });
 
-        $scope.toggleNotificationDetails = function() {
+        $scope.toggleNotificationDetails = function () {
             $scope.storefrontNotification.detailsVisible = !$scope.storefrontNotification.detailsVisible;
         }
 
-        $scope.closeNotification = function() {
+        $scope.closeNotification = function () {
             $scope.storefrontNotification = null;
         }
 
         //For outside app redirect (To reload the page after changing the URL, use the lower-level API)
-        $scope.outerRedirect = function(absUrl) {
+        $scope.outerRedirect = function (absUrl) {
             $window.location.href = absUrl;
         };
 
         //change in the current URL or change the current URL in the browser (for app route)
-        $scope.innerRedirect = function(path) {
+        $scope.innerRedirect = function (path) {
             $location.path(path);
-            $scope.currentPath = $location.$$path.replace('/', '');
+            $scope.currentPath = $location.$path.replace('/', '');
         };
 
-        $scope.stringifyAddress = function(address) {
+        $scope.stringifyAddress = function (address) {
             var stringifiedAddress = address.firstName + ' ' + address.lastName + ', ';
             stringifiedAddress += address.organization ? address.organization + ', ' : '';
             stringifiedAddress += address.countryName + ', ';
@@ -47,7 +46,7 @@ storefrontApp.controller('mainController', ['$scope', '$location', '$window', 'c
             return stringifiedAddress;
         }
 
-        $scope.getObjectSize = function(obj) {
+        $scope.getObjectSize = function (obj) {
             var size = 0, key;
             for (key in obj) {
                 if (obj.hasOwnProperty(key)) {
@@ -57,13 +56,13 @@ storefrontApp.controller('mainController', ['$scope', '$location', '$window', 'c
             return size;
         }
 
-        mainContext.getCustomer = $scope.getCustomer = function() {
-            customerService.getCurrentCustomer().then(function(response) {
+        mainContext.getCustomer = $scope.getCustomer = function () {
+            customerService.getCurrentCustomer().then(function (response) {
                 if (!response.data.addresses) {
                     response.data.addresses = [];
                 }
                 var addressId = 1;
-                _.each(response.data.addresses, function(address) {
+                _.each(response.data.addresses, function (address) {
                     address.id = addressId;
                     addressId++;
                 });
@@ -75,6 +74,6 @@ storefrontApp.controller('mainController', ['$scope', '$location', '$window', 'c
         $scope.getCustomer();
     }])
 
-    .factory('storefrontApp.mainContext', function() {
+    .factory('storefrontApp.mainContext', function () {
         return {};
     });

@@ -24,17 +24,21 @@ storefrontApp.component('vcPaymentMethods', {
                     ctrl.selectMethod(ctrl.availPaymentMethods[0]);
                 }
             })
-            if (ctrl.validationContainer)
+            if (ctrl.validationContainer) {
                 ctrl.validationContainer.addComponent(this);
-            if (ctrl.checkoutStep)
+            }
+            if (ctrl.checkoutStep) {
                 ctrl.checkoutStep.addComponent(this);
+            }
         };
 
         this.$onDestroy = function () {
-            if (ctrl.validationContainer)
+            if (ctrl.validationContainer) {
                 ctrl.validationContainer.removeComponent(this);
-            if (ctrl.checkoutStep)
+            }
+            if (ctrl.checkoutStep) {
                 ctrl.checkoutStep.removeComponent(this);
+            }
         };
 
         ctrl.validate = function () {

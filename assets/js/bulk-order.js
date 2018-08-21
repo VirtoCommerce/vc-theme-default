@@ -8,11 +8,11 @@ storefrontApp.controller('bulkOrderController', ['$scope',
             if (angular.isDefined(bulkOrder)) {
                 angular.forEach(bulkOrder.skuRows, function (rows) {
                     angular.forEach(rows, function (row) {
-                        if (row.length > 0)
+                        if (row.length > 0) {
                             $scope.skuRowsIsEmpty = false;
+                        }
                     })
                 });
             }
         }
-
     }]);

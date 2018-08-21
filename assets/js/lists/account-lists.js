@@ -7,8 +7,8 @@ angular.module('storefront.account')
                 { path: '/myLists', name: 'MyLists', component: 'vcAccountMyLists', useAsDefault: true }
             ],
             controller: [
-                'listService', '$rootScope', 'cartService', '$translate', 'loadingIndicatorService', '$timeout',
-                function (listService, $rootScope, cartService, $translate, loader, $timeout) {
+                'listService', '$rootScope', 'cartService', 'loadingIndicatorService', '$timeout',
+                function (listService, $rootScope, cartService, loader, $timeout) {
                     var $ctrl = this;
 
                     $ctrl.loader = loader;
@@ -47,8 +47,6 @@ angular.module('storefront.account')
                             });
                         });
                     }
-
-
                 }]
         })
     .component('vcAccountMyLists',
@@ -58,8 +56,7 @@ angular.module('storefront.account')
                 accountLists: '^^vcAccountLists'
             },
             controller: [
-                '$rootScope', 'listService', 'customerService', 'loadingIndicatorService', '$q', 'dialogService', function ($rootScope, listService, customerService, loader, $q, dialogService) {
-
+                '$rootScope', 'listService', 'loadingIndicatorService', '$q', 'dialogService', function ($rootScope, listService, loader, $q, dialogService) {
                     var $ctrl = this;
 
                     $ctrl.type = null;
@@ -111,8 +108,9 @@ angular.module('storefront.account')
                             type: $ctrl.type
                         }
                         dialogService.showDialog(dialogData, 'recentlyCreateNewListDialogController', 'storefront.recently-create-new-list-dialog.tpl', function (result) {
-                            if (!result)
+                            if (!result) {
                                 return;
+                            }
 
                             if (result.error) {
                                 $ctrl.accountLists.errors = [result.error];
@@ -148,8 +146,6 @@ angular.module('storefront.account')
                                 });
                             });
                         });
-
-
                     };
 
                     function createList(listName, type) {

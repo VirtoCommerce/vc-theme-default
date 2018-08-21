@@ -4,7 +4,7 @@ var storefrontAppDependencies = [
     'pascalprecht.translate',
     'ngSanitize',
 ]
-var storefrontApp = angular.module('storefrontApp', storefrontAppDependencies);
+angular.module('storefrontApp', storefrontAppDependencies);
 
 storefrontApp.factory('httpErrorInterceptor', ['$q', '$rootScope', function ($q, $rootScope) {
     var httpErrorInterceptor = {};
@@ -39,5 +39,4 @@ storefrontApp.config(['$httpProvider', '$translateProvider', function ($httpProv
     $translateProvider.useSanitizeValueStrategy('sanitizeParameters');
     $translateProvider.useUrlLoader(BASE_URL + 'themes/localization.json');
     $translateProvider.preferredLanguage('en');
-
 }]);
