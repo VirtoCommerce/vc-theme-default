@@ -13,6 +13,7 @@ angular.module(moduleName, ['credit-cards', 'angular.filter'])
                 shipment: {},
                 payment: {},
                 coupon: {},
+                coupons: [],
                 availCountries: [],
                 loading: false,
                 isValid: false
@@ -38,10 +39,26 @@ angular.module(moduleName, ['credit-cards', 'angular.filter'])
                     }
                     else {
                         $scope.checkout.cart = cart;
-                        $scope.checkout.coupon = cart.coupon || $scope.checkout.coupon;
-                        if ($scope.checkout.coupon.code && !$scope.checkout.coupon.appliedSuccessfully) {
-                            $scope.checkout.coupon.errorCode = 'InvalidCouponCode';
+                        $scope.checkout.coupon.errorCode = null;
+                        if ($scope.checkout.coupon.code) {
+                            var newCoupon = cart.coupons.filter(function (c1) {
+                                return !$scope.checkout.coupons.some(function (c2) {
+                                    return c1.code === c2.code;
+                                })
+                            });
+                            if (newCoupon.length == 0) {
+                                $scope.checkout.coupon.errorCode = 'InvalidCouponCode';
+                            }
+                            else {
+                                $scope.checkout.coupon.code = null;
+                            }
                         }
+                        $scope.checkout.coupons = cart.coupons;
+                        $scope.checkout.coupons.forEach(function (coupon) {
+                            if (!coupon.appliedSuccessfully) {
+                                coupon.errorCode = 'InvalidCouponCode';
+                            }
+                        });
                         if (cart.payments.length) {
                             $scope.checkout.payment = cart.payments[0];
                             $scope.checkout.paymentMethod.code = $scope.checkout.payment.paymentGatewayCode;
@@ -71,6 +88,15 @@ angular.module(moduleName, ['credit-cards', 'angular.filter'])
 
             $scope.applyCoupon = function(coupon) {
                 coupon.processing = true;
+
+                if ($scope.checkout.coupons.some(function (value) {
+                    return value.code == coupon.code;
+                })) {
+                    coupon.errorCode = 'DuplicateCouponCode';
+                    coupon.processing = false;
+                    return;
+                }
+
                 cartService.addCoupon(coupon.code).then(function() {
                     coupon.processing = false;
                     $scope.reloadCart();
@@ -81,9 +107,9 @@ angular.module(moduleName, ['credit-cards', 'angular.filter'])
 
             $scope.removeCoupon = function(coupon) {
                 coupon.processing = true;
-                cartService.removeCoupon().then(function(response) {
+                $scope.checkout.coupon.code = null;
+                cartService.removeCoupon(coupon.code).then(function(response) {
                     coupon.processing = false;
-                    $scope.checkout.coupon = {};
                     $scope.reloadCart();
                 }, function(response) {
                     coupon.processing = false;

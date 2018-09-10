@@ -144,8 +144,8 @@ storefrontApp.service('cartService', ['$http', function ($http) {
         addCoupon: function (couponCode) {
             return $http.post('storefrontapi/cart/coupons/' + couponCode);
         },
-        removeCoupon: function () {
-            return $http.delete('storefrontapi/cart/coupons');
+        removeCoupon: function (couponCode) {
+            return $http.delete('storefrontapi/cart/coupons/' + couponCode);
         },
         addOrUpdateShipment: function (shipment) {
             return $http.post('storefrontapi/cart/shipments', shipment);
