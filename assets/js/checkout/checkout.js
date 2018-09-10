@@ -90,7 +90,7 @@ angular.module(moduleName, ['credit-cards', 'angular.filter'])
                 coupon.processing = true;
 
                 if ($scope.checkout.coupons.some(function (value) {
-                    return value.code == coupon.code;
+                    return value.code.localeCompare(coupon.code, {sensitivity: 'base'});
                 })) {
                     coupon.errorCode = 'DuplicateCouponCode';
                     coupon.processing = false;
