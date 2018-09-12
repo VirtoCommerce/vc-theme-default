@@ -1,0 +1,83 @@
+<script>
+    (function () {
+        var renderApiUrl = "/designer-preview/";
+
+        function getUrl(part) {
+            return renderApiUrl + part;
+        }
+
+        var app = angular.module("storefrontApp");
+
+        app.controller("previewController", ["$http", '$scope', '$window', function ($http, $scope, $window) {
+            $scope.title = "";
+            $scope.blocks = []; // html strings
+
+            var sections = {}; // json objects by key-value representation
+            // var models = {};
+            var ids = []; // ids in correct order
+
+            $window.addEventListener('message', function (e) {
+                var data = event.data;
+                dispatchEvent(data.type, data);
+            });
+
+            function dispatchEvent(type, data) {
+                $scope.$apply(function () {
+                    switch (type) {
+                        case "page":
+                            reloadPage(data.page);
+                            break;
+                    }
+                });
+            }
+
+            function reloadPage(page) {
+                // { settings, sections }
+                $scope.title = page.settings.title;
+                for (var i = 0; i < page.sections.length; i++) {
+                    var section = page.sections[i];
+                    sections[section.id] = section;
+                    ids.push(section.id);
+                }
+                renderBlocks();
+            }
+
+            function renderBlocks() {
+                //$http.post("blocks", sections).then(function (result) {
+                //    console.log(result);
+                //});
+                for (var i = 0; i < ids.length; i++) {
+                    renderBlock(ids[i]);
+                }
+            }
+
+            function renderBlock(id) {
+                var section = sections[id];
+                $http.post(getUrl("block"), section).then(function (result) {
+                    console.log(result);
+                })
+            }
+
+        }]);
+
+    })();
+</script>
+
+{% raw %}
+
+<div class="grid" ng-controller="previewController">
+
+    <div class="grid-item large--two-thirds push--large--one-sixth">
+
+        <h1>{{ title }}</h1>
+
+        <div class="rte">
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endraw %}
+
