@@ -13,6 +13,7 @@
             $scope.blocks = []; // html strings
 
             var sections = {}; // json objects by key-value representation
+            var page = [];
             // var models = {};
             var ids = []; // ids in correct order
 
@@ -43,12 +44,14 @@
             }
 
             function renderBlocks() {
-                //$http.post("blocks", sections).then(function (result) {
-                //    console.log(result);
-                //});
+                var model = { blocks: [] };
                 for (var i = 0; i < ids.length; i++) {
-                    renderBlock(ids[i]);
+                    var block = sections[ids[i]];
+                    model.blocks.push(block);
                 }
+                $http.post(getUrl("blocks"), model).then(function (result) {
+                    console.log(result);
+                });
             }
 
             function renderBlock(id) {
