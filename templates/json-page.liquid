@@ -1,0 +1,4 @@
+{% for item in json_page.blocks -%}
+    {% assign templateName = "json-"|append:item.type -%}
+    {% include templateName, block: item -%}
+{% endfor -%}

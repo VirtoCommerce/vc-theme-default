@@ -12,11 +12,6 @@
             $scope.title = "";
             $scope.blocks = []; // html strings
 
-            var sections = {}; // json objects by key-value representation
-            var page = [];
-            // var models = {};
-            var ids = []; // ids in correct order
-
             $window.addEventListener('message', function (e) {
                 var data = event.data;
                 dispatchEvent(data.type, data);
@@ -28,6 +23,18 @@
                         case "page":
                             reloadPage(data.page);
                             break;
+                        case "move":
+                            console.log("move block")
+                            break;
+                        case "add":
+                            var model = createBlockModel(data.block);
+                            $scope.blocks.push(model);
+                            renderBlock(model);
+                            break;
+                        case "remove":
+                            // find block in $scope.blocks by data.blockId
+                            // remove it (splice)
+                            break;
                     }
                 });
             }
@@ -35,30 +42,34 @@
             function reloadPage(page) {
                 // { settings, sections }
                 $scope.title = page.settings.title;
+                $scope.blocks = [];
                 for (var i = 0; i < page.sections.length; i++) {
                     var section = page.sections[i];
-                    sections[section.id] = section;
-                    ids.push(section.id);
+                    var model = createBlockModel(section);
+                    $scope.blocks.push(model);
                 }
                 renderBlocks();
             }
 
             function renderBlocks() {
-                var model = { blocks: [] };
-                for (var i = 0; i < ids.length; i++) {
-                    var block = sections[ids[i]];
-                    model.blocks.push(block);
+                for (var i = 0; i < $scope.blocks.length; i++) {
+                    var block = $scope.blocks[i];
+                    renderBlock(block)
                 }
-                $http.post(getUrl("blocks"), model).then(function (result) {
-                    console.log(result);
-                });
             }
 
-            function renderBlock(id) {
-                var section = sections[id];
-                $http.post(getUrl("block"), section).then(function (result) {
-                    console.log(result);
+            function renderBlock(block) {
+                $http.post(getUrl("block"), block.source).then(function (result) {
+                    block.result = result.data;
                 })
+            }
+
+            function createBlockModel(section) {
+                return {
+                    id: section.id,
+                    source: section,
+                    result: ''
+                };
             }
 
         }]);
@@ -74,13 +85,19 @@
 
         <h1>{{ title }}</h1>
 
-        <div class="rte">
-
+        <div id="preview-container">
+            <div ng-repeat="item in blocks" ng-bind-html="item.result"></div>
         </div>
 
     </div>
 
 </div>
+
+<style>
+    #preview-container>div>div {
+        margin: 20px 0;
+    }
+</style>
 
 {% endraw %}
 
