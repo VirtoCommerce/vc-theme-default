@@ -19,24 +19,42 @@
 
             function dispatchEvent(type, data) {
                 $scope.$apply(function () {
+                    clearPreviewItems();
                     switch (type) {
                         case "page":
-                            reloadPage(data.page);
+                            reloadPage(data.content);
                             break;
                         case "move":
                             console.log("move block")
                             break;
-                        case "add":
-                            var model = createBlockModel(data.block);
-                            $scope.blocks.push(model);
-                            renderBlock(model);
+                        case "addOrUpdate":
+                            if (!!data.content) {
+                                var model = createBlockModel(data.content);
+                                var exists = findById(model.id);
+                                if (!exists) {
+                                    $scope.blocks.push(model);
+                                } else {
+                                    $scope.blocks[exists.index] = model;
+                                }
+                                renderBlock(model);
+                            }
                             break;
                         case "remove":
-                            // find block in $scope.blocks by data.blockId
-                            // remove it (splice)
+                            var exists = findById(data.content);
+                            $scope.blocks.splice(exists.index, 1)
                             break;
                     }
                 });
+            }
+
+            function clearPreviewItems() {
+                for (var i = 0; i < $scope.blocks.length; i++) {
+                    var block = $scope.blocks[i];
+                    if (!block.id) {
+                        $scope.blocks.splice(i, 1)
+                        i--;
+                    }
+                }
             }
 
             function reloadPage(page) {
@@ -70,6 +88,15 @@
                     source: section,
                     result: ''
                 };
+            }
+
+            function findById(id) {
+                for (var i = 0; i < $scope.blocks.length; i++) {
+                    var block = $scope.blocks[i];
+                    if (block.id == id)
+                        return { block: block, index: i };
+                }
+                return null;
             }
 
         }]);
