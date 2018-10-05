@@ -11,7 +11,7 @@
                     <vc-line-items items="checkout.cart.items"></vc-line-items>
                 </div>
                 <div class="order-summary__section order-summary__section--discount">
-                    <vc-checkout-coupon coupon="checkout.coupon" on-apply-coupon="applyCoupon(coupon)" on-remove-coupon="removeCoupon(coupon)"></vc-checkout-coupon>
+                    <vc-checkout-coupon coupons="checkout.coupons" on-validate-coupon="validateCoupon(coupon)" on-apply-coupon="applyCoupon(coupon)" on-remove-coupon="removeCoupon(coupon)"></vc-checkout-coupon>
                 </div>
                 <div class="order-summary__section order-summary__section--total-lines">
                     <vc-totals order="checkout.cart"></vc-totals>
