@@ -8,7 +8,7 @@
 
         var app = angular.module("storefrontApp");
 
-        app.controller("previewController", ["$http", '$scope', '$window', function ($http, $scope, $window) {
+        app.controller("previewController", ["$http", '$sce', '$scope', '$window', function ($http, $sce, $scope, $window) {
             $scope.title = "";
             $scope.blocks = []; // html strings
 
@@ -80,7 +80,7 @@
 
             function renderBlock(block) {
                 $http.post(getUrl("block"), block.source).then(function (result) {
-                    block.result = result.data;
+                    block.result = $sce.trustAsHtml(result.data);
                 })
             }
 
