@@ -25,7 +25,9 @@
                             reloadPage(data.content);
                             break;
                         case "move":
-                            console.log("move block")
+                            var current = $scope.blocks[data.content.currentIndex];
+                            $scope.blocks.splice(data.content.currentIndex, 1);
+                            $scope.blocks.splice(data.content.newIndex, 0, current);
                             break;
                         case "addOrUpdate":
                             if (!!data.content) {
