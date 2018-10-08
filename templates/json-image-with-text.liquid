@@ -1,4 +1,12 @@
-<div style="border: 1px solid red;">
-    Image with text:<br/>
-	<pre><code>{{ block | json }}</code></pre>
+<div class="jsonpage-block">
+    <h2>{{ block.title }}</h2>
+
+    <div style="display: flex; flex-direction: {{ block.align == 'left' ? 'row' : 'row-reverse' }}">
+        <div style="flex: 1;">
+            <img src="{{ block.url }}" class="{{ block.imageSize }}" />
+        </div>
+        <div style="flex: 2">
+            {{ block.content }}
+        </div>
+    </div>
 </div>
