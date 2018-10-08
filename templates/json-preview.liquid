@@ -115,7 +115,7 @@
         <h1>{{ title }}</h1>
 
         <div id="preview-container">
-            <div ng-repeat="item in blocks" ng-bind-html="item.result"></div>
+            <div ng-repeat="item in blocks track by item.id" ng-bind-html="item.result"></div>
         </div>
 
     </div>
