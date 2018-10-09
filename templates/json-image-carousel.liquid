@@ -1,4 +1,13 @@
-<div style="border: 1px solid red;">
-    image carousel:<br />
-    <pre><code>{{ block | json }}</code></pre>
+<div class="jsonpage-block">
+
+    <div class="fotorama"
+         {% if block.autoRotate == true %} data-autoplay="{{ block.rotationFrequency }}" data-loop="true"  {% endif %}>
+            {% for image in block.images %}
+            <img src="{{ image.url }}" data-caption="{{ image.title }}" />
+            {% endfor %}
+    </div>
 </div>
+
+<script>
+    $(".fotorama").fotorama();
+</script>

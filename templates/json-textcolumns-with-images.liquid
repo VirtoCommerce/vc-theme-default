@@ -1,3 +1,21 @@
-<div>
-    {{ block | json }}
+<div class="jsonpage-block">
+    <div style="width: 100%; display: flex;">
+        {% for column in block.columns %}
+        <div style="flex: {{ column.width }}; border: none; ">
+
+            {% if block.imageAlignment == "top" %}
+            <img src="{{ column.url }}" class="{{ block.imageSize }}" style="max-height: 100%;" />
+            {% endif %}
+
+            <h3>{{ column.title }}</h3>
+            <div>{{ column.content }}</div>
+
+            {% if block.imageAlignment == "bottom" %}
+            <img src="{{ column.url }}" class="{{ block.imageSize }}" style="max-height: 100%;" />
+            {% endif %}
+            <div style="clear: both;"></div>
+        </div>
+        {% endfor %}
+
+    </div>
 </div>

@@ -1,4 +1,49 @@
-<div style="border: 1px solid red;">
-    Image layout:<br/>
-	<pre><code>{{ block | json }}</code></pre>
+<div class="jsonpage-block" style="">
+
+    {% assign image1 = block.images[0] -%}
+    {% assign image2 = block.images[1] -%}
+    {% assign image3 = block.images[2] -%}
+
+    {% if block.layout == "one-two" -%}
+    <div style="display: flex; align-items: center">
+        <div style="flex: 1;">
+            <img src="{{ image1.url }}" title="{{ image1.title }}" />
+        </div>
+        <div style="flex: 1; display: flex; flex-direction: column; align-items: center;">
+            <div style="flex: 1;">
+                <img src="{{ image2.url }}" title="{{ image2.title }}" />
+            </div>
+            <div style="flex: 1;">
+                <img src="{{ image3.url }}" title="{{ image3.title }}" />
+            </div>
+        </div>
+    </div>
+    {% elseif block.layout == "two-one" -%}
+    <div style="display: flex; align-items: center">
+        <div style="flex: 1; display: flex; flex-direction: column; align-items: center;">
+            <div style="flex: 1;">
+                <img src="{{ image1.url }}" title="{{ image1.title }}" />
+            </div>
+            <div style="flex: 1;">
+                <img src="{{ image2.url }}" title="{{ image2.title }}" />
+            </div>
+        </div>
+        <div style="flex: 1;">
+            <img src="{{ image3.url }}" title="{{ image3.title }}" />
+        </div>
+    </div>
+    {% elseif block.layout == "one-one" -%}
+    <div style="display: flex; align-items: center;">
+        <div style="flex: 1;">
+            <img src="{{ image1.url }}" title="{{ image1.title }}" />
+        </div>
+        <div style="flex: 1;">
+            <img src="{{ image2.url }}" title="{{ image2.title }}" />
+        </div>
+    </div>
+
+    {% endif %}
+
 </div>
+
+
