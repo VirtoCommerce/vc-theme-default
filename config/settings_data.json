@@ -94,9 +94,7 @@
             "remove_dollar_symbol": false,
             "superscript_decimals": true,
             "store_selector_enable": true,
-            //Display all prices and totals with including tax
             "show_prices_with_taxes": false,
-            // possible interval: {days, weeks, months, years}
             "available_paymentPlans": [
                 {
                     "intervalCount": 1,
@@ -119,7 +117,6 @@
                     "name": "year"
                 }
             ],
-            //Collect usage events for product recommendations
             "collect_user_events_enabled": false,
             "lists": {
                 "default_list_type": "wishlist",
@@ -214,7 +211,6 @@
             "type_navigation_transform": true,
             "remove_dollar_symbol": true,
             "superscript_decimals": true,
-            //Collect usage events for product recommendations
             "collect_user_events_enabled": false
         },
         "Dark": {
@@ -304,7 +300,6 @@
             "remove_dollar_symbol": true,
             "superscript_decimals": true,
             "store_selector_enable": true,
-            //Collect usage events for product recommendations
             "collect_user_events_enabled": false
         }
     }
