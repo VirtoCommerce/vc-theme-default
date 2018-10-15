@@ -21,6 +21,9 @@
                 $scope.$apply(function () {
                     clearPreviewItems();
                     switch (type) {
+                        case "reload":
+                            document.location.reload();
+                            break;
                         case "page":
                             reloadPage(data.content);
                             break;
