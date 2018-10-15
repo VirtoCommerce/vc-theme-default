@@ -171,8 +171,8 @@
     {% include 'footer' %}
     <script>
         window.quotesEnabled = {{ shop.quotes_enabled }};
-        window.suggestionsLimit = {{ settings.suggestions_limit }};
-        window.productCompareListCapacity = {{ settings.product_compare_list_capacity }};
+        window.suggestionsLimit = {{ settings.suggestions_limit|default:10 }};
+        window.productCompareListCapacity = {{ settings.product_compare_list_capacity|default:4 }};
         window.startRecordInteraction = function()
         {
             {% if settings.collect_user_events_enabled %}
