@@ -105,7 +105,9 @@
             }
 
         }]);
-
+        $("link[rel='stylesheet']").each(function () {
+            $(this).attr("href", $(this).attr("href") + "?v=" + Date.now());
+        });
     })();
 </script>
 
