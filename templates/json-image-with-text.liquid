@@ -2,10 +2,10 @@
     <h2>{{ block.title }}</h2>
 
     <div style="display: flex; flex-direction: {{ block.align == 'left' ? 'row' : 'row-reverse' }}">
-        <div style="flex: 1;">
+        <div>
             <img src="{{ block.url }}" class="{{ block.imageSize }}" />
         </div>
-        <div style="flex: 2">
+        <div>
             {{ block.content }}
         </div>
     </div>

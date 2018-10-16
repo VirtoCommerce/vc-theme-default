@@ -11,6 +11,7 @@
         app.controller("previewController", ["$http", '$sce', '$scope', '$window', function ($http, $sce, $scope, $window) {
             $scope.title = "";
             $scope.blocks = []; // html strings
+            var linkEls = $("link[rel='stylesheet'][href]");
 
             $window.addEventListener('message', function (e) {
                 var data = event.data;
@@ -21,8 +22,8 @@
                 $scope.$apply(function () {
                     clearPreviewItems();
                     switch (type) {
-                        case "reload":
-                            document.location.reload();
+                        case "css":
+                            reloadCss();
                             break;
                         case "page":
                             reloadPage(data.content);
@@ -50,6 +51,41 @@
                             break;
                     }
                 });
+            }
+
+            function reloadCss() {
+                $("body").animate({ opacity: 0 }, {
+                    complete: function () {
+                        linkEls.each(function () {
+                            var link = $(this);
+                            var url = link.attr("href");
+                            url = url + (url.indexOf("?") == -1 ? "?" : "&") + "v=" + Date.now();
+                            link.attr("href", url);
+                        });
+                        // todo: make async calls to css if it is possible
+                        setTimeout(function () {
+                            $("body").animate({ opacity: 1 });
+                        }, 2000);
+                    }
+                });
+
+                //var promises = [];
+                //$.each(styles, function (index, item) {
+                //    item.remove();
+                //});
+                //$.each(links, function (index, item) {
+                //    var promise = $.Deferred();
+                //    promises.push(promise);
+                //    $.get(item + "?v=" + Date.now(), function (css) {
+                //        styles.push($('<style type="text/css"></style>')
+                //            .html(css)
+                //            .appendTo("head"));
+                //        promise.resolve();
+                //    });
+                //});
+                //$.when(promises).done(function () {
+                //    console.log("1");
+                //});
             }
 
             function clearPreviewItems() {
@@ -105,9 +141,7 @@
             }
 
         }]);
-        $("link[rel='stylesheet']").each(function () {
-            $(this).attr("href", $(this).attr("href") + "?v=" + Date.now());
-        });
+
     })();
 </script>
 
@@ -127,14 +161,4 @@
 
 </div>
 
-<style>
-    #preview-container > div > div {
-        margin: 20px 0;
-    }
-</style>
-
 {% endraw %}
-
-<!-- fotorama.css & fotorama.js. -->
-<link href="http://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" rel="stylesheet"> <!-- 3 KB -->
-<script src="http://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.js"></script> <!-- 16 KB -->

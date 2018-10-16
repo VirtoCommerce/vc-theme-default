@@ -1,11 +1,7 @@
 {
-    "current": "Blue",
+    "current": "Dark",
     "presets": {
         "Blue": {
-            "suggestions_limit": 10,
-            "bulk_order_enabled": true,
-            "product_compare_enabled": true,
-            "product_compare_list_capacity": 4,
             "ajax_cart_enable": true,
             "ajax_cart_method": "Modal",
             "cart_notes_enable": false,
@@ -14,6 +10,7 @@
             "color_accent": "#ffea00",
             "color_body_bg": "#fff",
             "color_body_text": "#585858",
+            "color_body_headings": "#ff0000",
             "color_borders": "#ececec",
             "color_footer_bg": "#f2f2f2",
             "color_footer_social_link": "#bbbbbb",
@@ -28,7 +25,7 @@
             "color_nav_text": "#fff",
             "color_primary": "#204a80",
             "color_secondary": "#dcdcdc",
-            "customer_layout": "account_layout",
+            "customer_layout": "theme",
             "favicon_enable": false,
             "footer_content_enable": true,
             "footer_legallinks_enable": true,
@@ -38,15 +35,10 @@
             "footer_social_enable": true,
             "home_featured_collections_enable": true,
             "home_featured_collections_sort": "auto",
-            "home_featured_row1": "Cell-phones",
+            "home_featured_row1": "frontpage",
             "home_featured_row1_enable": true,
-            "home_featured_row1_number": "1",
-            "home_featured_row2": "Camcorders",
-            "home_featured_row2_enable": true,
-            "home_featured_row2_number": "1",
-            "home_featured_row3": "Home-Theater",
-            "home_featured_row3_enable": true,
-            "home_featured_row3_number": "1",
+            "home_featured_row2_enable": false,
+            "home_featured_row3_enable": false,
             "home_featured_row4_enable": false,
             "home_content": "",
             "logo_max_width": "305",
@@ -83,7 +75,7 @@
             "social_youtube_link": "",
             "twittercard_handle": "@",
             "type_accent_family": "Google_Dosis_600_sans",
-            "type_base_family": "'HelveticaNeue', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'",
+            "type_base_family": "'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif",
             "type_base_size": "15px",
             "type_button_size": "17px",
             "type_button_transform": false,
@@ -93,44 +85,7 @@
             "type_navigation_transform": true,
             "remove_dollar_symbol": false,
             "superscript_decimals": true,
-            "store_selector_enable": true,
-            "show_prices_with_taxes": false,
-            "available_paymentPlans": [
-                {
-                    "intervalCount": 1,
-                    "interval": "days",
-                    "name": "day"
-                },
-                {
-                    "intervalCount": 1,
-                    "interval": "weeks",
-                    "name": "week"
-                },
-                {
-                    "intervalCount": 1,
-                    "interval": "months",
-                    "name": "month"
-                },
-                {
-                    "intervalCount": 1,
-                    "interval": "years",
-                    "name": "year"
-                }
-            ],
-            "collect_user_events_enabled": false,
-            "lists": {
-                "default_list_type": "wishlist",
-                "default_lists": [
-                    {
-                        "name": "shopping",
-                        "type": "wishlist"
-                    },
-                    {
-                        "name": "wish",
-                        "type": "wishlist"
-                    }
-                ]
-            }
+            "store_selector_enable": true
         },
         "Soft Green": {
             "ajax_cart_enable": true,
@@ -153,7 +108,7 @@
             "color_nav_text": "#fff",
             "color_primary": "#49aa9d",
             "color_secondary": "#dcdcdc",
-            "customer_layout": "account_layout",
+            "customer_layout": "theme",
             "favicon_enable": false,
             "footer_content_enable": true,
             "footer_legallinks_enable": true,
@@ -210,8 +165,7 @@
             "type_navigation_size": "15px",
             "type_navigation_transform": true,
             "remove_dollar_symbol": true,
-            "superscript_decimals": true,
-            "collect_user_events_enabled": false
+            "superscript_decimals": true
         },
         "Dark": {
             "ajax_cart_enable": true,
@@ -234,7 +188,7 @@
             "color_nav_text": "#ffffff",
             "color_primary": "#c4b47f",
             "color_secondary": "#333333",
-            "customer_layout": "account_layout",
+            "customer_layout": "theme",
             "favicon_enable": true,
             "footer_content_enable": true,
             "footer_legallinks_enable": true,
@@ -299,8 +253,7 @@
             "type_navigation_transform": true,
             "remove_dollar_symbol": true,
             "superscript_decimals": true,
-            "store_selector_enable": true,
-            "collect_user_events_enabled": false
+            "store_selector_enable": true
         }
     }
 }
