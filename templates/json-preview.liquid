@@ -22,8 +22,8 @@
                 $scope.$apply(function () {
                     clearPreviewItems();
                     switch (type) {
-                        case "css":
-                            reloadCss();
+                        case "settings":
+                            reloadDocument();
                             break;
                         case "page":
                             reloadPage(data.content);
@@ -53,39 +53,12 @@
                 });
             }
 
-            function reloadCss() {
+            function reloadDocument() {
                 $("body").animate({ opacity: 0 }, {
                     complete: function () {
-                        linkEls.each(function () {
-                            var link = $(this);
-                            var url = link.attr("href");
-                            url = url + (url.indexOf("?") == -1 ? "?" : "&") + "v=" + Date.now();
-                            link.attr("href", url);
-                        });
-                        // todo: make async calls to css if it is possible
-                        setTimeout(function () {
-                            $("body").animate({ opacity: 1 });
-                        }, 2000);
+                        document.location.reload();
                     }
                 });
-
-                //var promises = [];
-                //$.each(styles, function (index, item) {
-                //    item.remove();
-                //});
-                //$.each(links, function (index, item) {
-                //    var promise = $.Deferred();
-                //    promises.push(promise);
-                //    $.get(item + "?v=" + Date.now(), function (css) {
-                //        styles.push($('<style type="text/css"></style>')
-                //            .html(css)
-                //            .appendTo("head"));
-                //        promise.resolve();
-                //    });
-                //});
-                //$.when(promises).done(function () {
-                //    console.log("1");
-                //});
             }
 
             function clearPreviewItems() {
@@ -141,7 +114,18 @@
             }
 
         }]);
-
+        $("body").css({ opacity: 0, display: 'none' });
+        var styles = $("link[rel='stylesheet'][href]");
+        styles.each(function () {
+            var link = $(this);
+            var url = link.attr("href");
+            url = url + (url.indexOf("?") == -1 ? "?" : "&") + "v=" + Date.now() + "&mode=preview";
+            link.attr("href", url);
+        });
+        setTimeout(function () {
+            $("body").css({ display: 'block' });
+            $("body").animate({ opacity: 1 });
+        }, 2000);
     })();
 </script>
 
