@@ -40,7 +40,7 @@ angular.module(moduleName, ['ngResource', 'ngComponentRouter', 'credit-cards', '
 
         $ctrl.getQuotes = function (pageNumber, pageSize, sortInfos, callback) {
             loader.wrapLoading(function () {
-                return accountApi.getQuotes({ pageNumber: pageNumber, pageSize: pageSize, sortInfos: sortInfos }, callback).$promise;
+                return accountApi.searchQuotes({ pageNumber: pageNumber, pageSize: pageSize }, callback).$promise;
             });
         };
 
