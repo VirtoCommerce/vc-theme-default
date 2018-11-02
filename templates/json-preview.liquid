@@ -11,7 +11,6 @@
         app.controller("previewController", ["$http", '$sce', '$scope', '$window', function ($http, $sce, $scope, $window) {
             $scope.title = "";
             $scope.blocks = []; // html strings
-            var linkEls = $("link[rel='stylesheet'][href]");
 
             $window.addEventListener('message', function (e) {
                 var data = event.data;
@@ -26,12 +25,14 @@
                             reloadDocument();
                             break;
                         case "page":
+                            /* data = { type: "page", content: { settings: {}, sections: [{}] } } */
                             reloadPage(data.content);
                             break;
                         case "move":
                             var current = $scope.blocks[data.content.currentIndex];
                             $scope.blocks.splice(data.content.currentIndex, 1);
                             $scope.blocks.splice(data.content.newIndex, 0, current);
+                            scrollTo(current.id);
                             break;
                         case "addOrUpdate":
                             if (!!data.content) {
@@ -42,15 +43,31 @@
                                 } else {
                                     $scope.blocks[exists.index] = model;
                                 }
-                                renderBlock(model);
+                                renderBlock(model, function () {
+                                    scrollTo("");
+                                });
                             }
                             break;
                         case "remove":
                             var exists = findById(data.content);
                             $scope.blocks.splice(exists.index, 1)
                             break;
+                        case "scrollTo":
+                            scrollTo(data.content.id);
+                            break;
+                        default:
+                            console.log(type, data);
+                            break;
                     }
                 });
+            }
+
+            function scrollTo(itemId) {
+                var id = "#block-" + itemId;
+                var el = $(id);
+                if (el.length) {
+                    $('html, body').animate({ scrollTop: el.offset().top - window.innerHeight / 3 }, 1000);
+                }
             }
 
             function reloadDocument() {
@@ -90,9 +107,12 @@
                 }
             }
 
-            function renderBlock(block) {
+            function renderBlock(block, callback) {
                 $http.post(getUrl("block"), block.source).then(function (result) {
                     block.result = $sce.trustAsHtml(result.data);
+                    if (!!callback) {
+                        callback(block);
+                    }
                 })
             }
 
@@ -114,20 +134,20 @@
             }
 
         }]);
-        $("body").css({ opacity: 0, display: 'none' });
-        var styles = $("link[rel='stylesheet'][href]");
-        var urlParams = new URLSearchParams(window.location.search);
-        let prefix = urlParams.get('preview_mode');
-        styles.each(function () {
-            var link = $(this);
-            var url = link.attr("href");
-            url = url + (url.indexOf("?") == -1 ? "?" : "&") + "v=" + Date.now() + "&preview_mode=" + prefix;
-            link.attr("href", url);
-        });
-        setTimeout(function () {
-            $("body").css({ display: 'block' });
-            $("body").animate({ opacity: 1 });
-        }, 2000);
+        // $("body").css({ opacity: 0, display: 'none' });
+        //var styles = $("link[rel='stylesheet'][href]");
+        //var urlParams = new URLSearchParams(window.location.search);
+        //let prefix = urlParams.get('preview_mode');
+        //styles.each(function () {
+        //    var link = $(this);
+        //    var url = link.attr("href");
+        //    url = url + (url.indexOf("?") == -1 ? "?" : "&") + "v=" + Date.now() + "&preview_mode=" + prefix;
+        //    link.attr("href", url);
+        //});
+        //setTimeout(function () {
+        //    $("body").css({ display: 'block' });
+        //    $("body").animate({ opacity: 1 });
+        //}, 2000);
     })();
 </script>
 
@@ -140,7 +160,7 @@
         <h1>{{ title }}</h1>
 
         <div id="preview-container">
-            <div ng-repeat="item in blocks track by item.id" ng-bind-html="item.result"></div>
+            <div ng-repeat="item in blocks track by item.id" ng-bind-html="item.result" id="block-{{ item.id }}"></div>
         </div>
 
     </div>
