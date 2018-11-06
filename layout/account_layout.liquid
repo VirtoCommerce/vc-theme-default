@@ -31,9 +31,7 @@
     {% include 'google-fonts' %}
 
     <base href="{{ '/' | absolute_url }}" />
-
-    
-    {{ '//unpkg.com/@angular/router@0.2.0/angular1/angular_1_router.js' | script_tag }}
+      
     {{ 'bundle/scripts.js' | static_asset_url | append_version | script_tag }}
     {{ 'bundle/account-scripts.js' | static_asset_url | append_version | script_tag }}
 
