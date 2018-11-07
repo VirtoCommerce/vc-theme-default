@@ -71,11 +71,7 @@
             }
 
             function reloadDocument() {
-                $("body").animate({ opacity: 0 }, {
-                    complete: function () {
-                        document.location.reload();
-                    }
-                });
+                document.location.reload();
             }
 
             function clearPreviewItems() {
@@ -134,20 +130,15 @@
             }
 
         }]);
-        // $("body").css({ opacity: 0, display: 'none' });
-        //var styles = $("link[rel='stylesheet'][href]");
-        //var urlParams = new URLSearchParams(window.location.search);
-        //let prefix = urlParams.get('preview_mode');
-        //styles.each(function () {
-        //    var link = $(this);
-        //    var url = link.attr("href");
-        //    url = url + (url.indexOf("?") == -1 ? "?" : "&") + "v=" + Date.now() + "&preview_mode=" + prefix;
-        //    link.attr("href", url);
-        //});
-        //setTimeout(function () {
-        //    $("body").css({ display: 'block' });
-        //    $("body").animate({ opacity: 1 });
-        //}, 2000);
+        var styles = $("link[rel='stylesheet'][href]");
+        var urlParams = new URLSearchParams(window.location.search);
+        let prefix = urlParams.get('preview_mode');
+        styles.each(function () {
+            var link = $(this);
+            var url = link.attr("href");
+            url = url + (url.indexOf("?") == -1 ? "?" : "&") + "v=" + Date.now() + "&preview_mode=" + prefix;
+            link.attr("href", url);
+        });
     })();
 </script>
 
