@@ -12,7 +12,7 @@ angular.module(moduleName, ['credit-cards', 'angular.filter'])
                 paymentMethod: {},
                 shipment: {},
                 payment: {},
-                coupon: {},
+                coupons: [],
                 availCountries: [],
                 loading: false,
                 isValid: false
@@ -38,10 +38,8 @@ angular.module(moduleName, ['credit-cards', 'angular.filter'])
                     }
                     else {
                         $scope.checkout.cart = cart;
-                        $scope.checkout.coupon = cart.coupon || $scope.checkout.coupon;
-                        if ($scope.checkout.coupon.code && !$scope.checkout.coupon.appliedSuccessfully) {
-                            $scope.checkout.coupon.errorCode = 'InvalidCouponCode';
-                        }
+                        $scope.checkout.coupons = cart.coupons || $scope.checkout.coupons;
+                       
                         if (cart.payments.length) {
                             $scope.checkout.payment = cart.payments[0];
                             $scope.checkout.paymentMethod.code = $scope.checkout.payment.paymentGatewayCode;
@@ -69,23 +67,33 @@ angular.module(moduleName, ['credit-cards', 'angular.filter'])
                 });
             };
 
+            $scope.validateCoupon = function (coupon) {
+                coupon.processing = true;
+                return cartService.validateCoupon(coupon).then(function (result) {
+                    coupon.processing = false;
+                   return  angular.extend(coupon, result.data);
+                }, function () {
+                    coupon.processing = false;
+                });
+            }
+
             $scope.applyCoupon = function(coupon) {
                 coupon.processing = true;
                 cartService.addCoupon(coupon.code).then(function() {
                     coupon.processing = false;
                     $scope.reloadCart();
-                }, function(response) {
+                }, function() {
                     coupon.processing = false;
                 });
             }
 
             $scope.removeCoupon = function(coupon) {
                 coupon.processing = true;
-                cartService.removeCoupon().then(function(response) {
+                cartService.removeCoupon(coupon.code).then(function() {
                     coupon.processing = false;
                     $scope.checkout.coupon = {};
                     $scope.reloadCart();
-                }, function(response) {
+                }, function() {
                     coupon.processing = false;
                 });
             }
