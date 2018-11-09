@@ -1,4 +1,34 @@
 <script>
+    function ready() {
+        // console.log(document.styleSheets);
+        // console.log(document.location);
+        var urlParams = new URLSearchParams(window.location.search);
+        var prefix = urlParams.get('preview_mode');
+        var suffix = "?preview_mode=" + prefix;
+
+        var nodes = document.getElementsByTagName("link");
+        var head = document.getElementsByTagName("head").item(0);
+
+        function generateLinkNode(url) {
+            var result = document.createElement("link");
+            result.setAttribute("rel", "stylesheet");
+            result.setAttribute("type", "text/css");
+            result.setAttribute("href", url);
+            return result;
+        }
+
+        for (var i = 0; i < nodes.length; i++) {
+            var styleSheet = nodes[i];
+            if (styleSheet.href && styleSheet.href.startsWith(document.location.origin) && styleSheet.href.endsWith(".css")) {
+                var url = styleSheet.href + suffix;
+                var newlink = generateLinkNode(url);
+                head.replaceChild(newlink, styleSheet);
+            }
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", ready);
+
     (function () {
         var renderApiUrl = "/designer-preview/";
 
@@ -14,11 +44,12 @@
 
             $window.addEventListener('message', function (e) {
                 var data = event.data;
+                console.log(data);
                 dispatchEvent(data.type, data);
             });
 
             function dispatchEvent(type, data) {
-                $scope.$apply(function () {
+                // $scope.$apply(function () {
                     clearPreviewItems();
                     switch (type) {
                         case "settings":
@@ -59,7 +90,7 @@
                             console.log(type, data);
                             break;
                     }
-                });
+                // });
             }
 
             function scrollTo(itemId) {
@@ -130,15 +161,15 @@
             }
 
         }]);
-        var styles = $("link[rel='stylesheet'][href]");
-        var urlParams = new URLSearchParams(window.location.search);
-        let prefix = urlParams.get('preview_mode');
-        styles.each(function () {
-            var link = $(this);
-            var url = link.attr("href");
-            url = url + (url.indexOf("?") == -1 ? "?" : "&") + "v=" + Date.now() + "&preview_mode=" + prefix;
-            link.attr("href", url);
-        });
+        //var styles = $("link[rel='stylesheet'][href]");
+        //var urlParams = new URLSearchParams(window.location.search);
+        //let prefix = urlParams.get('preview_mode');
+        //styles.each(function () {
+        //    var link = $(this);
+        //    var url = link.attr("href");
+        //    url = url + (url.indexOf("?") == -1 ? "?" : "&") + "v=" + Date.now() + "&preview_mode=" + prefix;
+        //    link.attr("href", url);
+        //});
     })();
 </script>
 
