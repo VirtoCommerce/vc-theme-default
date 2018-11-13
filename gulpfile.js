@@ -84,7 +84,7 @@ gulp.task("packJavaScript", function() {
                 console.log(file);
             })
             .pipe(concat("scripts_dependencies.js"))
-            //.pipe(uglify())
+            .pipe(uglify())
             .pipe(gulp.dest("assets/static/bundle"))
     );
 });
