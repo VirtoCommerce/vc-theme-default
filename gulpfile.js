@@ -77,16 +77,14 @@ gulp.task("min:js", function() {
 
 // move all js files from bower packages to single file
 gulp.task("packJavaScript", function() {
-    return (
-        gulp
-            .src(mainBowerFiles(regex.js))
-            .on("data", function(file) {
-                console.log(file);
-            })
-            .pipe(concat("scripts_dependencies.js"))
-            //.pipe(uglify())
-            .pipe(gulp.dest("assets/static/bundle"))
-    );
+    return gulp
+        .src(mainBowerFiles(regex.js))
+        .on("data", function(file) {
+            console.log(file);
+        })
+        .pipe(concat("scripts_dependencies.js"))
+        .pipe(uglify())
+        .pipe(gulp.dest("assets/static/bundle"));
 });
 
 gulp.task("min:css", function() {

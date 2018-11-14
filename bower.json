@@ -36,9 +36,6 @@
         "ngstorage": {
             "main": ["./ngStorage.min.js"]
         },
-        "underscore": {
-            "main": ["underscore.min.js"]
-        },
         "angular-resource": {
             "main": ["./angular-resource.min.js"]
         },
