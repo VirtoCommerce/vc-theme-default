@@ -78,12 +78,44 @@ gulp.task("min:js", function() {
 // move all js files from bower packages to single file
 gulp.task("packJavaScript", function() {
     return gulp
-        .src(mainBowerFiles(regex.js))
+        .src(
+            mainBowerFiles({
+                filter: regex.js,
+                overrides: {
+                    jquery: {
+                        main: ["dist/jquery.min.js"]
+                    },
+                    angular: {
+                        main: ["./angular.min.js"]
+                    },
+                    "angular-bootstrap": {
+                        main: ["./ui-bootstrap-tpls.min.js"]
+                    },
+                    "angular-sanitize": {
+                        main: ["./angular-sanitize.min.js"]
+                    },
+                    "angular-translate": {
+                        main: ["./angular-translate.min.js"]
+                    },
+                    "angular-translate-loader-url": {
+                        main: ["./angular-translate-loader-url.min.js"]
+                    },
+                    ngstorage: {
+                        main: ["./ngStorage.min.js"]
+                    },
+                    "angular-resource": {
+                        main: ["./angular-resource.min.js"]
+                    },
+                    "angular-component-router": {
+                        main: ["./angular_1_router.js"]
+                    }
+                }
+            })
+        )
         .on("data", function(file) {
             console.log(file);
         })
         .pipe(concat("scripts_dependencies.js"))
-        .pipe(uglify())
         .pipe(gulp.dest("assets/static/bundle"));
 });
 
