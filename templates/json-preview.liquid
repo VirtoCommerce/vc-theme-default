@@ -49,14 +49,14 @@
             });
 
             function dispatchEvent(type, data) {
-                // $scope.$apply(function () {
+                $scope.$apply(function () {
                     clearPreviewItems();
                     switch (type) {
                         case "settings":
                             reloadDocument();
                             break;
                         case "page":
-                            /* data = { type: "page", content: { settings: {}, sections: [{}] } } */
+                            /* data = { type: "page", content: [{}] } */
                             reloadPage(data.content);
                             break;
                         case "move":
@@ -90,7 +90,7 @@
                             console.log(type, data);
                             break;
                     }
-                // });
+                });
             }
 
             function scrollTo(itemId) {
@@ -116,13 +116,15 @@
             }
 
             function reloadPage(page) {
-                // { settings, sections }
-                $scope.title = page.settings.title;
                 $scope.blocks = [];
-                for (var i = 0; i < page.sections.length; i++) {
-                    var section = page.sections[i];
-                    var model = createBlockModel(section);
-                    $scope.blocks.push(model);
+                for (var i = 0; i < page.length; i++) {
+                    if (page[i].type == 'settings') {
+                        $scope.title = page[i].title;
+                    } else {
+                        var section = page[i];
+                        var model = createBlockModel(section);
+                        $scope.blocks.push(model);
+                    }
                 }
                 renderBlocks();
             }
