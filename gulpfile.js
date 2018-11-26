@@ -79,6 +79,18 @@ gulp.task("min:js", function() {
     return merge(tasks);
 });
 
+gulp.task("move-images", ["copy-images"], function() {
+    return gulp
+        .src(["assets/*.{gif,jpg,png,svg}"], { read: false })
+        .pipe(clean());
+});
+
+gulp.task("copy-images", function() {
+    return gulp
+        .src("assets/*.{gif,jpg,png,svg}")
+        .pipe(gulp.dest("assets/images"));
+});
+
 gulp.task("packJavaScript", function() {
     return merge2(
         gulp.src(bowerMainJavaScriptFiles.minified),
