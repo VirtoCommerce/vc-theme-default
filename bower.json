@@ -1,0 +1,17 @@
+{
+    "name": "ViroCommerce",
+    "dependencies": {
+        "jquery": "1.11.0",
+        "underscore": "1.8.3",
+        "angular": "angularjs#1.5.7",
+        "ngstorage": "0.3.11",
+        "angular-sanitize": "1.5.7",
+        "angular-translate": "2.12.1",
+        "angular-translate-loader-url": "2.12.1",
+        "angular-bootstrap": "1.1.2",
+        "angular-credit-cards": "3.0.1",
+        "angular-resource": "1.5.7",
+        "angular-component-router": "0.2.0",
+        "angular-filter": "0.5.8"
+    }
+}
