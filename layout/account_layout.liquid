@@ -70,12 +70,12 @@
                         {% else %}
                         <a href="{{ '/' | absolute_url }}" itemprop="url">{{ shop.name }}</a>
                         {% endif %}
-                        {% if template == 'index' %}
+                    {% if template == 'index' %}
                     </h1>
-                    {% else %}
+                        {% else %}
+                        </div>
+                            {% endif %}
                 </div>
-                {% endif %}
-            </div>
             <div class="grid-item large--two-third text-center large--text-right">
                 {% if settings.header_message != blank or shop.customer_accounts_enabled %}
                 <div class="site-header--text-links{% if settings.header_message == blank %} medium-down--hide{% endif %}">
@@ -134,6 +134,7 @@
                 </a>
             </div>
         </div>
+    </div>
     </header>
     <nav class="nav-bar" role="navigation">
         <div class="wrapper">
