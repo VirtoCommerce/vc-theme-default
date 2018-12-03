@@ -25,7 +25,7 @@ var gulp = require('gulp'),
     sourcemaps = require('gulp-sourcemaps'),
 
     eslint = require('gulp-eslint'),
-        
+
     zip = require('gulp-zip'),
     gitignore = require('gulp-exclude-gitignore');
 
@@ -156,7 +156,7 @@ gulp.task('lint', function () {
 
 gulp.task('compress', ['min'], function() {
     var package = getPackage();
-    return gulp.src([].concat(['./*/**'], [].concat.apply([], getBundleConfig().map(function(bundle) {
+    return gulp.src([].concat(['./*/**', '!./node_modules/**'], [].concat.apply([], getBundleConfig().map(function(bundle) {
             return bundle.inputFiles.map(function(inputFile) { return '!' + inputFile; })
     }))))
         .pipe(gitignore())
