@@ -190,7 +190,7 @@ gulp.task("compress", ["min"], function() {
     return gulp
         .src(
             [].concat(
-                ["./*/**"],
+                ["./*/**", '!./node_modules/**'],
                 [].concat.apply(
                     [],
                     getBundleConfig().map(function(bundle) {
