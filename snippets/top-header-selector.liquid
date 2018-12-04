@@ -4,7 +4,7 @@
 				<span>
           {{'general.settings.store' | t }}
           <span class="current">
-						<img title="{{current_language.culture_name}}" alt="{{current_language.culture_name}}" class="flag flag-{{current_language.two_letter_region_name | downcase}}" src="{{ 'blank.gif' | asset_url }}"/>
+						<img title="{{current_language.culture_name}}" alt="{{current_language.culture_name}}" class="flag flag-{{current_language.two_letter_region_name | downcase}}" src="{{ 'images/blank.gif' | asset_url }}"/>
 			  {{shop.name}}, {{current_currency.code}}
 		  </span>
 				</span>
@@ -18,7 +18,7 @@
               <ul>
                 {% for store_language in shop.languages %}
                 <li {% if store_language == current_language %} class="selected" {% endif %}>
-                    <img alt="{{store_language.native_name}}" class="flag flag-{{store_language.two_letter_region_name | downcase}}" src="{{ 'blank.gif' | asset_url }}"/>
+                    <img alt="{{store_language.native_name}}" class="flag flag-{{store_language.two_letter_region_name | downcase}}" src="{{ 'images/blank.gif' | asset_url }}"/>
                     <a title="{{store_language.native_name}}" href="{{'/' | absolute_url : '', store_language.culture_name}}">{{store_language.native_name}}</a>
                   </li>
                 {% endfor %}

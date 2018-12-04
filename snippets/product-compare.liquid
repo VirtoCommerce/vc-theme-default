@@ -28,7 +28,7 @@
                         <a ng-href="{% raw %}{{ product.url.replace('~/', '') }}{% endraw %}">
                             <img style="max-width: 150px;" ng-src="{% raw %}{{ product.primaryImage.url }}{% endraw %}" ng-if="product.primaryImage.url" />
                             <div class="no-product-image" ng-if="!product.primaryImage.url">
-                                <img src="{{ 'no-image.svg' | asset_url }}" />
+                                <img src="{{ 'images/no-image.svg' | asset_url }}" />
                             </div>
                             <div ng-bind="product.name"></div>
                         </a>

@@ -23,8 +23,8 @@
   <meta property="og:type" content="website">
   <meta property="og:title" content="{{ page_title | escape }}">
   {% if settings.logo_use_image %}
-  <meta property="og:image" content="{{ 'logo.png' | asset_url | full_url }}">
-  {% comment %}<meta property="og:image:secure_url" content="{{ 'logo.png' | asset_url | full_url }}">{% endcomment %}
+  <meta property="og:image" content="{{ 'images/logo.png' | asset_url | full_url }}">
+  {% comment %}<meta property="og:image:secure_url" content="{{ 'images/logo.png' | asset_url | full_url }}">{% endcomment %}
   {% endif %}
 {% endif %}
 {% if page_description %}

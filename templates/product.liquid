@@ -204,7 +204,7 @@
                     <img id="productPhotoImg" fallback-src="{% raw %}{{selectedVariation.primaryImage.url}}{% endraw %}" ng-src="{% raw %}{{selectedVariation.primaryImage.url|imgurl:'348x348'}}{% endraw %}" alt="{% raw %}{{ selectedVariation.primaryImage.alt }}{% endraw %}" ng-if="selectedVariation.primaryImage">
 
                     <div class="no-product-image" ng-if="!selectedVariation.primaryImage">
-                        <img src="{{ 'no-image.svg' | asset_url }}" />
+                        <img src="{{ 'images/no-image.svg' | asset_url }}" />
                     </div>
                 </div>
                 <ul ng-if="selectedVariation.images.length > 0" class="product-photo-thumbs grid-uniform" id="productThumbs">
