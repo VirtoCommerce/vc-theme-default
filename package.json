@@ -14,12 +14,16 @@
         "theme",
         "electronics"
     ],
-    "dependencies": {},
+    "dependencies": {
+        "ideal-image-slider": "^1.5.0",
+        "webpack-modernizr-loader": "^4.0.1"
+    },
     "devDependencies": {
         "autoprefixer": "^7.1.2",
         "babel-eslint": "^7.2.3",
         "bower": "~1.8.0",
         "bower-main": "^0.2.14",
+        "clean-webpack-plugin": "^1.0.0",
         "cssnano": "^3.10.0",
         "del": "^3.0.0",
         "eslint": "^4.1.1",
@@ -56,7 +60,9 @@
         "merge2": "^1.2.3",
         "node-bourbon": "^4.2.8",
         "node-sass": "^4.5.3",
-        "run-sequence": "2.1.0"
+        "run-sequence": "2.1.0",
+        "webpack": "^4.27.0",
+        "webpack-cli": "^3.1.2"
     },
     "engineStrict": true,
     "engines": {
@@ -70,5 +76,9 @@
     "bugs": {
         "url": "https://github.com/VirtoCommerce/vc-theme-default/issues"
     },
-    "scripts": {}
+    "scripts": {
+        "webpack:dev": "webpack --display-error-details --mode=development",
+        "webpack:build": "webpack --mode=production",
+        "webpack:watch": " webpack watch --mode=development"
+    }
 }
