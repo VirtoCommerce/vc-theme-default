@@ -624,7 +624,7 @@
         },
         "recover_login": {
             "title": "Forgot your user name",
-            "subtile": "Fill out this form to recover your user name",
+            "subtitle": "Fill out this form to recover your user name",
             "email": "Email",
             "submit": "Submit",
             "success": "An email with your user name has been sent to your address."
