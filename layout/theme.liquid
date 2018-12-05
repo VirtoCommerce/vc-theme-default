@@ -41,6 +41,7 @@
     {{ 'shop.js' | asset_url | script_tag }}
     {{ 'shopify_common.js' | asset_url | script_tag }}
     {{ 'customer_area.js'  | asset_url | script_tag }}
+    {{ '//cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.js' | script_tag }}
     <script>
         var BASE_URL = '{{ "/" | full_url }}';
     </script>
