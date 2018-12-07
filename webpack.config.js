@@ -2,6 +2,8 @@ const path = require('path');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const glob = require('glob');
 const webpack = require('webpack');
+const FixStylesOnlyEntriesPlugin = require('webpack-fix-style-only-entries');
+const MinCssExtractPlugin = require('mini-css-extract-plugin');
 
 const rootPath = path.resolve(__dirname, 'assets/dist');
 
@@ -18,15 +20,14 @@ module.exports = [
             new webpack.ProvidePlugin({
                 $: 'jquery',
                 jQuery: 'jquery',
-                'window.jQuery': 'jquery'
-            }),
-            new webpack.ProvidePlugin({
+                'window.jQuery': 'jquery',
                 _: 'underscore'
             })
         ],
         resolve: {
             alias: {
-                Assets: path.resolve(__dirname, 'assets')
+                Assets: path.resolve(__dirname, 'assets'),
+                Vendor: path.resolve(__dirname, 'node_modules')
             }
         }
     },
@@ -122,5 +123,46 @@ module.exports = [
                 'window.jQuery': 'jquery'
             })
         ]
+    },
+    {
+        entry: {
+            'styles': './src/css/styles.css',
+            'checkout-styles': './src/css/checkout-styles.css',
+            'account-styles': './src/css/account-styles.css'
+        },
+        module: {
+            rules: [
+                {
+                    test: /\.(jpe?g|png|gif|svg)$/i,
+                    loader: "file-loader",
+                    options: {
+                        name: '[name].[ext]',
+                        outputPath: 'images/'
+                    }
+                },
+                {
+                    test: /\.css$/,
+                    use: [
+                        MinCssExtractPlugin.loader,
+                        'css-loader'
+                    ]
+                }
+            ]
+        },
+        output: {
+            path: rootPath,
+            publicPath: 'assets/dist/'
+        },
+        plugins: [
+            new FixStylesOnlyEntriesPlugin(),
+            new MinCssExtractPlugin({
+                filename: "[name].css"
+            })
+        ],
+        resolve: {
+            alias: {
+                Assets: path.resolve(__dirname, 'assets')
+            }
+        }
     }
 ]
