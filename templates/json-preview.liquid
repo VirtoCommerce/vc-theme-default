@@ -31,6 +31,7 @@
 
     (function () {
         var renderApiUrl = "/designer-preview/";
+        var designerUrl = "http://localhost:4200/";
 
         function getUrl(part) {
             return renderApiUrl + part;
@@ -45,7 +46,7 @@
             $scope.selectBlock = function (item) {
                 // items with id are editable, the other are under preview, so should not be send to designer
                 if (item.id > 0) {
-                    $window.parent.postMessage({ type: 'open', id: item.id }, "http://localhost:4200/"); // parent - is a designer window
+                    $window.parent.postMessage({ type: 'open', id: item.id }, designerUrl); // parent - is a designer window
                 }
             };
 
@@ -104,14 +105,16 @@
                     var id = "#block-" + itemId;
                     var el = $(id);
                     if (el.length) {
-                        var first = true;
-                        $('html, body').animate({ scrollTop: el.offset().top - window.innerHeight / 3 }, 1000, function () {
-                            if (!first) return;
-                            first = false;
-                            var srcColor = el.css("background-color");
-                            el.css({ backgroundColor: "#FFFF00" });
+                        var targetPosition = el.offset().top - window.innerHeight / 10;
+                        var currentPosition = $window.scrollY;
+                        /* 1000 pixels per 300ms */
+                        var time = Math.abs(currentPosition - targetPosition) * 300 / 1000;
+                        var srcColor = el.css("background-color") || "#FFFFFF";
+                        el.css({ backgroundColor: "#FFFF00" });
+                        $('html, body').animate({ scrollTop: targetPosition }, time, function () {
+                            if (this.tagName == 'html') return;
                             setTimeout(function () {
-                                el.css({ backgroundColor: srcColor });
+                                el.animate({ backgroundColor: srcColor });
                             }, 1000);
                         });
                     }
@@ -146,20 +149,36 @@
                 renderBlocks();
             }
 
+            var promises = [];
+
             function renderBlocks() {
                 for (var i = 0; i < $scope.blocks.length; i++) {
                     var block = $scope.blocks[i];
-                    renderBlock(block)
+                    promises.push(renderBlock(block));
                 }
             }
 
+            $scope.renderComplete = function () {
+                if (promises.length) {
+                    $.when(promises).then(function () {
+                        promises = [];
+                        $window.parent.postMessage({ type: 'render-complete' }, designerUrl);
+                    });
+                }
+            };
+
             function renderBlock(block, callback) {
-                $http.post(getUrl("block"), block.source).then(function (result) {
-                    block.result = $sce.trustAsHtml(result.data);
-                    if (!!callback) {
-                        callback(block);
-                    }
-                })
+                return new Promise(function (resolve, reject) {
+                    $http.post(getUrl("block"), block.source).then(function (result) {
+                        block.result = $sce.trustAsHtml(result.data);
+                        if (!!callback) {
+                            callback(block);
+                        }
+                        resolve();
+                    }).catch(function () {
+                        reject();
+                    });
+                });
             }
 
             function createBlockModel(section) {
@@ -192,7 +211,11 @@
         <h1>{{ title }}</h1>
 
         <div id="preview-container">
-            <div ng-repeat="item in blocks track by item.id" ng-bind-html="item.result" id="block-{{ item.id }}" ng-click="selectBlock(item)"></div>
+            <div ng-repeat="item in blocks track by item.id"
+                 ng-bind-html="item.result"
+                 id="block-{{ item.id }}"
+                 ng-init="$last && renderComplete()"
+                 ng-click="selectBlock(item)"></div>
         </div>
 
     </div>
