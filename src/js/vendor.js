@@ -1,0 +1,12 @@
+import * as $ from 'jquery';
+window.$ = $;
+import 'angular';
+import 'ngstorage';
+import 'angular-sanitize';
+import 'angular-translate';
+import 'angular-translate-loader-url';
+import 'angular-ui-bootstrap';
+import 'angular-credit-cards';
+import 'angular-resource';
+import '@angular/router/angular1/angular_1_router';
+import 'angular-filter';
