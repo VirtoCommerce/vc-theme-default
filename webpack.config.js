@@ -31,7 +31,11 @@ module.exports = [
         }
     },
     {
-        entry: [...glob.sync('./assets/js/*.js'), './src/js/scripts.js', ...glob.sync('./assets/js/products-compare/*.js')],
+        entry: [
+            './src/js/scripts.js', 
+            ...glob.sync('./assets/js/*.js', { ignore: './assets/js/app.js', nosort: true }), 
+            ...glob.sync('./assets/js/products-compare/*.js')
+        ],
         output: {
             path: rootPath,
             filename: 'scripts.js',
@@ -58,14 +62,10 @@ module.exports = [
         },
         plugins: [
             new webpack.ProvidePlugin({
-                IdealImageSlider: 'ideal-image-slider/ideal-image-slider.js'
-            }),
-            new webpack.ProvidePlugin({
                 $: 'jquery',
                 jQuery: 'jquery',
-                'window.jQuery': 'jquery'
-            }),
-            new webpack.ProvidePlugin({
+                'window.jQuery': 'jquery',
+                IdealImageSlider: 'ideal-image-slider/ideal-image-slider',
                 _: 'underscore'
             })
         ]
