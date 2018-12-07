@@ -15,7 +15,19 @@
         "electronics"
     ],
     "dependencies": {
+        "@angular/router": "^0.2.0",
+        "angular": "^1.5.7",
+        "angular-credit-cards": "^3.0.1",
+        "angular-filter": "^0.5.8",
+        "angular-resource": "^1.5.7",
+        "angular-sanitize": "^1.5.7",
+        "angular-translate": "^2.12.1",
+        "angular-translate-loader-url": "^2.12.1",
+        "angular-ui-bootstrap": "^2.5.6",
         "ideal-image-slider": "^1.5.0",
+        "jquery": "^1.11.0",
+        "ngstorage": "^0.3.11",
+        "underscore": "^1.8.3",
         "webpack-modernizr-loader": "^4.0.1"
     },
     "devDependencies": {
@@ -36,6 +48,7 @@
         "eslint-plugin-node": "^5.1.0",
         "eslint-plugin-promise": "^3.5.0",
         "eslint-plugin-standard": "^3.0.1",
+        "exports-loader": "^0.7.0",
         "gulp": "^3.9.1",
         "gulp-clean": "^0.3.2",
         "gulp-concat": "^2.6.1",
@@ -79,6 +92,6 @@
     "scripts": {
         "webpack:dev": "webpack --display-error-details --mode=development",
         "webpack:build": "webpack --mode=production",
-        "webpack:watch": " webpack watch --mode=development"
+        "webpack:watch": " webpack --watch --mode=development"
     }
 }
