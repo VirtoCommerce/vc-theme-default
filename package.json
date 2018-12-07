@@ -96,6 +96,6 @@
     "scripts": {
         "webpack:dev": "webpack --display-error-details --mode=development",
         "webpack:build": "webpack --mode=production",
-        "webpack:watch": " webpack --watch --mode=development"
+        "webpack:watch": "webpack --watch --mode=development"
     }
 }
