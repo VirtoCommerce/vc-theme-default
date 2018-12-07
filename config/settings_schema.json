@@ -1,7 +1,7 @@
 [
   {
     "name": "Colors",
-    "icon": "eyedropper",
+    "icon": "fas fa-eye-dropper",
     "settings": [
       {
         "type": "header",
@@ -125,7 +125,7 @@
   },
   {
     "name": "Typography",
-    "icon": "font",
+    "icon": "fas fa-font",
     "settings": [
       {
         "type": "header",
@@ -715,7 +715,7 @@
   },
   {
     "name": "Header",
-    "icon": "header",
+    "icon": "fas fa-heading",
     "settings": [
       {
         "type": "header",
@@ -762,7 +762,7 @@
   },
   {
     "name": "Home page",
-    "icon": "home",
+    "icon": "fas fa-home",
     "settings": [
       {
         "type": "header",
@@ -859,7 +859,7 @@
   },
   {
     "name": "Home page - slideshow",
-    "icon": "image",
+    "icon": "fas fa-images",
     "settings": [
       {
         "type": "header",
@@ -1037,7 +1037,7 @@
   },
   {
     "name": "Home page - featured content",
-    "icon": "home",
+    "icon": "fas fa-home",
     "settings": [
       {
         "type": "page",
@@ -1048,7 +1048,7 @@
   },
   {
     "name": "Home page - featured products",
-    "icon": "home",
+    "icon": "fas fa-home",
     "settings": [
       {
         "type": "collection",
@@ -1059,7 +1059,7 @@
   },
   {
     "name": "Home page - newsletter",
-    "icon": "file-text",
+    "icon": "far fa-file-alt",
     "settings": [
       {
         "type": "text",
@@ -1071,7 +1071,7 @@
   },
   {
     "name": "Collection page",
-    "icon": "clipboard",
+    "icon": "far fa-list-alt",
     "settings": [
       {
         "type": "header",
@@ -1163,7 +1163,7 @@
   },
   {
     "name": "Product page",
-    "icon": "inbox",
+    "icon": "fas fa-inbox",
     "settings": [
       {
         "type": "checkbox",
@@ -1174,7 +1174,7 @@
   },
   {
     "name": "Cart page",
-    "icon": "shopping-cart",
+    "icon": "fas fa-shopping-cart",
     "settings": [
       {
         "type": "select",
@@ -1200,7 +1200,7 @@
   },
   {
     "name": "Social media",
-    "icon": "share-alt",
+    "icon": "fas fa-share-alt",
     "settings": [
       {
         "type": "header",
