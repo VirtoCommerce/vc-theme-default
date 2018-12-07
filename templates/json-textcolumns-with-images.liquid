@@ -19,3 +19,18 @@
 
     </div>
 </div>
+
+{% comment %}
+
+{"id": "name","label": "Block name","type": "string","default": "Text columns with images"},
+{"id": "align","label": "Image alignment","type": "select","default": "top",
+        "options": [{"label": "Top","value": "top"},{"label": "Bottom","value": "bottom"}]},
+{"id": "size","label": "Image size","type": "select","default": "medium",
+        "options": [{"label": "Small","value": "small"},{"label": "Medium","value": "medium"},{"label": "Large","value": "large"}]},
+{"id": "columns","label": "Columns","type": "list","addText": "Add column","removeText": "Remove column","displayField": "title",
+        "element": [{"id": "title","label": "Title","type": "string"},
+                    {"id": "url","label": "Upload picture","type": "image","previewWidth": 120,"previewHeight": 80},
+                    {"id": "content","label": "Content","type": "text"},
+                    {"id": "width","label": "Flex width","type": "number"}]}
+
+{% endcomment %}

@@ -1,3 +1,15 @@
+{% comment %}
+
+    надо выбрать настройки и по ним выставить layout, если они указаны
+
+{% endcomment %}
+
+{% if json_page.settings.layout != blank %}
+
+{% layout json_page.settings.layout %}
+
+{% endif %}
+
 <div class="grid">
 
     <div class="grid-item large--two-thirds push--large--one-sixth">

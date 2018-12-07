@@ -1,12 +1,25 @@
 <div class="jsonpage-block image-with-text-overlay-{{ block.blockWidth }}" style="background-image: url({{ block.url }}); background-size: cover; text-align: {{ block.textAlign }};">
     <div class="image-with-text-overlay" style="position: relative;">
         {% if (block.textBackground) %}
-            <div style="background-color: {{ block.textBackgroundColor }}; opacity: {{ block.textBackgroundOpacity }}; position: absolute; top: 0; left: 0; right: 0; bottom: 0;"></div>
+        <div style="background-color: {{ block.textBackgroundColor }}; opacity: {{ block.textBackgroundOpacity }}; position: absolute; top: 0; left: 0; right: 0; bottom: 0;"></div>
         {% endif %}
-            <div style="text-align: {{ block.align }}; padding: 10px; margin: 0 10%; color: {{ block.textColor }}; position: relative; top: 0; left: 0; right: 0;">
-                <h2 style="text-align: {{ block.align }}; color: {{ block.textColor }};">{{ block.title }}</h2>
-                <div style="text-align: {{ block.align }};">{{ block.content }}</div>
-            </div>
+        <div style="text-align: {{ block.align }}; padding: 10px; margin: 0 10%; color: {{ block.textColor }}; position: relative; top: 0; left: 0; right: 0;">
+            <h2 style="text-align: {{ block.align }}; color: {{ block.textColor }};">{{ block.title }}</h2>
+            <div style="text-align: {{ block.align }};">{{ block.content }}</div>
+        </div>
     </div>
 </div>
 
+{% comment %}
+
+{"id": "name","label": "Block name","type": "string"},
+{"id": "textColor","label": "Text color","type": "color","default": "black"},
+{"id": "textOpacity","label": "Text opacity","type": "number","default": "opacity"},
+{"id": "url","label": "Upload picture","type": "image","previewWith": 120,"previewHeight": 80},
+{"id": "align","label": "Choose text alignment","type": "select","default": "center",
+        "options": [{"label": "Left","value": "left"},{"label": "Center","value": "center"},{"label": "Right","value": "right"}]},
+{"id": "width", "label": "Block width","type": "select","default": "screen",
+        "options": [{"label": "Screen","value": "screen"},{"label": "Container","value": "container"},{"label": "Small","value": "small"}]},
+{"id": "content","label": "Content","type": "text"}
+
+{% endcomment %}

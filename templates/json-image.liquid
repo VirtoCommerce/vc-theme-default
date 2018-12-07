@@ -1,5 +1,16 @@
 <div class="jsonpage-block" style="align: center;">
 
-    <img class="{{ block.imageSize }}" src="{{ block.url }}"/>
+    <img class="{{ block.imageSize }}" src="{{ block.url }}" />
 
 </div>
+
+
+{% comment %}
+
+{"id": "name","label": "Block name","type": "string"},
+{"id": "size","label": "Choose size","type": "select","default": "medium",
+        "options": [{"label": "Small","value": "small"},{"label": "Medium","value": "medium"},
+                    {"label": "Large","value": "large"},{"label": "Extra Large","value": "xlarge"}]},
+{"id": "url","label": "Upload picture","type": "image","previewWidth": 120,"previewHeight": 80}
+
+{% endcomment %}
