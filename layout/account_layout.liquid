@@ -23,7 +23,7 @@
     {{ '//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css' | stylesheet_tag }}
     <!--{{ '//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.css' | stylesheet_tag }}-->
     
-    {{ 'bundle/account-styles.css' | static_asset_url | append_version | stylesheet_tag }}
+    {{ 'dist/account-styles.css' | asset_url | append_version | stylesheet_tag }}
 
      {{ 'ajaxify.scss.css' | asset_url | stylesheet_tag }}
      {{ 'default.scss.css' | asset_url | stylesheet_tag }}
@@ -32,9 +32,11 @@
 
     <base href="{{ '/' | absolute_url }}" />
 
-    {{ 'bundle/scripts_dependencies.js' | static_asset_url | append_version | script_tag }} 
-    {{ 'bundle/scripts.js' | static_asset_url | append_version | script_tag }}
-    {{ 'bundle/account-scripts.js' | static_asset_url | append_version | script_tag }}
+    {{ 'dist/scripts_dependencies.js' | asset_url | append_version | script_tag }} 
+    {{ 'dist/scripts.js' | asset_url | append_version | script_tag }}
+    {{ 'dist/account-scripts.js' | asset_url | append_version | script_tag }}
+
+    <script type="text/javascript">var jQuery = $;</script>
 
 	{{ 'shop.js' | asset_url | script_tag }}
 

@@ -26,7 +26,7 @@
     {{ '//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css' | stylesheet_tag }}
     {{ 'ajaxify.scss.css' | asset_url | stylesheet_tag }}
     {{ 'default.scss.css' | asset_url | stylesheet_tag }}
-    {{ 'bundle/styles.css' | static_asset_url | append_version | stylesheet_tag }}
+    {{ 'dist/styles.css' | asset_url | append_version | stylesheet_tag }}
 
     {% include 'google-fonts' %}
 

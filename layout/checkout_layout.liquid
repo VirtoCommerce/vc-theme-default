@@ -10,13 +10,13 @@
 
     {{ '//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css' | stylesheet_tag }}
     {{ 'checkout.css' | asset_url | stylesheet_tag }}
-    {{ 'bundle/checkout-styles.css' | static_asset_url | append_version | stylesheet_tag }}
+    {{ 'dist/checkout-styles.css' | asset_url | append_version | stylesheet_tag }}
 
     <base href="{{ '/' | absolute_url }}" />
 
-    {{ 'bundle/scripts_dependencies.js' | static_asset_url | append_version | script_tag }}
-	{{ 'bundle/scripts.js' | static_asset_url | append_version | script_tag }}
-    {{ 'bundle/checkout-scripts.js' | static_asset_url | append_version | script_tag }}
+    {{ 'dist/scripts_dependencies.js' | asset_url | append_version | script_tag }}
+	{{ 'dist/scripts.js' | asset_url | append_version | script_tag }}
+    {{ 'dist/checkout-scripts.js' | asset_url | append_version | script_tag }}
 
     {{ content_for_header }}
     <script>
