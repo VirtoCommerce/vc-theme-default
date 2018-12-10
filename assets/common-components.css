@@ -675,16 +675,6 @@ select {
     background-image: url('sofort.svg'), none;
 }
 
-.payment-icon--solo {
-    background-image: url('solo.svg');
-    background-image: url('solo.svg'), none;
-}
-
-.payment-icon--switch {
-    background-image: url('switch.svg');
-    background-image: url('switch.svg'), none;
-}
-
 .payment-icon--unionpay {
     background-image: url('unionpay.svg');
     background-image: url('unionpay.svg'), none;

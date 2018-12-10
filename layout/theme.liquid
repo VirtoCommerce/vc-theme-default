@@ -26,7 +26,7 @@
     {{ '//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css' | stylesheet_tag }}
     {{ 'ajaxify.scss.css' | asset_url | stylesheet_tag }}
     {{ 'default.scss.css' | asset_url | stylesheet_tag }}
-    {{ 'bundle/styles.css' | static_asset_url | append_version | stylesheet_tag }}
+    {{ 'dist/styles.css' | asset_url | append_version | stylesheet_tag }}
 
     {% include 'google-fonts' %}
 
@@ -34,8 +34,10 @@
 
     {% include 'oldIE-js' %}
 
-    {{ 'bundle/scripts_dependencies.js' | static_asset_url | append_version | script_tag }}
-    {{ 'bundle/scripts.js' | static_asset_url | append_version | script_tag }}
+    {{ 'dist/scripts_dependencies.js' | asset_url | append_version | script_tag }}
+    {{ 'dist/scripts.js' | asset_url | append_version | script_tag }}
+
+    <script type="text/javascript">var jQuery = $;</script>
 
     {{ 'shop.js' | asset_url | script_tag }}
     {{ 'shopify_common.js' | asset_url | script_tag }}
