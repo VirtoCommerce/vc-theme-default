@@ -1,9 +1,3 @@
-var storefrontAppDependencies = [
-    'ui.bootstrap',
-    'ngStorage',
-    'pascalprecht.translate',
-    'ngSanitize',
-]
 var storefrontApp = angular.module('storefrontApp', storefrontAppDependencies);
 
 storefrontApp.factory('httpErrorInterceptor', ['$q', '$rootScope', function ($q, $rootScope) {

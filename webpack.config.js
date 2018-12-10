@@ -7,6 +7,8 @@ const MinCssExtractPlugin = require('mini-css-extract-plugin');
 
 const rootPath = path.resolve(__dirname, 'assets/dist');
 
+const storefrontAppDependencies = require('./assets/js/storefrontAppDependencies').storefrontAppDependencies;
+
 module.exports = [
     {
         entry: {
@@ -76,6 +78,9 @@ module.exports = [
             new FixStylesOnlyEntriesPlugin(),
             new MinCssExtractPlugin({
                 filename: "[name].css"
+            }),
+            new webpack.DefinePlugin({
+                storefrontAppDependencies: JSON.stringify(storefrontAppDependencies)
             })
         ],
         resolve: {

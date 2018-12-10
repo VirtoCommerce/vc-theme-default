@@ -1,0 +1,8 @@
+{
+    "storefrontAppDependencies": [
+        "ui.bootstrap",
+        "ngStorage",
+        "pascalprecht.translate",
+        "ngSanitize"
+    ]
+}
