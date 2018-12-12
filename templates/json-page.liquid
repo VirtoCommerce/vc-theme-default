@@ -1,13 +1,5 @@
-{% comment %}
-
-    надо выбрать настройки и по ним выставить layout, если они указаны
-
-{% endcomment %}
-
 {% if json_page.settings.layout != blank %}
-
-{% layout json_page.settings.layout %}
-
+    {% layout json_page.settings.layout %}
 {% endif %}
 
 <div class="grid">
