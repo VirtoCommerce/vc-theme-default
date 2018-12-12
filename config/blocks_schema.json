@@ -77,7 +77,8 @@
                 "id": "name",
                 "label": "Block name",
                 "type": "string",
-                "default": "Image carousel"
+                "default": "Image carousel",
+				"autofocus": true
             },
             {
                 "id": "width",
@@ -194,7 +195,8 @@
                 "id": "title",
                 "label": "Title",
                 "type": "string",
-                "default": "Yellowstone National Park"
+                "default": "Yellowstone National Park",
+				"autofocus": true
             },
             {
                 "id": "url",
@@ -268,7 +270,8 @@
                 "id": "name",
                 "label": "Block name",
                 "type": "string",
-                "default": "Image with text overlay"
+                "default": "Image with text overlay",
+				"autofocus": true
             },
             {
                 "id": "textColor",
@@ -346,7 +349,8 @@
                 "id": "name",
                 "label": "Block name",
                 "type": "string",
-                "default": "Image carousel"
+                "default": "Image carousel",
+				"autofocus": true
             },
             {
                 "id": "layout",
@@ -414,7 +418,8 @@
                 "id": "name",
                 "label": "Block name",
                 "type": "string",
-                "default": "Simple image"
+                "default": "Simple image",
+				"autofocus": true
             },
             {
                 "id": "size",
@@ -465,7 +470,8 @@
                 "id": "content",
                 "label": "Content",
                 "type": "text",
-                "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+                "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+				"autofocus": true
             }
         ]
     },
@@ -477,7 +483,8 @@
                 "id": "name",
                 "label": "Block name",
                 "type": "string",
-                "default": "Text columns with images"
+                "default": "Text columns with images",
+				"autofocus": true
             },
             {
                 "id": "align",
@@ -571,7 +578,8 @@
                 "id": "name",
                 "label": "Block name",
                 "type": "string",
-                "default": "Category"
+                "default": "Category",
+				"autofocus": true
             },
             {
                 "id": "title",
