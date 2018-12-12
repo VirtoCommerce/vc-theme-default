@@ -31,14 +31,16 @@ storefrontApp.controller('recentlyAddedListItemDialogController', ['$scope', '$w
 
     $scope.initialize = function () {
         listService.searchLists({
-            pageSize: 10000,
+            pageSize: 20,
             type: $scope.type
         }).then(function (response) {
             $scope.lists = response.data.results;
-
-            _.each($scope.lists, function(list) {
-                var foundItem = _.find(list.items, function(item) {
-                        return item.productId === dialogData.id;
+            if (response.data.totalCount === 0) {
+                $scope.lists = $scope.dialogData.defaultLists.default_lists;
+            }
+            _.each($scope.lists, function (list) {
+                var foundItem = _.find(list.items, function (item) {
+                    return item.productId === dialogData.id;
                 });
 
                 if (foundItem) {

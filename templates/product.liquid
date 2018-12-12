@@ -1,4 +1,5 @@
 {% include 'breadcrumb' %}
+
 <div class="grid" itemscope itemtype="http://schema.org/Product" ng-controller="productController" ng-init='initAvailableLists({{ settings.lists | json }})'>
     <meta itemprop="url" content="{{ product.url | absolute_url}}">
     <meta itemprop="image" content="{{ product.featured_image.src | img_url }}">
@@ -192,6 +193,7 @@
         catalogId: "{{ product.catalog_id }}",
         categoryId: "{{ product.category_id }}"
     });
+    window.defaultLists = {{ settings.lists | json }};
 </script>
 
 <!--Template for variation images-->
