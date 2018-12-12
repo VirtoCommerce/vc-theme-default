@@ -1,3 +1,7 @@
+{% if layout != blank %}
+    {% layout layout %}
+{% endif %}
+
 <script>
     function ready() {
         // console.log(document.styleSheets);
@@ -107,16 +111,10 @@
                     if (el.length) {
                         var targetPosition = el.offset().top - window.innerHeight / 10;
                         var currentPosition = $window.scrollY;
-                        /* 1000 pixels per 300ms */
                         var time = Math.abs(currentPosition - targetPosition) * 300 / 1000;
-                        var srcColor = el.css("background-color") || "#FFFFFF";
-                        el.css({ backgroundColor: "#FFFF00" });
-                        $('html, body').animate({ scrollTop: targetPosition }, time, function () {
-                            if (this.tagName == 'html') return;
-                            setTimeout(function () {
-                                el.animate({ backgroundColor: srcColor });
-                            }, 1000);
-                        });
+                        $("#preview-container .block-holder.active").removeClass("active");
+                        el.addClass("active");
+                        $('html, body').animate({ scrollTop: targetPosition }, time, function () { });
                     }
                 }, 400);
             }
@@ -126,6 +124,7 @@
             }
 
             function clearPreviewItems() {
+                $("#preview-container .block-holder.active").removeClass("active");
                 for (var i = 0; i < $scope.blocks.length; i++) {
                     var block = $scope.blocks[i];
                     if (!block.id) {
@@ -204,6 +203,24 @@
 
 {% raw %}
 
+<style>
+    #preview-container .block-holder {
+        padding: 3px;
+    }
+
+    #preview-container .block-holder:hover {
+        border: 1px dotted #33ada9;
+        box-sizing: border-box;
+        padding: 2px;
+    }
+
+    #preview-container .block-holder.active {
+        border: 3px solid #33ada9;
+        box-sizing: border-box;
+        padding: 0;
+    }
+</style>
+
 <div class="grid" ng-controller="previewController">
 
     <div class="grid-item large--two-thirds push--large--one-sixth">
@@ -211,7 +228,7 @@
         <h1>{{ title }}</h1>
 
         <div id="preview-container">
-            <div ng-repeat="item in blocks track by item.id"
+            <div class="block-holder" ng-repeat="item in blocks track by item.id"
                  ng-bind-html="item.result"
                  id="block-{{ item.id }}"
                  ng-init="$last && renderComplete()"
