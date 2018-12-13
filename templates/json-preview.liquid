@@ -47,10 +47,13 @@
             $scope.title = "";
             $scope.blocks = []; // html strings
 
+            $scope.selectedBlockId = null;
+
             $scope.selectBlock = function (item) {
                 // items with id are editable, the other are under preview, so should not be send to designer
-                if (item.id > 0) {
+                if (item.id > 0 && $scope.selectedBlockId != item.id) {
                     $window.parent.postMessage({ type: 'open', id: item.id }, designerUrl); // parent - is a designer window
+                    $scope.selectedBlockId = item.id;
                 }
             };
 
@@ -82,10 +85,14 @@
                                 var exists = findById(model.id);
                                 if (!exists) {
                                     $scope.blocks.push(model);
+                                    model.id = "";
+                                    $scope.selectedBlockId = "";
                                 } else {
                                     $scope.blocks[exists.index] = model;
                                 }
                                 renderBlock(model, function () {
+                                    // if block added, its id equals to empty string, so page will be scrolled to it
+                                    // else no blocks will be found and scroll will not be executed
                                     scrollTo("");
                                 });
                             }
@@ -96,6 +103,7 @@
                             break;
                         case "scrollTo":
                             scrollTo(data.content.id);
+                            $scope.selectedBlockId = data.content.id;
                             break;
                         default:
                             console.log(type, data);
@@ -105,18 +113,14 @@
             }
 
             function scrollTo(itemId) {
-                setTimeout(function () {
-                    var id = "#block-" + itemId;
-                    var el = $(id);
-                    if (el.length) {
-                        var targetPosition = el.offset().top - window.innerHeight / 10;
-                        var currentPosition = $window.scrollY;
-                        var time = Math.abs(currentPosition - targetPosition) * 300 / 1000;
-                        $("#preview-container .block-holder.active").removeClass("active");
-                        el.addClass("active");
-                        $('html, body').animate({ scrollTop: targetPosition }, time, function () { });
-                    }
-                }, 400);
+                var id = "#block-" + itemId;
+                var el = $(id);
+                if (el.length) {
+                    var targetPosition = el.offset().top - window.innerHeight / 10;
+                    var currentPosition = $window.scrollY;
+                    var time = Math.abs(currentPosition - targetPosition) * 300 / 1000;
+                    $('html, body').animate({ scrollTop: targetPosition }, time, function () { });
+                }
             }
 
             function reloadDocument() {
@@ -124,7 +128,6 @@
             }
 
             function clearPreviewItems() {
-                $("#preview-container .block-holder.active").removeClass("active");
                 for (var i = 0; i < $scope.blocks.length; i++) {
                     var block = $scope.blocks[i];
                     if (!block.id) {
@@ -228,7 +231,7 @@
         <h1>{{ title }}</h1>
 
         <div id="preview-container">
-            <div class="block-holder" ng-repeat="item in blocks track by item.id"
+            <div class="block-holder" ng-class="{ 'active': item.id == selectedBlockId }" ng-repeat="item in blocks track by item.id"
                  ng-bind-html="item.result"
                  id="block-{{ item.id }}"
                  ng-init="$last && renderComplete()"
