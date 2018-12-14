@@ -1,5 +1,5 @@
 <script id="storefront.recently-added-list-item-dialog.tpl" type="text/ng-template">
-    <div class="ajaxify-modal is-visible" id="ajaxifyModal" style="opacity: 1;" ng-init="">
+    <div class="ajaxify-modal is-visible" id="ajaxifyModal" style="opacity: 1;" ng-init='initialize({{ settings.lists | json }})'>
         <button class="ajaxifyCart--close" title="{{ 'dialog.close_cart' | t }}" ng-click="close()">{{ 'cart.general.close_cart' | t }}</button>
         <div class="ajaxifyCart--content" id="ajaxifyCart">
             <div ng-if="!itemAdded" class="product-list-modal-wrapper">

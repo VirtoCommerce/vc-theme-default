@@ -35,7 +35,6 @@ storefrontApp.controller('productController', ['$rootScope', '$scope', '$window'
         $scope.addProductToWishlist = function (product) {
             var dialogData = toDialogDataModel(product, 1);
             dialogData.listType = $scope.listType;
-            dialogData.defaultLists = $window.defaultLists;
             dialogService.showDialog(dialogData, 'recentlyAddedListItemDialogController', 'storefront.recently-added-list-item-dialog.tpl');
         };
         $scope.addProductToActualQuoteRequest = function (product, quantity) {
