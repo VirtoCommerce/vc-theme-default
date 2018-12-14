@@ -51,9 +51,21 @@
 
             $scope.selectBlock = function (item) {
                 // items with id are editable, the other are under preview, so should not be send to designer
-                if (item.id > 0 && $scope.selectedBlockId != item.id) {
-                    $window.parent.postMessage({ type: 'open', id: item.id }, designerUrl); // parent - is a designer window
-                    $scope.selectedBlockId = item.id;
+                if (item.id > 0) {
+                    var selectedId = $scope.selectedBlockId != item.id ? item.id : "";
+                    $window.parent.postMessage({ type: 'open', id: selectedId }, designerUrl); // parent - is a designer window
+                    $scope.selectedBlockId = selectedId;
+                }
+            };
+
+            $scope.orderChanged = function (index, item) {
+                var source = findById(item.id);
+                if (source) {
+                    $scope.blocks.splice(source.index, 1);
+                    $window.parent.postMessage({ type: 'move', id: item.id, newIndex: index, oldIndex: source.index }, designerUrl); // parent - is a designer window
+                    item.result = $sce.trustAsHtml(item.html);
+                    var acc = source.index > index ? 0 : 1;
+                    $scope.blocks.splice(index - acc, 0, item);
                 }
             };
 
@@ -79,6 +91,16 @@
                             $scope.blocks.splice(data.content.newIndex, 0, current);
                             scrollTo(current.id);
                             break;
+                        case "clone":
+                            /* data = { type: "clone", content: { source: id, destination: id } } */
+                            var exists = findById(data.content.source);
+                            if (!!exists) {
+                                var clone = Object.assign({}, exists.block);
+                                clone.id = data.content.destination;
+                                $scope.blocks.splice(exists.index + 1, 0, clone);
+                                $scope.selectedBlockId = clone.id;
+                            }
+                            break;
                         case "addOrUpdate":
                             if (!!data.content) {
                                 var model = createBlockModel(data.content);
@@ -101,9 +123,11 @@
                             var exists = findById(data.content);
                             $scope.blocks.splice(exists.index, 1)
                             break;
+                        case "select":
+                            $scope.selectedBlockId = data.content.id;
+                            break;
                         case "scrollTo":
                             scrollTo(data.content.id);
-                            $scope.selectedBlockId = data.content.id;
                             break;
                         default:
                             console.log(type, data);
@@ -172,7 +196,8 @@
             function renderBlock(block, callback) {
                 return new Promise(function (resolve, reject) {
                     $http.post(getUrl("block"), block.source).then(function (result) {
-                        block.result = $sce.trustAsHtml(result.data);
+                        block.html = result.data;
+                        block.result = $sce.trustAsHtml(block.html);
                         if (!!callback) {
                             callback(block);
                         }
@@ -201,6 +226,365 @@
             }
 
         }]);
+
+        /**
+        * https://github.com/marceljuenemann/angular-drag-and-drop-lists
+        */
+        (function (dndLists) {
+
+            var MIME_TYPE = 'application/x-dnd';
+            var EDGE_MIME_TYPE = 'application/json';
+            var MSIE_MIME_TYPE = 'Text';
+
+            // All valid HTML5 drop effects, in the order in which we prefer to use them.
+            var ALL_EFFECTS = ['move', 'copy', 'link'];
+            dndLists.directive('dndDraggable', ['$parse', '$timeout', function ($parse, $timeout) {
+                return function (scope, element, attr) {
+                    element.attr("draggable", "true");
+
+                    if (attr.dndDisableIf) {
+                        scope.$watch(attr.dndDisableIf, function (disabled) {
+                            element.attr("draggable", !disabled);
+                        });
+                    }
+
+                    element.on('dragstart', function (event) {
+                        event = event.originalEvent || event;
+
+                        if (element.attr('draggable') == 'false') return true;
+
+                        dndState.isDragging = true;
+                        dndState.itemType = attr.dndType && scope.$eval(attr.dndType).toLowerCase();
+
+                        dndState.dropEffect = "none";
+                        dndState.effectAllowed = attr.dndEffectAllowed || ALL_EFFECTS[0];
+                        event.dataTransfer.effectAllowed = dndState.effectAllowed;
+
+                        var item = scope.$eval(attr.dndDraggable);
+                        var mimeType = MIME_TYPE + (dndState.itemType ? ('-' + dndState.itemType) : '');
+                        try {
+                            event.dataTransfer.setData(mimeType, angular.toJson(item));
+                        } catch (e) {
+                            var data = angular.toJson({ item: item, type: dndState.itemType });
+                            try {
+                                event.dataTransfer.setData(EDGE_MIME_TYPE, data);
+                            } catch (e) {
+                                var effectsAllowed = filterEffects(ALL_EFFECTS, dndState.effectAllowed);
+                                event.dataTransfer.effectAllowed = effectsAllowed[0];
+                                event.dataTransfer.setData(MSIE_MIME_TYPE, data);
+                            }
+                        }
+
+                        element.addClass("dndDragging");
+                        $timeout(function () { element.addClass("dndDraggingSource"); }, 0);
+
+                        if (event._dndHandle && event.dataTransfer.setDragImage) {
+                            event.dataTransfer.setDragImage(element[0], 0, 0);
+                        }
+
+                        $parse(attr.dndDragstart)(scope, { event: event });
+                        if (attr.dndCallback) {
+                            var callback = $parse(attr.dndCallback);
+                            dndState.callback = function (params) { return callback(scope, params || {}); };
+                        }
+
+                        event.stopPropagation();
+                    });
+
+                    element.on('dragend', function (event) {
+                        event = event.originalEvent || event;
+                        scope.$apply(function () {
+                            var dropEffect = dndState.dropEffect;
+                            var cb = { copy: 'dndCopied', link: 'dndLinked', move: 'dndMoved', none: 'dndCanceled' };
+                            $parse(attr[cb[dropEffect]])(scope, { event: event });
+                            $parse(attr.dndDragend)(scope, { event: event, dropEffect: dropEffect });
+                        });
+
+                        dndState.isDragging = false;
+                        dndState.callback = undefined;
+                        element.removeClass("dndDragging");
+                        element.removeClass("dndDraggingSource");
+                        event.stopPropagation();
+
+                        $timeout(function () { element.removeClass("dndDraggingSource"); }, 0);
+                    });
+
+                    element.on('click', function (event) {
+                        if (!attr.dndSelected) return;
+
+                        event = event.originalEvent || event;
+                        scope.$apply(function () {
+                            $parse(attr.dndSelected)(scope, { event: event });
+                        });
+
+                        // Prevent triggering dndSelected in parent elements.
+                        event.stopPropagation();
+                    });
+
+                    element.on('selectstart', function () {
+                        if (this.dragDrop) this.dragDrop();
+                    });
+                };
+            }]);
+
+            dndLists.directive('dndList', ['$parse', function ($parse) {
+                return function (scope, element, attr) {
+                    var placeholder = getPlaceholderElement();
+                    placeholder.remove();
+
+                    var placeholderNode = placeholder[0];
+                    var listNode = element[0];
+                    var listSettings = {};
+
+                    element.on('dragenter', function (event) {
+                        event = event.originalEvent || event;
+
+                        var types = attr.dndAllowedTypes && scope.$eval(attr.dndAllowedTypes);
+                        listSettings = {
+                            allowedTypes: angular.isArray(types) && types.join('|').toLowerCase().split('|'),
+                            disabled: attr.dndDisableIf && scope.$eval(attr.dndDisableIf),
+                            externalSources: attr.dndExternalSources && scope.$eval(attr.dndExternalSources),
+                            horizontal: attr.dndHorizontalList && scope.$eval(attr.dndHorizontalList)
+                        };
+
+                        var mimeType = getMimeType(event.dataTransfer.types);
+                        if (!mimeType || !isDropAllowed(getItemType(mimeType))) return true;
+                        event.preventDefault();
+                    });
+
+                    element.on('dragover', function (event) {
+                        event = event.originalEvent || event;
+
+                        var mimeType = getMimeType(event.dataTransfer.types);
+                        var itemType = getItemType(mimeType);
+                        if (!mimeType || !isDropAllowed(itemType)) return true;
+
+                        if (placeholderNode.parentNode != listNode) {
+                            element.append(placeholder);
+                        }
+
+                        if (event.target != listNode) {
+                            var listItemNode = event.target;
+                            while (listItemNode.parentNode != listNode && listItemNode.parentNode) {
+                                listItemNode = listItemNode.parentNode;
+                            }
+
+                            if (listItemNode.parentNode == listNode && listItemNode != placeholderNode) {
+                                var rect = listItemNode.getBoundingClientRect();
+                                if (listSettings.horizontal) {
+                                    var isFirstHalf = event.clientX < rect.left + rect.width / 2;
+                                } else {
+                                    var isFirstHalf = event.clientY < rect.top + rect.height / 2;
+                                }
+                                listNode.insertBefore(placeholderNode,
+                                    isFirstHalf ? listItemNode : listItemNode.nextSibling);
+                            }
+                        }
+
+                        var ignoreDataTransfer = mimeType == MSIE_MIME_TYPE;
+                        var dropEffect = getDropEffect(event, ignoreDataTransfer);
+                        if (dropEffect == 'none') return stopDragover();
+
+                        if (attr.dndDragover && !invokeCallback(attr.dndDragover, event, dropEffect, itemType)) {
+                            return stopDragover();
+                        }
+
+                        event.preventDefault();
+                        if (!ignoreDataTransfer) {
+                            event.dataTransfer.dropEffect = dropEffect;
+                        }
+
+                        element.addClass("dndDragover");
+                        event.stopPropagation();
+                        return false;
+                    });
+
+                    element.on('drop', function (event) {
+                        event = event.originalEvent || event;
+
+                        var mimeType = getMimeType(event.dataTransfer.types);
+                        var itemType = getItemType(mimeType);
+                        if (!mimeType || !isDropAllowed(itemType)) return true;
+
+                        event.preventDefault();
+
+                        try {
+                            var data = JSON.parse(event.dataTransfer.getData(mimeType));
+                        } catch (e) {
+                            return stopDragover();
+                        }
+
+                        if (mimeType == MSIE_MIME_TYPE || mimeType == EDGE_MIME_TYPE) {
+                            itemType = data.type || undefined;
+                            data = data.item;
+                            if (!isDropAllowed(itemType)) return stopDragover();
+                        }
+                        var ignoreDataTransfer = mimeType == MSIE_MIME_TYPE;
+                        var dropEffect = getDropEffect(event, ignoreDataTransfer);
+                        if (dropEffect == 'none') return stopDragover();
+                        var index = getPlaceholderIndex();
+                        if (attr.dndDrop) {
+                            data = invokeCallback(attr.dndDrop, event, dropEffect, itemType, index, data);
+                            if (!data) return stopDragover();
+                        }
+                        dndState.dropEffect = dropEffect;
+                        if (!ignoreDataTransfer) {
+                            event.dataTransfer.dropEffect = dropEffect;
+                        }
+                        if (data !== true) {
+                            scope.$apply(function () {
+                                scope.$eval(attr.dndList).splice(index, 0, data);
+                            });
+                        }
+                        invokeCallback(attr.dndInserted, event, dropEffect, itemType, index, data);
+                        stopDragover();
+                        event.stopPropagation();
+                        return false;
+                    });
+
+                    element.on('dragleave', function (event) {
+                        event = event.originalEvent || event;
+
+                        var newTarget = document.elementFromPoint(event.clientX, event.clientY);
+                        if (listNode.contains(newTarget) && !event._dndPhShown) {
+                            // Signalize to potential parent lists that a placeholder is already shown.
+                            event._dndPhShown = true;
+                        } else {
+                            stopDragover();
+                        }
+                    });
+
+                    function getMimeType(types) {
+                        if (!types) return MSIE_MIME_TYPE; // IE 9 workaround.
+                        for (var i = 0; i < types.length; i++) {
+                            if (types[i] == MSIE_MIME_TYPE || types[i] == EDGE_MIME_TYPE ||
+                                types[i].substr(0, MIME_TYPE.length) == MIME_TYPE) {
+                                return types[i];
+                            }
+                        }
+                        return null;
+                    }
+
+                    function getItemType(mimeType) {
+                        if (dndState.isDragging) return dndState.itemType || undefined;
+                        if (mimeType == MSIE_MIME_TYPE || mimeType == EDGE_MIME_TYPE) return null;
+                        return (mimeType && mimeType.substr(MIME_TYPE.length + 1)) || undefined;
+                    }
+
+                    function isDropAllowed(itemType) {
+                        if (listSettings.disabled) return false;
+                        if (!listSettings.externalSources && !dndState.isDragging) return false;
+                        if (!listSettings.allowedTypes || itemType === null) return true;
+                        return itemType && listSettings.allowedTypes.indexOf(itemType) != -1;
+                    }
+
+                    function getDropEffect(event, ignoreDataTransfer) {
+                        var effects = ALL_EFFECTS;
+                        if (!ignoreDataTransfer) {
+                            effects = filterEffects(effects, event.dataTransfer.effectAllowed);
+                        }
+                        if (dndState.isDragging) {
+                            effects = filterEffects(effects, dndState.effectAllowed);
+                        }
+                        if (attr.dndEffectAllowed) {
+                            effects = filterEffects(effects, attr.dndEffectAllowed);
+                        }
+                        // MacOS automatically filters dataTransfer.effectAllowed depending on the modifier keys,
+                        // therefore the following modifier keys will only affect other operating systems.
+                        if (!effects.length) {
+                            return 'none';
+                        } else if (event.ctrlKey && effects.indexOf('copy') != -1) {
+                            return 'copy';
+                        } else if (event.altKey && effects.indexOf('link') != -1) {
+                            return 'link';
+                        } else {
+                            return effects[0];
+                        }
+                    }
+
+                    function stopDragover() {
+                        placeholder.remove();
+                        element.removeClass("dndDragover");
+                        return true;
+                    }
+
+                    function invokeCallback(expression, event, dropEffect, itemType, index, item) {
+                        return $parse(expression)(scope, {
+                            callback: dndState.callback,
+                            dropEffect: dropEffect,
+                            event: event,
+                            external: !dndState.isDragging,
+                            index: index !== undefined ? index : getPlaceholderIndex(),
+                            item: item || undefined,
+                            type: itemType
+                        });
+                    }
+
+                    function getPlaceholderIndex() {
+                        return Array.prototype.indexOf.call(listNode.children, placeholderNode);
+                    }
+
+                    function getPlaceholderElement() {
+                        var placeholder;
+                        angular.forEach(element.children(), function (childNode) {
+                            var child = angular.element(childNode);
+                            if (child.hasClass('dndPlaceholder')) {
+                                placeholder = child;
+                            }
+                        });
+                        return placeholder || angular.element("<div class='dndPlaceholder'></div>");
+                    }
+                };
+            }]);
+
+            dndLists.directive('dndNodrag', function () {
+                return function (scope, element, attr) {
+
+                    element.attr("draggable", "true");
+
+                    element.on('dragstart', function (event) {
+                        event = event.originalEvent || event;
+
+                        if (!event._dndHandle) {
+                            // If a child element already reacted to dragstart and set a dataTransfer object, we will
+                            // allow that. For example, this is the case for user selections inside of input elements.
+                            if (!(event.dataTransfer.types && event.dataTransfer.types.length)) {
+                                event.preventDefault();
+                            }
+                            event.stopPropagation();
+                        }
+                    });
+
+                    element.on('dragend', function (event) {
+                        event = event.originalEvent || event;
+                        if (!event._dndHandle) {
+                            event.stopPropagation();
+                        }
+                    });
+                };
+            });
+
+            dndLists.directive('dndHandle', function () {
+                return function (scope, element, attr) {
+                    element.attr("draggable", "true");
+
+                    element.on('dragstart dragend', function (event) {
+                        event = event.originalEvent || event;
+                        event._dndHandle = true;
+                    });
+                };
+            });
+
+            function filterEffects(effects, effectAllowed) {
+                if (effectAllowed == 'all') return effects;
+                return effects.filter(function (effect) {
+                    return effectAllowed.toLowerCase().indexOf(effect) != -1;
+                });
+            }
+
+            var dndState = {};
+
+        })(app);
     })();
 </script>
 
@@ -209,6 +593,7 @@
 <style>
     #preview-container .block-holder {
         padding: 3px;
+        position: relative;
     }
 
     #preview-container .block-holder:hover {
@@ -222,6 +607,26 @@
         box-sizing: border-box;
         padding: 0;
     }
+    #preview-container .dndPlaceholder {
+        background-color: #ddd;
+        display: block;
+        min-height: 42px;
+    }
+
+    /*#preview-container .block-holder .dnd-bullet {
+        position: absolute;
+        left: 20px;
+        display: none;
+        top: -10px;
+        width: 20px;
+        height: 20px;
+        cursor: move;
+        background: green;
+    }
+
+    #preview-container .block-holder:hover .dnd-bullet {
+        display: block;
+    }*/
 </style>
 
 <div class="grid" ng-controller="previewController">
@@ -230,12 +635,17 @@
 
         <h1>{{ title }}</h1>
 
-        <div id="preview-container">
-            <div class="block-holder" ng-class="{ 'active': item.id == selectedBlockId }" ng-repeat="item in blocks track by item.id"
-                 ng-bind-html="item.result"
+        <div id="preview-container" dnd-list="blocks"
+             dnd-drop="orderChanged(index, item)">
+            <div class="block-holder" ng-class="{ 'active': item.id == selectedBlockId }"
                  id="block-{{ item.id }}"
                  ng-init="$last && renderComplete()"
-                 ng-click="selectBlock(item)"></div>
+                 ng-repeat="item in blocks track by item.id"
+                 ng-click="selectBlock(item)"
+                 ng-bind-html="item.result"
+                 dnd-draggable="item"
+                 dnd-effect-allowed="move">
+            </div>
         </div>
 
     </div>
