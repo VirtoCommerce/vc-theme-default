@@ -13,7 +13,7 @@ storefrontApp.component('vcCheckoutShippingMethods', {
 	controller: [function () {
 
 		var ctrl = this;
-		
+
 		ctrl.availShippingMethods = [];
 		ctrl.selectedMethod = {};
 		this.$onInit = function () {
@@ -24,15 +24,17 @@ storefrontApp.component('vcCheckoutShippingMethods', {
 				_.each(ctrl.availShippingMethods, function (x) {
 					x.id = getMethodId(x);
 				});
-				ctrl.selectedMethod = _.find(ctrl.availShippingMethods, function (x) { return ctrl.shipment.shipmentMethodCode == x.shipmentMethodCode && ctrl.shipment.shipmentMethodOption == x.optionName });
+				ctrl.selectedMethod = _.find(ctrl.availShippingMethods, function (x) {
+					return ctrl.shipment.shipmentMethodCode == x.shipmentMethodCode && ctrl.shipment.shipmentMethodOption == x.optionName
+				});
 				ctrl.loading = false;
 			});
-		};		
-		
+		};
+
 		this.$onDestroy = function () {
 			ctrl.checkoutStep.removeComponent(this);
 		};
-			
+
 		function getMethodId(method) {
 			var retVal = method.shipmentMethodCode;
 			if (method.optionName) {
@@ -43,9 +45,11 @@ storefrontApp.component('vcCheckoutShippingMethods', {
 
 		ctrl.selectMethod = function (method) {
 			ctrl.selectedMethod = method;
-			ctrl.onSelectShippingMethod({ shippingMethod: method });
+			ctrl.onSelectShippingMethod({
+				shippingMethod: method
+			});
 		};
-	
+
 		ctrl.validate = function () {
 			ctrl.form.$setSubmitted();
 			return !ctrl.form.$invalid;

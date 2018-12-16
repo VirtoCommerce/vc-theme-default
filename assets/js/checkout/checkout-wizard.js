@@ -11,10 +11,9 @@ storefrontApp.component('vcCheckoutWizard', {
 	controller: ['$scope', function ($scope) {
 		var ctrl = this;
 		ctrl.wizard = ctrl;
-		ctrl.steps = [];	
+		ctrl.steps = [];
 		ctrl.goToStep = function (step) {
-			if (angular.isString(step))
-			{
+			if (angular.isString(step)) {
 				step = _.find(ctrl.steps, function (x) { return x.name == step; });
 			}
 			if (step && ctrl.currentStep != step && step.canEnter) {
@@ -25,8 +24,7 @@ storefrontApp.component('vcCheckoutWizard', {
 					}
 					ctrl.currentStep = step;
 				}
-				else if (ctrl.onFinish)
-				{
+				else if (ctrl.onFinish) {
 					ctrl.onFinish();
 				}
 			}
@@ -44,15 +42,14 @@ storefrontApp.component('vcCheckoutWizard', {
 								ctrl.goToStep(ctrl.currentStep.nextStep);
 							});
 						}
-						else
-						{
+						else {
 							ctrl.goToStep(ctrl.currentStep.nextStep);
 						}
 					}
 					else {
 						ctrl.goToStep(ctrl.currentStep.nextStep);
 					}
-				}			
+				}
 			}
 		};
 
@@ -67,26 +64,24 @@ storefrontApp.component('vcCheckoutWizard', {
 				steps[i].nextStep = undefined;
 				if (nextStep && !steps[i].disabled) {
 					nextStep.prevStep = steps[i]
-				};				
+				};
 				if (!steps[i].disabled) {
 					steps[i].nextStep = nextStep;
 					nextStep = steps[i];
 				}
-			}		
+			}
 		};
-		
+
 		ctrl.addStep = function (step) {
 			ctrl.steps.push(step);
 			$scope.$watch(function () { return step.disabled; }, function () {
-				rebuildStepsLinkedList(ctrl.steps);			
+				rebuildStepsLinkedList(ctrl.steps);
 			});
 			rebuildStepsLinkedList(ctrl.steps);
-			if(!ctrl.currentStep)
-			{
+			if (!ctrl.currentStep) {
 				ctrl.goToStep(step);
 			}
-			if (step.final && ctrl.onInitialized)
-			{
+			if (step.final && ctrl.onInitialized) {
 				ctrl.onInitialized();
 			}
 		};
