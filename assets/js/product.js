@@ -90,7 +90,10 @@ storefrontApp.controller('productController', ['$rootScope', '$scope', '$window'
                 var propertyMap = getVariationPropertyMap(variation);
                 //merge
                 _.each(_.keys(propertyMap), function (x) {
-                    retVal[x] = _.uniq(_.union(retVal[x], propertyMap[x]), "value");
+                    var props = _.uniq(_.union(retVal[x], propertyMap[x]), "value");
+                    if (_.some(props, function (prop) { return !!prop.value; })) {
+                        retVal[x] = props;
+                    }
                 });
             });
             return retVal;

@@ -114,7 +114,7 @@
                     <div ng-repeat="(propName, props) in allVariationPropsMap">
                         <p ng-bind="propName"></p>
                         <ul class="size">
-                            <li ng-repeat="prop in props" ng-class="{'active': prop.selected}">
+                            <li ng-repeat="prop in props" ng-class="{'active': prop.selected}" ng-if="!!prop.value">
                                 <a href="" ng-click="checkProperty(prop)" ng-bind="prop.value ? prop.value : 'undef'"></a>
                             </li>
                         </ul>
