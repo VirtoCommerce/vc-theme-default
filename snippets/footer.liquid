@@ -10,7 +10,7 @@
           <ul>
             {% for link in linklists[settings.footer_quicklinks_linklist].links %}
               <li><a href="{{ link.url }}">{{ link.title }}</a></li>
-            {% else %}
+  
               {% capture theme_settings_footer_linklist_path %}<strong>{{ 'layout.footer.footer' | t }}</strong> > <strong>{{ 'layout.footer.quick_links_list' | t }}</strong>{% endcapture %}
               {{ 'layout.footer.instructions_for_linklist_html' | t: theme_settings_link: theme_settings_link, theme_settings_footer_linklist_path: theme_settings_footer_linklist_path }}
             {% endfor %}

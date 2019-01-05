@@ -5,7 +5,6 @@
 {% unless featured_collection_size %}
   {% assign featured_collection_size = 'medium' %}
 {% endunless %}
-
 <div class="grid-item {{ featured_collection_width }}">
 
   {% capture collection_title %}{{ collections[featured].title | escape }}{% endcapture %}

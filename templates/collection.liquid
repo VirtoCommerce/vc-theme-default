@@ -1,4 +1,4 @@
-{% paginate collection.products by 20 %}
+{% paginate collection.products by 5 %}
 {% include 'breadcrumb' %}
 
 {% assign has_sidebar = false %}
@@ -53,13 +53,8 @@
         {% else %}
           {% assign grid_item_width = 'large--one-fifth medium--one-third small--one-half' %}
         {% endif %}
-        {% include 'product-grid-item', product: product %}
+        {% include 'product-grid-item' product: product %}
 
-      {% else %}
-
-        <div class="grid-item">
-          <p>{{ 'collections.general.no_matches' | t }}</p>
-        </div>
       {% endfor %}
     </div>
 

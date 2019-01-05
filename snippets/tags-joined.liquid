@@ -8,6 +8,8 @@
 
 {%- endcomment -%}
 {%- assign current_tags_joined = '' -%}
+{%- assign separator = ',' -%}
+{%- assign escape = true -%}
 {%- for current_tag in current_tags -%}
     {%- unless forloop.first -%}
         {%- assign current_tags_joined = current_tags_joined | append: separator -%}
