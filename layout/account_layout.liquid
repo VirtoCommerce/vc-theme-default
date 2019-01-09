@@ -10,7 +10,7 @@
     {% endif %}
 
     <title>
-        {{ page_title }}{% if current_tags %}{% assign current_tags_joined = current_tags | join: ', ' %} - {{ 'general.meta.tags' | t: tags: current_tags_joined }}{% endif %}{% if current_page != 1 %} - {{ 'general.meta.page' | t: page: current_page }}{% endif %}{% unless page_title contains shop.name %} - {{ shop.name }}{% endunless %}
+        {{ page_title }}{% if current_tags %}{% assign current_tags_joined = current_tags | join: ', ' %} - {{ 'general.meta.tags' | t: current_tags_joined }}{% endif %}{% if current_page != 1 %} - {{ 'general.meta.page' | t: page: current_page }}{% endif %}{% unless page_title contains shop.name %} - {{ shop.name }}{% endunless %}
     </title>
     {% if page_description %}
     <meta name="description" content="{{ page_description | escape }}" />
@@ -89,7 +89,7 @@
                         {% capture first_name %}
                         <a href="{{ '/account' | absolute_url }}">{{ customer.first_name }}</a>
                         {% endcapture %}
-                        {{ 'layout.customer.logged_in_as_html' | t: first_name: first_name }} &middot; {{ 'layout.customer.log_out' | t | customer_logout_link }}
+                        {{ 'layout.customer.logged_in_as_html' | t: first_name }} &middot; {{ 'layout.customer.log_out' | t | customer_logout_link }}
                         {% else %}
                         {{ 'layout.customer.sign_in' | t | customer_login_link }}
                         {% if shop.customer_accounts_optional %}

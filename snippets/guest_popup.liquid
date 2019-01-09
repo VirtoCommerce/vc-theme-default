@@ -8,17 +8,18 @@
                             <h3>{{ 'popup.guest.title' | t }}</h3>
                             <p>{{ 'popup.guest.check_out_faster' | t }}</p>
                             {% form 'external_login' %}
-                                <p class="text-right">
-                                    {% for login_provider in login_providers %}
-                                        <button name="context[authentication_type]" type="submit" value="{{ login_provider.authentication_type }}" style="background: transparent; border: 0; margin-right: 5px; padding: 0;" title="Sign in with {{ login_provider.caption }} account">
-                                            {% assign icon_filename = 'assets/icon_' | append: login_provider.authentication_type | downcase %}
-                                            {% assign icon_fullname = icon_filename | append: '_32.png' %}
-                                            {{ icon_fullname | asset_url | img_tag }}
-                                        </button>
-                                    {% endfor %}
-                                </p>
+                            <p class="text-right">
+                                {% for login_provider in login_providers %}
+                                <button name="context[authentication_type]" type="submit" value="{{ login_provider.authentication_type }}" style="background: transparent; border: 0; margin-right: 5px; padding: 0;" title="Sign in with {{ login_provider.caption }} account">
+                                    {% assign icon_filename = 'assets/icon_' | append: login_provider.authentication_type | downcase %}
+                                    {% assign icon_fullname = icon_filename | append: '_32.png' %}
+                                    {{ icon_fullname | asset_url | img_tag }}
+                                </button>
+                                {% endfor %}
+                            </p>
                             {% endform %}
-                            {% form 'customer_login' %}
+                            <form accept-charset="UTF-8" action="{{ '~/account/login' | absolute_url }}" method="post" id="customer_login" name="customer_login">
+
                                 <input id="returnUrl" name="returnUrl" type="hidden" value="/checkout/step-1" />
                                 <div class="form-group">
                                     <label for="customer_email">{{ 'popup.guest.email' | t }}</label>
@@ -30,7 +31,9 @@
                                 </div>
                                 <p><a href="/account/login#recover">{{ 'popup.guest.forgot_password' | t }}</a></p><br />
                                 <button class="btn btn-primary" type="submit">{{ 'popup.guest.sign_in' | t }}</button>
-                            {% endform %}
+
+                                {{ antiforgery }}
+                            </form>
                         </div>
                         <div class="col-md-6">
                             <h3>{{ 'popup.guest.without_sign_in' | t }}</h3>

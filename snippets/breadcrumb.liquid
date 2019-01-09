@@ -40,7 +40,8 @@
               {% if additional_tag %}
                 <span>+</span>
               {% endif %}
-              {% include 'tag-label' tag: cat_item %}
+              {% assign tag = cat_item %}
+              {% include 'tag-label' %}
               <span>{{ tag_label | escape }}</span>
             {% endif %}
           {% endunless %}

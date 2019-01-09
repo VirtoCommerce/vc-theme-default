@@ -5,7 +5,7 @@
   <ul> wrapped with <div class="errors">
     - {{ form.errors | default_errors }}
 {% endcomment %}
-{% if form.errors %}
+{% unless form.errors.empty? %}
   <div class="note form-error">
     <p>{{ 'general.forms.post_error' | t }}</p>
 
@@ -20,11 +20,11 @@
         {% else %}
           <li>
             {% assign field_name = field | replace: 'body', message %}
-            {{ 'general.forms.post_field_error_html' | t: field: field_name, error: form.errors.messages[field] }}
+            {{ 'general.forms.post_field_error_html' | t:  field_name, form.errors.messages[field] }}
           </li>
         {% endif %}
 
       {% endfor %}
      </ul>
   </div>
-{% endif %}
+{% endunless %}

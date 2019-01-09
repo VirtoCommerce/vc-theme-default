@@ -48,7 +48,8 @@
                     {% if product.compare_at_price > product.price %}
                     {% if settings.show_prices_with_taxes %}
                     <span class="old">
-                        {% include 'price' with variant.compare_at_price_with_tax %}
+                        {% assign price = variant.compare_at_price_with_tax %}
+                        {% include 'price' %}
                     </span>
                     <span id="comparePrice" class="sale-tag large">
                         {% assign compare_price = variant.compare_at_price_with_tax %}
@@ -57,7 +58,8 @@
                     </span>
                     {% else %}
                     <span class="old">
-                        {% include 'price' with variant.compare_at_price %}
+                        {% assign price = variant.compare_at_price %}
+                        {% include 'price'  %}
                     </span>
                     <span id="comparePrice" class="sale-tag large">
                         {% assign compare_price = variant.compare_at_price %}
@@ -68,9 +70,11 @@
                     {% endif %}
                     <span id="productPrice" class="h1">
                         {% if settings.show_prices_with_taxes %}
-                        {% include 'price' with variant.price_with_tax %}
+                            {% assign price = variant.price_with_tax %}
+                            {% include 'price' %}
                         {% else %}
-                        {% include 'price' with variant.price %}
+                            {% assign price = variant.price %}
+                            {% include 'price' %}
                         {% endif %}
                     </span>
                 </li>

@@ -159,8 +159,8 @@
       <div class="grid-item">
         {% capture collection_title %}<strong>{{ collections[featured_row].title }}</strong>{% endcapture %}
         {% capture collection_admin_url %}/admin/collections/{{ collections[featured_row].id }}{% endcapture %}
-        <p>{{ 'homepage.featured_collection_rows.no_products_in_collection_html' | t: collection_title: collection_title }}</p>
-        <p>{{ 'homepage.featured_collection_rows.instructions_to_add_products_to_collection_html' | t: collection_admin_url: collection_admin_url }}</p>
+        <p>{{ 'homepage.featured_collection_rows.no_products_in_collection_html' | t: collection_title }}</p>
+        <p>{{ 'homepage.featured_collection_rows.instructions_to_add_products_to_collection_html' | t: collection_admin_url }}</p>
       </div>
 
       <div class="grid-item">

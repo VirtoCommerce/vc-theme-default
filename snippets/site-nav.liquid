@@ -5,8 +5,8 @@
         </li>
     {% endunless %}
     {% for link in linklists['main-menu'].links %}
-        {% assign child_list_handle = link.title | handleize %}
-        {% if linklists[child_list_handle].links != blank %}
+        {% assign child_list_handle = link.title | handleize %}       
+        {% if linklists[child_list_handle].links.empty? == false %}
             <li class="site-nav--has-dropdown{% if link.active %} site-nav--active{% endif %}" aria-haspopup="true">
                 <a href="{{ link.url }}">
                     {{ link.title }}
@@ -21,7 +21,7 @@
                 </ul>
             </li>
         {% else %}
-            <li {% if link.active %}class="site-nav--active"{% endif %}>
+            <li {% if link.active %}class="site-nav--active"{% endif %}>               
                 <a href="{{ link.url }}">{{ link.title }}</a>
             </li>
         {% endif %}

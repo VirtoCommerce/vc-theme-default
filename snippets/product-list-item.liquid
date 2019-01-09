@@ -54,7 +54,8 @@
             <div class="grid-item large--one-fifth medium--two-thirds">
                 <div class="product-item--price text-center" ng-if="!productPricesLoaded">
                     <p class="h1 medium-down--left">
-                        {% include 'price' with product.price %}
+                        {% assign price =  product.price %}
+                        {% include 'price' %}
                     </p>
                     {% if on_sale %}
                         <span class="sale-tag medium-down--right{% if settings.product_reviews_enable %} has-reviews{% endif %}">

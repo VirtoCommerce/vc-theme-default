@@ -58,16 +58,20 @@
                 {% if on_sale %}
                     <span class="old">
                         {% if settings.show_prices_with_taxes %}
-                            {% include 'price' with product.compare_at_price_with_tax %}
+                            {% assign price = product.compare_at_price_with_tax %}
+                            {% include 'price' %}
                         {% else %}
-                            {% include 'price' with product.compare_at_price %}
+                            {% assign price = product.compare_at_price %}
+                            {% include 'price' %}
                         {% endif %}
                     </span>
                 {% endif %}
                 {% if settings.show_prices_with_taxes %}
-                    {% include 'price' with product.price_with_tax %}
+                    {% assign price = product.price_with_tax %}
+                    {% include 'price' %}
                 {% else %}
-                    {% include 'price' with product.price %}
+                    {% assign price = product.price %}
+                    {% include 'price' %}
                 {% endif %}            
             </span>
             {% if on_sale %}

@@ -35,9 +35,10 @@
       <p>{{ item.title }}</p>
 
       <div class="product-item--price">
-        <span class="h1 medium--left">
-          {% include 'price' with item.price %}
-        </span>
+          <span class="h1 medium--left">
+              {% assign price =  item.price %}
+              {% include 'price' %}
+          </span>
 
         {% if on_sale %}
           <span class="sale-tag medium--right">
