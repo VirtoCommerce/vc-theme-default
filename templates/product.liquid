@@ -45,7 +45,7 @@
 
             <ul class="inline-list product-meta">
                 <li ng-if="!selectedVariation.id">
-                    {% if product.compare_at_price > product.price %}
+                    {% if product.compare_at_price.amount > product.price.actual_price.amount %}
                     {% if settings.show_prices_with_taxes %}
                     <span class="old">
                         {% assign price = variant.compare_at_price_with_tax %}

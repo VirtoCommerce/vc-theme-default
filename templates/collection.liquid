@@ -3,7 +3,7 @@
 
 {% assign has_sidebar = collection.all_tags.empty? == false %}
 
-<div class="grid grid-border" ng-controller="productListController">
+<div class="grid grid-border">
     {% if has_sidebar %}
     <aside class="sidebar grid-item large--one-fifth collection-filters" id="collectionFilters">
         {% include 'collection-sidebar' %}
