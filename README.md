@@ -88,7 +88,7 @@ Bundling is a technique you can use to improve request load time. Bundling impro
 #### How to add bundle to layout
 
 ```
-{% raw %}{{ 'bundle/scripts.js' | static_asset_url | append_version | script_tag }}{% endraw %}
+{{ 'bundle/scripts.js' | static_asset_url | append_version | script_tag }}
 ```
   * **static_asset_url** means that this file is static content of site
   * **script_tag** or **stylesheet_tag** will generate
