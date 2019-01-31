@@ -244,7 +244,7 @@
     "wishlist": {
         "general": {
             "title": "Lists",
-            "my_lists":  "Private lists",
+            "my_lists": "Private lists",
             "friends_lists": "Friends lists",
             "select_list": "Please select list",
             "remove": "Remove",
@@ -440,8 +440,6 @@
             "shipping_address": "Shipping address",
             "same_address": "Shipping address is same as billing address",
             "select_your": "Please select your"
-
-
         },
         "login": {
             "title": "Login",
@@ -624,7 +622,7 @@
         },
         "recover_login": {
             "title": "Forgot your user name",
-            "subtitle": "Fill out this form to recover your user name",
+            "subtile": "Fill out this form to recover your user name",
             "email": "Email",
             "submit": "Submit",
             "success": "An email with your user name has been sent to your address."
@@ -782,7 +780,8 @@
             "two_factor_auth": "Select Two-Factor Authentication Provider:",
             "submit": "Submit",
             "label": {
-                "code": "Code"
+                "code": "Code",
+                "checkbox": "Remember this device"
             },
             "placeholder": {
                 "enter_code": "Enter verification code here"
@@ -793,6 +792,5 @@
         "close": "Close",
         "close_cart": "Close Cart",
         "countinue_shop": "Continue shopping"
-
     }
 }
