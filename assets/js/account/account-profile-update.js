@@ -25,12 +25,30 @@ angular.module('storefront.account')
                         lastName: customer.lastName,
                         email: customer.email
                     };
+                    $ctrl.phoneNumber = customer.phoneNumber;
+                    $ctrl.twoFactorEnabled = customer.twoFactorEnabled;
                 }
             });
 
         $ctrl.submit = function () {
             // no validation
             $ctrl.accountManager.updateProfile($ctrl.changeData);
+        };
+
+        $ctrl.changePhoneNumber = function() {
+            window.location = '/account/phonenumber';
+        };
+
+         $ctrl.deletePhoneNumber = function() {
+            $ctrl.accountManager.deletePhoneNumber().then(function(result){
+                if (result.succeeded) {
+                    $ctrl.phoneNumber = null;
+                }
+            });
+        };
+
+        $ctrl.changeTwoFactorAuth = function() {
+            $ctrl.accountManager.changeTwoFactorAuth($ctrl.twoFactorEnabled);
         };
     }]
 });

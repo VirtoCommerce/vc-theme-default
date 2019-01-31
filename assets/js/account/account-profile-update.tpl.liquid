@@ -10,4 +10,15 @@
             <span class="btn-loading"></span>
         </button>
     </form>
+    <vc-labeled-input name="PhoneNumber" placeholder="{{ 'contact.form.phone' | t }}" value="$ctrl.phoneNumber" readonly="true"></vc-labeled-input>
+    <div>
+        <button class="btn" ng-if="$ctrl.phoneNumber" ng-click="$ctrl.changePhoneNumber()">{{ 'customer.edit_profile.edit' | t }} </button>
+        <button class="btn" ng-if="!$ctrl.phoneNumber" ng-click="$ctrl.changePhoneNumber()">{{ 'customer.edit_profile.add' | t }} </button>
+        <button class="btn" ng-if="$ctrl.phoneNumber" ng-click="$ctrl.deletePhoneNumber()">{{ 'customer.edit_profile.delete' | t }}</button>
+    </div>
+    <br>
+    <label class="switch">
+        <input type="checkbox" name="TwoFactorEnabled" ng-model="$ctrl.twoFactorEnabled" ng-change="$ctrl.changeTwoFactorAuth()">
+        {{ 'customer.edit_profile.two_factor_auth' | t }}
+    </label>
 </div>

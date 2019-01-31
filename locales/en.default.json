@@ -157,7 +157,7 @@
         },
         "forms": {
             "post_error": "Sorry, looks like something went wrong. Please correct the following and submit again:",
-            "post_field_error_html": "The <strong>{{ field }}</strong> {{ error }}"
+            "post_field_error_html": "{{ error }}"
         },
         "search": {
             "no_results_html": "Your search for \"{{ terms }}\" did not yield any results.",
@@ -244,7 +244,7 @@
     "wishlist": {
         "general": {
             "title": "Lists",
-            "my_lists":  "Private lists",
+            "my_lists": "Private lists",
             "friends_lists": "Friends lists",
             "select_list": "Please select list",
             "remove": "Remove",
@@ -439,9 +439,8 @@
             "zip_valid": "Please enter your postal code",
             "shipping_address": "Shipping address",
             "same_address": "Shipping address is same as billing address",
-            "select_your": "Please select your"
-
-
+            "select_your": "Please select your",
+            "new_phone": "Add a phone number"
         },
         "login": {
             "title": "Login",
@@ -575,10 +574,10 @@
         },
         "recover_password": {
             "title": "Reset your password",
-            "email": "Email",
+            "email_or_login": "Email or Login",
             "submit": "Submit",
             "cancel": "Cancel",
-            "subtext": "We will send you an email to reset your password."
+            "subtext": "We will send you an email or sms to reset your password."
         },
         "reset_password": {
             "title": "Reset account password",
@@ -588,8 +587,8 @@
             "submit": "Reset Password"
         },
         "forgot_password_code": {
-            "title": "Send verification code",
-            "subtext": "Enter verification code sent to you by sms",
+            "title": "Enter code verification",
+            "subtext": "Please type the verification code sent to you by sms",
             "label": {
                 "code": "Code"
             },
@@ -608,13 +607,21 @@
             "submit": "Create",
             "cancel": "Return to Store"
         },
+        "phone_number": {
+            "add": "Add phone number",
+            "edit": "Edit phone number"
+        },
         "edit_profile": {
             "title": "Edit Profile",
             "first_name": "First Name",
             "last_name": "Last Name",
             "email": "Email",
             "submit": "Update",
-            "cancel": "Cancel"
+            "cancel": "Cancel",
+            "add": "Add",
+            "edit": "Edit",
+            "delete": "Delete",
+            "two_factor_auth": "Enable two factor authentication"            
         },
         "change_password": {
             "title": "Change Password",
@@ -793,7 +800,8 @@
             "two_factor_auth": "Select Two-Factor Authentication Provider:",
             "submit": "Submit",
             "label": {
-                "code": "Code"
+                "code": "Code",
+                "checkbox": "Remember this device"
             },
             "placeholder": {
                 "enter_code": "Enter verification code here"
@@ -804,6 +812,5 @@
         "close": "Close",
         "close_cart": "Close Cart",
         "countinue_shop": "Continue shopping"
-
     }
 }

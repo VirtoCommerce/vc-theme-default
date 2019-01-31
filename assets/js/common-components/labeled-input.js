@@ -10,7 +10,8 @@ angular.module('storefrontApp')
         type: '@?',
         required: '<',
         requiredError: '@?',
-        autofocus: '<'
+        autofocus: '<',
+        readonly: '<'
     },
     controller: [function () {
         var $ctrl = this;
