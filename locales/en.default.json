@@ -244,7 +244,7 @@
     "wishlist": {
         "general": {
             "title": "Lists",
-            "my_lists":  "Private lists",
+            "my_lists": "Private lists",
             "friends_lists": "Friends lists",
             "select_list": "Please select list",
             "remove": "Remove",
@@ -439,9 +439,8 @@
             "zip_valid": "Please enter your postal code",
             "shipping_address": "Shipping address",
             "same_address": "Shipping address is same as billing address",
-            "select_your": "Please select your"
-
-
+            "select_your": "Please select your",
+            "new_phone": "Add a phone number"
         },
         "login": {
             "title": "Login",
@@ -603,7 +602,8 @@
             "last_name": "Last Name",
             "email": "Email",
             "submit": "Update",
-            "cancel": "Cancel"
+            "cancel": "Cancel",
+            "two_factor_auth": "Two-Factor Authorization"
         },
         "change_password": {
             "title": "Change Password",
@@ -782,7 +782,8 @@
             "two_factor_auth": "Select Two-Factor Authentication Provider:",
             "submit": "Submit",
             "label": {
-                "code": "Code"
+                "code": "Code",
+                "checkbox": "Remember this device"
             },
             "placeholder": {
                 "enter_code": "Enter verification code here"
@@ -793,6 +794,5 @@
         "close": "Close",
         "close_cart": "Close Cart",
         "countinue_shop": "Continue shopping"
-
     }
 }

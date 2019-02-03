@@ -4,6 +4,15 @@
         <vc-labeled-input value="$ctrl.changeData.firstName" name="first_name" placeholder="{{ 'customer.edit_profile.first_name' | t }}" form="detailForm" required="true" autofocus="true"></vc-labeled-input>
         <vc-labeled-input value="$ctrl.changeData.lastName" name="last_name" placeholder="{{ 'customer.edit_profile.last_name' | t }}" form="detailForm"></vc-labeled-input>
         <vc-labeled-input value="$ctrl.changeData.email" name="email" placeholder="{{ 'customer.edit_profile.email' | t }}" form="detailForm" required="true" type="email"></vc-labeled-input>
+            <div style="display:flex;flex-flow:row wrap;justify-content:space-between;align-items:start;">
+            <vc-labeled-input name="PhoneNumber" placeholder="{{ 'contact.form.phone' | t }}"></vc-labeled-input>
+            <button class="btn" style="margin-left:auto;margin-right:10px">{{ 'cart.general.add' | t }}</button>
+            <button class="btn">{{ 'customer.addresses.delete' | t }}</button>
+            </div>
+        <label class="switch">{{ 'customer.edit_profile.two_factor_auth' | t }}
+            <input type="checkbox" name="TwoFactorEnabled">
+        </label>
+
 
         <button class="vc-btn" ng-disabled="$ctrl.loader.isLoading" ng-class="{ 'btn--disabled': detailForm.$pristine, 'loading': $ctrl.loader.isLoading }">
             <span class="btn-text">{{ 'customer.edit_profile.submit' | t }}</span>
@@ -11,3 +20,4 @@
         </button>
     </form>
 </div>
+
