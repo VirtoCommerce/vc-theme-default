@@ -5,12 +5,12 @@
         <vc-labeled-input value="$ctrl.changeData.lastName" name="last_name" placeholder="{{ 'customer.edit_profile.last_name' | t }}" form="detailForm"></vc-labeled-input>
         <vc-labeled-input value="$ctrl.changeData.email" name="email" placeholder="{{ 'customer.edit_profile.email' | t }}" form="detailForm" required="true" type="email"></vc-labeled-input>
             <div style="display:flex;flex-flow:row wrap;justify-content:space-between;align-items:start;">
-            <vc-labeled-input name="PhoneNumber" placeholder="{{ 'contact.form.phone' | t }}"></vc-labeled-input>
-            <button class="btn" style="margin-left:auto;margin-right:10px">{{ 'cart.general.add' | t }}</button>
-            <button class="btn">{{ 'customer.addresses.delete' | t }}</button>
+            <vc-labeled-input name="PhoneNumber" placeholder="{{ 'contact.form.phone' | t }}" value="$ctrl.phoneNumber"></vc-labeled-input>
+            <button class="btn" style="margin-left:auto;margin-right:10px" ng-click="$ctrl.changePhoneNumber()">{{ 'cart.general.add' | t }}</button>
+            <button class="btn" ng-click="$ctrl.changePhoneNumber()">{{ 'customer.addresses.delete' | t }}</button>
             </div>
         <label class="switch">{{ 'customer.edit_profile.two_factor_auth' | t }}
-            <input type="checkbox" name="TwoFactorEnabled">
+            <input type="checkbox" name="TwoFactorEnabled" ng-change="$ctrl.changeTwoFactorAuth()">
         </label>
 
 
