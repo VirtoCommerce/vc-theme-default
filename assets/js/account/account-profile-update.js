@@ -36,15 +36,19 @@ angular.module('storefront.account')
         };
 
         $ctrl.changePhoneNumber = function() {
-            // $ctrl.accountManager.changePhoneNumber($ctrl.phoneNumber);
+            window.location = '/account/phonenumber';
         };
 
          $ctrl.deletePhoneNumber = function() {
-            $ctrl.accountManager.deletePhoneNumber();
+            $ctrl.accountManager.deletePhoneNumber().then(function(result){
+                if (result.succeeded) {
+                    $ctrl.phoneNumber = null;
+                }
+            });
         };
 
         $ctrl.changeTwoFactorAuth = function() {
-            $ctrl.accountManager.changeTwoFactorAuth();
+            $ctrl.accountManager.changeTwoFactorAuth($ctrl.twoFactorEnabled);
         };
     }]
 });

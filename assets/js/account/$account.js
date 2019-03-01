@@ -69,11 +69,11 @@ angular.module(moduleName, ['ngResource', 'ngComponentRouter', 'credit-cards', '
         };
 
         $ctrl.deletePhoneNumber = function() {
-            $ctrl.accountManager.deletePhoneNumber();
+            return accountApi.deletePhoneNumber().$promise;
         };
 
-        $ctrl.changeTwoFactorAuth = function() {
-            $ctrl.accountManager.changeTwoFactorAuth();
+        $ctrl.changeTwoFactorAuth = function(enabled) {
+            return accountApi.changeTwoFactorAuth({ enabled: enabled}).$promise;
         };
     }]
 })

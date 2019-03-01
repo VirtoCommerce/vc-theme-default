@@ -1,11 +1,11 @@
   <div class="one-half">
-    {% form 'phone_number' %}
+    {% form 'verify_phone_number' %}
+      <input type="hidden" value="{{ form.phone_number }}" name="customer[phoneNumber]"/>      
       
       <h3>{{ 'verify.code.title' | t }}</h3>
 
       {% include 'form-errors-custom' %}
 
-      <input name="customer[phoneNumber]" type="hidden" value="{{ form.PhoneNumber }}" />      
       <input type="text" name="customer[code]" placeholder="{{ 'verify.code.placeholder.enter_code' | t }}" autofocus>
       <input type="submit" value="{{ 'verify.code.submit' | t }}" class="btn">
 
