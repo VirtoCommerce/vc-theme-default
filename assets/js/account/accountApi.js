@@ -6,7 +6,9 @@ angular.module('storefront.account')
             searchQuotes: { url: 'storefrontapi/quoterequests/search', method: 'POST' },
             updateAddresses: { url: 'storefrontapi/account/addresses', method: 'POST' },
             getCountries: { url: 'storefrontapi/countries', isArray: true },
-            getCountryRegions: { url: 'storefrontapi/countries/:code3/regions', isArray: true }
+            getCountryRegions: { url: 'storefrontapi/countries/:code3/regions', isArray: true },
+            deletePhoneNumber: { url: "storefrontapi/account/phonenumber", method: "DELETE" },
+            changeTwoFactorAuth: { url: "storefrontapi/account/twofactorauthentification", method: "POST" } 
         });
     }])
     .factory('storefront.orderApi', ['$resource', function ($resource) {

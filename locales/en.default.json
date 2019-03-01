@@ -439,7 +439,8 @@
             "zip_valid": "Please enter your postal code",
             "shipping_address": "Shipping address",
             "same_address": "Shipping address is same as billing address",
-            "select_your": "Please select your"
+            "select_your": "Please select your",
+            "new_phone": "Add a phone number"
         },
         "login": {
             "title": "Login",
@@ -612,7 +613,8 @@
             "last_name": "Last Name",
             "email": "Email",
             "submit": "Update",
-            "cancel": "Cancel"
+            "cancel": "Cancel",
+            "two_factor_auth": "Two-Factor Authorization"            
         },
         "change_password": {
             "title": "Change Password",

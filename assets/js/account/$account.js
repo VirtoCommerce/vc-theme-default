@@ -67,6 +67,14 @@ angular.module(moduleName, ['ngResource', 'ngComponentRouter', 'credit-cards', '
                 return accountApi.changePassword(changePasswordData).$promise;
             });
         };
+
+        $ctrl.deletePhoneNumber = function() {
+            $ctrl.accountManager.deletePhoneNumber();
+        };
+
+        $ctrl.changeTwoFactorAuth = function() {
+            $ctrl.accountManager.changeTwoFactorAuth();
+        };
     }]
 })
 
