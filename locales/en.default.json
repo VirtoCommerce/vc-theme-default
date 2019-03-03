@@ -157,7 +157,7 @@
         },
         "forms": {
             "post_error": "Sorry, looks like something went wrong. Please correct the following and submit again:",
-            "post_field_error_html": "The <strong>{{ field }}</strong> {{ error }}"
+            "post_field_error_html": "{{ error }}"
         },
         "search": {
             "no_results_html": "Your search for \"{{ terms }}\" did not yield any results.",
@@ -574,10 +574,10 @@
         },
         "recover_password": {
             "title": "Reset your password",
-            "email": "Email",
+            "email_or_login": "Email or Login",
             "submit": "Submit",
             "cancel": "Cancel",
-            "subtext": "We will send you an email to reset your password."
+            "subtext": "We will send you an email or sms to reset your password."
         },
         "reset_password": {
             "title": "Reset account password",
@@ -587,8 +587,8 @@
             "submit": "Reset Password"
         },
         "forgot_password_code": {
-            "title": "Send verification code",
-            "subtext": "Enter verification code sent to you by sms",
+            "title": "Enter code verification",
+            "subtext": "Please type the verification code sent to you by sms",
             "label": {
                 "code": "Code"
             },
