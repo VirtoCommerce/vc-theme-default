@@ -587,6 +587,17 @@
             "password_confirm": "Confirm Password",
             "submit": "Reset Password"
         },
+        "forgot_password_code": {
+            "title": "Send verification code",
+            "subtext": "Enter verification code sent to you by sms",
+            "label": {
+                "code": "Code"
+            },
+            "placeholder": {
+                "enter_code": "Enter verification code here"
+            },
+            "submit": "Send code"
+        },
         "register": {
             "title": "Create Account",
             "first_name": "First Name",
