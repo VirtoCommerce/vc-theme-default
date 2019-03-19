@@ -65,6 +65,9 @@ angular.module("storefront.account").component("vcAccountProfileUpdate", {
                         if (!result.succeeded && result.verificationUrl) {
                             window.location = result.verificationUrl;
                         }
+                        if (result.succeeded) {
+                            $ctrl.twoFactorEnabled = !$ctrl.twoFactorEnabled;
+                        }
                     });
             };
         }
