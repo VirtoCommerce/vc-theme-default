@@ -11,7 +11,7 @@
         </button>
     </form> 
     <form name="phone">
-    <vc-labeled-input name="PhoneNumber" placeholder="{{ 'contact.form.phone' | t }}" value="$ctrl.phoneNumber" ng-model="$ctrl.phoneNumber" ng-pattern="/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/" ng-class="{'form-group error': phone.$invalid}"></vc-labeled-input>
+    <vc-labeled-input name="PhoneNumber" placeholder="{{ 'contact.form.phone' | t }}" value="$ctrl.phoneNumber" ng-model="$ctrl.phoneNumber" ng-pattern="/^[+]?[0-9]?[(]?[0-9]{0,3}[)]?[0-9]{0,7}$/" ng-class="{'form-group error': phone.$invalid}"></vc-labeled-input>
     <span ng-if="phone.$invalid"  ng-class="{'form-error': phone.$invalid}">Invalid phone number</span>
     </form>        
     <div>
