@@ -1,0 +1,40 @@
+<script id="storefront.customer-review-answers-dialog.tpl" type="text/ng-template">
+    <div class="ajaxify-modal is-visible" id="ajaxifyModal" style="opacity: 1;">
+        <button class="ajaxifyCart--close" title="Answers" ng-click="close()">Close</button>
+        <div class="ajaxifyCart--content" id="ajaxifyCart">
+            {% raw %}
+            <div class="pagination">
+                <div ng-repeat="answer in data">
+                    <div ng-if="edited.id != answer.id">
+                    <b>{{answer.modifiedBy}}</b><br/>
+                    {{answer.content}}
+                    <span class="answers">{{answer.assessment}}</span>
+                    <a ng-if="answer.canVote" ng-click="upvote(answer.id)"  class="plus">+</a>
+                    <a ng-if="answer.canVote" ng-click="downvote(answer.id)" class="minus">-</a>
+                    <a ng-if="answer.modifiedBy == curentUser" ng-click="delete(answer.id)" class="delete"></a>
+                    <a ng-if="answer.modifiedBy == curentUser" ng-click="edit(answer)" class="edit"></a>
+                    <hr/>
+                    </div>
+                    <div ng-if="edited.id == answer.id">
+                        <textarea ng-model="edited.content"></textarea>
+                        <button class="btn btn-clearfix" ng-click="save()">Save</button>
+                    </div>
+                </div>
+                <div ng-if="data && pageCount > 1">
+                    Total pages: <b>{{pageCount}}</b>&nbsp;&nbsp; Current Page: <b>{{searchCriteria.pageNumber}}</b>
+                    <a ng-if="searchCriteria.pageNumber > 1" ng-click="prev()">Prev</a>
+                    <a ng-if="searchCriteria.pageNumber < pageCount" ng-click="next()">Next</a>
+                </div>
+            </div>
+            {% endraw %}
+            {% if customer %}
+            <h3>Add answer</h3>
+            <textarea ng-model="answer"></textarea>
+            <button class="btn btn-clearfix" ng-disabled="!answer.length" ng-click="editAnswer()">Add</button>
+            {% endif %}
+        </div>
+    </div>
+</script>
+<script>
+    var curentUser = '{{customer.user_name}}';
+</script>

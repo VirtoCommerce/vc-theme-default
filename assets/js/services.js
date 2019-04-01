@@ -1,6 +1,8 @@
 var storefrontApp = angular.module('storefrontApp');
 
 storefrontApp.service('dialogService', ['$uibModal', function ($uibModal) {
+    var id = 1;
+    //var ob = { id };
     return {
         showDialog: function (dialogData, controller, templateUrl, onClosed) {
             var modalInstance = $uibModal.open({
@@ -241,6 +243,28 @@ storefrontApp.service('quoteRequestService', ['$http', function ($http) {
     }
 }]);
 
+storefrontApp.service('reviewService', ['$http', function ($http) {
+    return {
+        searchReviews: function (criteria) {
+            return $http.post('storefrontapi/reviews/search', criteria);
+        },
+        addReview: function(reviewAdd) {
+            return $http.post('storefrontapi/reviews/add', reviewAdd);
+        },
+        editAnswer: function(answerEdit) {
+            return $http.post('storefrontapi/answers/edit', answerEdit);
+        },
+        searchAnswers: function (criteria) {
+            return $http.post('storefrontapi/answers/search', criteria);
+        },
+        deleteAnswer: function (answerDelete) {
+            return $http.post('storefrontapi/answers/delete', answerDelete);
+        },
+        addAssessment: function(assessment) {
+            return $http.post('storefrontapi/assessment/add', assessment);
+        }
+    }
+}]);
 storefrontApp.service('recommendationService', ['$http', function ($http) {
     return {
         getRecommendedProducts: function (requestData) {

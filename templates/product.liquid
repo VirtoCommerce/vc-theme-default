@@ -168,6 +168,7 @@
                 <a href="#">{{ 'products.product.details_tab' | t }}</a>
             </li>
         </ul>
+      
         <div class="tab-cnt">
             <div class="tab">
                 <div class="properties">
@@ -182,7 +183,35 @@
                 </div>
             </div>
         </div>
-        {% endif %}
+        <h4>Customer reviews</h4>
+        <div class="customer-reviews" ng-controller="CustomerReviewController" ng-init="init('{{product.id}}')">
+            {% raw %}
+            <div class="pagination">
+                <a ng-click="showAnswers(review.id)" ng-repeat="review in data">
+                    <b>{{review.authorNickname}}</b><br/>
+                    {{review.content}}
+                    <i>{{review.createdDate | date}}</i>
+                    <span class="answers">{{review.answers}}</span>
+                    <span class="positive">{{review.positive}}</span>
+                    <span class="negative">{{review.negative}}</span>
+                    <hr/>
+                </a>
+                <div ng-if="data && pageCount > 1">
+                     Total pages: <b>{{pageCount}}</b>&nbsp;&nbsp; Current Page: <b>{{searchCriteria.pageNumber}}</b>
+                     <a ng-if="searchCriteria.pageNumber > 1" ng-click="prev()">Prev</a>
+                     <a ng-if="searchCriteria.pageNumber < pageCount" ng-click="next()">Next</a>
+                </div>
+            </div>
+            {% endraw %}
+            {% if true %}
+                <h5>Add review</h5>
+                <label>Nickname</label>
+                <input type="text" ng-model="nickname"/>
+                <label>Review</label>
+                <textarea ng-model="review"></textarea>
+                <button class="btn btn-clearfix" ng-disabled="!nickname || !review.length" ng-click="addReview()">Add</button>
+            {% endif %}
+        </div>
     </div>
 </div>
 
@@ -196,6 +225,7 @@
 </script>
 
 <!--Template for variation images-->
+{% include 'customer-review-answers-dialog' %}
 <script id="storefront.product-images.tpl" type="text/ng-template">
     <div class="grid-item large--two-fifths">
         <div class="grid">
