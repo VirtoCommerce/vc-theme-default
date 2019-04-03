@@ -83,6 +83,28 @@ Liquid is the templating engine that powers Virto Commerce templates. Go to [Liq
 
 Bundling is a technique you can use to improve request load time. Bundling improves load time by reducing the number of requests to the server (assets such as CSS and JavaScript will be combined to single file per file format).
 
+### Minification & bundling issues
+
+1. It's not support ECMAscript 6
+
+The code
+```JavaScript
+let someVar = 1;
+```
+would produce an error of minification
+
+2. You should always specify field name when you create an object
+
+The code
+```JavaScript
+var id = 1;
+var someObj = {id};
+```
+would produce an error of minification
+
+3. [Issue with file naming](https://github.com/VirtoCommerce/vc-theme-default/issues/76)
+
+
 ### How bundling and minification works
 
 #### How to add bundle to layout
@@ -92,11 +114,11 @@ Bundling is a technique you can use to improve request load time. Bundling impro
 ```
   * **static_asset_url** means that this file is static content of site
   * **script_tag** or **stylesheet_tag** will generate
-    ```
+    ```HTML
     <script ... >
     ```
     or
-    ```
+    ```HTML
     <link rel="stylesheet" ... >
     ```
   * **append_version** is used to correctly invalidate browser cache for bundles. It calculate hash of file and append it as part of query string in url. Make sure that it's added after **static_content_url** (or other url filter), not after **script_tag**, **stylesheet_tag** (or other html tags).
