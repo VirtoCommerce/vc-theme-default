@@ -85,13 +85,13 @@ Bundling is a technique you can use to improve request load time. Bundling impro
 
 ### Minification & bundling issues
 
-1. It's not support ECMAscript 6
+1. ECMAscript 6 in not supported
 
 The code
 ```JavaScript
 let someVar = 1;
 ```
-would produce an error of minification
+will produce an error during minification.
 
 2. You should always specify field name when you create an object
 
@@ -100,7 +100,7 @@ The code
 var id = 1;
 var someObj = {id};
 ```
-would produce an error of minification
+will result in an error during minification.
 
 3. [Issue with file naming](https://github.com/VirtoCommerce/vc-theme-default/issues/76)
 
