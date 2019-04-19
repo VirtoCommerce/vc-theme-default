@@ -10,7 +10,7 @@
 {% assign grid_item_width = 'large--one-fifth medium--one-half' %}
 
 <div class="grid">
-  {% if collection.products %}
+  {% unless collection.products.empty? %}
     {% comment %}
       Default collection order
     {% endcomment %}
@@ -26,5 +26,5 @@
       {% include 'product-grid-item' %}
     {% endfor %}
 
-  {% endif %}
+  {% endunless %}
 </div>

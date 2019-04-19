@@ -1,7 +1,11 @@
 {{ paginator =  collection.products  | paginate 20 }}
 {% include 'breadcrumb' %}
 
-{% assign has_sidebar = collection.all_tags.empty? == false %}
+
+{% assign has_sidebar = false %}
+{% unless collection.all_tags.empty? %}
+  {% assign has_sidebar = true %}
+{% endunless %}
 
 <div class="grid grid-border">
     {% if has_sidebar %}

@@ -1,11 +1,11 @@
-{% paginate collection.products by 20 %}
+{{ paginator =  collection.products | paginate 20 }}
 
 {% include 'breadcrumb' %}
 
 {% assign has_sidebar = false %}
-{% if collection.all_tags.size > 0 %}
+{% unless collection.all_tags.empty? %}
   {% assign has_sidebar = true %}
-{% endif %}
+{% endunless %}
 
 <div class="grid grid-border" ng-controller="productListController">
 
@@ -28,25 +28,25 @@
       </div>
     </header>
 
-    <div class="grid-uniform">
+    <div class="grid-uniform"> 
 
-      {% for product in collection.products %}
+      {% if collection.products.empty? %}
+       <div class="grid-item">
+         <p>{{ 'collections.general.no_matches' | t }}</p>
+       </div>
+     {% else %}
+         {% for product in collection.products %}
 
-        {% include 'product-list-item' %}
-
-      {% else %}
-
-        <div class="grid-item">
-          <p>{{ 'collections.general.no_matches' | t }}</p>
-        </div>
-
-      {% endfor %}
+           {% include 'product-list-item' %}
+        
+         {% endfor %}
+     {% endif %}          
 
     </div>
 
   </div>
 
-  {% if paginate.pages > 1 %}
+  {% if paginator.pages > 1 %}
   <div class="grid-item pagination-border-top">
     <div class="grid">
       <div class="grid-item{% if has_sidebar %} large--four-fifths push--large--one-fifth{% endif %}">
@@ -60,7 +60,7 @@
 
 </div>
 
-{% endpaginate %}
+
 <script>
     window.products = [];
     {% for product in collection.products %}

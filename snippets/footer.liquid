@@ -8,14 +8,16 @@
         <div class="grid-item medium--one-half large--three-twelfths">
           <h3>{{ 'layout.footer.quick_links' | t }}</h3>
           <ul>
+            {% if linklists[settings.footer_quicklinks_linklist].links.empty? %}
+            {% capture theme_settings_footer_linklist_path %}<strong>{{ 'layout.footer.footer' | t }}</strong> > <strong>{{ 'layout.footer.quick_links_list' | t }}</strong>{% endcapture %}
+            {{ 'layout.footer.instructions_for_linklist_html' | t: theme_settings_link, theme_settings_footer_linklist_path }}
+            {% else %}
             {% for link in linklists[settings.footer_quicklinks_linklist].links %}
-              <li><a href="{{ link.url }}">{{ link.title }}</a></li>
-  
-              {% capture theme_settings_footer_linklist_path %}<strong>{{ 'layout.footer.footer' | t }}</strong> > <strong>{{ 'layout.footer.quick_links_list' | t }}</strong>{% endcapture %}
-              {{ 'layout.footer.instructions_for_linklist_html' | t: theme_settings_link, theme_settings_footer_linklist_path }}
+              <li><a href="{{ link.url }}">{{ link.title }}</a></li>                             
             {% endfor %}
+            {% endif %}            
           </ul>
-        </div>
+        </div>        
       {% endif %}
 
       {% if settings.footer_content_enable %}
@@ -125,10 +127,10 @@
         {% endif %}
         <ul class="legal-links inline-list">
           <li>
-            &copy; {{ 'now' | date: "%Y" }} {{ shop.name }}
+            &copy; {{ 'now' | date: "yyyy" }} {{ shop.name }}
           </li>
           <li>
-              {{ powered_by_link }}
+              {{ powered_by shop.name }}
           </li>
         </ul>
       </div>

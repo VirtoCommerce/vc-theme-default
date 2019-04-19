@@ -47,16 +47,17 @@
         <div class="col col-66 main">
           <div class="cols">
             <div class="col col-66">
-              <h4>{{ 'customer.order.title' | t }} {% raw %}{{$ctrl.orderNumber}}{% endraw %}</h4>
+            {% capture order_number %}{% raw %}{{$ctrl.orderNumber}}{% endraw %}{% endcapture %}
+              <h4>{{ 'customer.order.title' | t: order_number }} </h4>
+            {% capture created_date %}<strong ng-bind="$ctrl.order.createdDate | date: 'medium'"></strong>{% endcapture %}
               <p>
-                {{ 'customer.order.placed_on_date_html' | t }}
-                <strong ng-bind="$ctrl.order.createdDate | date: 'medium'"></strong>
+                {{ 'customer.order.placed_on_date_html' | t: created_date }}                
               </p>
 
               <div ng-if="$ctrl.order.isCancelled" class="errors">
+              {% capture cancelled_on %}<span ng-bind="$ctrl.order.modifiedDate | date: 'medium'"></span>{% endcapture %}
                 <h5>
-                  {{ 'customer.order.cancelled_on' | t }}
-                  <span ng-bind="$ctrl.order.modifiedDate | date: 'medium'"></span>
+                  {{ 'customer.order.cancelled_on' | t: cancelled_on }}                  
                 </h5>
                 <p>{{ 'customer.order.cancel_reason' | t }}: {% raw %}{{ $ctrl.order.cancelReason }}{% endraw %}</p>
               </div>

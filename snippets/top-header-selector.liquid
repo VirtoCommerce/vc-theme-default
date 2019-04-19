@@ -44,11 +44,11 @@
 					<li>
 						<div class="currency">
 							<span>
-                {{'general.settings.currency' | t }} <span class="current">{{shop.currency}}</span>
+                {{'general.settings.currency' | t }} <span class="current">{{current_currency.code}}</span>
 							</span>
 							<ul>
-								{% for currency_temp in shop.currencies %}
-								<li {% if shop.currency == currency_temp %} class="selected" {% endif %}>
+								{% for currency_temp in shop.currencies_codes %}
+								<li {% if current_currency.code == currency_temp %} class="selected" {% endif %}>
 									<a href="{{ '/common/setcurrency/' | append : currency_temp | absolute_url }}">{{currency_temp}}</a>
 								</li>
                 {% endfor %}
