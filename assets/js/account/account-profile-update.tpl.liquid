@@ -22,5 +22,5 @@
     <label class="switch">
         {% raw %}{{$ctrl.twoFactorEnabled ? "Two Factor Authentication: Enabled" : "Two Factor Authentication: Disabled" }}{% endraw %}                
     </label>
-    <button class="btn" name="TwoFactorEnabled" ng-model="$ctrl.twoFactorEnabled" ng-click="$ctrl.changeTwoFactorAuth()">{% raw %}{{$ctrl.twoFactorEnabled ? "Disable" : "Enable" }}{% endraw %}</button>
+    <button class="btn" name="TwoFactorEnabled" ng-model="$ctrl.twoFactorEnabled" ng-click="$ctrl.toggleTwoFactorAuth()">{% raw %}{{$ctrl.twoFactorEnabled ? "Disable" : "Enable" }}{% endraw %}</button>
 </div>
