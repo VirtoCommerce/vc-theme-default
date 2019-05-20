@@ -87,13 +87,12 @@
                 </div>                           
             
             <div class="grid-item large--two-third text-center large--text-right">
-                {% if settings.header_message != blank or shop.customer_accounts_enabled %}
-                <div class="site-header--text-links{% if settings.header_message == blank %} medium-down--hide{% endif %}">
-                    {% if settings.header_message != blank %}
+                
+                <div class="site-header--text-links{% if settings.header_message.empty? == false %} medium-down--hide{% endif %}">
+                    {% if settings.header_message.empty? == false %}
                       {{ settings.header_message }}
                     {% endif %}
                     
-
                     <span class="site-header--meta-links medium-down--hide">
                         <span ng-if="customer && customer.isRegisteredUser && customer.operatorUserName" ng-cloak>
                             {{ 'layout.customer.logged_in_on_behalf_of_label' | t }} <a href="{{ 'account' | absolute_url }}" ng-bind="customer.firstName || customer.userName"></a> &middot; {{ 'layout.customer.log_out' | t | customer_logout_link }}
@@ -110,7 +109,7 @@
 
                 </div>
                 <br class="medium-down--hide" />
-                {% endif %}
+                
                 {% include 'search-bar' %}
                 {% if settings.product_compare_enabled %}
                 <product-compare-list-bar></product-compare-list-bar>
