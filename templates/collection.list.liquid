@@ -3,7 +3,7 @@
 {% include 'breadcrumb' %}
 
 {% assign has_sidebar = false %}
-{% unless collection.all_tags.empty? %}
+{% unless product_search_result.aggregations.empty? %}
   {% assign has_sidebar = true %}
 {% endunless %}
 

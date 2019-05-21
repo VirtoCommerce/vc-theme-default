@@ -1,14 +1,13 @@
 {{ paginator =  collection.products  | paginate 20 }}
 {% include 'breadcrumb' %}
 
-
 {% assign has_sidebar = false %}
-{% unless collection.all_tags.empty? %}
+{% unless product_search_result.aggregations.empty? %}
   {% assign has_sidebar = true %}
 {% endunless %}
 
 <div class="grid grid-border">
-    {% if has_sidebar %}
+    {% if has_sidebar %}    
     <aside class="sidebar grid-item large--one-fifth collection-filters" id="collectionFilters">
         {% include 'collection-sidebar' %}
     </aside>
