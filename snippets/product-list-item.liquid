@@ -19,6 +19,7 @@
     {% assign unavailable = true %}
 {% endif %}
 
+
 {% assign image_size = settings.collection_prod_image_sizes %}
 <div class="grid-item{% if unavailable %} unavailable{% endif %}{% if sold_out %} sold-out{% endif %}{% if on_sale %} on-sale{% endif %}">
     <a href="{{ product.url | within: current_collection }}" class="product-grid-item product-list-item">
@@ -26,7 +27,7 @@
             <div class="grid-item large--one-fifth medium--one-third" id="badges">
                 {% include 'badges' %}
                 {% if product.featured_image %}
-                    <img src="{{ product.featured_image.src | img_url }}" alt="{{ product.featured_image.alt | escape }}" />
+                    <img src="{{ product.featured_image | img_url }}" alt="{{ product.featured_image.alt | escape }}" />
                 {% else %}
                     <div class="no-product-image">
                         <img src="{{ 'images/no-image.svg' | asset_url }}" />
