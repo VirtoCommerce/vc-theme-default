@@ -19,7 +19,6 @@
     {% assign unavailable = true %}
 {% endif %}
 
-
 {% assign image_size = settings.collection_prod_image_sizes %}
 <div class="grid-item{% if unavailable %} unavailable{% endif %}{% if sold_out %} sold-out{% endif %}{% if on_sale %} on-sale{% endif %}">
     <a href="{{ product.url | within: current_collection }}" class="product-grid-item product-list-item">
