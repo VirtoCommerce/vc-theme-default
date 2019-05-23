@@ -9,7 +9,6 @@
 {% assign on_sale = false %}
 {% if product.compare_at_price.amount > product.price.actual_price.amount %}
     {% assign on_sale = true %}
-
 {% endif %}
 
 {% assign unavailable = false %}
@@ -67,21 +66,21 @@
                 </span>
                 {% endif %}
                 {% if settings.show_prices_with_taxes %}
-                {% assign price = product.price_with_tax %}
-                {% include 'price' %}
+                    {% assign price = product.price_with_tax %}
+                    {% include 'price' %}
                 {% else %}
-                {% assign price = product.price %}
-                {% include 'price' %}
+                    {% assign price = product.price %}
+                    {% include 'price' %}
                 {% endif %}
             </span>
             {% if on_sale %}
             <span class="sale-tag medium--right{% if settings.product_reviews_enable %} has-reviews{% endif %}">
                 {% if settings.show_prices_with_taxes %}
-                {% assign compare_price = product.compare_at_price_with_tax %}
-                {% assign product_price = product.price_with_tax %}
+                    {% assign compare_price = product.compare_at_price_with_tax %}
+                    {% assign product_price = product.price_with_tax %}
                 {% else %}
-                {% assign compare_price = product.compare_at_price %}
-                {% assign product_price = product.price.actual_price %}
+                    {% assign compare_price = product.compare_at_price %}
+                    {% assign product_price = product.price.actual_price %}
                 {% endif %}
                 {% include 'price-sale' %}
             </span>
