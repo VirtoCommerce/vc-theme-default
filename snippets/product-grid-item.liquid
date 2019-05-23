@@ -49,44 +49,12 @@
             {% if settings.product_compare_enabled %}
             <add-to-compare-button custom-class="'vc-compare-button'" product-id="'{{ product.id }}'" button-type="'small'">
                 </<add-to-compare-button>
-                    {% endif %}
+            {% endif %}
         </div>
         <p>{{ product.title }}</p>
-        <div class="product-item--price" ng-if="!productListPricesLoaded">
-            <span class="h1 medium--left">
-                {% if on_sale %}
-                <span class="old">
-                    {% if settings.show_prices_with_taxes %}
-                    {% assign price = product.compare_at_price_with_tax %}
-                    {% include 'price' %}
-                    {% else %}
-                    {% assign price = product.compare_at_price %}
-                    {% include 'price' %}
-                    {% endif %}
-                </span>
-                {% endif %}
-                {% if settings.show_prices_with_taxes %}
-                    {% assign price = product.price_with_tax %}
-                    {% include 'price' %}
-                {% else %}
-                    {% assign price = product.price %}
-                    {% include 'price' %}
-                {% endif %}
-            </span>
-            {% if on_sale %}
-            <span class="sale-tag medium--right{% if settings.product_reviews_enable %} has-reviews{% endif %}">
-                {% if settings.show_prices_with_taxes %}
-                    {% assign compare_price = product.compare_at_price_with_tax %}
-                    {% assign product_price = product.price_with_tax %}
-                {% else %}
-                    {% assign compare_price = product.compare_at_price %}
-                    {% assign product_price = product.price.actual_price %}
-                {% endif %}
-                {% include 'price-sale' %}
-            </span>
-            {% endif %}
-        </div>     
 
+        {% include 'product-price' %}
+     
         <div class="product-item--other">
             {% comment %}
             {% if product.variants.size == 1 %}

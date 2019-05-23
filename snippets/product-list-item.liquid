@@ -53,68 +53,7 @@
                 {% endcomment %}
             </div>
             <div class="grid-item large--one-fifth medium--two-thirds">
-                <div class="product-item--price text-center" ng-if="!productPricesLoaded">
-                    <span class="h1 medium--left">
-                        {% if on_sale %}
-                        <span class="old">
-                            {% if settings.show_prices_with_taxes %}
-                            {% assign price = product.compare_at_price_with_tax %}
-                            {% include 'price' %}
-                            {% else %}
-                            {% assign price = product.compare_at_price %}
-                            {% include 'price' %}
-                            {% endif %}
-                        </span>
-                        {% endif %}
-                        {% if settings.show_prices_with_taxes %}
-                            {% assign price = product.price_with_tax %}
-                            {% include 'price' %}
-                        {% else %}
-                            {% assign price = product.price %}
-                            {% include 'price' %}
-                        {% endif %}
-                    </span>
-                    {% if on_sale %}
-                    <span class="sale-tag medium--right{% if settings.product_reviews_enable %} has-reviews{% endif %}">
-                        {% if settings.show_prices_with_taxes %}
-                            {% assign compare_price = product.compare_at_price_with_tax %}
-                            {% assign product_price = product.price_with_tax %}
-                        {% else %}
-                            {% assign compare_price = product.compare_at_price %}
-                            {% assign product_price = product.price.actual_price %}
-                        {% endif %}
-                        {% include 'price-sale' %}
-                    </span>
-                    {% endif %}
-                    {% if settings.product_reviews_enable %}
-                        <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
-                    {% endif %}
-                </div>
-
-                <div class="product-item--price text-center" ng-if="productPricesLoaded">
-                    {% if settings.show_prices_with_taxes %}
-                        <p class="h1 medium-down--left">
-                            <span class="old" ng-if="productPrices['{{ product.id }}'].discountAmountWithTax.amount > 0">
-                                <small ng-bind="productPrices['{{ product.id }}'].listPriceWithTax.formattedAmount"></small>
-                            </span>
-                            <small ng-bind="productPrices['{{ product.id }}'].actualPriceWithTax.formattedAmount"></small>
-                        </p>
-                        <span class="sale-tag medium--right" ng-if="productPrices['{{ product.id }}'].discountAmountWithTax.amount > 0" ng-bind="'save ' + productPrices['{{ product.id }}'].discountAmountWithTax.formattedAmount"></span>
-                    {% else %}
-                        <p class="h1 medium-down--left">
-                            <span class="old" ng-if="productPrices['{{ product.id }}'].discountAmount.amount > 0">
-                                <small ng-bind="productPrices['{{ product.id }}'].listPrice.formattedAmount"></small>
-                            </span>
-                            <small ng-bind="productPrices['{{ product.id }}'].actualPrice.formattedAmount"></small>
-                        </p>
-                        <span class="sale-tag medium--right" ng-if="productPrices['{{ product.id }}'].discountAmount.amount > 0" ng-bind="'save ' + productPrices['{{ product.id }}'].discountAmount.formattedAmount"></span>
-                    {% endif %}
-
-                    {% if settings.product_reviews_enable %}
-                        <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
-                    {% endif %}
-                </div>
-
+                 {% include 'product-price' %}
             </div>
         </div>
     </a>
