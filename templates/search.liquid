@@ -1,5 +1,3 @@
-{% assign grid_results = true %}
-
 {% assign respond_js_secret_key = shop.url | md5 %}
 {% assign search = current_product_search_criteria %}
 {% unless search.keyword == respond_js_secret_key %}
@@ -9,70 +7,41 @@
         <div class="grid-item">
     
             <hr class="hr--clear hr--small">
-
-            {% comment %}
-            {{ current_product_search_criteria | json }}
-            <br>
-            <br>
-            {{ search | json }}
-            <br>
-            <br>            
-            {{ search.empty? }}
-            {{ current_product_search_criteria.empty? }}
-            {{search_results.size }}
-            {% endcomment %}
-
-            
-            
+                     
             {% if search and search_results.empty? == false %}
 
                 {% paginator =  search_results | paginate 20 %}
-
                 
-                {% if search_results.size == 0 %}
+                    {% if search_results.size == 0 %}
     
-                    <h2 class="text-center">{{ 'general.search.no_results_html' | t: terms: search.terms }}</h2>
-                    {% include 'search-bar' %}
-    
-                {% else %}
-    
-                    <h2 class="text-center">{{ 'general.search.results_for_html' | t: terms: search.terms }}</h2>
-                    {% include 'search-bar' %}
-                    <hr class="hr--clear">
-    
-                    {% if grid_results == false %}
-    
-                        {% for item in search_results %}
-                            {% include 'search-result' %}
-                        {% endfor %}
+                        <h2 class="text-center">{{ 'general.search.no_results_html' | t: terms: search.terms }}</h2>
+                        {% include 'search-bar' %}
     
                     {% else %}
-                     
-                        <div class="grid-uniform">
-                            {% for item in search_results %}                                 
-                                 
-                                {% assign grid_item_width = 'large--one-fifth medium--one-third small--one-half' %}
-                                {% include 'search-result-grid' %}
-                                
-                            {% endfor %}
-                        </div>
     
+                        <h2 class="text-center">{{ 'general.search.results_for_html' | t: terms: search.terms }}</h2>
+                        {% include 'search-bar' %}
+                        <hr class="hr--clear">
+                                              
+                            <div class="grid-uniform">
+                                {% for item in search_results %}                                 
+                                     
+                                    {% assign grid_item_width = 'large--one-fifth medium--one-third small--one-half' %}
+                                    {% include 'search-result-grid' %}
+                                    
+                                {% endfor %}
+                            </div>
+                          
                     {% endif %}
-    
-                {% endif %}
      
                 {% if paginator.pages > 1 %}
                     <div class="text-center">
                         {% include 'pagination-custom' %}
                     </div>
-                {% endif %}
-     
+                {% endif %}     
                     
             {% else %}
-    
-                    {% comment %}
-                    If search.performed is false, someone either accessed the page without the q parameter, or it was blank.
-                    {% endcomment %}
+                        
                     <h2 class="text-center">{{ 'general.search.title' | t }}</h2>
                     {% include 'search-bar' %}
     
