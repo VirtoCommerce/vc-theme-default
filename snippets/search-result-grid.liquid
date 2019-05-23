@@ -43,17 +43,37 @@
 
       <div class="product-item--price">
           <span class="h1 medium--left">
-              {% assign price =  item.price %}
-              {% include 'price' %}
-          </span>
-
-        {% if on_sale %}
-          <span class="sale-tag medium--right">
-            {% assign compare_price = item.compare_at_price %}
-            {% assign product_price = item.price %}
-            {% include 'price-sale' %}
-          </span>
-        {% endif %}
+                {% if on_sale %}
+                <span class="old">
+                    {% if settings.show_prices_with_taxes %}
+                    {% assign price = item.compare_at_price_with_tax %}
+                    {% include 'price' %}
+                    {% else %}
+                    {% assign price = item.compare_at_price %}
+                    {% include 'price' %}
+                    {% endif %}
+                </span>
+                {% endif %}
+                {% if settings.show_prices_with_taxes %}
+                    {% assign price = item.price_with_tax %}
+                    {% include 'price' %}
+                {% else %}
+                    {% assign price = item.price %}
+                    {% include 'price' %}
+                {% endif %}
+            </span>
+            {% if on_sale %}
+            <span class="sale-tag medium--right{% if settings.product_reviews_enable %} has-reviews{% endif %}">
+                {% if settings.show_prices_with_taxes %}
+                    {% assign compare_price = item.compare_at_price_with_tax %}
+                    {% assign product_price = item.price_with_tax %}
+                {% else %}
+                    {% assign compare_price = item.compare_at_price %}
+                    {% assign product_price = item.price.actual_price %}
+                {% endif %}
+                {% include 'price-sale' %}
+            </span>
+            {% endif %}
       </div>
     {% else %}
       {% assign img_tag = '<' | append: 'img' %}
