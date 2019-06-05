@@ -604,6 +604,7 @@
             "last_name": "Last Name",
             "email": "Email",
             "user_name": "User Name",
+            "full_name": "Full Name",
             "password": "Password",
             "submit": "Create",
             "cancel": "Return to Store"
@@ -612,6 +613,7 @@
             "title": "Edit Profile",
             "first_name": "First Name",
             "last_name": "Last Name",
+            "full_name": "Full Name",
             "email": "Email",
             "submit": "Update",
             "cancel": "Cancel"

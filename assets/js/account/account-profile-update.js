@@ -23,6 +23,7 @@ angular.module('storefront.account')
                     {
                         firstName: customer.firstName,
                         lastName: customer.lastName,
+                        fullName: customer.fullName,
                         email: customer.email
                     };
                 }

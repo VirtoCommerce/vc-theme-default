@@ -16,6 +16,9 @@
       <label for="last_name" class="hidden-label">{{ 'customer.register.last_name' | t }}</label>
       <input type="text" value="{{form.last_name}}" name="customer[last_name]" id="last_name" placeholder="{{ 'customer.register.last_name' | t }}" {% if form.errors contains "last_name" %} class="error"{% endif %} autocapitalize="words">
 
+      <label for="full_name" class="hidden-label">{{ 'customer.register.full_name' | t }}</label>
+      <input type="text" value="" name="customer[full_name]" id="full_name" placeholder="{{ 'customer.register.full_name' | t }}" {% if form.errors contains "full_name" %} class="error" {% endif %} autocorrect="off" autocapitalize="off">
+
       <label for="email" class="hidden-label">{{ 'customer.register.email' | t }}</label>
       <input type="email" value="{{form.email}}" name="customer[email]" id="email" placeholder="{{ 'customer.register.email' | t }}" {% if form.errors contains "email" %} class="error"{% endif %} autocorrect="off" autocapitalize="off">
 
