@@ -14,12 +14,12 @@
                 
                     {% if search_results.size == 0 %}
     
-                        <h2 class="text-center">{{ 'general.search.no_results_html' | t: terms: search.terms }}</h2>
+                        <h2 class="text-center">{{ 'general.search.no_results_html' | t: search.keyword }}</h2>
                         {% include 'search-bar' %}
     
                     {% else %}
     
-                        <h2 class="text-center">{{ 'general.search.results_for_html' | t: terms: search.terms }}</h2>
+                        <h2 class="text-center">{{ 'general.search.results_for_html' | t: search.keyword }}</h2>
                         {% include 'search-bar' %}
                         <hr class="hr--clear">
                                               
