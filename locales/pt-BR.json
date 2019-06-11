@@ -4,8 +4,8 @@
   },
   "general": {
     "meta": {
-      "tags": "Marcado como \"{{ tags }}\"",
-      "page": "Página {{ page }}"
+      "tags": "Marcado como \"{0}\"",
+      "page": "Página {0}"
     },
     "404": {
       "title": "404 Página não encontrada",
@@ -17,21 +17,21 @@
     },
     "forms": {
       "post_error": "Desculpe, mas parece que algo deu errado. Por favor, corrija os itens a seguir e envie novamente:",
-      "post_field_error_html": "O campo <strong>{{ field }}</strong> {{ error }}"
+      "post_field_error_html": "O campo <strong>{0}</strong> {1}"
     },
     "search": {
-      "no_results_html": "Sua busca por \"{{ terms }}\" não gerou resultados.",
-      "results_for_html": "Sua busca por \"{{ terms }}\" encontrou os itens a seguir:",
+      "no_results_html": "Sua busca por \"{0}\" não gerou resultados.",
+      "results_for_html": "Sua busca por \"{0}\" encontrou os itens a seguir:",
       "title": "Buscar produtos em nosso site"
     }
   },
   "blogs": {
     "article": {
-      "author_on_date_html": "Postado por {{ author }} em {{ date }}",
+      "author_on_date_html": "Postado por {0} em {1}",
       "older_post": "Postagem anterior",
       "newer_post": "Postagem seguinte",
       "tags": "Tags",
-      "comment_meta_html": "{{ author }} em {{ date }}",
+      "comment_meta_html": "{0} em {1}",
       "read_more": "Ler mais",
       "share_this_post": "Compartilhe esta postagem"
     },
@@ -47,7 +47,7 @@
       "comments_with_count": {
         "zero": "0 comentários",
         "one": "1 comentário",
-        "other": "{{ count }} comentários"
+        "other": "{0} comentários"
       }
     },
     "sidebar": {
@@ -73,18 +73,18 @@
   "collections": {
     "general": {
       "no_matches": "Desculpe, mas não há produtos correspondentes à sua busca.",
-      "link_title": "Explore a nossa coleção {{ title }}",
+      "link_title": "Explore a nossa coleção {0}",
       "items_with_count": {
         "zero": "0 itens",
         "one": "1 item",
-        "other": "{{ count }} itens"
+        "other": "{0} itens"
       }
     },
     "sidebar": {
       "filters": "Filtros",
       "shop_by": "Comprar por",
       "all": "Todos",
-      "all_collection": "Todos em {{ collection_title }}",
+      "all_collection": "Todos em {0}",
       "no_tags": "Adicione tags aos seus produtos para criar esta lista."
     },
     "sorting": {
@@ -166,9 +166,9 @@
       "none": "Você ainda não fez nenhum pedido."
     },
     "order": {
-      "title": "Pedido {{ name }}",
-      "placed_on_date_html": "Efetuado em {{ date }}",
-      "cancelled_on": "Pedido cancelado em {{ date }}",
+      "title": "Pedido {0}",
+      "placed_on_date_html": "Efetuado em {0}",
+      "cancelled_on": "Pedido cancelado em {0}",
       "cancel_reason": "Motivo",
       "billing_address": "Endereço de cobrança",
       "payment_status": "Status do pagamento",
@@ -182,7 +182,7 @@
       "price": "Preço",
       "quantity": "Quantidade",
       "total": "Total",
-      "fulfilled_on": "Processado em {{ date }}",
+      "fulfilled_on": "Processado em {0}",
       "subtotal": "Subtotal"
     },
     "recover_password": {
@@ -194,7 +194,7 @@
     },
     "reset_password": {
       "title": "Redefinir sua senha",
-      "subtext": "Digite uma nova senha para {{ email }}",
+      "subtext": "Digite uma nova senha para {0}",
       "password": "Senha",
       "password_confirm": "Confirmar senha",
       "submit": "Redefinir senha"
@@ -221,11 +221,11 @@
     "featured_collection_rows": {
       "heading": "Coleção em destaque",
       "more": "Mais",
-      "no_products_in_collection_html": "Não há produtos na sua coleção {{ collection_title }}.",
-      "instructions_to_add_products_to_collection_html": "Este espaço reservado aparecerá até você <a href=\"{{ collection_admin_url }}\">adicionar um produto a esta coleção</a> ou desative a <em>Coleção em destaque 1</em> nas configurações do tema.",
+      "no_products_in_collection_html": "Não há produtos na sua coleção {0}.",
+      "instructions_to_add_products_to_collection_html": "Este espaço reservado aparecerá até você <a href=\"{0}\">adicionar um produto a esta coleção</a> ou desative a <em>Coleção em destaque 1</em> nas configurações do tema.",
       "add_a_product": "Adicione um produto",
       "example_product_title": "Exemplo de título de produto",
-      "more_in_collection": "Mais {{ collection_title }}"
+      "more_in_collection": "Mais {0}"
     }
   },
   "layout": {
@@ -234,7 +234,7 @@
     },
     "customer": {
       "view_account": "Ver conta",
-      "logged_in_as_html": "Conectado(a) como {{ first_name }}",
+      "logged_in_as_html": "Conectado(a) como {0}",
       "log_out": "Sair",
       "sign_in": "Entrar",
       "create_account": "Criar uma conta",
@@ -250,11 +250,11 @@
     },
     "footer": {
       "theme_settings": "Configurações do tema",
-      "instructions_for_linklist_html": "Escolha uma lista de links para exibir aqui, acessando {{ theme_settings_footer_linklist_path }} nas {{ theme_settings_link }}.",
-      "instructions_for_text_content_html": "Adicione algum texto para exibir aqui, acessando as {{ theme_settings_link }}.",
+      "instructions_for_linklist_html": "Escolha uma lista de links para exibir aqui, acessando {0} nas {1}.",
+      "instructions_for_text_content_html": "Adicione algum texto para exibir aqui, acessando as {0}.",
       "quick_links": "Links rápidos",
       "get_in_touch": "Entre em contato",
-      "store_on_social_network": "{{ store_name }} no {{ social_network }}",
+      "store_on_social_network": "{0} no {1}",
       "newsletter_title": "Informativo",
       "newsletter_sign_up": "Criar conta",
       "newsletter_email_placeholder": "Endereço de e-mail"
@@ -267,23 +267,23 @@
       "share_on_pinterest": "Pin it",
       "share_on_fancy": "Fancy",
       "related_products": "Recomendamos também",
-      "save_html": "Economize {{ saved_amount }}"
+      "save_html": "Economize {0}"
     },
     "product": {
       "sold_out": "Esgotado",
       "unavailable": "Indisponível",
-      "only_left": "Restam apenas {{ count }}!",
+      "only_left": "Restam apenas {0}!",
       "quantity": "Quantidade",
       "add_to_cart": "Adicionar ao carrinho"
     }
   },
   "gift_cards": {
     "issued": {
-      "title": "Aqui está o seu vale-presente de {{ value }} na {{ shop }}!",
+      "title": "Aqui está o seu vale-presente de {0} na {1}!",
       "subtext": "Aqui está o seu vale-presente!",
       "disabled": "Inválido",
-      "expired": "Expirado em {{ expiry }}",
-      "active": "Expira em {{ expiry }}",
+      "expired": "Expirado em {0}",
+      "active": "Expira em {0}",
       "redeem": "Para resgatar o seu vale-presente, utilize este código no fechamento do pedido",
       "shop_link": "Comece a comprar",
       "print": "Imprimir"
