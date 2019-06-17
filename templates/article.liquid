@@ -16,7 +16,7 @@
                 <div class="section-header--left">
                     <h1>{{ article.title }}</h1>
                     <p class="text-light">
-                        {% capture pubdate %}<strong><time pubdate datetime="{{ article.published_at | date '%Y-%m-%d' }}">{{ article.published_at | date 'month_day_year' }}</time></strong>{% endcapture %}
+                        {% capture pubdate %}<strong><time pubdate datetime="{{ article.published_at | date 'yyyy-MM-dd' }}">{{ article.published_at | date 'month_day_year' }}</time></strong>{% endcapture %}
                         {% capture author %}<strong>{{ article.author }}</strong>{% endcapture %}
                         {{ 'blogs.article.author_on_date_html' | t author pubdate }}
                     </p>
