@@ -24,7 +24,7 @@
 <div class="grid">
 
   <div class="grid-item two-thirds medium-down--one-whole">
-    <h4>{{ 'customer.order.title' | t: order.name }}</h4>
+    <h4>{{ 'customer.order.title' | t: order.number }}</h4>
 
     {% capture date %}<strong>{{ order.created_at | date: 'long' }}</strong>{% endcapture %}
     <p>{{ 'customer.order.placed_on_date_html' | t: date }}</p>
@@ -71,7 +71,7 @@
                 <td>{{ line_item.price | money: order.currency_code }}</td>
                 <td class="text-center">{{ line_item.quantity }}</td>
                 <td class="text-right">{{ line_item.line_price | money: order.currency_code }}</td>
-            {% endif %}  
+            {% endif %}
         </tr>
         {% endfor %}
       </tbody>
@@ -82,7 +82,7 @@
                 <td class="text-right">{{ order.subtotal_price_with_tax | money: order.currency_code }}</td>
             {% else %}
                  <td class="text-right">{{ order.subtotal_price | money: order.currency_code }}</td>
-            {% endif %}  
+            {% endif %}
         </tr>
 
         {% for discount in order.discounts %}

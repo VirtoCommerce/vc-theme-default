@@ -1,5 +1,5 @@
 <div ng-controller="orderController">
-    <h4>{{ 'customer.order.title' | t: order.name }}</h4>
+    <h4>{{ 'customer.order.title' | t: order.number }}</h4>
     <table class="full">
         <thead>
             <tr>
@@ -112,5 +112,5 @@
 </div>
 
 <script>
-    window.orderNumber = '{{ order.name }}';
+    window.orderNumber = '{{ order.number }}';
 </script>
