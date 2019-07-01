@@ -15,17 +15,18 @@
             <h2>{{ 'customer.recover_login.title' | t }}</h2>
             <p>{{ 'customer.recover_login.subtitle' | t }}</p>
 
-            {% form 'recover_customer_login' %}
-            {% include 'form-errors-custom' %}
+            <form accept-charset="UTF-8" action="{{ '~/account/forgotlogin' | absolute_url }}" method="post" id="recover_customer_login" name="recover_customer_login">
+                {% include 'form-errors-custom' %}
 
-            <label for="recover-email" class="hidden-label">{{ 'customer.recover_login.email' | t }}</label>
-            <input type="email" value="" name="email" id="recover-email" placeholder="{{ 'customer.recover_login.email' | t }}" autocorrect="off" autocapitalize="off">
+                <label for="recover-email" class="hidden-label">{{ 'customer.recover_login.email' | t }}</label>
+                <input type="email" value="" name="email" id="recover-email" placeholder="{{ 'customer.recover_login.email' | t }}" autocorrect="off" autocapitalize="off">
 
-            <p>
-                <input type="submit" class="btn" value="{{ 'customer.recover_login.submit' | t }}">
-            </p>
+                <p>
+                    <input type="submit" class="btn" value="{{ 'customer.recover_login.submit' | t }}">
+                </p>
+                {{ antiforgery }}
 
-            {% endform %}
+            </form>
 
         </div>
 

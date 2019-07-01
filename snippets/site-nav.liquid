@@ -1,12 +1,12 @@
 <ul class="site-nav" id="accessibleNav">
-    {% unless linklists.main-menu.links.first.url == '/' %}
+    {% unless linklists['main-menu'].links.first.url == '/' %}
         <li class="large--hide">
             <a href="{{ '/' | absolute_url }}">{{ 'general.breadcrumbs.home' | t }}</a>
         </li>
     {% endunless %}
-    {% for link in linklists.main-menu.links %}
-        {% assign child_list_handle = link.title | handleize %}
-        {% if linklists[child_list_handle].links != blank %}
+    {% for link in linklists['main-menu'].links %}
+        {% assign child_list_handle = link.title | handleize %}       
+        {% if linklists[child_list_handle].links.empty? == false %}
             <li class="site-nav--has-dropdown{% if link.active %} site-nav--active{% endif %}" aria-haspopup="true">
                 <a href="{{ link.url }}">
                     {{ link.title }}
@@ -16,13 +16,13 @@
                 </a>
                 <ul class="site-nav--dropdown">
                     {% for childlink in linklists[child_list_handle].links %}
-                        <li {% if childlink.active %}class="site-nav--active"{% endif %}><a href="{{ childlink.url }}">{{ childlink.title | escape }}</a></li>
+                        <li {% if childlink.active %}class="site-nav--active"{% endif %}><a href="{{ childlink.url  | absolute_url }}">{{ childlink.title | escape }}</a></li>
                     {% endfor %}
                 </ul>
             </li>
         {% else %}
-            <li {% if link.active %}class="site-nav--active"{% endif %}>
-                <a href="{{ link.url }}">{{ link.title }}</a>
+            <li {% if link.active %}class="site-nav--active"{% endif %}>               
+                <a href="{{ link.url | absolute_url }}">{{ link.title }}</a>
             </li>
         {% endif %}
     {% endfor %}

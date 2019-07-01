@@ -4,14 +4,14 @@
             "label": "Preis"
         },
         "pricerange": {
-            "less": "Unter {{ upper }}",
-            "between": "{{ lower }} bis {{ upper }}",
-            "greater": "{{ lower }} & Über"
+            "less": "Unter {0}",
+            "between": "{0} bis {1}",
+            "greater": "{0} & Über"
         },
         "range": {
-            "less": "Unter {{ upper }}",
-            "between": "{{ lower }} bis {{ upper }}",
-            "greater": "{{ lower }} & Oben"
+            "less": "Unter {0}",
+            "between": "{0} bis {0}",
+            "greater": "{0} & Oben"
         }
     },
     "date_formats": {
@@ -19,8 +19,8 @@
     },
     "general": {
         "meta": {
-            "tags": "Getaggt \"{{ tags }}\"",
-            "page": "Seite {{ page }}"
+            "tags": "Getaggt \"{0}\"",
+            "page": "Seite {0}"
         },
         "404": {
             "title": "404 Seite nicht gefunden",
@@ -32,21 +32,21 @@
         },
         "forms": {
             "post_error": "Tut uns leid, aber es ist ein Fehler aufgetreten. Folgendes müssten Sie bitte korrigieren und erneut übermitteln:",
-            "post_field_error_html": "<strong>{{ field }}</strong> {{ error }}"
+            "post_field_error_html": "<strong>{0}</strong> {0}"
         },
         "search": {
-            "no_results_html": "Ihre Suche nach \"{{ terms }}\" hat keine Ergebnisse hervorgebracht.",
-            "results_for_html": "Ihre Suche nach \"{{ terms }}\" hat folgende Ergebnisse hervorgebracht:",
+            "no_results_html": "Ihre Suche nach \"{0}\" hat keine Ergebnisse hervorgebracht.",
+            "results_for_html": "Ihre Suche nach \"{0}\" hat folgende Ergebnisse hervorgebracht:",
             "title": "Suchen Sie auf unserer Seite nach Produkten"
         }
     },
     "blogs": {
         "article": {
-            "author_on_date_html": "Geposted von {{ author }} am {{ date }}",
+            "author_on_date_html": "Geposted von {0} am {1}",
             "older_post": "Älterer Post",
             "newer_post": "Neuerer Post",
             "tags": "Tags",
-            "comment_meta_html": "{{ author }} am {{ date }}",
+            "comment_meta_html": "{0} am {1}",
             "read_more": "Weiterlesen",
             "share_this_post": "Diesen Post teilen"
         },
@@ -62,7 +62,7 @@
             "comments_with_count": {
                 "zero": "0 Kommentare",
                 "one": "1 Kommentar",
-                "other": "{{ count }} Kommentare"
+                "other": "{0} Kommentare"
             }
         },
         "sidebar": {
@@ -88,18 +88,18 @@
     "collections": {
         "general": {
             "no_matches": "Es tut uns leid, aber Ihre Suche nach Produkten hat keine Treffer ergeben.",
-            "link_title": "Durchsuchen Sie unsere {{ title }}-Zusammenstellung",
+            "link_title": "Durchsuchen Sie unsere {0}-Zusammenstellung",
             "items_with_count": {
                 "zero": "0 Produkte",
                 "one": "1 Produkt",
-                "other": "{{ count }} Produkte"
+                "other": "{0} Produkte"
             }
         },
         "sidebar": {
             "filters": "Filter",
             "shop_by": "Einkaufen nach",
             "all": "Alle",
-            "all_collection": "All {{ collection_title }}",
+            "all_collection": "All {0}",
             "no_tags": "Fügen Sie Ihren Produkten zum Aufbau dieser Liste Tags hinzu."
         },
         "sorting": {
@@ -181,9 +181,9 @@
             "none": "Sie haben noch keine Bestellungen aufgegeben."
         },
         "order": {
-            "title": "Bestellung {{ name }}",
-            "placed_on_date_html": "Aufgegeben am {{ date }}",
-            "cancelled_on": "Bestellung storniert am {{ date }}",
+            "title": "Bestellung {0}",
+            "placed_on_date_html": "Aufgegeben am {0}",
+            "cancelled_on": "Bestellung storniert am {0}",
             "cancel_reason": "Grund",
             "billing_address": "Rechnungsadresse",
             "payment_status": "Zahlungsstatus",
@@ -197,7 +197,7 @@
             "price": "Preis",
             "quantity": "Menge",
             "total": "Gesamt",
-            "fulfilled_on": "Geliefert am {{ date }}",
+            "fulfilled_on": "Geliefert am {0}",
             "subtotal": "Zwischensumme"
         },
         "recover_password": {
@@ -209,7 +209,7 @@
         },
         "reset_password": {
             "title": "Account-Passwort zurücksetzen",
-            "subtext": "Geben Sie ein neues Passwort für {{ email }} ein",
+            "subtext": "Geben Sie ein neues Passwort für {0} ein",
             "password": "Passwort",
             "password_confirm": "Passwort bestätigen",
             "submit": "Passwort zurücksetzen"
@@ -236,11 +236,11 @@
         "featured_collection_rows": {
             "heading": "Ausgewählte Zusammenstellung",
             "more": "Mehr",
-            "no_products_in_collection_html": "Sie haben keine Artikel in Ihrer {{ collection_title }}-Zusammenstellung.",
-            "instructions_to_add_products_to_collection_html": "Dieser Platzhalter verschwindet, wenn Sie <a href=\"{{ collection_admin_url }}\">dieser Zusammenstellung einen Artikel hinzufügen</a> oder <em>Ausgewählte Reihe 1</em> in Ihren Theme-Einstellungen deaktivieren.",
+            "no_products_in_collection_html": "Sie haben keine Artikel in Ihrer {0}-Zusammenstellung.",
+            "instructions_to_add_products_to_collection_html": "Dieser Platzhalter verschwindet, wenn Sie <a href=\"{0}\">dieser Zusammenstellung einen Artikel hinzufügen</a> oder <em>Ausgewählte Reihe 1</em> in Ihren Theme-Einstellungen deaktivieren.",
             "add_a_product": "Artikel hinzufügen",
             "example_product_title": "Beispielhafter Produkttitel",
-            "more_in_collection": "Mehr {{ collection_title }}"
+            "more_in_collection": "Mehr {0}"
         }
     },
     "layout": {
@@ -249,7 +249,7 @@
         },
         "customer": {
             "view_account": "Account ansehen",
-            "logged_in_as_html": "Eingeloggt als {{ first_name }}",
+            "logged_in_as_html": "Eingeloggt als {0}",
             "log_out": "Ausloggen",
             "sign_in": "Anmelden",
             "create_account": "Account erstellen",
@@ -265,11 +265,11 @@
         },
         "footer": {
             "theme_settings": "Theme-Einstellungen",
-            "instructions_for_linklist_html": "Wählen Sie eine Link-Liste, die hier angezeigt werden soll, in Ihren {{ theme_settings_link }} unter {{ theme_settings_footer_linklist_path }} aus.",
-            "instructions_for_text_content_html": "Fügen Sie einen Text, der hier angezeigt werden soll, in Ihren {{ theme_settings_link }} aus.",
+            "instructions_for_linklist_html": "Wählen Sie eine Link-Liste, die hier angezeigt werden soll, in Ihren {0} unter {1} aus.",
+            "instructions_for_text_content_html": "Fügen Sie einen Text, der hier angezeigt werden soll, in Ihren {0} aus.",
             "quick_links": "Quick Links",
             "get_in_touch": "Bleiben Sie in Verbindung",
-            "store_on_social_network": "{{ store_name }} auf {{ social_network }}",
+            "store_on_social_network": "{0} auf {1}",
             "newsletter_title": "Newsletter",
             "newsletter_sign_up": "Registrieren",
             "newsletter_email_placeholder": "E-Mail-Adresse"
@@ -282,23 +282,23 @@
             "share_on_pinterest": "Pin it",
             "share_on_fancy": "Fancy",
             "related_products": "Wir empfehlen außerdem",
-            "save_html": "Speichern {{ saved_amount }}"
+            "save_html": "Speichern {0}"
         },
         "product": {
             "sold_out": "Ausverkauft",
             "unavailable": "Nicht verfügbar",
-            "only_left": "Nur noch {{ count }} übrig!",
+            "only_left": "Nur noch {0} übrig!",
             "quantity": "Menge",
             "add_to_cart": "In den Einkaufswagen legen"
         }
     },
     "gift_cards": {
         "issued": {
-            "title": "Hier ist Ihre {{ value }} Geschenkkarte für {{ shop }}!",
+            "title": "Hier ist Ihre {0} Geschenkkarte für {1}!",
             "subtext": "Hier ist Ihre Geschenkkarte!",
             "disabled": "Deaktiviert",
-            "expired": "Abgelaufen am {{ expiry }}",
-            "active": "Läuft ab am {{ expiry }}",
+            "expired": "Abgelaufen am {0}",
+            "active": "Läuft ab am {0}",
             "redeem": "Nutzen Sie an der Kasse diesen Code, um Ihre Geschenkkarte einzulösen",
             "shop_link": "Einkauf beginnen",
             "print": "Drucken"

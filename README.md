@@ -83,6 +83,28 @@ Liquid is the templating engine that powers Virto Commerce templates. Go to [Liq
 
 Bundling is a technique you can use to improve request load time. Bundling improves load time by reducing the number of requests to the server (assets such as CSS and JavaScript will be combined to single file per file format).
 
+### Minification & bundling issues
+
+1. ECMAscript 6 in not supported
+
+The code
+```JavaScript
+let someVar = 1;
+```
+will produce an error during minification.
+
+2. You should always specify field name when you create an object
+
+The code
+```JavaScript
+var id = 1;
+var someObj = {id};
+```
+will result in an error during minification.
+
+3. [Issue with file naming](https://github.com/VirtoCommerce/vc-theme-default/issues/76)
+
+
 ### How bundling and minification works
 
 #### How to add bundle to layout
@@ -92,11 +114,11 @@ Bundling is a technique you can use to improve request load time. Bundling impro
 ```
   * **static_asset_url** means that this file is static content of site
   * **script_tag** or **stylesheet_tag** will generate
-    ```
+    ```HTML
     <script ... >
     ```
     or
-    ```
+    ```HTML
     <link rel="stylesheet" ... >
     ```
   * **append_version** is used to correctly invalidate browser cache for bundles. It calculate hash of file and append it as part of query string in url. Make sure that it's added after **static_content_url** (or other url filter), not after **script_tag**, **stylesheet_tag** (or other html tags).
@@ -133,6 +155,18 @@ gulp default
 ```
 manually when you need to bundle & minify theme files.
 
+### Note
+
+Each time you get theme sources from git or when you change dependencies in **bower.json**, you need to run
+```
+bower install
+```
+to build Bower dependencies and run the task  
+```
+gulp packJavaScript
+```
+that bundles 3rd party dependencies.
+
 ### Tips & tricks
 
 **Attention:** while theme including **bundlesconfig.json** file, you *must not* use [Bundler & Minifier](https://marketplace.visualstudio.com/items?itemName=MadsKristensen.BundlerMinifier) Visual Studio extension with theme. We're using gulp to bundle & minify files on theme, because it support a lot of possible customizations and has a plugins for css minification and correct source maps generation. Wrong source map generation and lack of css minification is a primary reason why we do not use Bundler & Minifier extension in Visual Studio.
@@ -150,6 +184,7 @@ The following gulp tasks available to you:
 4. **min** and **min:js**, **min:css**, **min:html**: minify all or specified types of files.
 6. **watch**: watching to any changes on bundled & configuration files and update bundles when any change occurs.
 7. **compress**: creates zip package with all needed files to deploy theme on storefront.
+8. **packJavaScript**: creates **scripts_dependencies.js** bundle for all 3rd party dependencies defined in **bower.json**.
 
 ## How to localize theme
 

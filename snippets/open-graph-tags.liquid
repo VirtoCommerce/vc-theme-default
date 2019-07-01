@@ -10,8 +10,8 @@
 {% elsif template contains 'article' %}
   <meta property="og:type" content="article">
   <meta property="og:title" content="{{ article.title | strip_html | escape }}">
-  {% assign img_tag = '<' | append: 'img' %}
-  {% if article.content contains img_tag %}
+  {% assign img_tag_str = '<' | append: 'img' %}
+  {% if article.content contains img_tag_str %}
     {% assign src = article.content | split: 'src="' %}
     {% assign src = src[1] | split: '"' | first | remove: 'https:' | remove: 'http:' %}
     {% if src %}

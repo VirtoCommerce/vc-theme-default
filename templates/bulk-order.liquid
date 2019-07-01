@@ -1,5 +1,5 @@
 <h1>{{ 'bulk_order.general.title' | t }}</h1>
-{% if form.errors %}
+{% unless form.errors.empty? %}
     <div class="note form-error">
         <p>{{ 'bulk_order.general.items_not_found_message' | t }}</p>
         <ul class="disc">
@@ -8,7 +8,7 @@
           {% endfor %}
         </ul>
     </div>
-{% endif %}
+{% endunless %}
 
 <div ng-controller="bulkOrderController" class="grid">
     <div class="grid-item two-thirds">
@@ -17,7 +17,8 @@
             <div class="grid">
                 {% for col_index in (0..1) %}
                 <div class="grid-item one-half">
-                    {% include 'bulk-order-fields-column', column_index: col_index %}
+                    {% assign column_index = col_index %}
+                    {% include 'bulk-order-fields-column' %}
                 </div>
                 {% endfor %}
             </div>

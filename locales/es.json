@@ -4,8 +4,8 @@
   },
   "general": {
     "meta": {
-      "tags": "Etiquetado \"{{ tags }}\"",
-      "page": "Página {{ page }}"
+      "tags": "Etiquetado \"{0}\"",
+      "page": "Página {0}"
     },
     "404": {
       "title": "404 Página no encontrada",
@@ -17,21 +17,21 @@
     },
     "forms": {
       "post_error": "Lo sentimos, parece que algo no salió bien. Por favor corrija lo siguiente y envíe de nuevo:",
-      "post_field_error_html": "El <strong>{{ field }}</strong> {{ error }}"
+      "post_field_error_html": "El <strong>{0}</strong> {1}"
     },
     "search": {
-      "no_results_html": "Su búsqueda de \"{{ terms }}\" no tuvo resultados.",
-      "results_for_html": "Su búsqueda de \"{{ terms }}\" muestra lo siguiente:",
+      "no_results_html": "Su búsqueda de \"{0}\" no tuvo resultados.",
+      "results_for_html": "Su búsqueda de \"{0}\" muestra lo siguiente:",
       "title": "Buscar productos en nuestro sitio"
     }
   },
   "blogs": {
     "article": {
-      "author_on_date_html": "Publicado por {{ author }} en {{ date }}",
+      "author_on_date_html": "Publicado por {0} en {1}",
       "older_post": "Publicación más antigua",
       "newer_post": "Publicación más reciente",
       "tags": "Etiquetas",
-      "comment_meta_html": "{{ author }} en {{ date }}",
+      "comment_meta_html": "{0} en {1}",
       "read_more": "Leer más",
       "share_this_post": "Compartir esta publicación"
     },
@@ -47,7 +47,7 @@
       "comments_with_count": {
         "zero": "0 comentario",
         "one": "1 comentario",
-        "other": "{{ count }} comentarios"
+        "other": "{0} comentarios"
       }
     },
     "sidebar": {
@@ -73,7 +73,7 @@
   "collections": {
     "general": {
       "no_matches": "Lo sentimos, no hay productos que coincidan con su búsqueda.",
-      "link_title": "Navegue por nuestra colección {{ title }}",
+      "link_title": "Navegue por nuestra colección {0}",
       "items": {
         "zero": "artículo",
         "one": "artículo",
@@ -82,14 +82,14 @@
       "items_with_count": {
         "zero": "0 artículo",
         "one": "1 artículo",
-        "other": "{{ count }} artículos"
+        "other": "{0} artículos"
       }
     },
     "sidebar": {
       "filters": "Filtros",
       "shop_by": "Comprar por",
       "all": "Todas",
-      "all_collection": "Todo {{ collection_title }}",
+      "all_collection": "Todo {0}",
       "no_tags": "Agregar etiquetas a sus productos para que se cree esta lista."
     },
     "sorting": {
@@ -171,9 +171,9 @@
       "none": "No ha realizado algún pedido aún."
     },
     "order": {
-      "title": "Pedido {{ name }}",
-      "placed_on_date_html": "Realizado en {{ date }}",
-      "cancelled_on": "Pedido cancelado en {{ date }}",
+      "title": "Pedido {0}",
+      "placed_on_date_html": "Realizado en {0}",
+      "cancelled_on": "Pedido cancelado en {0}",
       "cancel_reason": "Motivo",
       "billing_address": "Dirección de facturación",
       "payment_status": "Estado del pago",
@@ -187,7 +187,7 @@
       "price": "Precio",
       "quantity": "Cantidad",
       "total": "Total",
-      "fulfilled_on": "Finalizado en {{ date }}",
+      "fulfilled_on": "Finalizado en {0}",
       "subtotal": "Subtotal"
     },
     "recover_password": {
@@ -199,7 +199,7 @@
     },
     "reset_password": {
       "title": "Restablecer contraseña de cuenta",
-      "subtext": "Ingrese una nueva contraseña para {{ email }}",
+      "subtext": "Ingrese una nueva contraseña para {0}",
       "password": "Contraseña",
       "password_confirm": "Confirmar contraseña",
       "submit": "Restablecer contraseña"
@@ -226,11 +226,11 @@
     "featured_collection_rows": {
       "heading": "Colección destacada",
       "more": "Más",
-      "no_products_in_collection_html": "No tiene productos en su colección {{ collection_title }}.",
-      "instructions_to_add_products_to_collection_html": "Este marcador aparecerá hasta que <a href=\"{{ collection_admin_url }}\">agregue un producto a esta colección</a> o desactive <em>columna 1 destacada</em> en su configuración de temas.",
+      "no_products_in_collection_html": "No tiene productos en su colección {0}.",
+      "instructions_to_add_products_to_collection_html": "Este marcador aparecerá hasta que <a href=\"{0}\">agregue un producto a esta colección</a> o desactive <em>columna 1 destacada</em> en su configuración de temas.",
       "add_a_product": "Agregar un producto",
       "example_product_title": "Ejemplo título de producto",
-      "more_in_collection": "Más {{ collection_title }}"
+      "more_in_collection": "Más {0}"
     }
   },
   "layout": {
@@ -239,7 +239,7 @@
     },
     "customer": {
       "view_account": "Ver cuenta",
-      "logged_in_as_html": "Conectado como {{ first_name }}",
+      "logged_in_as_html": "Conectado como {0}",
       "log_out": "Cerrar sesión",
       "sign_in": "Registrarse",
       "create_account": "Crear una cuenta",
@@ -255,11 +255,11 @@
     },
     "footer": {
       "theme_settings": "Configuración de temas",
-      "instructions_for_linklist_html": "Seleccione una lista de enlaces para mostrar aquí en su {{ theme_settings_link }} bajo {{ theme_settings_footer_linklist_path }}.",
-      "instructions_for_text_content_html": "Agregue algún texto para mostrar aquí en su {{ theme_settings_link }}.",
+      "instructions_for_linklist_html": "Seleccione una lista de enlaces para mostrar aquí en su {0} bajo {1}.",
+      "instructions_for_text_content_html": "Agregue algún texto para mostrar aquí en su {0}.",
       "quick_links": "Enlaces rápidos",
       "get_in_touch": "Contactar",
-      "store_on_social_network": "{{ store_name }} en {{ social_network }}",
+      "store_on_social_network": "{0} en {1}",
       "newsletter_title": "Boletín",
       "newsletter_sign_up": "Registro",
       "newsletter_email_placeholder": "Dirección de correo electrónico"
@@ -272,23 +272,23 @@
       "share_on_pinterest": "Hacer pin",
       "share_on_fancy": "Fancy",
       "related_products": "También recomendamos",
-      "save_html": "Guardar {{ saved_amount }}"
+      "save_html": "Guardar {0}"
     },
     "product": {
       "sold_out": "Agotado",
       "unavailable": "No disponible",
-      "only_left": "¡Solo {{ count }} restantes!",
+      "only_left": "¡Solo {0} restantes!",
       "quantity": "Cantidad",
       "add_to_cart": "Agregar al carrito"
     }
   },
   "gift_cards": {
     "issued": {
-      "title": "¡Aquí está su tarjeta de regalo de {{ value }} para {{ shop }}!",
+      "title": "¡Aquí está su tarjeta de regalo de {0} para {1}!",
       "subtext": "¡Aquí está su tarjeta de regalo!",
       "disabled": "Inhabilitada",
-      "expired": "Expiró en {{ expiry }}",
-      "active": "Expira en {{ expiry }}",
+      "expired": "Expiró en {0}",
+      "active": "Expira en {0}",
       "redeem": "Use este código al terminar la comprar para canjear su tarjeta de regalo",
       "shop_link": "Empezar a comprar",
       "print": "Imprimir"

@@ -17,7 +17,7 @@
 							</span>
               <ul>
                 {% for store_language in shop.languages %}
-                <li {% if store_language == current_language %} class="selected" {% endif %}>
+                <li {% if store_language.culture_name == current_language.culture_name %} class="selected" {% endif %}>
                     <img alt="{{store_language.native_name}}" class="flag flag-{{store_language.two_letter_region_name | downcase}}" src="{{ 'images/blank.gif' | asset_url }}"/>
                     <a title="{{store_language.native_name}}" href="{{'/' | absolute_url : '', store_language.culture_name}}">{{store_language.native_name}}</a>
                   </li>
@@ -44,11 +44,11 @@
 					<li>
 						<div class="currency">
 							<span>
-                {{'general.settings.currency' | t }} <span class="current">{{shop.currency}}</span>
+                {{'general.settings.currency' | t }} <span class="current">{{current_currency.code}}</span>
 							</span>
 							<ul>
-								{% for currency_temp in shop.currencies %}
-								<li {% if shop.currency == currency_temp %} class="selected" {% endif %}>
+								{% for currency_temp in shop.currencies_codes %}
+								<li {% if current_currency.code == currency_temp %} class="selected" {% endif %}>
 									<a href="{{ '/common/setcurrency/' | append : currency_temp | absolute_url }}">{{currency_temp}}</a>
 								</li>
                 {% endfor %}
