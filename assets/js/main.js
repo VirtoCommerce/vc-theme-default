@@ -1,8 +1,8 @@
 var storefrontApp = angular.module('storefrontApp');
 
 
-storefrontApp.controller('mainController', ['$scope', '$location', '$window', 'customerService', 'storefrontApp.mainContext',
-    function($scope, $location, $window, customerService, mainContext) {
+storefrontApp.controller('mainController', ['$scope', '$http', '$location', '$window', 'customerService', 'storefrontApp.mainContext',
+    function($scope, $http, $location, $window, customerService, mainContext) {
 
         //Base store url populated in layout and can be used for construction url inside controller
         $scope.baseUrl = {};
@@ -14,6 +14,10 @@ storefrontApp.controller('mainController', ['$scope', '$location', '$window', 'c
         $scope.$on('storefrontError', function(event, data) {
             $scope.storefrontNotification = data;
             $scope.storefrontNotification.detailsVisible = false;
+        });
+
+        $scope.$on('changeStore', function () {
+            $http.get('account/logout');
         });
 
         $scope.toggleNotificationDetails = function() {
