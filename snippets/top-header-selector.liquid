@@ -33,9 +33,9 @@
 							</span>
 							<ul>
                 {% for store_temp in all_stores %}
-                <li {% if currentStore.id == store_temp.id %} class="selected" {% endif %}>
-									<a href="{{'/' | store_absolute_url : store_temp.id, current_language.culture_name}}">{{store_temp.name}}</a>
-								</li>
+                <li {% if current_store.id == store_temp.id %} class="selected" {% endif %}>
+					<a href="{{'/' | store_absolute_url : store_temp.id, current_language.culture_name}}" {% if current_store.id != store_temp.id %} ng-click="$emit('changeStore')" {% endif %}>{{store_temp.name}}</a>
+				</li>
                 {% endfor %}
               </ul>
 						</div>
