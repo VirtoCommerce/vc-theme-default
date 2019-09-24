@@ -1,19 +1,20 @@
 {% assign number_of_products = 5 %}
-{% if product.related_products.size > 0 %}
+{% assign associations = product.associations %}
+{% if associations.size > 0 %}
     <hr />
     <span class="h1">{{ 'products.general.related_products' | t }}</span>
-    <div class="grid-uniform" ng-controller="productListController">
-        {% for related_product in product.related_products limit: number_of_products %}
-            {% assign product =  related_product %}
+    <div class="grid-uniform">
+        {% for association in associations limit: number_of_products %}
+            {% assign product = association.product %}
             {% include 'product-grid-item' %}
         {% endfor %}
         <script>
             window.productList = [];
-            {% for related_product in product.related_products limit: number_of_products %}
+            {% for association in associations limit: number_of_products %}
                 window.productList.push({
-                    id: "{{ related_product.id }}",
-                    catalogId: "{{ related_product.catalog_id }}",
-                    categoryId: "{{ related_product.category_id }}"
+                    id: "{{ association.product.id }}",
+                    catalogId: "{{ association.product.catalog_id }}",
+                    categoryId: "{{ association.product.category_id }}"
                 });
             {% endfor %}
         </script>
