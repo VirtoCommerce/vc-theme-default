@@ -1,5 +1,4 @@
-angular.module('storefront.account')
-.component('vcAccountPasswordChange', {
+angular.module('storefront.account').component('vcAccountPasswordChange', {
     templateUrl: "themes/assets/js/account/account-password-change.tpl.liquid",
     require: {
         accountManager: '^vcAccountManager'
@@ -21,8 +20,8 @@ angular.module('storefront.account')
             hasError = hasError || errorMsg;
 
             if (!hasError) {
-                errorMsg = ctrl.passwordChangeData.newPassword !== ctrl.passwordChangeData.newPassword2;
-                ctrl.error.newPassword2 = errorMsg;
+                errorMsg = ctrl.passwordChangeData.newPassword !== ctrl.passwordChangeData.newPasswordConfirm;
+                ctrl.error.newPasswordConfirm = errorMsg;
                 hasError = hasError || errorMsg;
             }
 
@@ -35,6 +34,8 @@ angular.module('storefront.account')
             }
         };
 
-        ctrl.setForm = function (frm) { ctrl.form = frm; };
+        ctrl.setForm = function (frm) {
+            ctrl.form = frm;
+        };
     }]
 });
