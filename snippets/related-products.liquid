@@ -31,10 +31,10 @@
       {% endfor %}
     {% endif %}
 
-    {% if collection and collection.products_count > 1 %}
+    {% if collection and collection.products.size > 1 %}
       <hr>
       <span class="h1">{{ 'products.general.related_products' | t }}</span>
-      <div class="grid-uniform" ng-controller="productListController">
+      <div class="grid-uniform">
         {% assign current_product = product %}
         {% assign current_product_found = false %}
         {% for product in collection.products limit: number_of_products_to_fetch %}
