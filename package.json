@@ -1,5 +1,5 @@
 {
-    "version": "1.3.2",
+    "version": "2.0.3",
     "name": "vc-theme-default",
     "author": "VirtoCommerce",
     "description": "Default theme for Storefront",
@@ -40,9 +40,9 @@
         "gulp-filter": "^4.0.0",
         "gulp-htmlmin": "^3.0.0",
         "gulp-image": "^2.7.2",
-        "gulp-inject": "^4.1.0",
+        "gulp-inject": "^4.3.2",
         "gulp-postcss": "^7.0.0",
-        "gulp-rename": "^1.2.2",
+        "gulp-rename": "^1.4.0",
         "gulp-replace": "^0.5.4",
         "gulp-sass": "^3.1.0",
         "gulp-sourcemaps": "^2.6.0",
@@ -70,5 +70,7 @@
     "bugs": {
         "url": "https://github.com/VirtoCommerce/vc-theme-default/issues"
     },
-    "scripts": {}
+    "scripts": {
+        "postinstall": "node_modules/.bin/bower install --force-latest"
+    }
 }

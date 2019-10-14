@@ -7,7 +7,7 @@ angular.module('storefront.account')
     require: {
         accountManager: '^vcAccountManager'
     },
-    controller: ['storefrontApp.mainContext', '$scope', 'loadingIndicatorService', function (mainContext, $scope, loader) {
+    controller: ['storefrontApp.mainContext', '$scope', '$window', 'loadingIndicatorService', function (mainContext, $scope, $window, loader) {
         var $ctrl = this;
         $ctrl.loader = loader;
         
@@ -23,8 +23,11 @@ angular.module('storefront.account')
                     {
                         firstName: customer.firstName,
                         lastName: customer.lastName,
+                        fullName: customer.firstName + ' ' + customer.lastName,
                         email: customer.email
                     };
+                    $ctrl.phoneNumber = customer.phoneNumber;
+                    $ctrl.twoFactorEnabled = customer.twoFactorEnabled;
                 }
             });
 
@@ -32,5 +35,40 @@ angular.module('storefront.account')
             // no validation
             $ctrl.accountManager.updateProfile($ctrl.changeData);
         };
+
+        $ctrl.updatePhoneNumber = function () {
+            $ctrl.accountManager
+                .updatePhoneNumber($ctrl.phoneNumber)
+                .then(function (result) {
+                    if (!result.succeeded) {
+                        $ctrl.phoneNumber = null;
+                    }
+                });
+        };
+
+        $ctrl.deletePhoneNumber = function () {
+            $ctrl.accountManager.deletePhoneNumber().then(function (result) {
+                if (result.succeeded) {
+                    $ctrl.phoneNumber = null;
+                }
+            });
+        };
+
+        $ctrl.toggleTwoFactorAuth = function () {
+
+            var toogledTwoFactorEnabledValue = !$ctrl.twoFactorEnabled;
+
+            $ctrl.accountManager
+                .changeTwoFactorAuth(toogledTwoFactorEnabledValue)
+                .then(function (result) {
+                    if (!result.succeeded && result.verificationUrl) {
+                        $window.location.href = result.verificationUrl;
+                    }
+                    if (result.succeeded) {
+                        $ctrl.twoFactorEnabled = toogledTwoFactorEnabledValue;
+                    }
+                });
+        };
+
     }]
 });

@@ -12,7 +12,7 @@
                 <div class="item" ng-repeat="product in productSearchResult" ng-if="productSearchResult.length" ng-click="selectSearchedProduct(product)">
                     <div class="item-img">
                         <div class="no-product-image" ng-if="!product.images || !product.images.length">
-                            <img src="{{ 'no-image.svg' | asset_url }}" />
+                            <img src="{{ 'images/no-image.svg' | asset_url }}" />
                         </div>
                         <img ng-src="{{ product.images[0].url }}" ng-if="product.images && product.images.length" />
                     </div>

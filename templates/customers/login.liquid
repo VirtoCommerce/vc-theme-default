@@ -9,31 +9,31 @@
         <a class="btn" href="{{ external_login_url | absolute_url }}">{{ login_provider.caption }}</a>
         {% endfor %}
 
-        {% form 'customer_login' %}
+        <form accept-charset="UTF-8" action="{{ '~/account/login' | absolute_url }}" method="post" id="customer_login" name="customer_login">
 
-        <h1>{{ 'customer.login.title' | t }}</h1>
+            <h1>{{ 'customer.login.title' | t }}</h1>
 
-        {% include 'form-errors-custom' %}
+            {% include 'form-errors-custom' %}
 
-        <label for="customer_email" class="hidden-label">{{ 'customer.login.email' | t }}</label>
-        <input type="text" value="" name="customer[user_name]" id="customer_user_name" placeholder="{{ 'customer.login.user_name' | t }}" {% if form.errors contains "user_name" %} class="error" {% endif %} autocorrect="off" autocapitalize="off" autofocus>
+            <label for="customer_email" class="hidden-label">{{ 'customer.login.email' | t }}</label>
+            <input type="text" value="" name="customer[user_name]" id="customer_user_name" placeholder="{{ 'customer.login.user_name' | t }}" {% if form.errors contains 'user_name' %} class="error" {% endif %} autocorrect="off" autocapitalize="off" autofocus>
 
-        <label for="customer_password" class="hidden-label">{{ 'customer.login.password' | t }}</label>
-        <input type="password" value="" name="customer[password]" id="customer_password" placeholder="{{ 'customer.login.password' | t }}" {% if form.errors contains "password" %} class="error" {% endif %}>
+            <label for="customer_password" class="hidden-label">{{ 'customer.login.password' | t }}</label>
+            <input type="password" value="" name="customer[password]" id="customer_password" placeholder="{{ 'customer.login.password' | t }}" {% if form.errors contains 'password' %} class="error" {% endif %}>
 
-        <p>
-            <a href="{{ '/account/forgotlogin' | absolute_url }}">{{ 'customer.login.forgot_login' | t }}</a>
-        </p>
-        <p>
-            <a href="{{ '/account/forgotpassword' | absolute_url }}">{{ 'customer.login.forgot_password' | t }}</a>
-        </p>
+            <p>
+                <a href="{{ '/account/forgotlogin' | absolute_url }}">{{ 'customer.login.forgot_login' | t }}</a>
+            </p>
+            <p>
+                <a href="{{ '/account/forgotpassword' | absolute_url }}">{{ 'customer.login.forgot_password' | t }}</a>
+            </p>
 
-        <p>
-            <input type="submit" class="btn" value="{{ 'customer.login.sign_in' | t }}">
-        </p>
-        {{ 'common.or' | t }} <a href="{{ '/' | absolute_url }}">{{ 'customer.login.cancel' | t }}</a>
-
-        {% endform %}
+            <p>
+                <input type="submit" class="btn" value="{{ 'customer.login.sign_in' | t }}">
+            </p>
+            {{ 'common.or' | t }} <a href="{{ '/' | absolute_url }}">{{ 'customer.login.cancel' | t }}</a>
+            {{ antiforgery }}
+        </form>
 
 
         {% if shop.checkout.guest_login %}

@@ -1,4 +1,5 @@
 {% include 'breadcrumb' %}
+
 <div class="grid" itemscope itemtype="http://schema.org/Product" ng-controller="productController" ng-init='initAvailableLists({{ settings.lists | json }})'>
     <meta itemprop="url" content="{{ product.url | absolute_url}}">
     <meta itemprop="image" content="{{ product.featured_image.src | img_url }}">
@@ -44,10 +45,11 @@
 
             <ul class="inline-list product-meta">
                 <li ng-if="!selectedVariation.id">
-                    {% if product.compare_at_price > product.price %}
+                    {% if product.compare_at_price.amount > product.price.actual_price.amount %}
                     {% if settings.show_prices_with_taxes %}
                     <span class="old">
-                        {% include 'price' with variant.compare_at_price_with_tax %}
+                        {% assign price = variant.compare_at_price_with_tax %}
+                        {% include 'price' %}
                     </span>
                     <span id="comparePrice" class="sale-tag large">
                         {% assign compare_price = variant.compare_at_price_with_tax %}
@@ -56,7 +58,8 @@
                     </span>
                     {% else %}
                     <span class="old">
-                        {% include 'price' with variant.compare_at_price %}
+                        {% assign price = variant.compare_at_price %}
+                        {% include 'price'  %}
                     </span>
                     <span id="comparePrice" class="sale-tag large">
                         {% assign compare_price = variant.compare_at_price %}
@@ -67,9 +70,11 @@
                     {% endif %}
                     <span id="productPrice" class="h1">
                         {% if settings.show_prices_with_taxes %}
-                        {% include 'price' with variant.price_with_tax %}
+                            {% assign price = variant.price_with_tax %}
+                            {% include 'price' %}
                         {% else %}
-                        {% include 'price' with variant.price %}
+                            {% assign price = variant.price %}
+                            {% include 'price' %}
                         {% endif %}
                     </span>
                 </li>
@@ -79,7 +84,7 @@
                     <span ng-if="selectedVariation.price.discountAmountWithTax.amount > 0" class="old">
                         <small ng-bind="selectedVariation.price.listPriceWithTax.formattedAmount"></small>
                     </span>
-                    <span ng-if="selectedVariation.price.discountAmountWithTax.amount > 0" id="comparePrice" class="sale-tag large" ng-bind="'{{ 'products.general.save_html' | t }}' + selectedVariation.price.discountAmountWithTax.formattedAmount">
+                    <span ng-if="selectedVariation.price.discountAmountWithTax.amount > 0" id="comparePrice" class="sale-tag large" ng-bind="'{{ 'products.general.save_html' | t: selectedVariation.price.discountAmountWithTax.formattedAmount }}' + selectedVariation.price.discountAmountWithTax.formattedAmount">
                     </span>
                     <span id="productPrice" class="h1">
                         <small ng-bind="selectedVariation.price.actualPriceWithTax.formattedAmount"></small>
@@ -89,7 +94,7 @@
                     <span ng-if="selectedVariation.price.discountAmount.amount > 0" class="old">
                         <small ng-bind="selectedVariation.price.listPrice.formattedAmount"></small>
                     </span>
-                    <span ng-if="selectedVariation.price.discountAmount.amount > 0" id="comparePrice" class="sale-tag large" ng-bind="'{{ 'products.general.save_html' | t }}' + selectedVariation.price.discountAmount.formattedAmount">
+                    <span ng-if="selectedVariation.price.discountAmount.amount > 0" id="comparePrice" class="sale-tag large" ng-bind="'{{ 'products.general.save_html' | t: selectedVariation.price.discountAmount.formattedAmount }}' + selectedVariation.price.discountAmount.formattedAmount">
                     </span>
                     <span id="productPrice" class="h1">
                         <small ng-bind="selectedVariation.price.actualPrice.formattedAmount"></small>
@@ -204,7 +209,7 @@
                     <img id="productPhotoImg" fallback-src="{% raw %}{{selectedVariation.primaryImage.url}}{% endraw %}" ng-src="{% raw %}{{selectedVariation.primaryImage.url|imgurl:'348x348'}}{% endraw %}" alt="{% raw %}{{ selectedVariation.primaryImage.alt }}{% endraw %}" ng-if="selectedVariation.primaryImage">
 
                     <div class="no-product-image" ng-if="!selectedVariation.primaryImage">
-                        <img src="{{ 'no-image.svg' | asset_url }}" />
+                        <img src="{{ 'images/no-image.svg' | asset_url }}" />
                     </div>
                 </div>
                 <ul ng-if="selectedVariation.images.length > 0" class="product-photo-thumbs grid-uniform" id="productThumbs">

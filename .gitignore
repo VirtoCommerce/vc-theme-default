@@ -163,5 +163,5 @@ artifacts*
 
 node_modules
 bower_components
-
 config/drafts/
+assets/static/*/**

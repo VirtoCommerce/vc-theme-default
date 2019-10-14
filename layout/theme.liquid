@@ -6,11 +6,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     {% if settings.favicon_enable %}
-    <link rel="shortcut icon" href="{{ 'favicon.png' | asset_url }}" type="image/png" />
+    <link rel="shortcut icon" href="{{ 'images/favicon.png' | asset_url }}" type="image/png" />
     {% endif %}
 
     <title>
-        {{ page_title }}{% if current_tags %}{% include 'tags-joined', separator: ', ', escape: true %} - {{ 'general.meta.tags' | t: tags: current_tags_joined }}{% endif %}{% if current_page != 1 %} - {{ 'general.meta.page' | t: page: current_page }}{% endif %}{% unless page_title contains shop.name %} - {{ shop.name }}{% endunless %}
+        {{ page_title }}
+        {% if current_tags.empty? == false  %}
+           {% include 'tags-joined' %}
+             - {{ 'general.meta.tags' | t: current_tags_joined }}
+        {% endif %}
+        {% if page_mumber != 1 %}
+            - {{ 'general.meta.page' | t: page_mumber }}
+        {% endif %}
+        {% unless page_title contains shop.name %}
+           - {{ shop.name }}
+        {% endunless %}
     </title>
     {% if page_description %}
     <meta name="description" content="{{ page_description | escape }}" />
@@ -56,8 +66,8 @@
     {% include 'top-header-selector' %}
     {% endif %}
     <header class="site-header" role="banner">
-        <div class="wrapper">
-            <div class="grid--full">
+    <div class="wrapper">
+        <div class="grid--full">
                 <div class="grid-item large--one-third">
                     {% if template == 'index' %}
                     <h1 class="header-logo" itemscope itemtype="http://schema.org/Organization">
@@ -66,42 +76,25 @@
                             {% endif %}
                             {% if settings.logo_use_image %}
                             <a href="{{ '/' | absolute_url }}" itemprop="url">
-                                <img alt="{{ shop.name }}" src="{{ 'logo.png' | asset_url }}" itemprop="logo" />
+                                <img alt="{{ shop.name }}" src="{{ 'images/logo.png' | asset_url }}" itemprop="logo" />
                             </a>
                             {% else %}
                             <a href="{{ '/' | absolute_url }}" itemprop="url">{{ shop.name }}</a>
                             {% endif %}
-                            {% if template == 'index' %}
+                    {% if template == 'index' %}
                     </h1>
-                    {% else %}
-                </div>
-                {% endif %}
-            </div>
-            <div class="grid-item large--two-third text-center large--text-right">
-                {% if settings.header_message != blank or shop.customer_accounts_enabled %}
-                <div class="site-header--text-links{% if settings.header_message == blank %} medium-down--hide{% endif %}">
-                    {% if settings.header_message != blank %}
-                    {{ settings.header_message }}
-                    {% endif %}
-                    {% comment %}
-                    {% if shop.customer_accounts_enabled %}
-                    <span class="site-header--meta-links medium-down--hide">
-                        {% if customer %}
-                        {% capture first_name %}
-                        <a href="{{ '/account' | absolute_url }}">{{ customer.first_name }}</a>
-                        {% endcapture %}
-                        {{ 'layout.customer.logged_in_as_html' | t: first_name: first_name }} &middot; {{ 'layout.customer.log_out' | t | customer_logout_link }}
                         {% else %}
-                        {{ 'layout.customer.sign_in' | t | customer_login_link }}
-                        {% if shop.customer_accounts_optional %}
-                        <span class="site-header--spacer">{{ 'common.or' | t }}</span>
-                        {{ 'layout.customer.create_account' | t | customer_register_link }}
-                        {% endif %}
-                        {% endif %}
-                    </span>
+                        </div>
+                            {% endif %} 
+                </div>                           
+            
+            <div class="grid-item large--two-third text-center large--text-right">
+                
+                <div class="site-header--text-links{% if settings.header_message.empty? == false %} medium-down--hide{% endif %}">
+                    {% if settings.header_message.empty? == false %}
+                      {{ settings.header_message }}
                     {% endif %}
-                    {% endcomment %}
-
+                    
                     <span class="site-header--meta-links medium-down--hide">
                         <span ng-if="customer && customer.isRegisteredUser && customer.operatorUserName" ng-cloak>
                             {{ 'layout.customer.logged_in_on_behalf_of_label' | t }} <a href="{{ 'account' | absolute_url }}" ng-bind="customer.firstName || customer.userName"></a> &middot; {{ 'layout.customer.log_out' | t | customer_logout_link }}
@@ -118,7 +111,7 @@
 
                 </div>
                 <br class="medium-down--hide" />
-                {% endif %}
+                
                 {% include 'search-bar' %}
                 {% if settings.product_compare_enabled %}
                 <product-compare-list-bar></product-compare-list-bar>
@@ -135,6 +128,7 @@
                 </a>
             </div>
         </div>
+    </div>
     </header>
     <nav class="nav-bar" role="navigation">
         <div class="wrapper">

@@ -4,14 +4,14 @@
             "label": "Price"
         },
         "pricerange": {
-            "less": "Under {{ upper }}",
-            "between": "{{ lower }} to {{ upper }}",
-            "greater": "{{ lower }} & Above"
+            "less": "Under {0}",
+            "between": "{0} to {1}",
+            "greater": "{0} & Above"
         },
         "range": {
-            "less": "Under {{ upper }}",
-            "between": "{{ lower }} to {{ upper }}",
-            "greater": "{{ lower }} & Up"
+            "less": "Under {0}",
+            "between": "{0} to {0}",
+            "greater": "{0} & Up"
         }
     },
     "common": {
@@ -74,7 +74,7 @@
         "customer_information": {
             "title": "Customer information",
             "email": "Email",
-            "email_suggestion_text": "Did you mean <a href=\"{{ email }}\"></a>?",
+            "email_suggestion_text": "Did you mean <a href=\"{0}\"></a>?",
             "has_account_text": "Already have an account with us?",
             "log_in": "Log in",
             "save_information_text": "Save this information for faster checkout next time",
@@ -133,7 +133,7 @@
         }
     },
     "date_formats": {
-        "month_day_year": "%b %d, %Y"
+        "month_day_year": "MMM d, y"
     },
     "notification": {
         "error_title": "Ooops! An error is occured!",
@@ -144,8 +144,8 @@
     "general": {
         "loading": "Working...",
         "meta": {
-            "tags": "Tagged \"{{ tags }}\"",
-            "page": "Page {{ page }}"
+            "tags": "Tagged \"{0}\"",
+            "page": "Page {0}"
         },
         "404": {
             "title": "404 Page Not Found",
@@ -157,11 +157,11 @@
         },
         "forms": {
             "post_error": "Sorry, looks like something went wrong. Please correct the following and submit again:",
-            "post_field_error_html": "The <strong>{{ field }}</strong> {{ error }}"
+            "post_field_error_html": "The <strong>{0}</strong> {1}"
         },
         "search": {
-            "no_results_html": "Your search for \"{{ terms }}\" did not yield any results.",
-            "results_for_html": "Your search for \"{{ terms }}\" revealed the following:",
+            "no_results_html": "Your search for \"{0}\" did not yield any results.",
+            "results_for_html": "Your search for \"{0}\" revealed the following:",
             "title": "Search for products on our site"
         },
         "settings": {
@@ -172,11 +172,11 @@
     },
     "blogs": {
         "article": {
-            "author_on_date_html": "Posted by {{ author }} on {{ date }}",
+            "author_on_date_html": "Posted by {0} on {1}",
             "older_post": "Older Post",
             "newer_post": "Newer Post",
             "tags": "Tags",
-            "comment_meta_html": "{{ author }} on {{ date }}",
+            "comment_meta_html": "{0} on {1}",
             "read_more": "Read more",
             "share_this_post": "Share this post"
         },
@@ -192,7 +192,7 @@
             "comments_with_count": {
                 "zero": "0 comment",
                 "one": "1 comment",
-                "other": "{{ count }} comments"
+                "other": "{0} comments"
             }
         },
         "sidebar": {
@@ -244,7 +244,7 @@
     "wishlist": {
         "general": {
             "title": "Lists",
-            "my_lists":  "Private lists",
+            "my_lists": "Private lists",
             "friends_lists": "Friends lists",
             "select_list": "Please select list",
             "remove": "Remove",
@@ -342,18 +342,18 @@
     "collections": {
         "general": {
             "no_matches": "Sorry, there are no products matching your search.",
-            "link_title": "Browse our {{ title }} collection",
+            "link_title": "Browse our {0} collection",
             "items_with_count": {
                 "zero": "0 item",
                 "one": "1 item",
-                "other": "{{ count }} items"
+                "other": "{0} items"
             }
         },
         "sidebar": {
             "filters": "Filters",
             "shop_by": "Shop By",
             "all": "All",
-            "all_collection": "All {{ collection_title }}",
+            "all_collection": "All {0}",
             "no_tags": "Add tags to your products for this list to build itself."
         },
         "sorting": {
@@ -439,9 +439,8 @@
             "zip_valid": "Please enter your postal code",
             "shipping_address": "Shipping address",
             "same_address": "Shipping address is same as billing address",
-            "select_your": "Please select your"
-
-
+            "select_your": "Please select your",
+            "new_phone": "Add a phone number"
         },
         "login": {
             "title": "Login",
@@ -466,10 +465,10 @@
             "none": "You haven't placed any orders yet."
         },
         "order": {
-            "title": "Order {{ name }}",
+            "title": "Order {0}",
             "get_invoice": "Get invoice",
-            "placed_on_date_html": "Placed on {{ date }}",
-            "cancelled_on": "Order Cancelled on {{ date }}",
+            "placed_on_date_html": "Placed on {0}",
+            "cancelled_on": "Order Cancelled on {0}",
             "cancel_reason": "Reason",
             "billing_address": "Billing Address",
             "payment_status": "Payment Status",
@@ -486,7 +485,7 @@
             "price": "Price",
             "quantity": "Quantity",
             "total": "Total",
-            "fulfilled_on": "Fulfilled on {{ date }}",
+            "fulfilled_on": "Fulfilled on {0}",
             "subtotal": "Subtotal",
             "status": {
                 "unpaid": "Unpaid",
@@ -532,12 +531,12 @@
             }
         },
         "subscription": {
-            "title": "Subscription {{ number }}",
-            "placed_on_date_html": "Placed on {{ date }}",
-            "cancelled_on": "Subscription was canceled on {{ date | date: 'medium'}}",
+            "title": "Subscription {0}",
+            "placed_on_date_html": "Placed on {0}",
+            "cancelled_on": "Subscription was canceled on {0}",
             "cancel_reason": "Reason",
-            "details-sentence_": "Subscription shipping every {{intervalCount}} {{interval}} from {{createdDate | date }} until {{endDate | date }}. Next billing on {{currentPeriodEnd | date }}.",
-            "details-sentence": "Subscription shipping every {{intervalCount}} {{interval}} from {{createdDate | date }}. Next billing on {{currentPeriodEnd | date }}.",
+            "details-sentence_": "Subscription shipping every {0} {1} from {2} until {3}. Next billing on {4}.",
+            "details-sentence": "Subscription shipping every {0} {1} from {2}. Next billing on {3}.",
             "details-sentence1": "Subscription shipping every 20 days from Nov 22, 2016. Next billing on Dec 31, 2016.",
             "details-sentence2": "Subscription shipping every 2 weeks from Nov 22, 2016 until Nov 21, 2017. Next billing on Dec 31, 2016.",
             "shipping_address": "Shipping Address",
@@ -568,24 +567,35 @@
             "status": "Status"
         },
         "quote": {
-            "title": "Quote request {{ number }}",
+            "title": "Quote request {0}",
             "comment": "About this quote:",
             "date": "Quote request date:",
             "status": "Quote status:"
         },
         "recover_password": {
             "title": "Reset your password",
-            "email": "Email",
+            "email_or_login": "Email or Login",
             "submit": "Submit",
             "cancel": "Cancel",
-            "subtext": "We will send you an email to reset your password."
+            "subtext": "We will send you an email or sms to reset your password."
         },
         "reset_password": {
             "title": "Reset account password",
-            "subtext": "Enter a new password for {{ email }}",
+            "subtext": "Enter a new password",
             "password": "Password",
             "password_confirm": "Confirm Password",
             "submit": "Reset Password"
+        },
+        "forgot_password_code": {
+            "title": "Send verification code",
+            "subtext": "Enter verification code sent to you by sms",
+            "label": {
+                "code": "Code"
+            },
+            "placeholder": {
+                "enter_code": "Enter verification code here"
+            },
+            "submit": "Send code"
         },
         "register": {
             "title": "Create Account",
@@ -597,13 +607,20 @@
             "submit": "Create",
             "cancel": "Return to Store"
         },
+        "phone_number": {
+            "manage": "Edit you phone number"
+        },
         "edit_profile": {
             "title": "Edit Profile",
             "first_name": "First Name",
             "last_name": "Last Name",
             "email": "Email",
             "submit": "Update",
-            "cancel": "Cancel"
+            "cancel": "Cancel",
+            "add": "Add",
+            "edit": "Edit",
+            "delete": "Delete",
+            "two_factor_auth": "Enable two factor authentication"
         },
         "change_password": {
             "title": "Change Password",
@@ -624,7 +641,7 @@
         },
         "recover_login": {
             "title": "Forgot your user name",
-            "subtile": "Fill out this form to recover your user name",
+            "subtitle": "Fill out this form to recover your user name",
             "email": "Email",
             "submit": "Submit",
             "success": "An email with your user name has been sent to your address."
@@ -641,11 +658,11 @@
         "featured_collection_rows": {
             "heading": "Featured Collection",
             "more": "More",
-            "no_products_in_collection_html": "You have no products in your {{ collection_title }} collection.",
-            "instructions_to_add_products_to_collection_html": "This placeholder will appear until you <a href=\"{{ collection_admin_url }}\">add a product to this collection</a> or disable <em>Featured Row 1</em> in your theme settings.",
+            "no_products_in_collection_html": "You have no products in your {0} collection.",
+            "instructions_to_add_products_to_collection_html": "This placeholder will appear until you <a href=\"{0}\">add a product to this collection</a> or disable <em>Featured Row 1</em> in your theme settings.",
             "add_a_product": "Add a Product",
             "example_product_title": "Example Product Title",
-            "more_in_collection": "More {{ collection_title }}"
+            "more_in_collection": "More {0}"
         }
     },
     "layout": {
@@ -657,9 +674,9 @@
         },
         "customer": {
             "view_account": "View Account",
-            "logged_in_as_html": "Logged in as {{ first_name }}",
+            "logged_in_as_html": "Logged in as {0}",
             "logged_in_as_label": "Logged in as",
-            "logged_in_on_behalf_of_html": "Logged in on behalf of {{ first_name }}",
+            "logged_in_on_behalf_of_html": "Logged in on behalf of {0}",
             "logged_in_on_behalf_of_label": "Logged in on behalf of",
             "log_out": "Log out",
             "sign_in": "Sign in",
@@ -675,11 +692,11 @@
         },
         "footer": {
             "theme_settings": "Theme Settings",
-            "instructions_for_linklist_html": "Pick a link list to show here in your {{ theme_settings_link }} under {{ theme_settings_footer_linklist_path }}.",
-            "instructions_for_text_content_html": "Add some text to show here in your {{ theme_settings_link }}.",
+            "instructions_for_linklist_html": "Pick a link list to show here in your {0} under {1}.",
+            "instructions_for_text_content_html": "Add some text to show here in your {0}.",
             "quick_links": "Quick Links",
             "get_in_touch": "Get In Touch",
-            "store_on_social_network": "{{ store_name }} on {{ social_network }}",
+            "store_on_social_network": "{0} on {1}",
             "newsletter_title": "Newsletter",
             "newsletter_sign_up": "Sign Up",
             "newsletter_email_placeholder": "Email Address",
@@ -699,14 +716,14 @@
             "share_on_pinterest": "Pin it",
             "share_on_fancy": "Fancy",
             "related_products": "We Also Recommend",
-            "save_html": "Save {{ saved_amount }}",
+            "save_html": "Save {0}",
             "add_to_cart": "Add to cart",
             "add_to_quote": "Add to quote"
         },
         "product": {
             "sold_out": "Sold Out",
             "unavailable": "Unavailable",
-            "only_left": "Only {{ count }} left!",
+            "only_left": "Only {0} left!",
             "quantity": "Quantity",
             "add_to_cart": "Add to Cart",
             "details_tab": "Product details",
@@ -722,10 +739,10 @@
             "removed_from_list_dialog_header": "Product is removed from compare list",
             "go_to_compare_list": "Go to compare list",
             "continue_shopping": "Continue shopping",
-            "capacity_exceeded_header": "You may compare up to {{ capacity }} items at a time.",
+            "capacity_exceeded_header": "You may compare up to {0} items at a time.",
             "capacity_exceeded_message": "Would you like to compare the first four items you selected?",
             "compare_list_empty_header": "Your product compare list is currently empty",
-            "compare_list_empty_body": "Continue browsing <a href=\"{{ url }}\">here</a>.",
+            "compare_list_empty_body": "Continue browsing <a href=\"{0}\">here</a>.",
             "show_only_differences": "Show only differences",
             "clear_compare_list": "Clear product compare list",
             "remove": "Remove",
@@ -737,11 +754,11 @@
     },
     "gift_cards": {
         "issued": {
-            "title": "Here's your {{ value }} gift card for {{ shop }}!",
+            "title": "Here's your {0} gift card for {1}!",
             "subtext": "Here's your gift card!",
             "disabled": "Disabled",
-            "expired": "Expired on {{ expiry }}",
-            "active": "Expires on {{ expiry }}",
+            "expired": "Expired on {0}",
+            "active": "Expires on {0}",
             "redeem": "Use this code at checkout to redeem your gift card",
             "shop_link": "Start shopping",
             "left": "left"
@@ -782,7 +799,8 @@
             "two_factor_auth": "Select Two-Factor Authentication Provider:",
             "submit": "Submit",
             "label": {
-                "code": "Code"
+                "code": "Code",
+                "checkbox": "Remember this device"
             },
             "placeholder": {
                 "enter_code": "Enter verification code here"
@@ -793,6 +811,46 @@
         "close": "Close",
         "close_cart": "Close Cart",
         "countinue_shop": "Continue shopping"
-
+    },
+    "error": {
+        "default_error": "An unknown failure has occurred.",
+        "duplicate_email": "Email is already taken.",
+        "duplicate_role_name": "Role name is already taken.",
+        "duplicate_user_name": "User name is already taken.",
+        "invalid_email": "Email is invalid.",
+        "invalid_password_hasher_compatibility_mode": "The provided PasswordHasherCompatibilityMode is invalid.",
+        "invalid_password_hasher_iteration_count": "The iteration count must be a positive integer.",
+        "invalid_role_name": "Role name is invalid.",
+        "invalid_token": "Invalid token.",
+        "invalid_user_name": "User name is invalid, can only contain letters or digits.",
+        "login_already_associated": "A user with this login already exists.",
+        "password_mismatch": "Incorrect password.",
+        "password_requires_digit": "Passwords must have at least one digit ('0'-'9').",
+        "password_requires_lower": "Passwords must have at least one lowercase ('a'-'z').",
+        "password_requires_non_alphanumeric": "Passwords must have at least one non alphanumeric character.",
+        "password_requires_unique_chars": "Passwords must use different characters.",
+        "password_requires_upper": "Passwords must have at least one uppercase ('A'-'Z').",
+        "password_too_short": "Passwords are too short.",
+        "user_already_has_password": "User already has a password set.",
+        "user_already_in_role": "User already in role specified.",
+        "user_locked_out": "User is locked out.",
+        "user_lockout_not_enabled": "Lockout is not enabled for this user.",
+        "user_name_not_found": "User does not exist.",
+        "login_failed": "Login attempt failed.",
+        "user_not_found": "User not found.",
+        "user_cannot_login_in_store": "User cannot login to current store.",
+        "account_is_blocked": "Account is blocked.",
+        "operation_failed": "Operation failed.",
+        "reset_password_is_turned_off": "Reset password by code is turned off.",
+        "invalid_url": "Url is invalid",
+        "reset_password_invalid_data": "Reset password data is invalid.",
+        "password_and_confirm_password_does_not_match": "Password and Confirm password doesn't match.",
+        "invitation_has_already_been_used": "Invitation has already been used.",
+        "customer_user_name": "User name is required",
+        "customer_password": "Password is invalid or required.",
+        "customer_password_confirmation": "Password confirmation is invalid or required",
+        "customer_token": "Code is invalid or required",
+        "customer_email": "Email is invalid or required"
+       
     }
 }

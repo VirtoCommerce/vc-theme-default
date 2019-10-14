@@ -81,7 +81,6 @@ angular.module('storefront.account')
                             }).then(function (response) {
                                 $ctrl.accountLists.lists = response.data.results;
                                 $ctrl.pageSettings.totalItems = response.data.totalCount;
-
                                 $ctrl.accountLists.selectedList = _.first(response.data.results);
                             });
                         });
@@ -90,15 +89,7 @@ angular.module('storefront.account')
                     $ctrl.initialize = function (lists) {
                         $ctrl.predefinedLists = lists.default_lists;
                         $ctrl.type = lists.default_list_type;
-
-                        var promises = [];
-                        _.each($ctrl.predefinedLists, function (list) {
-                            promises.push(createList(list.name, list.type));
-                        });
-
-                        $q.all(promises).then(function () {
-                            $ctrl._searchLists();
-                        });
+                        $ctrl._searchLists();
                     };
 
                     $ctrl.$onInit = function () {

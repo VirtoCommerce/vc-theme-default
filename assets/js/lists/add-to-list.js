@@ -29,16 +29,18 @@ storefrontApp.controller('recentlyAddedListItemDialogController', ['$scope', '$w
         $window.location = url;
     };
 
-    $scope.initialize = function () {
+    $scope.initialize = function (defaultLists) {
         listService.searchLists({
-            pageSize: 10000,
+            pageSize: 20,
             type: $scope.type
         }).then(function (response) {
             $scope.lists = response.data.results;
-
-            _.each($scope.lists, function(list) {
-                var foundItem = _.find(list.items, function(item) {
-                        return item.productId === dialogData.id;
+            if (response.data.totalCount === 0) {
+                $scope.lists = defaultLists.default_lists;
+            }
+            _.each($scope.lists, function (list) {
+                var foundItem = _.find(list.items, function (item) {
+                    return item.productId === dialogData.id;
                 });
 
                 if (foundItem) {
@@ -47,6 +49,4 @@ storefrontApp.controller('recentlyAddedListItemDialogController', ['$scope', '$w
             });
         });
     };
-
-    $scope.initialize();
 }]);

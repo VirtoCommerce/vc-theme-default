@@ -124,7 +124,7 @@ angular.module('storefront.account')
                 loader.wrapLoading(function () {
                     $ctrl.payment.bankCardInfo = $ctrl.paymentMethod.card;
                     return orderApi.addOrUpdatePayment({ number: $ctrl.orderNumber }, $ctrl.payment, function (payment) {
-                        orderApi.processPayment({ number: $ctrl.orderNumber, paymentNumber: payment.number }, $ctrl.paymentMethod.card, function (result) {
+                        orderApi.processPayment({ number: $ctrl.orderNumber, paymentNumber: payment.number }, $ctrl.paymentMethod.card ? $ctrl.paymentMethod.card : {}, function (result) {
                             var orderProcessingResult = result.orderProcessingResult;
                             var paymentMethod = result.paymentMethod;
 

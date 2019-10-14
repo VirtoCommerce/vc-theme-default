@@ -1,0 +1,14 @@
+  <div class="one-half">
+      <form accept-charset="UTF-8" action="{{ '~/account/phonenumber/verify' | absolute_url }}" method="post" id="customer_phonenumber_verify" name="customer_phonenumber_verify">
+
+          <input type="hidden" value="{{ form.phone_number }}" name="customer[phoneNumber]" />
+
+          <h3>{{ 'verify.code.title' | t }}</h3>
+
+          {% include 'form-errors-custom' %}
+          {{ antiforgery }}
+          <input type="text" name="customer[code]" placeholder="{{ 'verify.code.placeholder.enter_code' | t }}" autofocus>
+          <input type="submit" value="{{ 'verify.code.submit' | t }}" class="btn">
+
+      </form>
+</div> 

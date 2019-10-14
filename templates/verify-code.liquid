@@ -1,14 +1,18 @@
-<div style="margin: 0 auto; width: 50%">
+<div class="grid">
+
+  <div class="grid-item large--one-third push--large--one-third text-center">
     {% form 'verify_code' %}
-        <input id="provider" name="provider" type="hidden" value="{{ provider }}" />
-        <input id="return_url" name="return_url" type="hidden" value="{{ return_url }}" />
-        <input id="remember_me" name="remember_me" type="hidden" value="{{ remember_me }}" />
+        <input id="provider" name="provider" type="hidden" value="{{ form.provider }}" />
+        <input id="returnUrl" name="returnUrl" type="hidden" value="{{ form.returnUrl }}" />
+        <input id="rememberMe" name="rememberMe" type="hidden" value="{{ form.rememberMe }}" />
+        <input id="username" name="username" type="hidden" value="{{ form.username }}" />
         <h1>{{ 'verify.code.title' | t }}</h1>
         {% include 'form-errors-custom' %}
         <label class="hidden-label" for="code">{{ 'verify.code.label.code' | t }}</label>
-        <input id="code" name="code" placeholder="{{ 'verify.code.placeholder.enter_code' | t }}" type="text" value="" />
-        <p>
-            <input class="btn" type="submit" value="{{ 'verify.code.submit' | t }}" />
-        </p>
+        <input id="code" name="code" placeholder="{{ 'verify.code.placeholder.enter_code' | t }}" type="text" value="" autofocus/>
+        <label><input id="rememberBrowser" name="rememberBrowser" type="checkbox" class="check" value="true"/>{{ 'verify.code.label.checkbox' | t }}</label>
+        <input class="btn" type="submit" value="{{ 'verify.code.submit' | t }}" />
     {% endform %}
+   </div> 
+
 </div>
