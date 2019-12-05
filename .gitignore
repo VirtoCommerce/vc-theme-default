@@ -163,4 +163,6 @@ artifacts*
 
 node_modules
 bower_components
+client_packages
+config/drafts/**
 assets/static/*/**
