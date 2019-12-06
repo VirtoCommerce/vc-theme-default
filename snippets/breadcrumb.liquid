@@ -4,19 +4,17 @@
   {% if template contains 'vendor' %}
     <span class="divider" aria-hidden="true">&rsaquo;</span>
     <span class="breadcrumb--truncate">{{ vendor.name }}</span>
-  {% endif %}
-  {% if template contains 'product' %}
-    {% if collection %}   
+  {% elsif template contains 'product' %}
+    {% if collection %}
       {% for parent in collection.parents %}
          <span class="divider" aria-hidden="true">&rsaquo;</span>
         {% capture url %}{{ parent.handle | absolute_url }}{% endcapture %}
         {{ parent.title | link_to: url }}
-      {% endfor %}     
+      {% endfor %}
     {% endif %}
     <span class="divider" aria-hidden="true">&rsaquo;</span>
-    <span class="breadcrumb--truncate">{{ product.title }}</span> 
-  {% endif %}
-  {% if template contains 'collection' and collection.handle %}
+    <span class="breadcrumb--truncate">{{ product.title }}</span>
+  {% elsif template contains 'collection' and collection.handle %}
     {% if current_tags.empty? == false %}
       {% capture url %}{{ collection.handle | absolute_url }}{% endcapture %}
       {{ collection.title | link_to: url }}
@@ -61,8 +59,7 @@
       <span class="divider" aria-hidden="true">&rsaquo;</span>
       <span>{{ collection.title }}</span>
   {% endif %}
-  {% endif %}
-  {% if template == 'blog' %}
+  {% elsif template == 'blog' %}
     <span class="divider" aria-hidden="true">&rsaquo;</span>
     {% if current_tags %}
       {% assign blog_url = blog.url | absolute_url %}
@@ -72,15 +69,13 @@
     {% else %}
     <span>{{ blog.title }}</span>
     {% endif %}
-  {% endif %}
-  {% if template == 'article' %}
+  {% elsif template == 'article' %}
     <span class="divider" aria-hidden="true">&rsaquo;</span>
     {% assign blog_url = blog.url | absolute_url %}
     {{ blog.title | link_to: blog_url }}
     <span class="divider" aria-hidden="true">&rsaquo;</span>
     <span>{{ article.title }}</span>
-  {% endif %}
-  {% if template contains 'page' %}
+  {% elsif template contains 'page' %}
     <span class="divider" aria-hidden="true">&rsaquo;</span>
    <span>{{ page.title }}</span>
   {% else %}
