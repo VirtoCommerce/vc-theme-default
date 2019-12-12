@@ -170,7 +170,44 @@
             "type_navigation_transform": true,
             "remove_dollar_symbol": false,
             "superscript_decimals": true,
-            "store_selector_enable": true
+            "store_selector_enable": true,
+            "show_prices_with_taxes": false,
+            "available_paymentPlans": [
+                {
+                    "intervalCount": 1,
+                    "interval": "days",
+                    "name": "day"
+                },
+                {
+                    "intervalCount": 1,
+                    "interval": "weeks",
+                    "name": "week"
+                },
+                {
+                    "intervalCount": 1,
+                    "interval": "months",
+                    "name": "month"
+                },
+                {
+                    "intervalCount": 1,
+                    "interval": "years",
+                    "name": "year"
+                }
+            ],
+            "collect_user_events_enabled": false,
+            "lists": {
+                "default_list_type": "wishlist",
+                "default_lists": [
+                    {
+                        "name": "shopping",
+                        "type": "wishlist"
+                    },
+                    {
+                        "name": "wish",
+                        "type": "wishlist"
+                    }
+                ]
+            }
         },
         "Soft Green": {
             "ajax_cart_enable": true,
@@ -250,7 +287,8 @@
             "type_navigation_size": "15px",
             "type_navigation_transform": true,
             "remove_dollar_symbol": true,
-            "superscript_decimals": true
+            "superscript_decimals": true,
+            "collect_user_events_enabled": false
         },
         "Dark": {
             "ajax_cart_enable": true,
@@ -338,7 +376,8 @@
             "type_navigation_transform": true,
             "remove_dollar_symbol": true,
             "superscript_decimals": true,
-            "store_selector_enable": true
+            "store_selector_enable": true,
+            "collect_user_events_enabled": false
         }
     }
 }

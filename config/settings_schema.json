@@ -1,7 +1,7 @@
 [
   {
     "name": "Colors",
-    "icon": "fas fa-eye-dropper",
+    "icon": "colors",
     "settings": [
       {
         "type": "header",
@@ -125,7 +125,7 @@
   },
   {
     "name": "Typography",
-    "icon": "fas fa-font",
+    "icon": "typography",
     "settings": [
       {
         "type": "header",
@@ -715,7 +715,7 @@
   },
   {
     "name": "Header",
-    "icon": "fas fa-heading",
+    "icon": "header",
     "settings": [
       {
         "type": "header",
@@ -762,7 +762,7 @@
   },
   {
     "name": "Home page",
-    "icon": "fas fa-home",
+    "icon": "homepage",
     "settings": [
       {
         "type": "header",
@@ -859,7 +859,7 @@
   },
   {
     "name": "Home page - slideshow",
-    "icon": "fas fa-images",
+    "icon": "homepage-slideshow",
     "settings": [
       {
         "type": "header",
@@ -1036,8 +1036,8 @@
     ]
   },
   {
-    "name": "Home page - featured content",
-    "icon": "fas fa-home",
+    "name": "Home page – featured content",
+    "icon": "homepage-featured-content",
     "settings": [
       {
         "type": "page",
@@ -1047,8 +1047,8 @@
     ]
   },
   {
-    "name": "Home page - featured products",
-    "icon": "fas fa-home",
+    "name": "Home page – featured products",
+    "icon": "homepage-featured-product",
     "settings": [
       {
         "type": "collection",
@@ -1058,8 +1058,8 @@
     ]
   },
   {
-    "name": "Home page - newsletter",
-    "icon": "far fa-file-alt",
+    "name": "Home page – subscribe",
+    "icon": "homepage-subscribe",
     "settings": [
       {
         "type": "text",
@@ -1071,7 +1071,7 @@
   },
   {
     "name": "Collection page",
-    "icon": "far fa-list-alt",
+    "icon": "collection-page",
     "settings": [
       {
         "type": "header",
@@ -1163,7 +1163,7 @@
   },
   {
     "name": "Product page",
-    "icon": "fas fa-inbox",
+    "icon": "product-page",
     "settings": [
       {
         "type": "checkbox",
@@ -1174,7 +1174,7 @@
   },
   {
     "name": "Cart page",
-    "icon": "fas fa-shopping-cart",
+    "icon": "cart-page",
     "settings": [
       {
         "type": "select",
@@ -1200,7 +1200,7 @@
   },
   {
     "name": "Social media",
-    "icon": "fas fa-share-alt",
+    "icon": "social-media",
     "settings": [
       {
         "type": "header",
