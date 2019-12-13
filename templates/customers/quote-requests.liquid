@@ -21,7 +21,7 @@
                         {% assign quote_request_url = '/quoterequest/#/' | append: quote_request.number %}
                         <a href="{{ quote_request_url | absolute_url }}">{{ quote_request.number }}</a>
                     </td>
-                    <td>{{ quote_request.created_date | date: format: 'month_day_year' }}</td>
+                    <td>{{ quote_request.created_date | date: 'month_day_year' }}</td>
                     <td>{{ quote_request.status }}</td>
                 </tr>
                 {% endfor %}

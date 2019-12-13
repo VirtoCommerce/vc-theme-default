@@ -36,7 +36,7 @@
             <div class="cart-row">
                 <div class="grid">
                     <div class="grid-item text-right">
-                        <button class="btn" ng-class="{ 'btn-secondary': !dialogData.updated }" ng-disabled="!dialogData.updated" ng-click="redirect('{{ 'quoterequest' | absolute_url }}')">
+                        <button class="btn" ng-controller="actualQuoteRequestBarController" ng-class="{ 'btn-secondary': !dialogData.updated }" ng-disabled="!dialogData.updated" ng-click="redirect(baseUrl + 'quoterequest/#/' + actualQuoteRequest.number)">
                             <span ng-if="dialogData.updated">{{ 'cart.general.go_request' | t }}</span>
                             <span ng-if="!dialogData.updated">{{ 'cart.general.update_quote' | t }}</span>
                         </button>
