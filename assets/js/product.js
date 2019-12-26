@@ -44,8 +44,8 @@ storefrontApp.controller('productController', ['$rootScope', '$scope', '$window'
                 $rootScope.$broadcast('actualQuoteRequestItemsChanged');
             });
         };
-        
-        $scope.initAvailableLists = function(lists) {
+
+        $scope.initAvailableLists = function (lists) {
             $scope.listType = lists.default_list_type;
         }
 
@@ -75,14 +75,15 @@ storefrontApp.controller('productController', ['$rootScope', '$scope', '$window'
                 $scope.allVariationPropsMap = getFlatternDistinctPropertiesMap(allVariations);
 
                 //Auto select initial product as default variation  (its possible because all our products is variations)
-                var propertyMap = getVariationPropertyMap(product);
-                _.each(_.keys(propertyMap), function (x) {
-                    $scope.checkProperty(propertyMap[x][0]);
+                 _.each(_.keys($scope.allVariationPropsMap), function (key) {
+                     _.each($scope.allVariationPropsMap[key], function (prop) {
+                        prop.available = true;
+                     });
                 });
 
-                $scope.selectedVariation = product;
+               $scope.selectedVariation = product;
             });
-        };
+        }
 
         function getFlatternDistinctPropertiesMap(variations) {
             var retVal = {};
@@ -129,15 +130,60 @@ storefrontApp.controller('productController', ['$rootScope', '$scope', '$window'
             });
         }
 
+        function partyComparePropertyMaps(propMap1, master) {
+            return _.every(_.keys(master), function (x) {
+                var retVal = propMap1.hasOwnProperty(x);
+                if (retVal) {
+                    retVal = propMap1[x][0].value == master[x][0].value;
+                }
+                return retVal;
+            });
+        }
+
+
+        function filterVariationBySelectedProps(variations, selectedPropMap) {
+            return _.filter(variations, function (x) {
+                return partyComparePropertyMaps(getVariationPropertyMap(x), selectedPropMap);
+            });
+        }
+
+
         //Method called from View when user clicks one property value
         $scope.checkProperty = function (property) {
             //Select appropriate property and unselect previous selection
+            
+            var propertyDisplayName = property.displayName;
             _.each($scope.allVariationPropsMap[property.displayName], function (x) {
                 x.selected = x != property ? false : !x.selected;
             });
 
+            var selectedMap = getSelectedPropsMap($scope.allVariationPropsMap);
+
+            var filteredVariations = filterVariationBySelectedProps(allVariations, selectedMap) ;
+            
+            var availableVariations = getFlatternDistinctPropertiesMap(filteredVariations);
+
+            _.each(_.keys($scope.allVariationPropsMap), function (key) {
+                _.each($scope.allVariationPropsMap[key], function (property) {
+                    var originalProperty = _.find($scope.allVariationPropsMap[key], function (y) { return y.value === property.value; });
+
+                    var existedProperty = _.find(availableVariations[key], function (z) { return z.value === property.value; });
+
+                    if (existedProperty) {
+                        console.log('existedProperty', existedProperty);
+                        originalProperty.available = true;
+                    }
+                    else if (key != propertyDisplayName) {
+                        originalProperty.available = false;
+                    }
+                });
+            });
+
             //try to find the best variation match for selected properties
             $scope.selectedVariation = findVariationBySelectedProps(allVariations, getSelectedPropsMap($scope.allVariationPropsMap));
+            if ($scope.selectedVariation) {
+                console.log('selected variation', $scope.selectedVariation);
+            }
         };
 
         initialize();
