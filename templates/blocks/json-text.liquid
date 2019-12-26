@@ -1,0 +1,27 @@
+<div class="grid">
+
+  <div class="grid-item large--two-thirds push--large--one-sixth">
+
+      {% if block.title != "" %}
+          {% if block.headerType == 'h1' %}
+          <h1 class="{{ block.titleAlignment }}">{{ block.title }}</h1>
+          {% elsif block.headerType == 'h2' %}
+          <h2>{{ block.title }}</h2>
+          {% elsif block.headerType == 'h3' %}
+          <h3>{{ block.title }}</h3>
+          {% elsif block.headerType == 'like-h1' %}
+          <div class="like-h1">{{ block.title }}</div>
+          {% elsif block.headerType == 'like-h3' %}
+          <div class="like-h3">{{ block.title }}</div>
+          {% else %}
+          <div class="like-h2">{{ block.title }}</div>
+          {% endif %}
+      {% endif %}
+
+    <div class="rte">
+		{{ block.content }}
+    </div>
+
+  </div>
+
+</div>

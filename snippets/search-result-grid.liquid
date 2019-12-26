@@ -29,13 +29,19 @@
 
   <a href="{{ item.url | within: current_collection }}" class="product-grid-item">
 
-    {% if item.featured_image %}
+
       <div class="product-grid-image">
         <div class="product-grid-image--centered">
           {% if sold_out %}
             <div class="badge badge--sold-out"><span class="badge-label">{{ 'products.product.sold_out' | t }}</span></div>
           {% endif %}
-          <img ng-src="{{ item.featured_image | img_url: "168x168" }}" fallback-src="{{ item.featured_image | img_url }}" alt="{{ item.featured_image.alt | escape }}">
+          {% if item.featured_image %}
+            <img ng-src="{{ item.featured_image | img_url: "168x168" }}" fallback-src="{{ item.featured_image | img_url }}" alt="{{ item.featured_image.alt | escape }}">
+          {% else %}
+                    <div class="no-product-image">
+                        <img src="{{ 'images/no-image.svg' | asset_url }}" />
+                    </div>
+          {% endif %}
         </div>
       </div>
 
@@ -43,35 +49,6 @@
 
       {% assign product = item %}
       {% include 'product-price' %}
-     
-    {% else %}
-      {% assign img_tag = '<' | append: 'img' %}
-      {% if item.content contains img_tag %}
-        {% assign src = item.content | split: 'src="' %}
-        {% assign src = src[1] | split: '"' | first %}
-        {% if src %}
-          {% assign image_src = src | replace: '_small.', '.' | replace: '_compact.', '.' | replace: '_medium.', '.' | replace: '_large.', '.' | replace: '_grande.', '.' %}
-          {{ image_src | img_tag }}
-        {% endif %}
-      {% endif %}
-
-      <div class="product-grid-image">
-        <div class="product-grid-image--centered">
-          {{ image_src | img_tag }}
-        </div>
-      </div>
-
-      <p class="h6">{{ item.title }}</p>
-
-      <div class="rte">
-        {% if item.excerpt.size > 0 %}
-          {{ item.excerpt }}
-        {% else %}
-          <p>{{ item.content | strip_html | truncatewords: 30 }}</p>
-        {% endif %}
-      </div>
-    {% endif %}
-
 
   </a>
 

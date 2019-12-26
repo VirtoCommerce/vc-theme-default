@@ -3,8 +3,8 @@
     <div class="note form-error">
         <p>{{ 'bulk_order.general.items_not_found_message' | t }}</p>
         <ul class="disc">
-            {% for field in form.errors %}
-            <li>{{ form.errors.messages[field] }}</li>
+           {% for field in form.errors %}
+            <li>{{ field.message }}</li>
           {% endfor %}
         </ul>
     </div>
