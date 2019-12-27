@@ -74,14 +74,19 @@ storefrontApp.controller('productController', ['$rootScope', '$scope', '$window'
                 allVariations = [product].concat(product.variations || []);
                 $scope.allVariationPropsMap = getFlatternDistinctPropertiesMap(allVariations);
 
-                //Auto select initial product as default variation  (its possible because all our products is variations)
-                 _.each(_.keys($scope.allVariationPropsMap), function (key) {
-                     _.each($scope.allVariationPropsMap[key], function (prop) {
-                        prop.available = true;
-                     });
-                });
 
-               $scope.selectedVariation = product;
+                _.each(_.keys($scope.allVariationPropsMap), function (key) {
+                    _.each($scope.allVariationPropsMap[key], function (prop) {
+                       prop.available = true;
+                    });
+               });
+
+                //Auto select initial product as default variation  (its possible because all our products is variations)
+                var propertyMap = getVariationPropertyMap(product);
+                var key = _.first(_.keys(propertyMap));
+                $scope.checkProperty(propertyMap[key][0]);
+
+               //$scope.selectedVariation = product;
             });
         }
 
@@ -147,37 +152,44 @@ storefrontApp.controller('productController', ['$rootScope', '$scope', '$window'
             });
         }
 
+        function isPropertyAvailable(property, key) {
+            var allVariationsMaps = angular.copy($scope.allVariationPropsMap);
+            _.each(allVariationsMaps[key], function (prop) {
+                prop.selected = false;
+            });
+            var workProperty = _.find(allVariationsMaps[key], function (y) { return y.value === property.value; });
+            workProperty.selected = true;
+            var variations = filterVariationBySelectedProps(allVariations, getSelectedPropsMap(allVariationsMaps));
+            if(variations.length) {
+                return true;
+
+            }
+            return false;
+            
+        }
 
         //Method called from View when user clicks one property value
         $scope.checkProperty = function (property) {
             //Select appropriate property and unselect previous selection
             
-            var propertyDisplayName = property.displayName;
+           // var propertyDisplayName = property.displayName;
             _.each($scope.allVariationPropsMap[property.displayName], function (x) {
                 x.selected = x != property ? false : !x.selected;
             });
 
-            var selectedMap = getSelectedPropsMap($scope.allVariationPropsMap);
-
-            var filteredVariations = filterVariationBySelectedProps(allVariations, selectedMap) ;
-            
-            var availableVariations = getFlatternDistinctPropertiesMap(filteredVariations);
-
             _.each(_.keys($scope.allVariationPropsMap), function (key) {
-                _.each($scope.allVariationPropsMap[key], function (property) {
-                    var originalProperty = _.find($scope.allVariationPropsMap[key], function (y) { return y.value === property.value; });
+                _.each($scope.allVariationPropsMap[key], function (prop) {
 
-                    var existedProperty = _.find(availableVariations[key], function (z) { return z.value === property.value; });
-
-                    if (existedProperty) {
-                        console.log('existedProperty', existedProperty);
-                        originalProperty.available = true;
+                     if($scope.allVariationPropsMap[key].length == 1) {
+                         $scope.allVariationPropsMap[key][0].selected = true;
                     }
-                    else if (key != propertyDisplayName) {
-                        originalProperty.available = false;
+                    else {
+                        var available = isPropertyAvailable(prop, key);
+                        var originalProperty = _.find($scope.allVariationPropsMap[key], function (y) { return y.value === prop.value; });
+                        originalProperty.available = available;
                     }
                 });
-            });
+           });
 
             //try to find the best variation match for selected properties
             $scope.selectedVariation = findVariationBySelectedProps(allVariations, getSelectedPropsMap($scope.allVariationPropsMap));
