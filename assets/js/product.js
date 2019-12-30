@@ -146,7 +146,7 @@ storefrontApp.controller('productController', ['$rootScope', '$scope', '$window'
             _.each(allVariationsMaps[key], function (prop) {
                 prop.selected = false;
             });
-            var workProperty = _.find(allVariationsMaps[key], function (workProperty) { return workProperty.value === property.value; });
+            var workProperty = _.find(allVariationsMaps[key], function (localProperty) { return localProperty.value === property.value; });
             workProperty.selected = true;
             var variations = filterVariationByProperties(allVariations, getSelectedPropsMap(allVariationsMaps));
             if(variations.length) {
@@ -170,7 +170,7 @@ storefrontApp.controller('productController', ['$rootScope', '$scope', '$window'
                          $scope.allVariationPropsMap[key][0].selected = true;
                     }
                     else {
-                        var originalProperty = _.find($scope.allVariationPropsMap[key], function (originalProperty) { return originalProperty.value === prop.value; });
+                        var originalProperty = _.find($scope.allVariationPropsMap[key], function (localProperty) { return localProperty.value === prop.value; });
                         originalProperty.available = isPropertyAvailable(prop, key);
                     }
                 });
