@@ -75,8 +75,8 @@ storefrontApp.controller('productController', ['$rootScope', '$scope', '$window'
                 $scope.allVariationPropsMap = getFlatternDistinctPropertiesMap(allVariations);
 
 
-                _.each(_.keys($scope.allVariationPropsMap), function (key) {
-                    _.each($scope.allVariationPropsMap[key], function (prop) {
+                _.each(_.keys($scope.allVariationPropsMap), function (mapKey) {
+                    _.each($scope.allVariationPropsMap[mapKey], function (prop) {
                        prop.available = true;
                     });
                });
@@ -100,10 +100,10 @@ storefrontApp.controller('productController', ['$rootScope', '$scope', '$window'
                 });
             });
             return retVal;
-        };
+        }
 
         function getVariationPropertyMap(variation) {
-            return _.groupBy(variation.variationProperties, function (x) { return x.displayName });
+            return _.groupBy(variation.variationProperties, function (x) { return x.displayName; });
         }
 
         function getSelectedPropsMap(variationPropsMap) {
@@ -119,36 +119,25 @@ storefrontApp.controller('productController', ['$rootScope', '$scope', '$window'
             return retVal;
         }
 
-        function comparePropertyMaps(propMap1, propMap2) {
-            return _.every(_.keys(propMap1), function (x) {
-                var retVal = propMap2.hasOwnProperty(x);
-                if (retVal) {
-                    retVal = propMap1[x][0].value == propMap2[x][0].value;
+        function comparePropertyMaps(propertyMap1, propertyMap2) {
+            return _.every(_.keys(propertyMap1), function (x) {
+                var result = propertyMap2.hasOwnProperty(x);
+                if (result) {
+                    result = propertyMap1[x][0].value == propertyMap2[x][0].value;
                 }
-                return retVal;
+                return result;
             });
-        };
+        }   
 
-        function findVariationBySelectedProps(variations, selectedPropMap) {
+        function findVariationByProperties(variations, selectedPropMap) {
             return _.find(variations, function (x) {
                 return comparePropertyMaps(getVariationPropertyMap(x), selectedPropMap);
             });
         }
 
-        function partyComparePropertyMaps(propMap1, master) {
-            return _.every(_.keys(master), function (x) {
-                var retVal = propMap1.hasOwnProperty(x);
-                if (retVal) {
-                    retVal = propMap1[x][0].value == master[x][0].value;
-                }
-                return retVal;
-            });
-        }
-
-
-        function filterVariationBySelectedProps(variations, selectedPropMap) {
-            return _.filter(variations, function (x) {
-                return partyComparePropertyMaps(getVariationPropertyMap(x), selectedPropMap);
+        function filterVariationByProperties(variations, selectedPropMap) {
+            return _.filter(variations, function (variation) {
+                return comparePropertyMaps(selectedPropMap, getVariationPropertyMap(variation));
             });
         }
 
@@ -157,24 +146,21 @@ storefrontApp.controller('productController', ['$rootScope', '$scope', '$window'
             _.each(allVariationsMaps[key], function (prop) {
                 prop.selected = false;
             });
-            var workProperty = _.find(allVariationsMaps[key], function (y) { return y.value === property.value; });
+            var workProperty = _.find(allVariationsMaps[key], function (workProperty) { return workProperty.value === property.value; });
             workProperty.selected = true;
-            var variations = filterVariationBySelectedProps(allVariations, getSelectedPropsMap(allVariationsMaps));
+            var variations = filterVariationByProperties(allVariations, getSelectedPropsMap(allVariationsMaps));
             if(variations.length) {
                 return true;
-
             }
             return false;
-            
         }
 
         //Method called from View when user clicks one property value
         $scope.checkProperty = function (property) {
             //Select appropriate property and unselect previous selection
-            
-           // var propertyDisplayName = property.displayName;
-            _.each($scope.allVariationPropsMap[property.displayName], function (x) {
-                x.selected = x != property ? false : !x.selected;
+
+            _.each($scope.allVariationPropsMap[property.displayName], function (prop) {
+                prop.selected = prop != property ? false : !prop.selected;
             });
 
             _.each(_.keys($scope.allVariationPropsMap), function (key) {
@@ -184,18 +170,14 @@ storefrontApp.controller('productController', ['$rootScope', '$scope', '$window'
                          $scope.allVariationPropsMap[key][0].selected = true;
                     }
                     else {
-                        var available = isPropertyAvailable(prop, key);
-                        var originalProperty = _.find($scope.allVariationPropsMap[key], function (y) { return y.value === prop.value; });
-                        originalProperty.available = available;
+                        var originalProperty = _.find($scope.allVariationPropsMap[key], function (originalProperty) { return originalProperty.value === prop.value; });
+                        originalProperty.available = isPropertyAvailable(prop, key);
                     }
                 });
            });
 
             //try to find the best variation match for selected properties
-            $scope.selectedVariation = findVariationBySelectedProps(allVariations, getSelectedPropsMap($scope.allVariationPropsMap));
-            if ($scope.selectedVariation) {
-                console.log('selected variation', $scope.selectedVariation);
-            }
+            $scope.selectedVariation = findVariationByProperties(allVariations, getSelectedPropsMap($scope.allVariationPropsMap));
         };
 
         initialize();
