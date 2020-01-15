@@ -50,8 +50,6 @@ function merge(streams) {
     return streams.length ? mergestream(streams) : mergestream().end();
 }
 
-gulp.task("min", ["min:js", "min:css", "min:html"]);
-
 function mapSources() {
     return sourcemaps.mapSources(function(sourcePath, file) {
         var sourceRootPathEndIndex = sourcePath.indexOf("assets");
@@ -65,10 +63,10 @@ function mapSources() {
     });
 }
 
-gulp.task("min:js", function() {
+gulp.task("min:js", gulp.series(function() {
     var tasks = getBundles(regex.js).map(function(bundle) {
         return gulp
-            .src(bundle.inputFiles, { base: "." })
+            .src(bundle.inputFiles, { base: "." , allowEmpty: true})
             .pipe(sourcemaps.init())
             .pipe(mapSources())
             .pipe(concat(bundle.outputFileName))
@@ -77,7 +75,7 @@ gulp.task("min:js", function() {
             .pipe(gulp.dest("."));
     });
     return merge(tasks);
-});
+}));
 
 gulp.task("packJavaScript", function() {
     return merge2(
@@ -88,10 +86,10 @@ gulp.task("packJavaScript", function() {
         .pipe(gulp.dest("assets/static/bundle"));
 });
 
-gulp.task("min:css", function() {
+gulp.task("min:css", gulp.series(function() {
     var tasks = getBundles(regex.css).map(function(bundle) {
         return gulp
-            .src(bundle.inputFiles, { base: "." })
+            .src(bundle.inputFiles, { base: "." , allowEmpty: true})
             .pipe(sourcemaps.init())
             .pipe(mapSources())
             .pipe(concat(bundle.outputFileName))
@@ -118,12 +116,12 @@ gulp.task("min:css", function() {
             .pipe(gulp.dest("."));
     });
     return merge(tasks);
-});
+}));
 
-gulp.task("min:html", function() {
+gulp.task("min:html", function(done) {
     var tasks = getBundles(regex.html).map(function(bundle) {
         return gulp
-            .src(bundle.inputFiles, { base: "." })
+            .src(bundle.inputFiles, { base: "." , allowEmpty: true})
             .pipe(concat(bundle.outputFileName))
             .pipe(
                 htmlmin({
@@ -134,10 +132,11 @@ gulp.task("min:html", function() {
             )
             .pipe(gulp.dest("."));
     });
+    done();
     return merge(tasks);
 });
 
-gulp.task("clean", function() {
+gulp.task("clean", gulp.series(function() {
     var files = [].concat.apply(
         [],
         getBundleConfig().map(function(bundle) {
@@ -147,21 +146,23 @@ gulp.task("clean", function() {
     );
 
     return del(files);
-});
+}));
+
+gulp.task("min",  gulp.series("min:js", "min:css", "min:html"));
 
 gulp.task("watch", function() {
-    gulp.watch("./bundleconfig.json", ["min"]);
+    gulp.watch("./bundleconfig.json", gulp.series("min"));
 
     getBundles(regex.js).forEach(function(bundle) {
-        gulp.watch(bundle.inputFiles, ["min:js"]);
+        gulp.watch(bundle.inputFiles, gulp.series("min:js"));
     });
 
     getBundles(regex.css).forEach(function(bundle) {
-        gulp.watch(bundle.inputFiles, ["min:css"]);
+        gulp.watch(bundle.inputFiles, gulp.series("min:css"));
     });
 
     getBundles(regex.html).forEach(function(bundle) {
-        gulp.watch(bundle.inputFiles, ["min:html"]);
+        gulp.watch(bundle.inputFiles, gulp.series("min:html"));
     });
 });
 
@@ -185,7 +186,7 @@ gulp.task("lint", function() {
     return merge(tasks);
 });
 
-gulp.task("compress", ["min", "packJavaScript"], function () {
+gulp.task("compress", gulp.series("min", "packJavaScript"), function () {
     var package = getPackage();
     return merge2(
             gulp.src(
@@ -214,6 +215,6 @@ gulp.task("compress", ["min", "packJavaScript"], function () {
 });
 
 // DEFAULT Tasks
-gulp.task("default", function(callback) {
-    sequence("lint", ["min"], callback);
-});
+gulp.task("default", gulp.series("lint", "min", function(done) { done();}));
+
+

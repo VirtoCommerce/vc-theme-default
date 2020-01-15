@@ -14,7 +14,9 @@
         "theme",
         "electronics"
     ],
-    "dependencies": {},
+    "dependencies": {
+        "node-sass": "^4.13.0"
+    },
     "devDependencies": {
         "autoprefixer": "^7.1.2",
         "babel-eslint": "^7.2.3",
@@ -32,8 +34,8 @@
         "eslint-plugin-node": "^5.1.0",
         "eslint-plugin-promise": "^3.5.0",
         "eslint-plugin-standard": "^3.0.1",
-        "gulp": "^3.9.1",
-        "gulp-clean": "^0.3.2",
+        "gulp": "^4.0.0",
+        "gulp-clean": "^0.4.0",
         "gulp-concat": "^2.6.1",
         "gulp-eslint": "^4.0.0",
         "gulp-exclude-gitignore": "^1.1.1",
@@ -44,7 +46,7 @@
         "gulp-postcss": "^7.0.0",
         "gulp-rename": "^1.4.0",
         "gulp-replace": "^0.5.4",
-        "gulp-sass": "^3.1.0",
+        "gulp-sass": "^4.0.2",
         "gulp-sourcemaps": "^2.6.0",
         "gulp-uglify": "^2.1.2",
         "gulp-uglify-es": "^1.0.4",
@@ -55,7 +57,6 @@
         "merge-stream": "^1.0.1",
         "merge2": "^1.2.3",
         "node-bourbon": "^4.2.8",
-        "node-sass": "^4.5.3",
         "run-sequence": "2.1.0"
     },
     "engineStrict": true,
