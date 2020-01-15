@@ -1,7 +1,7 @@
 <h4>{{ 'customer.addresses.title' | t }}</h4>
 <div class="vc-product-address">
     <ul class="list">
-        <li ng-repeat="item in $ctrl.addresses" ng-class="{ 'list-item': $ctrl.editIdx !== $index, 'one-half': $ctrl.editIdx === $index }">
+        <li ng-repeat="item in $ctrl.addresses" ng-class="{ 'list-item': $ctrl.editIdx !== $index, 'seven-twelfths': $ctrl.editIdx === $index }">
             <a ng-click="$ctrl.delete($index)" ng-if="$ctrl.editIdx !== $index" class="list-action">{{ 'customer.addresses.delete' | t }}</a>
             <a ng-click="$ctrl.edit($index)" ng-if="$ctrl.editIdx !== $index" class="list-action">{{ 'customer.addresses.edit' | t }}</a>
             <h3 ng-if="$ctrl.editIdx === $index">{{ 'customer.addresses.edit_old' | t }}</h3>
@@ -30,7 +30,7 @@
         <span class="btn-text">{{ 'customer.addresses.add_new' | t }}</span>
         <span class="btn-loading"></span>
     </button>
-    <div ng-if="$ctrl.newAddress" class="one-half">
+    <div ng-if="$ctrl.newAddress" class="seven-twelfths">
         <h2 ng-if="$ctrl.newAddress">{{ 'customer.addresses.add_new' | t }}</h2>
         <vc-address address="$ctrl.newAddress" edit-mode="true" validation-container="$ctrl" countries="$ctrl.accountManager.availCountries" get-country-regions="$ctrl.accountManager.getCountryRegions(country)" ng-if="$ctrl.newAddress"></vc-address>
         <div>
