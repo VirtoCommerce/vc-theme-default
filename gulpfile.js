@@ -226,6 +226,4 @@ gulp.task("compress", gulp.series("min", "packJavaScript"), function () {
 });
 
 // DEFAULT Tasks
-gulp.task("default", gulp.series("lint", "min", function(done) { done();}));
-
-
+gulp.task("default", gulp.series("lint", "min"));
