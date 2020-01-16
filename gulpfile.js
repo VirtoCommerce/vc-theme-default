@@ -63,7 +63,7 @@ function mapSources() {
     });
 }
 
-gulp.task("min:js", gulp.series(function() {
+gulp.task("min:js", gulp.series(function(done) {
     var tasks = getBundles(regex.js).map(function(bundle) {
         return gulp
             .src(bundle.inputFiles, { base: "." , allowEmpty: true})
@@ -74,6 +74,10 @@ gulp.task("min:js", gulp.series(function() {
             .pipe(sourcemaps.write("."))
             .pipe(gulp.dest("."));
     });
+
+    if(!tasks.length){
+        done();
+    }
     return merge(tasks);
 }));
 
@@ -86,7 +90,7 @@ gulp.task("packJavaScript", function() {
         .pipe(gulp.dest("assets/static/bundle"));
 });
 
-gulp.task("min:css", gulp.series(function() {
+gulp.task("min:css", gulp.series(function(done) {
     var tasks = getBundles(regex.css).map(function(bundle) {
         return gulp
             .src(bundle.inputFiles, { base: "." , allowEmpty: true})
@@ -115,6 +119,10 @@ gulp.task("min:css", gulp.series(function() {
             .pipe(sourcemaps.write("."))
             .pipe(gulp.dest("."));
     });
+
+    if(!tasks.length){
+        done();
+    }
     return merge(tasks);
 }));
 
@@ -131,8 +139,12 @@ gulp.task("min:html", function(done) {
                 })
             )
             .pipe(gulp.dest("."));
+            
     });
-    done();
+    
+    if(!tasks.length){
+        done();
+    }
     return merge(tasks);
 });
 
