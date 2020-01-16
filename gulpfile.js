@@ -139,7 +139,6 @@ gulp.task("min:html", function(done) {
                 })
             )
             .pipe(gulp.dest("."));
-            
     });
     
     if(!tasks.length){
