@@ -58,7 +58,7 @@ angular.module('storefront.account')
                 accountLists: '^^vcAccountLists'
             },
             controller: [
-                '$rootScope', 'listService', 'customerService', 'loadingIndicatorService', '$q', 'dialogService', function ($rootScope, listService, customerService, loader, $q, dialogService) {
+                '$rootScope', 'listService', 'customerService', 'loadingIndicatorService', '$q', 'dialogService', '$localStorage', function ($rootScope, listService, customerService, loader, $q, dialogService, $localStorage) {
 
                     var $ctrl = this;
 
@@ -81,7 +81,20 @@ angular.module('storefront.account')
                             }).then(function (response) {
                                 $ctrl.accountLists.lists = response.data.results;
                                 $ctrl.pageSettings.totalItems = response.data.totalCount;
-                                $ctrl.accountLists.selectedList = _.first(response.data.results);
+
+                                if ($localStorage.selectedPrivateListName) {
+                                    var listName = $localStorage.selectedPrivateListName;
+                                    $localStorage.selectedPrivateListName = '';
+                                    if(response.data.results && listName) {
+                                        var existedList = _.find(response.data.results, function(item) { return item.name === listName;});
+                                        if(existedList) {
+                                            $ctrl.accountLists.selectedList = existedList;   
+                                        }
+                                    }
+                                }
+                                else {
+                                    $ctrl.accountLists.selectedList = _.first(response.data.results);
+                                }
                             });
                         });
                     };
@@ -94,7 +107,7 @@ angular.module('storefront.account')
 
                     $ctrl.$onInit = function () {
                         $ctrl.accountLists.selectTab('myLists');
-                    }
+                    };
 
                     $ctrl.createList = function () {
                         var dialogData = {

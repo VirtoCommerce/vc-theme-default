@@ -1,6 +1,6 @@
 var storefrontApp = angular.module('storefrontApp');
 
-storefrontApp.controller('recentlyAddedListItemDialogController', ['$scope', '$window', '$uibModalInstance', 'dialogData', 'listService', '$translate', function ($scope, $window, $uibModalInstance, dialogData, listService, $translate) {
+storefrontApp.controller('recentlyAddedListItemDialogController', ['$scope', '$window', '$uibModalInstance', 'dialogData', 'listService', '$translate', '$localStorage', function ($scope, $window, $uibModalInstance, dialogData, listService, $translate, $localStorage) {
     $scope.availableLists = [];
     $scope.selectedList = {};
     $scope.dialogData = dialogData;
@@ -26,6 +26,7 @@ storefrontApp.controller('recentlyAddedListItemDialogController', ['$scope', '$w
     };
 
     $scope.redirect = function (url) {
+        $localStorage['selectedPrivateListName'] = $scope.selectedList.name;
         $window.location = url;
     };
 
