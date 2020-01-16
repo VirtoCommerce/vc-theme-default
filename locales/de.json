@@ -245,7 +245,7 @@
     },
     "layout": {
         "cart": {
-            "cart": "Einkaufswagen"
+            "cart": "Warenkorb"
         },
         "customer": {
             "view_account": "Account ansehen",
