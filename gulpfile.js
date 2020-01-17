@@ -1,31 +1,20 @@
 /// <binding BeforeBuild='default' Clean='clean' ProjectOpened='watch' />
-
-var gulp = require("gulp"),
-    inject = require("gulp-inject"),
-    filter = require("gulp-filter"),
-    concat = require("gulp-concat"),
-    replace = require("gulp-replace"),
-    rename = require("gulp-rename"),
-    clean = require("gulp-clean"),
-    del = require("del"),
-    mergestream = require("merge-stream"),
-    sequence = require("run-sequence"),
-    util = require("gulp-util"), // preserve to be able output custom messages in future
-    uglify = require("gulp-uglify"),
-    bourbon = require("node-bourbon"),
-    autoprefixer = require("autoprefixer"),
-    mainBowerFiles = require("main-bower-files"),
-    cssnano = require("cssnano"),
-    postcss = require("gulp-postcss"),
-    sass = require("gulp-sass"),
-    htmlmin = require("gulp-htmlmin"),
-    imagemin = require("gulp-image"),
-    sourcemaps = require("gulp-sourcemaps"),
-    eslint = require("gulp-eslint"),
-    zip = require("gulp-zip"),
-    gitignore = require("gulp-exclude-gitignore"),
-    bowerMain = require("bower-main"),
-    merge2 = require("merge2");
+const { series, parallel, src, dest } = require('gulp');
+const gulpWatch = require("gulp").watch;
+const concat = require("gulp-concat");
+const rename = require("gulp-rename");
+const del = require("del");
+const uglify = require("gulp-uglify");
+const autoprefixer = require("autoprefixer");
+const cssnano = require("cssnano");
+const postcss = require("gulp-postcss");
+const htmlmin = require("gulp-htmlmin");
+const sourcemaps = require("gulp-sourcemaps");
+const eslint = require("gulp-eslint");
+const zip = require("gulp-zip");
+const gitignore = require("gulp-exclude-gitignore");
+const bowerMain = require("bower-main");
+const merge2 = require("merge2");
 
 var bowerMainJavaScriptFiles = bowerMain("js", "min.js");
 
@@ -46,12 +35,6 @@ function getBundleConfig() {
     return require("./bundleconfig.json");
 }
 
-function merge(streams) {
-    return streams.length ? mergestream(streams) : mergestream().end();
-}
-
-gulp.task("min", ["min:js", "min:css", "min:html"]);
-
 function mapSources() {
     return sourcemaps.mapSources(function(sourcePath, file) {
         var sourceRootPathEndIndex = sourcePath.indexOf("assets");
@@ -65,33 +48,32 @@ function mapSources() {
     });
 }
 
-gulp.task("min:js", function() {
+function min_js() {
     var tasks = getBundles(regex.js).map(function(bundle) {
-        return gulp
-            .src(bundle.inputFiles, { base: "." })
+        return src(bundle.inputFiles, { base: "." , allowEmpty: true})
             .pipe(sourcemaps.init())
             .pipe(mapSources())
             .pipe(concat(bundle.outputFileName))
             .pipe(uglify({ mangle: false }))
             .pipe(sourcemaps.write("."))
-            .pipe(gulp.dest("."));
+            .pipe(dest("."));
     });
-    return merge(tasks);
-});
 
-gulp.task("packJavaScript", function() {
+    return merge2(tasks);
+}
+
+function packJavaScript(){
     return merge2(
-        gulp.src(bowerMainJavaScriptFiles.minified),
-        gulp.src(bowerMainJavaScriptFiles.minifiedNotFound)
+        src(bowerMainJavaScriptFiles.minified),
+        src(bowerMainJavaScriptFiles.minifiedNotFound)
     )
         .pipe(concat("scripts_dependencies.js"))
-        .pipe(gulp.dest("assets/static/bundle"));
-});
+        .pipe(dest("assets/static/bundle"));
+}
 
-gulp.task("min:css", function() {
+function min_css(){
     var tasks = getBundles(regex.css).map(function(bundle) {
-        return gulp
-            .src(bundle.inputFiles, { base: "." })
+        return src(bundle.inputFiles, { base: "." , allowEmpty: true})
             .pipe(sourcemaps.init())
             .pipe(mapSources())
             .pipe(concat(bundle.outputFileName))
@@ -115,15 +97,15 @@ gulp.task("min:css", function() {
                 ])
             )
             .pipe(sourcemaps.write("."))
-            .pipe(gulp.dest("."));
+            .pipe(dest("."));
     });
-    return merge(tasks);
-});
 
-gulp.task("min:html", function() {
+    return merge2(tasks);
+}
+
+function min_html(){
     var tasks = getBundles(regex.html).map(function(bundle) {
-        return gulp
-            .src(bundle.inputFiles, { base: "." })
+        return src(bundle.inputFiles, { base: "." , allowEmpty: true})
             .pipe(concat(bundle.outputFileName))
             .pipe(
                 htmlmin({
@@ -132,12 +114,13 @@ gulp.task("min:html", function() {
                     minifyJS: true
                 })
             )
-            .pipe(gulp.dest("."));
+            .pipe(dest("."));
     });
-    return merge(tasks);
-});
+   
+    return merge2(tasks);
+}
 
-gulp.task("clean", function() {
+function clean(){
     var files = [].concat.apply(
         [],
         getBundleConfig().map(function(bundle) {
@@ -145,25 +128,24 @@ gulp.task("clean", function() {
             return [fileName, fileName.replace(regex.ext, ".$1.map")];
         })
     );
-
     return del(files);
-});
+}
 
-gulp.task("watch", function() {
-    gulp.watch("./bundleconfig.json", ["min"]);
+function watch(){
+    gulpWatch("./bundleconfig.json", series(exports.min));
 
     getBundles(regex.js).forEach(function(bundle) {
-        gulp.watch(bundle.inputFiles, ["min:js"]);
+        gulpWatch(bundle.inputFiles, series(min_js));
     });
 
     getBundles(regex.css).forEach(function(bundle) {
-        gulp.watch(bundle.inputFiles, ["min:css"]);
+        gulpWatch(bundle.inputFiles, series(min_css));
     });
 
     getBundles(regex.html).forEach(function(bundle) {
-        gulp.watch(bundle.inputFiles, ["min:html"]);
+        gulpWatch(bundle.inputFiles, series(min_html));
     });
-});
+}
 
 function getBundles(regexPattern) {
     return getBundleConfig().filter(function(bundle) {
@@ -171,24 +153,23 @@ function getBundles(regexPattern) {
     });
 }
 
-gulp.task("lint", function() {
+function lint(){
     var tasks = getBundles(regex.js)
         .filter(function(bundle) {
             return !bundle.disableLint || bundle.disableLint === undefined;
         })
         .map(function(bundle) {
-            return gulp
-                .src(bundle.inputFiles, { base: "." })
+            return src(bundle.inputFiles, { base: "." })
                 .pipe(eslint("./.eslintrc.json"))
                 .pipe(eslint.format());
         });
-    return merge(tasks);
-});
+    return merge2(tasks);
+}
 
-gulp.task("compress", ["min", "packJavaScript"], function () {
+function compress(){
     var package = getPackage();
     return merge2(
-            gulp.src(
+            src(
                 [].concat(
                     ["./*/**", '!./node_modules/**'],
                     [].concat.apply(
@@ -203,17 +184,22 @@ gulp.task("compress", ["min", "packJavaScript"], function () {
             )
             .pipe(gitignore()),
             // Need to add them manually because otherwise all bundles will be skipped as they are in .gitignore
-            gulp.src("assets/static/bundle/**", {base: '.'}))
+            src("assets/static/bundle/**", {base: '.'}))
         .pipe(
             rename(function(path) {
                 path.dirname = "default/" + path.dirname;
             })
         )
         .pipe(zip(package.name + "-" + package.version + ".zip"))
-        .pipe(gulp.dest("artifacts"));
-});
+        .pipe(dest("artifacts"));
+}
 
-// DEFAULT Tasks
-gulp.task("default", function(callback) {
-    sequence("lint", ["min"], callback);
-});
+exports.min = parallel(min_js, min_css, min_html);
+exports.clean = clean;
+exports.watch = watch;
+exports.packJavaScript = packJavaScript;
+exports["min:js"] = min_js;
+exports["min:css"] = min_css;
+exports["min:html"] = min_html;
+exports.compress = series(exports.min, packJavaScript, compress);
+exports.default = series(clean, lint, exports.min);
