@@ -33,7 +33,6 @@
     <base href="{{ '/' | absolute_url }}" />
 
     {{ 'bundle/scripts_dependencies.js' | static_asset_url | append_version | script_tag }} 
-    {{ 'bundle/scripts.js' | static_asset_url | append_version | script_tag }}
     {{ 'bundle/account-scripts.js' | static_asset_url | append_version | script_tag }}
 
 	{{ 'shop.js' | asset_url | script_tag }}
