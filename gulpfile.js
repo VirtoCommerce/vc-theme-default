@@ -132,7 +132,7 @@ function clean(){
 }
 
 function watch(){
-    gulpWatch("./bundleconfig.json", series(min));
+    gulpWatch("./bundleconfig.json", series(exports.min));
 
     getBundles(regex.js).forEach(function(bundle) {
         gulpWatch(bundle.inputFiles, series(min_js));
@@ -194,7 +194,6 @@ function compress(){
         .pipe(dest("artifacts"));
 }
 
-// export Tasks
 exports.min = parallel(min_js, min_css, min_html);
 exports.clean = clean;
 exports.watch = watch;
