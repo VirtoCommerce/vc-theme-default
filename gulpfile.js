@@ -46,10 +46,6 @@ function getBundleConfig() {
     return require("./bundleconfig.json");
 }
 
-function merge(streams) {
-    return streams.length ? mergestream(streams) : mergestream().end();
-}
-
 function mapSources() {
     return sourcemaps.mapSources(function(sourcePath, file) {
         var sourceRootPathEndIndex = sourcePath.indexOf("assets");
@@ -63,7 +59,7 @@ function mapSources() {
     });
 }
 
-gulp.task("min:js", gulp.series(function(done) {
+gulp.task("min:js", gulp.series(function() {
     var tasks = getBundles(regex.js).map(function(bundle) {
         return gulp
             .src(bundle.inputFiles, { base: "." , allowEmpty: true})
@@ -75,10 +71,7 @@ gulp.task("min:js", gulp.series(function(done) {
             .pipe(gulp.dest("."));
     });
 
-    if(!tasks.length){
-        done();
-    }
-    return merge(tasks);
+    return merge2(tasks);
 }));
 
 gulp.task("packJavaScript", function() {
@@ -90,7 +83,7 @@ gulp.task("packJavaScript", function() {
         .pipe(gulp.dest("assets/static/bundle"));
 });
 
-gulp.task("min:css", gulp.series(function(done) {
+gulp.task("min:css", gulp.series(function() {
     var tasks = getBundles(regex.css).map(function(bundle) {
         return gulp
             .src(bundle.inputFiles, { base: "." , allowEmpty: true})
@@ -120,13 +113,10 @@ gulp.task("min:css", gulp.series(function(done) {
             .pipe(gulp.dest("."));
     });
 
-    if(!tasks.length){
-        done();
-    }
-    return merge(tasks);
+    return merge2(tasks);
 }));
 
-gulp.task("min:html", function(done) {
+gulp.task("min:html", function() {
     var tasks = getBundles(regex.html).map(function(bundle) {
         return gulp
             .src(bundle.inputFiles, { base: "." , allowEmpty: true})
@@ -140,11 +130,8 @@ gulp.task("min:html", function(done) {
             )
             .pipe(gulp.dest("."));
     });
-    
-    if(!tasks.length){
-        done();
-    }
-    return merge(tasks);
+   
+    return merge2(tasks);
 });
 
 gulp.task("clean", gulp.series(function() {
@@ -194,7 +181,7 @@ gulp.task("lint", function() {
                 .pipe(eslint("./.eslintrc.json"))
                 .pipe(eslint.format());
         });
-    return merge(tasks);
+    return merge2(tasks);
 });
 
 gulp.task("compress", gulp.series("min", "packJavaScript"), function () {
