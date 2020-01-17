@@ -146,7 +146,7 @@ gulp.task("clean", gulp.series(function() {
     return del(files);
 }));
 
-gulp.task("min",  gulp.series("min:js", "min:css", "min:html"));
+gulp.task("min",  gulp.parallel("min:js", "min:css", "min:html"));
 
 gulp.task("watch", function() {
     gulp.watch("./bundleconfig.json", gulp.series("min"));
