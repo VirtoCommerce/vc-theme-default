@@ -4,7 +4,7 @@
 
     <div class="grid-item large--one-third push--large--one-third text-center">
 
-        {% if form.posted_successfully %}
+        {% if form.posted_successfully and form.errors.lenght == 0%}
         <div class="note form-success" id="resetSuccess">
             {{ 'customer.recover_login.success' | t }}
         </div>
@@ -25,11 +25,8 @@
                     <input type="submit" class="btn" value="{{ 'customer.recover_login.submit' | t }}">
                 </p>
                 {{ antiforgery }}
-
             </form>
-
         </div>
-
         {% endif %}
     </div>
 </div>
