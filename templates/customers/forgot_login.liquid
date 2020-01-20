@@ -4,12 +4,12 @@
 
     <div class="grid-item large--one-third push--large--one-third text-center">
 
-        {% if form.posted_successfully and form.errors.lenght == 0%}
+        {% if form.posted_successfully and form.errors.size == 0%}
         <div class="note form-success" id="resetSuccess">
             {{ 'customer.recover_login.success' | t }}
         </div>
-        {% else %}
-
+        {% endif %}
+        
         <div id="recover_password">
 
             <h2>{{ 'customer.recover_login.title' | t }}</h2>
@@ -27,7 +27,6 @@
                 {{ antiforgery }}
             </form>
         </div>
-        {% endif %}
     </div>
 </div>
 
