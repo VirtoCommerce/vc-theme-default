@@ -9,7 +9,7 @@
         <a class="btn" href="{{ external_login_url | absolute_url }}">{{ login_provider.caption }}</a>
         {% endfor %}
 
-        <form accept-charset="UTF-8" action="{{ '~/account/login' | absolute_url }}" method="post" id="customer_login" name="customer_login">
+        <form accept-charset="UTF-8" action="{{ requestUrl }}" method="post" id="customer_login" name="customer_login">
 
             <h1>{{ 'customer.login.title' | t }}</h1>
 
