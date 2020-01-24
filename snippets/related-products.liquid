@@ -37,15 +37,16 @@
       <div class="grid-uniform">
         {% assign current_product = product %}
         {% assign current_product_found = false %}
-        {% for product in collection.products limit: number_of_products_to_fetch %}
-          {% if product.handle == current_product.handle %}
-            {% assign current_product_found = true %}
-          {% else %}
-            {% unless current_product_found == false and forloop.last %}
-              {% include 'product-grid-item' %}
-            {% endunless %}
-          {% endif %}
-        {% endfor %}
+        {{ paginator =  collection.products | paginate number_of_products_to_fetch '{ "ResponseGroup" : "Default, ItemProperties" }' }}
+          {% for product in collection.products %}
+            {% if product.handle == current_product.handle %}
+              {% assign current_product_found = true %}
+            {% else %}
+              {% unless current_product_found == false and forloop.last %}
+                {% include 'product-grid-item' %}
+              {% endunless %}
+            {% endif %}
+          {% endfor %}
         <script>
             window.productList = [];
             {% for product in collection.products limit: number_of_products_to_fetch %}
