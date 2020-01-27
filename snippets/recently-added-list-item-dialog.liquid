@@ -94,7 +94,7 @@
                 <div class="cart-row">
                     <div class="grid">
                         <div class="grid-item text-right">
-                            <button ng-click="redirect('{{ 'account#/lists/myLists' | absolute_url }}')" class="btn" >
+                            <button ng-click="redirect('{{ 'account#/lists/myLists' | absolute_url }}' + (!!selectedList ? '/' + selectedList.name : ''))" class="btn" >
                                 <span>{{ 'wishlist.general.view_your_list' | t }}</span>
                             </button>
                             <button ng-click="close()" class="btn" >
