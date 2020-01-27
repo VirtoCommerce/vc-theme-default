@@ -76,12 +76,12 @@ storefrontApp.component('vcAddress', {
 
         function stringifyAddress(address) {
             var stringifiedAddress = address.organization ? address.organization + ', ' : '';
-            stringifiedAddress += address.line2 ? address.line2 + ' ' : '';
+            stringifiedAddress += address.line2 ? address.line2 + ', ' : '';
             stringifiedAddress += address.line1 + ', ';
-            stringifiedAddress += address.city + ' ';
+            stringifiedAddress += address.city + ', ';
             stringifiedAddress += address.regionName ? address.regionName + ', ' : '';
             stringifiedAddress += address.postalCode + ', ';
-            stringifiedAddress += address.countryName + ', ';
+            stringifiedAddress += address.countryName;
             return stringifiedAddress;
         }
 
