@@ -75,14 +75,13 @@ storefrontApp.component('vcAddress', {
         };
 
         function stringifyAddress(address) {
-            var stringifiedAddress = address.firstName + ' ' + address.lastName + ', ';
-            stringifiedAddress += address.organization ? address.organization + ', ' : '';
-            stringifiedAddress += address.countryName + ', ';
-            stringifiedAddress += address.regionName ? address.regionName + ', ' : '';
-            stringifiedAddress += address.city + ' ';
+            var stringifiedAddress = address.organization ? address.organization + ', ' : '';
+            stringifiedAddress += address.line2 ? address.line2 + ', ' : '';
             stringifiedAddress += address.line1 + ', ';
-            stringifiedAddress += address.line2 ? address.line2 : '';
-            stringifiedAddress += address.postalCode;
+            stringifiedAddress += address.city + ', ';
+            stringifiedAddress += address.regionName ? address.regionName + ', ' : '';
+            stringifiedAddress += address.postalCode + ', ';
+            stringifiedAddress += address.countryName;
             return stringifiedAddress;
         }
 
