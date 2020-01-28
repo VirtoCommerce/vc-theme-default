@@ -4,11 +4,12 @@ angular.module('storefront.account')
             templateUrl: "lists-manager.tpl",
             $routeConfig: [
                 { path: '/', name: 'Lists', component: 'vcAccountLists' },
-                { path: '/myLists', name: 'MyLists', component: 'vcAccountMyLists', useAsDefault: true }
+                { path: '/myLists', name: 'MyLists', component: 'vcAccountMyLists', useAsDefault: true },
+                { path: '/myLists/:listName', name: 'SelectedList', component: 'vcAccountMyLists'}
             ],
             controller: [
-                'listService', '$rootScope', 'cartService', '$translate', 'loadingIndicatorService', '$timeout',
-                function (listService, $rootScope, cartService, $translate, loader, $timeout) {
+                'listService', '$rootScope', 'cartService', 'loadingIndicatorService', '$timeout',
+                function (listService, $rootScope, cartService, loader, $timeout) {
                     var $ctrl = this;
 
                     $ctrl.loader = loader;
@@ -57,18 +58,26 @@ angular.module('storefront.account')
             require: {
                 accountLists: '^^vcAccountLists'
             },
+            bindings: { 
+                listName: '<' 
+            },
             controller: [
-                '$rootScope', 'listService', 'customerService', 'loadingIndicatorService', '$q', 'dialogService', function ($rootScope, listService, customerService, loader, $q, dialogService) {
+                '$rootScope', 'listService', 'loadingIndicatorService', 'dialogService', function ($rootScope, listService, loader, dialogService) {
 
                     var $ctrl = this;
 
                     $ctrl.type = null;
                     $ctrl.predefinedLists = [];
+                    $ctrl.selectedListName = null;
 
                     $ctrl.pageSettings = { currentPage: 1, itemsPerPageCount: 5, numPages: 4 };
 
                     $ctrl.pageSettings.pageChanged = function () {
                         $ctrl._searchLists();
+                    };
+
+                    $ctrl.$routerOnActivate = function(next) {
+                        $ctrl.selectedListName = decodeURIComponent(next.params.listName);
                     };
 
                     $ctrl._searchLists = function () {
@@ -81,7 +90,13 @@ angular.module('storefront.account')
                             }).then(function (response) {
                                 $ctrl.accountLists.lists = response.data.results;
                                 $ctrl.pageSettings.totalItems = response.data.totalCount;
-                                $ctrl.accountLists.selectedList = _.first(response.data.results);
+                                if ($ctrl.selectedListName) {
+                                    $ctrl.accountLists.selectedList = _.find(response.data.results, function (element) { 
+                                        return element.name == $ctrl.selectedListName;
+                                    });
+                                } else {
+                                    $ctrl.accountLists.selectedList = _.first(response.data.results);
+                                }
                             });
                         });
                     };
@@ -94,7 +109,7 @@ angular.module('storefront.account')
 
                     $ctrl.$onInit = function () {
                         $ctrl.accountLists.selectTab('myLists');
-                    }
+                    };
 
                     $ctrl.createList = function () {
                         var dialogData = {
