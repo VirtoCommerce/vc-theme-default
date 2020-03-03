@@ -39,7 +39,6 @@ storefrontApp.controller('cartController', ['$rootScope', '$scope', '$timeout', 
     		getCart();
     		$rootScope.$broadcast('cartItemsChanged');
     	}, function (response) {
-    		$scope.cart.items = initialItems;
     		$scope.cartIsUpdating = false;
     	});
     };
