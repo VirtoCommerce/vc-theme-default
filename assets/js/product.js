@@ -81,12 +81,16 @@ storefrontApp.controller('productController', ['$rootScope', '$scope', '$window'
                     });
                });
 
-                //Auto select initial product as default variation  (its possible because all our products is variations)
+                
                 var propertyMap = getVariationPropertyMap(product);
                 var key = _.first(_.keys(propertyMap));
-                $scope.checkProperty(propertyMap[key][0]);
-
-               //$scope.selectedVariation = product;
+                if (key){
+                    $scope.checkProperty(propertyMap[key][0]);
+                }
+                else {
+                //Auto select initial product as default variation  (its possible because all our products is variations)
+                 $scope.selectedVariation = product;
+                }
             });
         }
 
