@@ -17,7 +17,8 @@ storefrontApp.controller('searchBarController', ['$scope', '$timeout', '$window'
                 keyword: $scope.query,
                 start: 0,
                 pageSize: $window.suggestionsLimit,
-                isFuzzySearch: true
+                isFuzzySearch: true,
+                useRelevanceSorting: true
             }
             catalogService.searchCategories(searchCriteria).then(function (response) {
                 var categories = response.data.categories;
