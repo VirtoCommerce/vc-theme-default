@@ -14,7 +14,9 @@
                         <div class="no-product-image" ng-if="!product.images || !product.images.length">
                             <img src="{{ 'images/no-image.svg' | asset_url }}" />
                         </div>
+                        {% raw %}
                         <img ng-src="{{ product.images[0].url }}" ng-if="product.images && product.images.length" />
+                        {% endraw %}
                     </div>
                     <div class="item-info">
                         <div class="item-name" ng-bind="product.name"></div>
