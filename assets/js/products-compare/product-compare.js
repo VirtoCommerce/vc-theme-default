@@ -33,7 +33,10 @@ storefrontApp.controller('productCompareListController', ['$rootScope', '$scope'
             if (_.isEmpty($scope.products))
                 return [];
             var grouped = {};
-            var properties = _.flatten(_.map($scope.products, function(product) { return product.properties; }));
+
+            var properties = _.flatten(_.map($scope.products, function(product) { return product.variationProperties; }));
+            properties = properties.concat(_.flatten(_.map($scope.products, function(product) { return product.properties; })));
+
             var propertyDisplayNames = _.uniq(_.map(properties, function(property) { return property.displayName; }));
             _.each(propertyDisplayNames, function(displayName) {
                 grouped[displayName] = [];
@@ -52,6 +55,12 @@ storefrontApp.controller('productCompareListController', ['$rootScope', '$scope'
 
         function modifyProperty(product) {
             _.each(product.properties, function(property) {
+                property.productId = product.id;
+                if (property.valueType.toLowerCase() === 'number') {
+                    property.value = formatNumber(property.value);
+                }
+            })
+            _.each(product.variationProperties, function(property) {
                 property.productId = product.id;
                 if (property.valueType.toLowerCase() === 'number') {
                     property.value = formatNumber(property.value);
