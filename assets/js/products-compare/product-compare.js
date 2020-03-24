@@ -15,8 +15,8 @@ storefrontApp.controller('productCompareListController', ['$rootScope', '$scope'
             catalogService.getProducts(productsIds).then(function(response) {
                 if (_.indexOf(productsIds, '&') != -1) {
                     $scope.products = response.data;
-                    _.each($scope.products, function(product) {
-                        modifyProperty(product);
+                    _.each($scope.products, function(prod) {
+                        modifyProperty(prod);
                     })
                 }
                 else {
@@ -27,15 +27,15 @@ storefrontApp.controller('productCompareListController', ['$rootScope', '$scope'
                 $scope.getProductProperties();
                 $scope.loaded = true;
             })
-        };
+        }
 
         $scope.getProductProperties = function () {
             if (_.isEmpty($scope.products))
                 return [];
             var grouped = {};
 
-            var properties = _.flatten(_.map($scope.products, function(product) { return product.variationProperties; }));
-            properties = properties.concat(_.flatten(_.map($scope.products, function(product) { return product.properties; })));
+            var properties = _.flatten(_.map($scope.products, function(product) { return product.properties }));
+            properties = properties.concat(_.flatten(_.map($scope.products, function(product) { return product.variationProperties; })));
 
             var propertyDisplayNames = _.uniq(_.map(properties, function(property) { return property.displayName; }));
             _.each(propertyDisplayNames, function(displayName) {
@@ -94,7 +94,7 @@ storefrontApp.controller('productCompareListController', ['$rootScope', '$scope'
         function formatNumber(number) {
             var float = parseFloat(number);
             return !isNaN(float) ? float : number;
-        };
+        }
         initialize();
     }
 ])
