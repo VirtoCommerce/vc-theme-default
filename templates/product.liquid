@@ -190,6 +190,70 @@
             </div>
         </div>
         {% endif %}
+
+        {% if product.customer_reviews.size > 1 %}
+        <ul class="tabs">
+            <li class="active">
+                <a>Customer reviews</a>
+            </li>
+        </ul>
+        {% for review in product.customer_reviews limit:5 %}
+        <div class="cr-card {% if review.raiting > 3 %}cr-card-positive{% elsif review.raiting == 3 %}cr-card-neutral{% else %}cr-card-negative{% endif %}">
+            <h5>{{ review.author_nickname }}</h5>
+            {% assign number_of_stars = review.raiting %}
+            {% include 'stars' %}
+            <p>{{ review.content }}</p>
+            <div class="grid">
+                <p style="margin-bottom: unset;" class="grid-item large--four-fifths">
+                    <time pubdate datetime="{{ review.created_date | date: 'yyyy-MM-dd' }}">
+                        <em class="text-light">Posted on {{ review.created_date | date: 'month_day_year' }}</em>
+                    </time>
+                </p>
+                <div class="grid-item large--one-fifth large--text-right">
+                    <font color="green">
+                        {{ review.likes }} <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                    </font>
+                    <font color = "red">
+                        {{ review.dislikes }} <i class="fa fa-thumbs-down" aria-hidden="true"></i>
+                    </font>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% endif %}
+        <button ng-if="customer && customer.isRegisteredUser && !addingCustomerReview && !isCustomerReviewAdded" type="button" name="add" id="addCustomerReview" class="btn btn-clearfix AddCustomerReview" ng-click="startAddingReview()" >
+            <span class="fa fa-plus"></span>
+            <span id="addToCartText">Add Review</span>
+        </button>
+        <form ng-if="addingCustomerReview">
+            <hr>
+            <label>Rating</label>
+            <div class="rating" style="float: left;width:100%;">
+                <div class="stars">
+                    <a
+                        ng-repeat="i in [1, 2, 3, 4, 5]"
+                        ng-class="i <= addingRaiting? 'star rated' : 'star'"
+                        ng-click="changeRaiting(i)"
+                        style="cursor: pointer;"
+                    ></a>
+                </div>
+            </div>
+            <label>Comment</label>
+            <textarea ng-model="addingText" type="text" placeholder="Enter your comment here" style="resize: none;"></textarea>
+            <button
+                class="btn"
+                ng-disabled="addingText == ''"
+                ng-click="addCustomerReview('{{ product.id }}', addingText)"
+            >
+                <span class="fa fa-check"></span>Submit
+            </button>
+        </form>
+        <div
+            ng-if="isCustomerReviewAdded"
+            style="padding-top: 20px;"
+        >
+            <center><i><span>Thanks! Review added.</span></i></center>
+        </div>
     </div>
 </div>
 

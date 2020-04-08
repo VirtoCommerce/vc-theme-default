@@ -1191,3 +1191,40 @@ select {
     width: 15px;
     position: relative;
 }
+
+.cr-card {
+    padding: 5px 10px;
+    margin-bottom: 10px;
+}
+
+.cr-card-positive {
+    box-shadow: 0 0 2px green;
+}
+
+.cr-card-neutral {
+    box-shadow: 0 0 2px lightblue;
+}
+
+.cr-card-negative {
+    box-shadow: 0 0 2px indianred;
+}
+
+.rating .stars {
+    margin-right: 15px;
+}
+
+.rating .stars .star {
+    float: left;
+    padding-right: 3px;
+}
+
+.rating .stars .star:before {
+    font-family: 'FontAwesome';
+    content: '\f005';
+    color: #d0e8f0;
+    font-size: 1.5em;
+}
+
+.rating .stars .star.rated:before {
+    color: #80c1d5;
+}

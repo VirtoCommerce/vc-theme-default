@@ -1,0 +1,11 @@
+<div class="rating" style="float: left;width:100%;">
+    <div class="stars">
+        {% for i in (1..5) %}
+        {% if i <= number_of_stars %}
+        <a class="star rated"></a>
+        {% else %}
+        <a class="star"></a>
+        {% endif %}
+        {% endfor %}
+    </div>
+</div>
