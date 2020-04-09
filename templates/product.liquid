@@ -179,7 +179,7 @@
             <div class="tab">
                 <div class="properties">
                     {% for property in product.properties %}
-                        {% if property.value %}
+                        {% if property.value and property.hidden != true %}
                             <dl>
                                 <dt>{{ property.display_name }}</dt>
                                 <dd>{{ property.value }}</dd>
