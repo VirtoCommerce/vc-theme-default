@@ -19,7 +19,10 @@ storefrontApp.component('vcPaymentMethods', {
                 ctrl.availPaymentMethods = _.sortBy(methods, function (x) { return x.priority; });
                 if (ctrl.paymentMethod) {
                     ctrl.paymentMethod = _.findWhere(ctrl.availPaymentMethods, { code: ctrl.paymentMethod.code });
-                    ctrl.selectMethod(ctrl.paymentMethod);
+
+                    if (ctrl.paymentMethod) {
+                        ctrl.selectMethod(ctrl.paymentMethod);
+                    }
                 }
                 if (!ctrl.paymentMethod && ctrl.availPaymentMethods.length > 0) {
                     ctrl.selectMethod(ctrl.availPaymentMethods[0]);
