@@ -44,5 +44,6 @@
         </div>
 </form>
 <script>
-  window.searchQuery = '{{ search.keyword }}';
+  var decodedQuery = _.unescape('{{ search.keyword | escape }}');
+  window.searchQuery = decodedQuery;
 </script>
