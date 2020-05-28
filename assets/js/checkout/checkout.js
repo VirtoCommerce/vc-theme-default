@@ -5,7 +5,7 @@ if (storefrontAppDependencies != undefined) {
     storefrontAppDependencies.push(moduleName);
 }
 angular.module(moduleName, ['credit-cards', 'angular.filter'])
-    .controller('checkoutController', ['$rootScope', '$scope', '$window', 'cartService',
+    .controller('CheckoutController', ['$rootScope', '$scope', '$window', 'cartService',
         function($rootScope, $scope, $window, cartService) {
             $scope.checkout = {
                 wizard: {},
@@ -59,7 +59,7 @@ angular.module(moduleName, ['credit-cards', 'angular.filter'])
                         $scope.checkout.billingAddressEqualsShipping = cart.hasPhysicalProducts && !angular.isObject($scope.checkout.payment.billingAddress);
 
                         $scope.checkout.canCartBeRecurring = $scope.customer.isRegisteredUser && _.all(cart.items, function(x) { return !x.isReccuring });
-                        $scope.checkout.paymentPlan = cart.paymentPlan && _.findWhere($scope.checkout.availablePaymentPlans, { intervalCount: cart.paymentPlan.intervalCount, interval: cart.paymentPlan.interval }) ||
+                        $scope.checkout.paymentPlan = cart.paymentPlan && _.findWhere($scope.checkout.availablePaymentPlans, { intervalCount: cart.paymentPlan.intervalCount, interval: cart.paymentPlan.interval.toLowerCase() }) ||
                             _.findWhere($scope.checkout.availablePaymentPlans, { intervalCount: 1, interval: 'months' });
                     }
                     $scope.validateCheckout($scope.checkout);
