@@ -129,6 +129,9 @@ storefrontApp.controller('quoteRequestController', ['$rootScope', '$scope', '$wi
         $scope.quoteRequest.billingAddress.email = $scope.quoteRequest.email;
         if ($scope.quoteRequest.shippingAddress) {
             $scope.quoteRequest.shippingAddress.email = $scope.quoteRequest.email;
+            if ($scope.quoteRequest.shippingAddressEqualsBilling) {
+                $scope.setShippingAddressEqualsBilling();
+            }
         }
         quoteRequestService.submitQuoteRequest($scope.quoteRequest.id, toFormModel($scope.quoteRequest)).then(function (response) {
             if ($scope.customer.isRegisteredUser) {
@@ -173,6 +176,8 @@ storefrontApp.controller('quoteRequestController', ['$rootScope', '$scope', '$wi
                 $scope.shippingCountry = $scope.billingCountry;
                 getCountryRegions('Shipping', $scope.quoteRequest.shippingAddress.countryCode);
             }
+        } else {
+            $scope.quoteRequest.shippingAddress = null;
         }
     }
 
