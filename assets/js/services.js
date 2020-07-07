@@ -223,6 +223,9 @@ storefrontApp.service('quoteRequestService', ['$http', function ($http) {
         removeProductFromQuoteRequest: function (quoteRequestNumber, quoteItemId) {
             return $http.delete('storefrontapi/quoterequests/' + quoteRequestNumber + '/items/' + quoteItemId);
         },
+        removeAllProductsFromQuoteRequest: function (quoteRequestNumber) {
+            return $http.delete('storefrontapi/quoterequests/' + quoteRequestNumber + '/items');
+        },
         submitQuoteRequest: function (quoteRequestNumber, quoteRequest) {
             return $http.post('storefrontapi/quoterequests/' + quoteRequestNumber + '/submit', quoteRequest);
         },

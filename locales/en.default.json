@@ -304,6 +304,7 @@
             "remarks_quote_request": "Do you have a general remark with this Quote Request?",
             "shipping_quote": "Request a shipping quote",
             "remove": "Remove",
+            "remove_items": "Remove all items",
             "enter_unique_quantities": "Please enter an unique quantities",
             "email": "Email:",
             "comment": "Comment:",
@@ -850,6 +851,6 @@
         "customer_password_confirmation": "Password confirmation is invalid or required",
         "customer_token": "Code is invalid or required",
         "customer_email": "Email is invalid or required"
-       
+
     }
 }
