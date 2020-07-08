@@ -42,6 +42,16 @@ storefrontApp.controller('quoteRequestController', ['$rootScope', '$scope', '$wi
         });
     }
 
+    $scope.removeAllProductsFromQuoteRequest = function () {
+        var initialQuoteItems = angular.copy($scope.quoteRequest.items);
+        quoteRequestService.removeAllProductsFromQuoteRequest($scope.quoteRequest.id).then(function (response) {
+            getQuoteRequest($scope.quoteRequest.id);
+            $rootScope.$broadcast('actualQuoteRequestItemsChanged');
+        }, function (response) {
+            $scope.quoteRequest.items = initialQuoteItems;
+        });
+    }
+
     $scope.setCountry = function (addressType, countryName) {
         var country = _.find($scope.countries, function (c) { return c.name == countryName });
         if (!country) {
