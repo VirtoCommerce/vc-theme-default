@@ -58,7 +58,7 @@ storefrontApp.controller('cartController', ['$rootScope', '$scope', '$timeout', 
             $scope.cart.items = initialItems;
             $scope.cartIsUpdating = false;
         });
-    }   
+    }
 
     $scope.submitCart = function () {
         $scope.formCart.$setSubmitted();
@@ -138,7 +138,9 @@ storefrontApp.controller('cartBarController', ['$scope', 'cartService', function
     }
 }]);
 
-storefrontApp.controller('recentlyAddedCartItemDialogController', ['$scope', '$window', '$uibModalInstance', 'dialogData', function ($scope, $window, $uibModalInstance, dialogData) {
+storefrontApp.controller('recentlyAddedCartItemDialogController', ['$scope', '$window', '$uibModalInstance', 'dialogData','recommendationService', function ($scope, $window, $uibModalInstance, dialogData, recommendationService) {
+    getRecommendations();
+
     $scope.$on('cartItemsChanged', function (event, data) {
         dialogData.updated = true;
     });
@@ -151,5 +153,16 @@ storefrontApp.controller('recentlyAddedCartItemDialogController', ['$scope', '$w
 
     $scope.redirect = function (url) {
         $window.location = url;
+    }
+
+    function getRecommendations() {
+        recommendationService.getRecommendedProducts({ provider : 'DynamicAssociations' , productIds : [dialogData.id] }).then(function (response) {
+            var products = response.data;
+            if (products.length) {
+                $scope.productListRecommendations = products;
+                $scope.isBlockVisible = products.length > 0;
+            }
+            $scope.productListRecommendationsLoaded = true;
+        });
     }
 }]);

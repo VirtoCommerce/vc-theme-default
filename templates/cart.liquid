@@ -114,5 +114,14 @@
                 </div>
             </div>
         </form>
-    </div>   
+        {% if current_cart %}
+            {% assign product_ids = "" %}
+            {% for line in current_cart.value.items %}
+                {% assign product_ids = product_ids | append line.product_id | append ',' %}
+            {% endfor %}
+            {% assign chars_without_comma = product_ids | size | minus 1 %}
+            {% assign product_ids = product_ids | slice 0 chars_without_comma %}
+            {% include 'associations' %}
+        {% endif %}
+    </div>
 </div>
