@@ -138,7 +138,7 @@ storefrontApp.controller('cartBarController', ['$scope', 'cartService', function
     }
 }]);
 
-storefrontApp.controller('recentlyAddedCartItemDialogController', ['$scope', '$window', '$uibModalInstance', 'dialogData','recommendationService', function ($scope, $window, $uibModalInstance, dialogData, recommendationService) {
+storefrontApp.controller('recentlyAddedCartItemDialogController', ['$scope', '$window', '$uibModalInstance', 'dialogData','recommendationService','$timeout', function ($scope, $window, $uibModalInstance, dialogData, recommendationService, $timeout) {
     getRecommendations();
 
     $scope.$on('cartItemsChanged', function (event, data) {
@@ -155,11 +155,35 @@ storefrontApp.controller('recentlyAddedCartItemDialogController', ['$scope', '$w
         $window.location = url;
     }
 
+    $scope.initCarousel = function () {
+        $timeout(function () {
+            $scope.$carousel = $(".owl-carousel").owlCarousel({
+            loop:true,
+            margin:30,
+            nav:true,
+            dots: false,
+            navText:["<div class='nav-arrow nav-arrow-left'></div>","<div class='nav-arrow nav-arrow-right'></div>"],
+            responsive:{
+                0:{
+                    items:2
+                },
+                768:{
+                    items:3
+                },
+                992:{
+                    items:5
+                }
+            }
+            });
+         }, 1000);
+    }
+
     function getRecommendations() {
         recommendationService.getRecommendedProducts({ provider : 'DynamicAssociations' , productIds : [dialogData.id] }).then(function (response) {
             var products = response.data;
             if (products.length) {
                 $scope.productListRecommendations = products;
+                $scope.initCarousel();
                 $scope.isBlockVisible = products.length > 0;
             }
             $scope.productListRecommendationsLoaded = true;

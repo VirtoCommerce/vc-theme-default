@@ -32,3 +32,22 @@ storefrontApp.directive('fallbackSrc', function () {
         }
     }
 });
+
+storefrontApp.directive('imageResizing', [function () {
+    return {
+        restrict: 'A',
+        scope: {
+            imageHeight: '@',
+            imageWidth: '@',
+        },
+        link: function (scope, element, attrs) {
+            element.bind('load', function () {
+                var imageElement = element[0];
+                var imageSizeCSSClass = {};
+                imageSizeCSSClass["max-width"] = scope.imageWidth;
+                imageSizeCSSClass["max-height"] = scope.imageHeight;
+                angular.element(imageElement).css(imageSizeCSSClass);
+            });
+        }
+    };
+}]);

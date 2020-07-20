@@ -1,7 +1,7 @@
 <div ng-if="productListRecommendationsLoaded">
-<span class="h1" ng-show="isBlockVisible">These products are often bought together</span>
-<div class="grid-uniform">
-    <div ng-repeat="product in productListRecommendations" class="grid-item large--one-fifth medium--one-third small--one-half hide-on-mobile" ng-class="[{ 'on-sale': (product.price.listPrice.amount > product.price.actualPrice.amount), 'comparable': {{ settings.product_compare_enabled }} }]">
+<div>
+    <div class="owl-carousel owl-theme">
+    <div ng-repeat="product in productListRecommendations" ng-class="[{ 'on-sale': (product.price.listPrice.amount > product.price.actualPrice.amount), 'comparable': {{ settings.product_compare_enabled }} }]">
         <a href="{% raw %}{{ product.url }}{% endraw %}" class="product-grid-item RecommendationClick" interactor-arg="{% raw %}{{ product.id }}{% endraw %}">
             <div class="product-grid-image recommendationClick" style="height: 168px;">
                 <div class="product-grid-image--centered">
@@ -11,11 +11,13 @@
                         </div>
                     </span>
                     <span ng-if="(product.primaryImage)">
-                        <img ng-src="{% raw %}{{ product.primaryImage.url }}{% endraw %}" alt="{% raw %}{{ product.primaryImage.alt }}{% endraw %}" />
+                        <img ng-src="{% raw %}{{ product.primaryImage.url }}{% endraw %}" alt="{% raw %}{{ product.primaryImage.alt }}{% endraw %}" image-resizing
+                        image-Height="168px" image-Width="168px" />
                     </span>
                     <span ng-if="!(product.primaryImage)">
                         <div class="no-product-image">
-                            <img src="{{ 'images/no-image.svg' | asset_url }}" />
+                            <img src="{{ 'images/no-image.svg' | asset_url }}" image-resizing
+                            image-Height="168px" image-Width="168px" />
                         </div>
                     </span>
                 </div>
@@ -57,6 +59,6 @@
             </span>
         </a>
     </div>
+    </div>
 </div>
 </div>
-

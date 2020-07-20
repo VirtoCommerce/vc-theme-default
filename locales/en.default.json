@@ -715,6 +715,7 @@
             "share_on_twitter": "Tweet",
             "share_on_pinterest": "Pin it",
             "share_on_fancy": "Fancy",
+            "recommendations_title": "These products are often bought together",
             "related_products": "We Also Recommend",
             "save_html": "Save {0}",
             "add_to_cart": "Add to cart",
