@@ -22,7 +22,7 @@
                     </span>
                 </div>
             </div>
-            <div class="product-item--other" style="margin-bottom: 10px;">
+            <div ng-if="showProductButtons" class="product-item--other" style="margin-bottom: 10px;">
                     <button class="btn btn-secondary AddShopCart" title="{{ 'products.general.add_to_cart' | t }}" ng-click="addProductToCartById(product.id, 1, $event)" ng-controller="productController">
                         <span class="icon icon-cart"></span>
                     </button>

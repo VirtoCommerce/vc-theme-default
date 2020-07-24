@@ -5,6 +5,7 @@ storefrontApp.controller('recommendationsController', ['$scope', '$timeout', 're
     $scope.isBlockVisible = false;
     $scope.productListRecommendationsLoaded = false;
     $scope.productListRecommendations = [];
+    $scope.showProductButtons = true;
 
     $scope.getRecommendations = function (evalContext) {
 

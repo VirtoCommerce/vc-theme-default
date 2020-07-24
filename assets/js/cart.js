@@ -145,6 +145,8 @@ storefrontApp.controller('recentlyAddedCartItemDialogController', ['$scope', '$w
         dialogData.updated = true;
     });
 
+    $scope.showProductButtons = false;
+
     $scope.dialogData = dialogData;
 
     $scope.close = function () {
