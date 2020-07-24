@@ -157,23 +157,25 @@ storefrontApp.controller('recentlyAddedCartItemDialogController', ['$scope', '$w
         $window.location = url;
     }
 
-    $scope.initCarousel = function () {
+    $scope.initCarousel = function (itemsLength) {
         $timeout(function () {
             $scope.$carousel = $(".owl-carousel").owlCarousel({
-            loop:true,
             margin:30,
             nav:true,
             dots: false,
             navText:["<div class='nav-arrow nav-arrow-left'></div>","<div class='nav-arrow nav-arrow-right'></div>"],
             responsive:{
                 0:{
-                    items:2
+                    items:2,
+                    loop: itemsLength > 2
                 },
                 768:{
-                    items:3
+                    items:3,
+                    loop: itemsLength > 3
                 },
                 992:{
-                    items:5
+                    items:5,
+                    loop: itemsLength > 5
                 }
             }
             });
@@ -185,7 +187,7 @@ storefrontApp.controller('recentlyAddedCartItemDialogController', ['$scope', '$w
             var products = response.data;
             if (products.length) {
                 $scope.productListRecommendations = products;
-                $scope.initCarousel();
+                $scope.initCarousel(products.length);
                 $scope.isBlockVisible = products.length > 0;
             }
             $scope.productListRecommendationsLoaded = true;
