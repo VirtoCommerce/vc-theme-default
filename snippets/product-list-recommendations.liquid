@@ -40,7 +40,7 @@
                         </span>
                         <small ng-bind="product.price.actualPriceWithTax.formattedAmount"></small>
                     </span>
-                    <span class="sale-tag medium--right" ng-if="product.price.discountAmountWithTax.amount > 0" ng-bind="'{{ 'products.general.save_html' | t }}'  + product.price.discountAmountWithTax.formattedAmount"></span>
+                    <span class="sale-tag medium--right" ng-if="product.price.discountAmountWithTax.amount > 0" ng-bind="'{{ 'products.general.save_html' | t: product.price.discountAmountWithTax.formattedAmount }}'  + product.price.discountAmountWithTax.formattedAmount"></span>
                 </span>
                 <span ng-if="!({{ settings.show_prices_with_taxes }})">
                     <span class="h1 medium--left">
@@ -49,7 +49,7 @@
                         </span>
                         <small ng-bind="product.price.actualPrice.formattedAmount"></small>
                     </span>
-                    <span class="sale-tag medium--right" ng-if="product.price.discountAmount.amount > 0" ng-bind="'{{ 'products.general.save_html' | t }}'  + product.price.discountAmount.formattedAmount"></span>
+                    <span class="sale-tag medium--right" ng-if="product.price.discountAmount.amount > 0" ng-bind="'{{ 'products.general.save_html' | t: product.price.discountAmount.formattedAmount }}'  + product.price.discountAmount.formattedAmount"></span>
                 </span>
             </div>
             <div class="product-item--other">
