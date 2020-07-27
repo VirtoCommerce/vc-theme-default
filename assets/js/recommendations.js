@@ -62,6 +62,13 @@ storefrontApp.controller('recommendationsController', ['$scope', '$timeout', 're
          }, 1000);
     }
 
+    $scope.$on('productVariationChanged', function (event, data) {
+        $scope.isBlockVisible = false;
+        $scope.productListRecommendationsLoaded = false;
+        $scope.productListRecommendations = [];
+        $scope.getRecommendations({ provider : 'DynamicAssociations' , productIds : data });
+    });
+
     $scope.truncate = function(str, n) {
         return (str.length > n) ? str.substr(0, n-1) + '…' : str;
     };

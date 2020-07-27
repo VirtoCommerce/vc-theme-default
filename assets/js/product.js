@@ -184,5 +184,14 @@ storefrontApp.controller('productController', ['$rootScope', '$scope', '$window'
             $scope.selectedVariation = findVariationByProperties(allVariations, getSelectedPropsMap($scope.allVariationPropsMap));
         };
 
+        $scope.$watch(function(scope) {
+            return scope.selectedVariation.id
+        }, function(newValue, oldValue) {
+         if (newValue === oldValue || oldValue === undefined) {
+             return;
+           };
+           $rootScope.$broadcast('productVariationChanged',$scope.selectedVariation.id);
+        });
+
         initialize();
     }]);
