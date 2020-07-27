@@ -30,7 +30,7 @@
                     </add-to-compare-button>
                 {% endif %}
             </div>
-            <p ng-bind="product.name"></p>
+            <p ng-bind="truncate(product.name,60)"></p>
             <div class="product-item--price">
                 <span ng-if="{{ settings.show_prices_with_taxes }}">
                     <span class="h1 medium--left">

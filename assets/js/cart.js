@@ -180,6 +180,10 @@ storefrontApp.controller('recentlyAddedCartItemDialogController', ['$scope', '$w
          }, 1000);
     }
 
+    $scope.truncate = function(str, n) {
+        return (str.length > n) ? str.substr(0, n-1) + '…' : str;
+    };
+
     function getRecommendations() {
         recommendationService.getRecommendedProducts({ provider : 'DynamicAssociations' , productIds : [dialogData.id] }).then(function (response) {
             var products = response.data;
