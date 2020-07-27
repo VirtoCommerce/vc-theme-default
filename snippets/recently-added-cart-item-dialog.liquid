@@ -50,6 +50,7 @@
                 </div>
             </div>
             <h1 class="h2 associated-products-title" ng-show="isBlockVisible">{{ 'products.general.recommendations_title' | t }}</h1>
+            {% assign show_buttons = false %}
             {% include 'product-list-recommendations' %}
         </div>
     </div>

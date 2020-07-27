@@ -1,6 +1,5 @@
-<div ng-if="productListRecommendationsLoaded">
-<div>
-    <div class="owl-carousel owl-theme">
+<div ng-if="productListRecommendationsLoaded" class="associated-products">
+  <div class="owl-carousel owl-theme">
     <div ng-repeat="product in productListRecommendations" ng-class="[{ 'on-sale': (product.price.listPrice.amount > product.price.actualPrice.amount), 'comparable': {{ settings.product_compare_enabled }} }]">
         <a href="{% raw %}{{ product.url }}{% endraw %}" class="product-grid-item RecommendationClick" interactor-arg="{% raw %}{{ product.id }}{% endraw %}">
             <div class="product-grid-image recommendationClick" style="height: 168px;">
@@ -22,7 +21,7 @@
                     </span>
                 </div>
             </div>
-            <div ng-if="showProductButtons" class="product-item--other" style="margin-bottom: 10px;">
+            <div ng-if="{{show_buttons}}" class="product-item--other" style="margin-bottom: 10px;">
                     <button class="btn btn-secondary AddShopCart" title="{{ 'products.general.add_to_cart' | t }}" ng-click="addProductToCartById(product.id, 1, $event)" ng-controller="productController">
                         <span class="icon icon-cart"></span>
                     </button>
@@ -59,6 +58,5 @@
             </span>
         </a>
     </div>
-    </div>
-</div>
+  </div>
 </div>

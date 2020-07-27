@@ -121,6 +121,7 @@
             {% endfor %}
             {% assign chars_without_comma = product_ids | size | minus 1 %}
             {% assign product_ids = product_ids | slice 0 chars_without_comma %}
+            {% assign show_buttons = false %}
             {% include 'associations' %}
         {% endif %}
     </div>

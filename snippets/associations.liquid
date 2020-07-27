@@ -1,4 +1,4 @@
-<span class="associated-products" ng-controller="recommendationsController" ng-show="isBlockVisible" ng-init="getRecommendations({ provider : 'DynamicAssociations' , productIds : '{{product_ids}}' })">
+<span ng-controller="recommendationsController" ng-show="isBlockVisible" ng-init="getRecommendations({ provider : 'DynamicAssociations' , productIds : '{{product_ids}}' })">
 <hr />
 <span class="h1" ng-show="isBlockVisible">{{ 'products.general.recommendations_title' | t }}</span>
 {% include 'product-list-recommendations' %}

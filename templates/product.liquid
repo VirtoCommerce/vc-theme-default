@@ -227,6 +227,7 @@
     </div>
 </script>
     {% assign product_ids = product.id %}
+    {% assign show_buttons = true %}
     {% include 'associations' %}
     {% if settings.related_products_enable %}
     {% assign grid_item_width = 'large--one-fifth medium--one-third small--one-half' %}
