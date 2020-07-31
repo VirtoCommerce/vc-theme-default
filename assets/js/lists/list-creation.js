@@ -21,6 +21,10 @@ storefrontApp.controller('recentlyCreateNewListDialogController', ['$rootScope',
         $scope.selectedList.items = items;
     };
 
+    $scope.isSelected = function () {
+        return _.find(dialogData.lists,  function (item) { return  item.delete; }) == undefined;
+    } 
+
     $scope.submitSettings = function () {
         var listIds = [];
         _.each(dialogData.lists, function (list) {
@@ -28,9 +32,11 @@ storefrontApp.controller('recentlyCreateNewListDialogController', ['$rootScope',
                 listIds.push(list.id);
         });
 
-        listService.deleteListsByIds(listIds).then(function (result) {
-            $uibModalInstance.close();
-        });
+        if(listIds.length > 0){
+            listService.deleteListsByIds(listIds).then(function (result) {
+                $uibModalInstance.close();        
+            });
+        }
     };
 
     $scope.close = function () {
