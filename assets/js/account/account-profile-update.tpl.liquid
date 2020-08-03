@@ -15,7 +15,7 @@
     <span ng-if="phone.$invalid"  ng-class="{'form-error': phone.$invalid}">Invalid phone number</span>
     </form>        
     <div>
-        <button class="vc-btn" ng-if="$ctrl.phoneNumber" ng-click="$ctrl.updatePhoneNumber()">            
+        <button class="vc-btn" ng-if="$ctrl.phoneNumber" ng-disabled="$ctrl.twoFactorEnabled" ng-click="$ctrl.updatePhoneNumber()">
             <span class="btn-text">{{ 'customer.edit_profile.submit' | t }}</span>
         </button>        
         <button class="vc-btn" ng-if="$ctrl.phoneNumber" ng-disabled="$ctrl.twoFactorEnabled" ng-click="$ctrl.deletePhoneNumber()">
