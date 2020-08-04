@@ -88,14 +88,14 @@ angular.module('storefront.account')
                                 pageSize: $ctrl.pageSettings.itemsPerPageCount,
                                 type: $ctrl.type
                             }).then(function (response) {
-                                $ctrl.accountLists.lists = response.data.results;
+                                $ctrl.accountLists.lists = response.data;
                                 $ctrl.pageSettings.totalItems = response.data.totalCount;
                                 if ($ctrl.selectedListName) {
-                                    $ctrl.accountLists.selectedList = _.find(response.data.results, function (element) { 
+                                    $ctrl.accountLists.selectedList = _.find(response.data, function (element) { 
                                         return element.name == $ctrl.selectedListName;
                                     });
                                 } else {
-                                    $ctrl.accountLists.selectedList = _.first(response.data.results);
+                                    $ctrl.accountLists.selectedList = _.first(response.data);
                                 }
                             });
                         });
@@ -144,7 +144,7 @@ angular.module('storefront.account')
                                 type: $ctrl.type
                             }).then(function (response) {
                                 var dialogData = {
-                                    lists: response.data.results,
+                                    lists: response.data,
                                     predefinedLists: $ctrl.predefinedLists,
                                     type: $ctrl.type
                                 }
