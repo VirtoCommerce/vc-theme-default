@@ -34,7 +34,7 @@ storefrontApp.controller('recentlyAddedListItemDialogController', ['$scope', '$w
             pageSize: 20,
             type: $scope.type
         }).then(function (response) {
-            $scope.lists = response.data.results;
+            $scope.lists = response.data;
             if (response.data.totalCount === 0) {
                 $scope.lists = defaultLists.default_lists;
             }
