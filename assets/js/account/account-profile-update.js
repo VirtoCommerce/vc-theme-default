@@ -26,7 +26,11 @@ angular.module('storefront.account')
                         fullName: customer.firstName + ' ' + customer.lastName,
                         email: customer.email
                     };
-                    $ctrl.phoneNumber = customer.phoneNumber;
+                    if (customer.contact)
+                    {
+                        $ctrl.phoneNumber = _.first(customer.contact.phones);
+                    }
+                    
                     $ctrl.twoFactorEnabled = customer.twoFactorEnabled;
                 }
             });
