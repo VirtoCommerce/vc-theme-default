@@ -26,15 +26,15 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Install dotnet-sonarscanner
-      run: dotnet tool install --global dotnet-sonarscanner
+    - name: Setup sonarqube
+      uses: warchant/setup-sonar-scanner@v1
 
     - name: Get Image Version
       uses: VirtoCommerce/vc-github-actions/get-image-version@dev
       id: image
 
     - name: SonarCloud Scan
-      uses: sonarsource/sonarcloud-github-action@master
+      uses: VirtoCommerce/vc-github-actions/sonar-theme@dev
 
     - name: Build
       uses: VirtoCommerce/vc-github-actions/build-theme@dev
