@@ -47,7 +47,7 @@
                                     {% endif %}
                                     <span ng-if="error.errorCode == 'PriceError'" style="color: #204a80; cursor: pointer; margin-left: 10px;" ng-click="changeLineItemPrice(lineItem.id, error.newPrice.amount)">{{ 'cart.general.apply_price' | t }}</span>
                                     <span ng-if="error.errorCode == 'UnavailableError'" ng-bind="'Product is currently unavailable!'"></span>
-                                    <span ng-if="error.errorCode == 'QuantityError'" ng-bind="'Product quantity exceeded! Available quantity is: ' + error.availableQuantity"></span>
+                                    <span ng-if="error.errorCode == 'PRODUCT_QTY_INSUFFICIENT' || error.errorCode == 'PRODUCT_QTY_CHANGED'" ng-bind="'Product quantity exceeded! Available quantity is: ' + lineItem.inStockQuantity"></span>
                                 </div>
                             </div>
                         </div>
