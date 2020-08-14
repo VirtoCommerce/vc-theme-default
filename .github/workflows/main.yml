@@ -12,6 +12,12 @@ on:
     branches:
       [master, dev]
   pull_request:
+    paths-ignore:
+      - '.github/**'
+      - 'docs/**'
+      - 'build/**'
+      - 'README.md'
+      - 'LICENSE'
     branches:
       [master, dev]
 
@@ -39,10 +45,12 @@ jobs:
     - name: Build
       uses: VirtoCommerce/vc-github-actions/build-theme@dev
 
+# Runs only on dev push
     - name: Publish
       id: publish
       uses: VirtoCommerce/vc-github-actions/publish-theme@dev
 
+# Runs only on master push
     - name: Create Release
       if: github.ref == 'refs/heads/master'
       id: create_release
@@ -53,6 +61,7 @@ jobs:
         draft: false
         prerelease: false
 
+# Runs only on master push
     - name: Upload Release Asset
       if: github.ref == 'refs/heads/master'
       id: upload-release-asset 
