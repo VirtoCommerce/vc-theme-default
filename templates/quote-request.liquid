@@ -69,6 +69,7 @@
                 </table>
             </div>
         </div>
+        <a class="lists-settings" ng-click="removeAllProductsFromQuoteRequest()">{{ 'quotes.request.remove_items' | t }}</a>
         <div class="cart-row quote" ng-repeat="quoteItem in quoteRequest.items">
             <div class="grid">
                 <div class="grid-item large--seven-twelfths">
@@ -229,7 +230,7 @@
                     <input id="ShippingAddressEqualsBilling" name="ShippingAddressEqualsBilling" type="checkbox" style="display: inline-block;" ng-model="quoteRequest.shippingAddressEqualsBilling" ng-change="setShippingAddressEqualsBilling()" />
                     <label for="ShippingAddressEqualsBilling" style="display: inline-block;">{{ 'customer.addresses.same_address' | t }}</label>
                     <input id="ShippingAddressType" name="ShippingAddressType" type="hidden" value="Shipping" ng-model="quoteRequest.shippingAddress.type" ng-init="quoteRequest.shippingAddress.type = 'Shipping'" />
-                    <div class="grid">
+                    <div class="grid" ng-if="!quoteRequest.shippingAddressEqualsBilling">
                         <div class="grid-item large--one-half">
                             <label for="ShippingAddressFirstName" style="float: left;">{{ 'customer.addresses.first_name' | t }}</label>
                             <span style="color: #ff0000; float: left; margin-left: 5px;">*</span>
