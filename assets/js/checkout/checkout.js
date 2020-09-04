@@ -103,15 +103,6 @@ angular.module(moduleName, ['credit-cards', 'angular.filter'])
                 });
             }
 
-            $scope.selectPaymentMethod = function(paymentMethod) {
-                angular.extend($scope.checkout.payment, paymentMethod);
-                $scope.checkout.payment.paymentGatewayCode = paymentMethod.code;
-                $scope.checkout.payment.amount = angular.copy($scope.checkout.cart.total);
-                $scope.checkout.payment.amount.amount += paymentMethod.totalWithTax.amount;
-
-                updatePayment($scope.checkout.payment);
-            };
-
             function getAvailCountries() {
                 //Load avail countries
                 return cartService.getCountries().then(function(response) {
@@ -215,6 +206,16 @@ angular.module(moduleName, ['credit-cards', 'angular.filter'])
                         });
                     }
                 }
+            };
+
+            $scope.selectPaymentMethod = function(paymentMethod) {
+                angular.extend($scope.checkout.payment, paymentMethod);
+                $scope.checkout.payment.paymentGatewayCode = paymentMethod.code;
+                $scope.checkout.payment.amount = angular.copy($scope.checkout.cart.total);
+                $scope.checkout.payment.amount.amount += paymentMethod.totalWithTax.amount;
+                $scope.checkout.payment.total = $scope.checkout.payment.amount;
+
+                updatePayment($scope.checkout.payment);
             };
 
             function updatePayment(payment) {
