@@ -56,7 +56,7 @@ angular.module(moduleName, ['credit-cards', 'angular.filter'])
                                 }
                             }
                         }
-                        $scope.checkout.billingAddressEqualsShipping = cart.hasPhysicalProducts && !angular.isObject($scope.checkout.payment.billingAddress);
+                        $scope.checkout.billingAddressEqualsShipping = cart.hasPhysicalProducts && (!angular.isObject($scope.checkout.payment.billingAddress) || $scope.checkout.shipment.deliveryAddress.type === 'BillingAndShipping');
 
                         $scope.checkout.canCartBeRecurring = $scope.customer.isRegisteredUser && _.all(cart.items, function(x) { return !x.isReccuring });
 
@@ -103,15 +103,6 @@ angular.module(moduleName, ['credit-cards', 'angular.filter'])
                 });
             }
 
-            $scope.selectPaymentMethod = function(paymentMethod) {
-                angular.extend($scope.checkout.payment, paymentMethod);
-                $scope.checkout.payment.paymentGatewayCode = paymentMethod.code;
-                $scope.checkout.payment.amount = angular.copy($scope.checkout.cart.total);
-                $scope.checkout.payment.amount.amount += paymentMethod.totalWithTax.amount;
-
-                updatePayment($scope.checkout.payment);
-            };
-
             function getAvailCountries() {
                 //Load avail countries
                 return cartService.getCountries().then(function(response) {
@@ -154,24 +145,43 @@ angular.module(moduleName, ['credit-cards', 'angular.filter'])
             };
 
             $scope.updateShipment = function(shipment) {
+                return updateShipmentAndReloadCart(shipment, true);
+            }
+
+            function updateShipmentWithoutReloadCart(shipment) {
+                return updateShipmentAndReloadCart(shipment, false)
+            }
+
+            function updateShipmentAndReloadCart(shipment, reloadCart) {
                 if (shipment.deliveryAddress) {
-                    $scope.checkout.shipment.deliveryAddress.type = 'Shipping';
+                    if ($scope.checkout.billingAddressEqualsShipping) {
+                        $scope.checkout.shipment.deliveryAddress.type = 'BillingAndShipping';
+                    }
+                    else {
+                        $scope.checkout.shipment.deliveryAddress.type = 'Shipping';
+                    }
                 };
                 //Does not pass validation errors to API
                 shipment.validationErrors = undefined;
                 return wrapLoading(function() {
-                    return cartService.addOrUpdateShipment(shipment).then($scope.reloadCart);
+                    if (reloadCart) {
+                        return cartService.addOrUpdateShipment(shipment).then($scope.reloadCart);
+                    } else {
+                        return cartService.addOrUpdateShipment(shipment);
+                    }
                 });
             };
 
             $scope.createOrder = function() {
-                updatePayment($scope.checkout.payment).then(function() {
-                    $scope.checkout.loading = true;
-                    cartService.createOrder($scope.checkout.paymentMethod.card || []).then(function(response) {
-                        var order = response.data.order;
-                        var orderProcessingResult = response.data.orderProcessingResult;
-                        var paymentMethod = response.data.paymentMethod;
-                        handlePostPaymentResult(order, orderProcessingResult, paymentMethod);
+                updatePaymentWithoutReloadCart($scope.checkout.payment).then(function() {
+                    updateShipmentWithoutReloadCart($scope.checkout.shipment, false).then(function() {
+                        $scope.checkout.loading = true;
+                        cartService.createOrder($scope.checkout.paymentMethod.card || []).then(function(response) {
+                            var order = response.data.order;
+                            var orderProcessingResult = response.data.orderProcessingResult;
+                            var paymentMethod = response.data.paymentMethod;
+                            handlePostPaymentResult(order, orderProcessingResult, paymentMethod);
+                        });
                     });
                 });
             };
@@ -198,16 +208,42 @@ angular.module(moduleName, ['credit-cards', 'angular.filter'])
                 }
             };
 
-            function updatePayment(payment) {
-                if ($scope.checkout.billingAddressEqualsShipping) {
-                    payment.billingAddress = undefined;
-                }
+            $scope.selectPaymentMethod = function(paymentMethod) {
+                angular.extend($scope.checkout.payment, paymentMethod);
+                $scope.checkout.payment.paymentGatewayCode = paymentMethod.code;
+                $scope.checkout.payment.amount = angular.copy($scope.checkout.cart.total);
+                $scope.checkout.payment.amount.amount += paymentMethod.totalWithTax.amount;
 
-                if (payment.billingAddress) {
-                    payment.billingAddress.type = 'Billing';
+                updatePayment($scope.checkout.payment);
+            };
+
+            function updatePayment(payment) {
+                return updatePaymentAndReloadCart(payment, true);
+            }
+
+            function updatePaymentWithoutReloadCart(payment) {
+                return updatePaymentAndReloadCart(payment, false);
+            }
+
+            function updatePaymentAndReloadCart(payment, reloadCart) {
+                if ($scope.checkout.billingAddressEqualsShipping) {
+                    if ($scope.checkout.shipment.deliveryAddress.type === 'BillingAndShipping')
+                    {
+                        payment.billingAddress = angular.copy($scope.checkout.shipment.deliveryAddress);
+                    }
+                    else {
+                        payment.billingAddress = undefined;
+                    }
+                }
+                else if (payment.billingAddress) {
+                     payment.billingAddress.type = 'Billing';
                 }
                 return wrapLoading(function() {
-                    return cartService.addOrUpdatePayment(payment).then($scope.reloadCart);
+                    if (reloadCart) {
+                        return cartService.addOrUpdatePayment(payment).then($scope.reloadCart);
+                    } else {
+                        return cartService.addOrUpdatePayment(payment);
+                    }
                 });
             }
 
