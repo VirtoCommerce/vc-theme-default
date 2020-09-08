@@ -148,10 +148,6 @@ angular.module(moduleName, ['credit-cards', 'angular.filter'])
                 return updateShipmentAndReloadCart(shipment, true);
             }
 
-            function updateShipmentWithoutReloadCart(shipment) {
-                return updateShipmentAndReloadCart(shipment, false)
-            }
-
             function updateShipmentAndReloadCart(shipment, reloadCart) {
                 if (shipment.deliveryAddress) {
                     if ($scope.checkout.billingAddressEqualsShipping) {
