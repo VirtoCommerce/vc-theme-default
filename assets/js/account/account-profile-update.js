@@ -42,7 +42,10 @@ angular.module('storefront.account')
                 .then(function (result) {
                     if (!result.succeeded) {
                         $ctrl.phoneNumber = null;
+                    } else {
+                        $ctrl.customer.phoneNumber = $ctrl.phoneNumber;
                     }
+
                 });
         };
 
@@ -50,6 +53,7 @@ angular.module('storefront.account')
             $ctrl.accountManager.deletePhoneNumber().then(function (result) {
                 if (result.succeeded) {
                     $ctrl.phoneNumber = null;
+                    $ctrl.customer.phoneNumber = null;
                 }
             });
         };
@@ -66,6 +70,7 @@ angular.module('storefront.account')
                     }
                     if (result.succeeded) {
                         $ctrl.twoFactorEnabled = toogledTwoFactorEnabledValue;
+                        $ctrl.customer.twoFactorEnabled = toogledTwoFactorEnabledValue;
                     }
                 });
         };

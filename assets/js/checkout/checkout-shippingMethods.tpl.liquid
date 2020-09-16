@@ -6,7 +6,7 @@
     </div> 
     <div class="content-box" ng-repeat="(key, value) in $ctrl.availShippingMethods | groupBy: 'shipmentMethodCode' ">
         <div class="content-box__row" ng-repeat="method in value">
-            <div class="radio-wrapper">
+            <div class="radio-wrapper" ng-class="{ 'disabled': $ctrl.loading }" ng-disabled="$ctrl.loading">
                 <div class="radio__input">
                     <input class="input-radio" id="{% raw %}{{ method.id }}{% endraw %}" name="ShipmentMethodCode" type="radio" required="required" ng-value="method" ng-model="$ctrl.selectedMethod" ng-change="$ctrl.selectMethod(method)" />
                 </div>

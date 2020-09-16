@@ -8,7 +8,8 @@ storefrontApp.component('vcCheckoutShippingMethods', {
 	bindings: {
 		shipment: '=',
 		getAvailShippingMethods: '&',
-		onSelectShippingMethod: '&'
+		onSelectShippingMethod: '&',
+		loading: '='
 	},
 	controller: [function () {
 
@@ -42,8 +43,11 @@ storefrontApp.component('vcCheckoutShippingMethods', {
 		}
 
 		ctrl.selectMethod = function (method) {
-			ctrl.selectedMethod = method;
-			ctrl.onSelectShippingMethod({ shippingMethod: method });
+			if (!ctrl.loading)
+			{
+				ctrl.selectedMethod = method;
+				ctrl.onSelectShippingMethod({ shippingMethod: method });
+			}
 		};
 	
 		ctrl.validate = function () {
