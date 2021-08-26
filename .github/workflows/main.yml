@@ -58,6 +58,7 @@ jobs:
       uses: VirtoCommerce/vc-github-actions/sonar-theme@VCI-152
       with:
         projectVersion: ${{ steps.image.outputs.fullVersion }}
+        sonarToken: ${{secrets.SONAR_TOKEN}}
 
     - name: Build
       if: ${{ github.ref == 'refs/heads/master' || github.ref == 'refs/heads/dev' || github.event_name == 'workflow_dispatch' }}
