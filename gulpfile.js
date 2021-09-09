@@ -202,4 +202,4 @@ exports["min:js"] = min_js;
 exports["min:css"] = min_css;
 exports["min:html"] = min_html;
 exports.compress = series(exports.min, packJavaScript, compress);
-exports.default = series(clean, lint, exports.min);
+exports.default = series(clean, lint, exports.min, exports.packJavaScript);
