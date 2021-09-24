@@ -1,0 +1,12 @@
+{
+    "name": "Product description",
+    "icon": "image",
+    "settings": [
+        {
+            "id": "title",
+            "label": "Title",
+            "type": "string",
+			"default": "Buy now!"
+        }
+    ]
+}

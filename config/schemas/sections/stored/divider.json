@@ -1,0 +1,52 @@
+{
+    "name": "Divider",
+    "hide": true,
+    "icon": "image-text",
+    "displayField": "name",
+    "settings": [
+        {
+            "id": "name",
+            "label": "Block name",
+            "type": "string",
+            "default": "Divider"
+        },
+        {
+            "id": "style",
+            "label": "Block style",
+            "type": "select",
+            "default": "light",
+            "tab": "Settings",
+            "options": [
+                {
+                    "value": "light",
+                    "label": "Light"
+                },
+                {
+                    "value": "dark",
+                    "label": "Dark"
+                }
+            ]
+        },
+        {
+            "id": "noTop",
+            "label": "Remove top margin",
+            "type": "checkbox",
+            "tab": "Settings",
+            "default": true
+        },
+        {
+            "id": "noBottom",
+            "label": "Remove bottom margin",
+            "type": "checkbox",
+            "tab": "Settings",
+            "default": true
+        },
+        {
+            "id": "noPad",
+            "label": "Remove paddings",
+            "type": "checkbox",
+            "tab": "Settings",
+            "default": true
+        }
+    ]
+}

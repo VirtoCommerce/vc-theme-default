@@ -1,0 +1,49 @@
+{
+    "name": "Products list",
+    "icon": "image",
+    "blocks": [
+        "product-list-item-image",
+        "product-list-item-price",
+        "product-title",
+        "buy-button",
+        "share"
+    ],
+    "settings": [
+        {
+            "id": "title",
+            "label": "Page title",
+            "type": "string"
+        },
+        {
+            "id": "title-tag",
+            "label": "SEO title tag",
+            "type": "select",
+            "default": "h2",
+            "options": [
+                {
+                    "label": "h1",
+                    "value": "h1"
+                },
+                {
+                    "label": "h2",
+                    "value": "h2"
+                },
+                {
+                    "label": "h3",
+                    "value": "h3"
+                },
+                {
+                    "label": "h4",
+                    "value": "h4"
+                }
+            ]
+        },
+        {
+            "id": "pageSize",
+            "label": "Page size",
+            "type": "number",
+            "min": 6,
+            "max": 20
+        }
+    ]
+}

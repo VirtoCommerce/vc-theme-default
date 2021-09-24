@@ -13,12 +13,12 @@
                     {% if settings.show_prices_with_taxes %}
                     <span ng-bind="paymentMethod.totalWithTax.formattedAmount"></span>
                     <span ng-if="paymentMethod.discountAmountWithTax.amount > 0">
-                        <span class="order-summary__small-text strikethrough" ng-bind="paymentMethod.priceWithTax.formattedAmount"></span>
+                        <span class="old" ng-bind="paymentMethod.priceWithTax.formattedAmount"></span>
                     </span>
                     {% else %}
                     <span ng-bind="paymentMethod.total.formattedAmount"></span>
                     <span ng-if="paymentMethod.discountAmount.amount > 0">
-                        <span class="order-summary__small-text strikethrough" ng-bind="paymentMethod.price.formattedAmount"></span>
+                        <span class="old" ng-bind="paymentMethod.price.formattedAmount"></span>
                     </span>
                     {% endif %}
                 </div>

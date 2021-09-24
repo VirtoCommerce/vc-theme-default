@@ -1,0 +1,16 @@
+{
+    "name": "Price",
+    "icon": "image",
+    "settings": [
+        {
+            "id": "currency",
+            "label": "Currency",
+            "type": "string"
+        },
+        {
+            "id": "title",
+            "label": "Title",
+            "type": "string"
+        }
+    ]
+}

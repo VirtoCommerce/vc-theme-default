@@ -1,0 +1,66 @@
+{
+    "hide": true,
+    "name": "Image carousel",
+    "icon": "image-carousel",
+    "displayField": "name",
+    "settings": [
+        {
+            "id": "name",
+            "label": "Block name",
+            "type": "string",
+            "default": "Image carousel",
+            "tab": "Settings"
+        },
+        {
+            "id": "title",
+            "label": "Title",
+            "type": "string",
+            "autofocus": true
+        },
+        {
+            "id": "style",
+            "label": "Block style",
+            "type": "select",
+            "default": "light",
+            "options": [
+                {
+                    "value": "light",
+                    "label": "Light"
+                },
+                {
+                    "value": "dark",
+                    "label": "Dark"
+                }
+            ],
+            "tab": "Settings"
+        },
+        {
+            "id": "images",
+            "label": "Images",
+            "type": "list",
+            "addText": "Add image",
+            "removeText": "Remove image",
+            "displayField": "title",
+            "element": [
+                {
+                    "id": "image",
+                    "label": "Upload picture",
+                    "type": "image",
+                    "previewWidth": 120,
+                    "previewHeight": 80
+                }
+            ],
+            "default": [
+                {
+                    "image": "http://dev-cms-vm.westeurope.cloudapp.azure.com/v2/admin/Assets/blogs/Galunggung.jpg"
+                },
+                {
+                    "image": "http://dev-cms-vm.westeurope.cloudapp.azure.com/v2/admin/Assets/blogs/Hopetoun_falls.jpg"
+                },
+                {
+                    "image": "http://dev-cms-vm.westeurope.cloudapp.azure.com/v2/admin/Assets/blogs/Bachalpsee_reflection.jpg"
+                }
+            ]
+        }
+    ]
+}

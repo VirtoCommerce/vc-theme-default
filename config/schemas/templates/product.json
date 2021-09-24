@@ -1,0 +1,12 @@
+{
+	"name": "Product",
+	"file": "product.json",
+	"sections": ["product-info", "recommendations", "text", "image"],
+	"settings": [
+		{
+			"id": "title",
+			"label": "Title",
+			"type": "string"
+		}
+	]
+}

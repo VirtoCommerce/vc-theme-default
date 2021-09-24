@@ -101,7 +101,7 @@
                                 <h2 class="section__title">{{ 'checkout.shipping_method.title' | t }}</h2>
                             </div>
                             <div class="section__content">
-                                <vc-checkout-shipping-methods loading="checkout.loading" shipment="checkout.shipment" on-select-shipping-method="selectShippingMethod(shippingMethod)" get-avail-shipping-methods="getAvailShippingMethods(checkout.shipment)"></vc-checkout-shipping-methods>
+                                <vc-checkout-shipping-methods shipment="checkout.shipment" on-select-shipping-method="selectShippingMethod(shippingMethod)" get-avail-shipping-methods="getAvailShippingMethods(checkout.shipment)"></vc-checkout-shipping-methods>
                             </div>
                         </div>
                     </div>

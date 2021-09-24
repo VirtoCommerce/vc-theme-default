@@ -1,0 +1,26 @@
+{
+    "sections": [
+        {
+            "type": "main-product",
+            "blocks": [
+                {
+                    "type": "name",
+                    "settings": {
+
+                    }
+                },
+                {
+                    "type": "price"
+                },
+                {
+                    "type": "text",
+                    "settings": {
+                        "value": "sale"
+                    }
+                }
+            ],
+            "settings": {}
+        }
+    ],
+    "settings": { }
+}

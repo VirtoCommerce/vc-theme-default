@@ -1,0 +1,43 @@
+{
+  "sections": [
+    {
+      "type": "products-list",
+      "title": "Products list title",
+      "blocks": [
+        {
+          "type": "product-list-item-image",
+          "__uid": 1,
+          "__id": "productimageeH2"
+        },
+        {
+          "type": "product-title",
+          "__id": "producttitleOudW",
+          "__uid": 2
+        },
+        {
+          "type": "product-list-item-price",
+          "__id": "priceeLva",
+          "__uid": 3,
+          "currency": "$",
+          "title": "Current price"
+        },
+        {
+          "type": "buy-button",
+          "__uid": 4,
+          "__id": "buybuttondto2",
+          "title": "Buy now"
+        }
+      ],
+      "__id": "productsfU4y",
+      "__uid": 1
+    },
+    {
+      "type": "latest-news",
+      "__id": "newsXi2F",
+      "__uid": 2,
+      "title": "The latest new",
+      "count": 3
+    }
+  ],
+  "settings": {}
+}

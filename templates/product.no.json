@@ -1,0 +1,20 @@
+[
+    {
+        "type": "main-product",
+        "blocks": [
+            {
+                "type": "name"
+            },
+            {
+                "type": "price"
+            },
+            {
+                "type": "text"
+            }
+        ]
+    },
+    {
+        "type": "recommendations",
+        "blocks": []
+    }
+]

@@ -1,0 +1,18 @@
+{
+    "templates": [
+        {
+            "name": "Product",
+            "file": "product.json",
+            "variants": [
+                {
+                    "name": "Product alternative",
+                    "file": "product.alt.json"
+                }
+            ]
+        },
+        {
+            "name": "Category",
+            "file": "collection.json"
+        }
+    ]
+}

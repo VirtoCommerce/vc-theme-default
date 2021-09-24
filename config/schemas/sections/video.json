@@ -1,0 +1,113 @@
+{
+    "name": "Video and text",
+    "icon": "image",
+    "settings": [
+        {
+            "id": "name",
+            "label": "Block name",
+            "type": "string",
+            "default": "Video and text",
+            "tab": "Settings"
+        },
+        {
+            "id": "title",
+            "label": "Title",
+            "type": "string",
+            "default": "Block title",
+            "autofocus": true
+        },
+        {
+            "id": "content",
+            "label": "Content",
+            "type": "text",
+            "default": "Text block content"
+        },
+        {
+            "id": "style",
+            "label": "Block style",
+            "type": "select",
+            "default": "light",
+            "tab": "Settings",
+            "options": [
+                {
+                    "value": "light",
+                    "label": "Light"
+                },
+                {
+                    "value": "dark",
+                    "label": "Dark"
+                }
+            ]
+        },
+        {
+            "id": "image",
+            "label": "Upload background picture",
+            "type": "image",
+            "previewWidth": 120,
+            "previewHeight": 80,
+            "default": {
+                "url": "https://vcpro.blob.core.windows.net/blogs/hero.png"
+            }
+        },
+        {
+            "id": "avatar",
+            "label": "Author avatar",
+            "type": "image",
+            "previewWidth": 80,
+            "previewHeight": 80,
+            "default": {
+                "url": "https://vcpro.blob.core.windows.net/blogs/hero.png"
+            }
+        },
+        {
+            "id": "videoName",
+            "label": "Video title",
+            "type": "string",
+            "default": "video title"
+        },
+        {
+            "id": "videoUrl",
+            "label": "Url to video",
+            "type": "string",
+            "default": "https://www.youtube.com/watch?v=QpRG-HOlrbc"
+        },
+        {
+            "id": "align",
+            "label": "Video position",
+            "type": "select",
+            "default": "left",
+            "options": [
+                {
+                    "value": "left",
+                    "label": "Left"
+                },
+                {
+                    "value": "right",
+                    "label": "Right"
+                }
+            ],
+            "tab": "Settings"
+        },
+        {
+            "id": "noTop",
+            "label": "Remove top margin",
+            "type": "checkbox",
+            "tab": "Settings",
+            "default": false
+        },
+        {
+            "id": "noBottom",
+            "label": "Remove bottom margin",
+            "type": "checkbox",
+            "tab": "Settings",
+            "default": false
+        },
+        {
+            "id": "noPad",
+            "label": "Remove paddings",
+            "type": "checkbox",
+            "tab": "Settings",
+            "default": false
+        }
+    ]
+}

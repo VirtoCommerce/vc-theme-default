@@ -1,0 +1,53 @@
+{
+    "name": "Simple image",
+    "icon": "image",
+    "includeShared": [],
+    "exclude": [],
+    "settings": [
+        {
+            "id": "name",
+            "label": "Block name",
+            "type": "string",
+            "default": "Simple image",
+            "tab": "Settings"
+        },
+        {
+            "id": "url",
+            "type": "object",
+            "elementRef": "urlObject"
+        },
+        {
+            "id": "title",
+            "label": "Title",
+            "type": "string",
+            "default": "Block title",
+            "autofocus": true
+        },
+        {
+            "id": "size",
+            "label": "Block size",
+            "type": "select",
+            "default": "middle",
+            "options": [
+                {
+                    "value": "middle",
+                    "label": "Middle"
+                },
+                {
+                    "value": "page",
+                    "label": "Page"
+                }
+            ]
+        },
+        {
+            "id": "image",
+            "label": "Upload picture",
+            "type": "image",
+            "previewWidth": 120,
+            "previewHeight": 80,
+            "default": {
+                "url": "https://vcpro.blob.core.windows.net/blogs/hero.png"
+            }
+        }
+    ]
+}

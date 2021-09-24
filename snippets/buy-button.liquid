@@ -1,0 +1,6 @@
+<div class="grid-item large--three-fifths medium--two-thirds">
+    <button type="button" name="add" id="addToCart" class="btn btn-clearfix AddShopCart" ng-disabled="!selectedVariation.id || !selectedVariation.isAvailable" ng-click="addProductToCart(selectedVariation, 1)" interactor-arg="{{ product.id }}">
+        <span class="icon icon-cart"></span>
+        <span id="addToCartText">{{ 'products.product.add_to_cart' | t }}</span>
+    </button>
+</div>

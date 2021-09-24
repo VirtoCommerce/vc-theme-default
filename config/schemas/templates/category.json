@@ -1,0 +1,6 @@
+{
+	"name": "Category",
+	"file": "collection.json",
+	"sections": ["products-list", "latest-news"],
+	"settings": [ ]
+}

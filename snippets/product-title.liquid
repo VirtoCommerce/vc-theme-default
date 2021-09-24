@@ -1,0 +1,18 @@
+<div class="grid-item large--three-fifths medium--two-thirds">
+    <p class="h6">{{ product.title }}</p>
+    <div class="rte">
+        {% if product.excerpt.size > 0 %}
+            {{ product.excerpt }}
+        {% else %}
+            <p>{{ product.content | strip_html | truncatewords: 30 }}</p>
+        {% endif %}
+    </div>
+    {% comment %}
+        {% if product.variants.size == 1 %}
+            <button class="btn" type="button">{{ 'products.general.add_to_cart' | t }}</button>
+            {% if product.is_quotable %}
+                <button class="btn" type="button">{{ 'products.general.add_to_quote' | t }}</button>
+            {% endif %}
+        {% endif %}
+    {% endcomment %}
+</div>

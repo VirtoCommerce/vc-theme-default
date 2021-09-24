@@ -1,0 +1,82 @@
+{
+    "name": "Simple text",
+    "icon": "text",
+    "displayField": "name",
+    "contentType": "themes",
+    "templates": [
+        "page",
+        "product"
+    ],
+    "settings": [
+        {
+            "id": "name",
+            "label": "Block name",
+            "type": "string",
+            "default": "Text",
+            "tab": "Settings"
+        },
+        {
+            "id": "title",
+            "label": "Title",
+            "type": "string",
+            "default": "Block title",
+            "autofocus": true
+        },
+        {
+            "id": "headerType",
+            "label": "Header type",
+            "default": "like-h2",
+            "tab": "Settings",
+            "type": "select",
+            "options": [
+                {
+                    "value": "h1",
+                    "label": "H1"
+                },
+                {
+                    "value": "h2",
+                    "label": "H2"
+                },
+                {
+                    "value": "h3",
+                    "label": "H3"
+                },
+                {
+                    "value": "like-h1",
+                    "label": "Like H1"
+                },
+                {
+                    "value": "like-h2",
+                    "label": "Like H2"
+                },
+                {
+                    "value": "like-h3",
+                    "label": "Like H3"
+                }
+            ]
+        },
+        {
+            "id": "titleAlignment",
+            "label": "Align title",
+            "default": null,
+            "tab": "Settings",
+            "type": "select",
+            "options": [
+                {
+                    "value": "text-center",
+                    "label": "Center"
+                },
+                {
+                    "value": null,
+                    "label": "Left"
+                }
+            ]
+        },
+        {
+            "id": "content",
+            "label": "Content",
+            "type": "text",
+            "default": "Text block content"
+        }
+    ]
+}

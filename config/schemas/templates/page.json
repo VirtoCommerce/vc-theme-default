@@ -1,0 +1,51 @@
+{
+	"name": "Page",
+	"icon": "settings",
+	"sections": ["text", "cards"],
+	"settings": [
+		{
+			"id": "title",
+			"label": "Title",
+			"type": "string"
+		},
+		{
+			"id": "published",
+			"label": "Published",
+			"type": "boolean"
+		},
+		{
+			"id": "schema",
+			"label": "Metadata",
+			"type": "string"
+		},
+		{
+			"id": "permalink",
+			"label": "Permalink",
+			"type": "string"
+		},
+		{
+			"id": "layout",
+			"label": "Layout name",
+			"type": "select",
+			"default": "theme",
+			"options": [
+				{
+					"label": "Theme",
+					"value": "theme"
+				},
+				{
+					"label": "Empty",
+					"value": "empty"
+				},
+				{
+					"label": "Footer only",
+					"value": "footer-only"
+				},
+				{
+					"label": "Landing",
+					"value": "landing"
+				}
+			]
+		}
+	]
+}

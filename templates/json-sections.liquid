@@ -1,0 +1,5 @@
+{% for section in template_config.sections %}
+    <div class="section-{{section.type}}">
+        {% include section.type section: section %}
+    </div>
+{% endfor %}
