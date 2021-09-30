@@ -36,9 +36,9 @@
             <div class="cart-row">
                 <div class="grid">
                     <div class="grid-item text-right">
-                        <button class="btn" ng-controller="actualQuoteRequestBarController" ng-class="{ 'btn-secondary': !dialogData.updated }" ng-disabled="!dialogData.updated" ng-click="redirect(baseUrl + 'quoterequest/#/' + actualQuoteRequest.number)">
-                            <span ng-if="dialogData.updated">{{ 'cart.general.go_request' | t }}</span>
-                            <span ng-if="!dialogData.updated">{{ 'cart.general.update_quote' | t }}</span>
+                        <button class="btn" ng-controller="actualQuoteRequestBarController" ng-class="{ 'btn-secondary': !dialogData.updated || !actualQuoteRequest.number }" ng-disabled="!dialogData.updated || !actualQuoteRequest.number" ng-click="redirect(baseUrl + 'quoterequest/#/' + actualQuoteRequest.number)">
+                            <span ng-if="dialogData.updated && actualQuoteRequest.number">{{ 'cart.general.go_request' | t }}</span>
+                            <span ng-if="!dialogData.updated || !actualQuoteRequest.number">{{ 'cart.general.update_quote' | t }}</span>
                         </button>
                         <button class="btn" ng-click="close()">{{ 'dialog.countinue_shop' | t }}</button>
                     </div>
