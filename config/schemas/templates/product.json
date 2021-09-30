@@ -1,6 +1,7 @@
 {
 	"name": "Product",
 	"file": "product.json",
+    "previewPath": "/en-US/camcorders/aerial-imaging-drones/3dr-solo-quadcopter-no-gimbal",
 	"sections": ["product-info", "recommendations", "text", "image"],
 	"settings": [
 		{
@@ -8,5 +9,8 @@
 			"label": "Title",
 			"type": "string"
 		}
-	]
+	],
+    "previewModel": {
+
+    }
 }

@@ -1,0 +1,23 @@
+{
+    "name": "Product details",
+    "icon": "image",
+    "blocks": [
+        "product-title",
+        "product-price",
+        "product-description",
+        "product-info",
+        "product-variants",
+        "product-summary",
+        "buy-button",
+        "share",
+        "text",
+        "image"
+    ],
+    "settings": [
+        {
+            "id": "title",
+            "type": "string",
+            "label": "Title"
+        }
+    ]
+}

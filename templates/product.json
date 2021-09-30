@@ -1,0 +1,23 @@
+{
+  "sections": [
+    {
+      "type": "product-info",
+      "blocks": [
+        {
+          "type": "share",
+          "__uid": 1,
+          "__id": "shareGDbP"
+        }
+      ],
+      "__id": "productinfocQ3K",
+      "__uid": 1
+    },
+    {
+      "type": "recommendations",
+      "blocks": [],
+      "__id": "recommendationswt4",
+      "__uid": 2
+    }
+  ],
+  "settings": {}
+}

@@ -83,16 +83,16 @@
                     </h1>
                         {% else %}
                         </div>
-                            {% endif %} 
-                </div>                           
-            
+                            {% endif %}
+                </div>
+
             <div class="grid-item large--two-third text-center large--text-right">
-                
+
                 <div class="site-header--text-links{% if settings.header_message.empty? == false %} medium-down--hide{% endif %}">
                     {% if settings.header_message.empty? == false %}
                       {{ settings.header_message }}
                     {% endif %}
-                    
+
                     <span class="site-header--meta-links medium-down--hide">
                         <span ng-if="customer && customer.isRegisteredUser && customer.operatorUserName" ng-cloak>
                             {{ 'layout.customer.logged_in_on_behalf_of_label' | t }} <a href="{{ 'account' | absolute_url }}" ng-bind="customer.firstName || customer.userName"></a> &middot; {{ 'layout.customer.log_out' | t | customer_logout_link }}
@@ -109,7 +109,7 @@
 
                 </div>
                 <br class="medium-down--hide" />
-                
+
                 {% include 'search-bar' %}
                 {% if settings.product_compare_enabled %}
                 <product-compare-list-bar></product-compare-list-bar>
@@ -181,6 +181,7 @@
                 $('.cookie-banner').hide();
             });
         })();
+        console.log(window.location);
     </script>
 </body>
 </html>

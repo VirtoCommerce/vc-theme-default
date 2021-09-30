@@ -1,3 +1,11 @@
 <div class="page">
     {% include 'json-sections' -%}
 </div>
+{% if is_preview_mode %}
+<script>
+    window.addEventListener("beforeunload", function(event) {
+        console.log(event);
+        debugger;
+    });
+</script>
+{% endif %}

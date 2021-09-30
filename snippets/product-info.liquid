@@ -1,6 +1,3 @@
-<h1>Productsss</h1>
-{% include 'breadcrumb' %}
-
 <div class="grid" itemscope itemtype="http://schema.org/Product" ng-controller="productController" ng-init='initAvailableLists({{ settings.lists | json }})'>
     <meta itemprop="url" content="{{ product.url | absolute_url}}">
     <meta itemprop="image" content="{{ product.featured_image.src | img_url }}">
@@ -31,7 +28,7 @@
     <ng-include ng-if="selectedVariation.id" src="'storefront.product-images.tpl'"></ng-include>
 
     <div class="grid-item large--three-fifths">
-        <h2 itemprop="name">{{ product.title }}</h2>
+        <h2 itemprop="name">Product {{ product.title }} {{ is_preview_mode }}</h2>
 
         <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
 
@@ -195,51 +192,18 @@
 </div>
 
 <script>
-    window.products = [];
-    window.products.push({
-        id: "{{ product.id }}",
-        catalogId: "{{ product.catalog_id }}",
-        categoryId: "{{ product.category_id }}"
-    });
+    (function () {
+        var vc = window.__vc || {};
+
+        vc.templates = vc.templates || [];
+        vc.templates.push({
+            name: 'product-info',
+            id: '{{ section.__id }}',
+            model: {
+                product: {{ product | json }}
+            }
+        });
+        window.__vc = vc;
+    })();
 </script>
 
-<!--Template for variation images-->
-<script id="storefront.product-images.tpl" type="text/ng-template">
-    <div class="grid-item large--two-fifths">
-        <div class="grid">
-            <div class="grid-item large--eleven-twelfths text-center">
-                <div class="product-photo-container" id="productPhoto">
-
-                    <img id="productPhotoImg" fallback-src="{% raw %}{{selectedVariation.primaryImage.url}}{% endraw %}" ng-src="{% raw %}{{selectedVariation.primaryImage.url|imgurl:'348x348'}}{% endraw %}" alt="{% raw %}{{ selectedVariation.primaryImage.alt }}{% endraw %}" ng-if="selectedVariation.primaryImage">
-
-                    <div class="no-product-image" ng-if="!selectedVariation.primaryImage">
-                        <img src="{{ 'images/no-image.svg' | asset_url }}" />
-                    </div>
-                </div>
-                <ul ng-if="selectedVariation.images.length > 0" class="product-photo-thumbs grid-uniform" id="productThumbs">
-                    <li class="grid-item medium--down-one-quarter large--one-quarter" ng-repeat="image in selectedVariation.images">
-                        <a href="" ng-click="selectedVariation.primaryImage = image" class="product-photo-thumb">
-                            <img fallback-src="{% raw %}{{image.url}}{% endraw %}" ng-src="{% raw %}{{image.url|imgurl:'64x64'}}{% endraw %}" alt="{% raw %}{{ image.alt }}{% endraw %}">
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</script>
-
-    {% if settings.related_products_enable %}
-    {% assign grid_item_width = 'large--one-fifth medium--one-third small--one-half' %}
-
-    {% include 'related-products' %}
-
-    {% endif %}
-
-    {% if settings.product_reviews_enable %}
-<hr>
-<div id="shopify-product-reviews" data-id="{{ product.id }}">{{ product.metafields.spr.reviews }}</div>
-    {% endif %}
-
-    {% if settings.product_image_zoom_enable %}
-{{ 'jquery.zoom.min.js' | asset_url | script_tag }}
-    {% endif %}
