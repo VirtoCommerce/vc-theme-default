@@ -1,23 +1,6 @@
 {% layout 'empty' %}
 
-{% comment %}
-<script>
-    var platformUrl = window.location.search.substr(1).split('&').find(q => q.startsWith('ep=')).substr(3);
-    var relativeUrl = (platformUrl.endsWith('/') ? '' : '/') + 'Modules/$(VirtoCommerce.PageBuilderModule)/Content/store/designer.bundle.js';
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    script.src = platformUrl + relativeUrl;
-    document.body.appendChild(script);
-</script>
-<div id="designer-preview" class="page"></div>
-
-events from iframe
-
-        (load)="preview1Loaded()" (error)="onErrorOccurred($event)"
-
-{% include 'designer-preview-script' %}
-
-{% endcomment %}
+{% include 'designer-preview-script' scriptName: 'bridge' %}
 
 <style>
 #preview1 {
@@ -27,80 +10,4 @@ events from iframe
 }
 </style>
 
-<iframe id="preview1" src="/" title=""></iframe>
-
-<script>
-    var scriptInjected = false;
-    var preview = document.getElementById("preview1");
-
-    function iframeURLChange(iframe, callback) {
-        console.log('4', 'iframe url change');
-        var lastDispatched = null;
-
-        var dispatchChange = function () {
-            console.log('7', 'dispatch change');
-            var newHref = iframe.contentWindow.location.href;
-
-            if (newHref !== lastDispatched) {
-                callback(newHref, lastDispatched);
-                lastDispatched = newHref;
-            }
-        };
-
-        var unloadHandler = function () {
-            console.log('8', 'unload handler');
-            // Timeout needed because the URL changes immediately after
-            // the `unload` event is dispatched.
-            setTimeout(dispatchChange, 0);
-        };
-
-        function attachUnload() {
-            console.log('6', 'attach unload');
-            // Remove the unloadHandler in case it was already attached.
-            // Otherwise, there will be two handlers, which is unnecessary.
-            iframe.contentWindow.removeEventListener("unload", unloadHandler);
-            iframe.contentWindow.addEventListener("unload", unloadHandler);
-        }
-
-        iframe.addEventListener("load", function () {
-            console.log('5', 'iframe load script');
-            attachUnload();
-
-            // Just in case the change wasn't dispatched during the unload event...
-            dispatchChange();
-        });
-
-        attachUnload();
-    }
-
-    function loadScript() {
-        console.log('2', 'load script');
-        var platformUrl = window.location.search.substr(1).split('&').find(q => q.startsWith('ep=')).substr(3);
-        var relativeUrl = (platformUrl.endsWith('/') ? '' : '/') + 'Modules/$(VirtoCommerce.PageBuilderModule)/Content/store/designer.bundle.js';
-
-        var script = preview.contentWindow.document.createElement("script");
-        script.type = "text/javascript";
-        script.src = platformUrl + relativeUrl;
-
-        console.log('3', 'inject script');
-        preview.contentWindow.document.body.appendChild(script);
-
-        iframeURLChange(preview, function (newUrl, oldUrl) {
-            if (newUrl.indexOf("preview_mode") === -1) {
-                var url = newUrl + '?preview_mode=eh-fx-3Hi1';
-                console.log(oldUrl, ' => ', newUrl, '(' + url + ')')
-                preview.contentWindow.location.href = url;
-                console.log('redirect to', preview.contentWindow.location.href);
-            }
-        });
-    }
-
-    preview.contentWindow.addEventListener('load', function() {
-        console.log('1', 'first load event');
-        loadScript();
-    });
-    // preview.contentWindow.addEventListener('DOMContentLoaded', loadScript);
-
-
-</script>
-
+<iframe id="preview1" src="" title=""></iframe>
